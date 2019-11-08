@@ -1,0 +1,39 @@
+.md .popover {
+  transform: scale(0.85, 0.6);
+  transition-property: opacity, transform;
+}
+.md .popover.modal-in {
+  opacity: 1;
+  transform: scale(1);
+}
+.md .popover.modal-out {
+  opacity: 0;
+  transform: scale(1);
+}
+.md .popover-on-top {
+  transform-origin: center bottom;
+}
+.md .popover-on-top.popover-on-right {
+  transform-origin: left bottom;
+}
+.md .popover-on-top.popover-on-left {
+  transform-origin: right bottom;
+}
+.md .popover-on-middle {
+  transform-origin: center center;
+}
+.md .popover-on-middle.popover-on-right {
+  transform-origin: left center;
+}
+.md .popover-on-middle.popover-on-left {
+  transform-origin: right center;
+}
+.md .popover-on-bottom {
+  transform-origin: center top;
+}
+.md .popover-on-bottom.popover-on-right {
+  transform-origin: left top;
+}
+.md .popover-on-bottom.popover-on-left {
+  transform-origin: right top;
+}

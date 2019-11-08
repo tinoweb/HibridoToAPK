@@ -1,0 +1,9 @@
+.ios .infinite-scroll-preloader {
+  margin-top: 35px;
+  margin-bottom: 35px;
+}
+.ios .infinite-scroll-preloader .preloader,
+.ios .infinite-scroll-preloader.preloader {
+  width: 27px;
+  height: 27px;
+}

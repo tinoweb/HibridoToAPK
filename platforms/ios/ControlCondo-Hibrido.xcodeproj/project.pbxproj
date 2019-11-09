@@ -372,10 +372,9 @@
 				INFOPLIST_FILE = "ControlCondo-Hibrido/ControlCondo-Hibrido-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.controlcondo.phonega;
+				PRODUCT_BUNDLE_IDENTIFIER = Controlcondo.com.br;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1";
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -395,10 +394,9 @@
 				INFOPLIST_FILE = "ControlCondo-Hibrido/ControlCondo-Hibrido-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.controlcondo.phonega;
+				PRODUCT_BUNDLE_IDENTIFIER = Controlcondo.com.br;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1";
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -440,9 +438,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = com.controlcondo.phonega;
-				TARGETED_DEVICE_FAMILY = "1";
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				PRODUCT_BUNDLE_IDENTIFIER = Controlcondo.com.br;
 			};
 			name = Debug;
 		};
@@ -482,9 +478,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = com.controlcondo.phonega;
-				TARGETED_DEVICE_FAMILY = "1";
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				PRODUCT_BUNDLE_IDENTIFIER = Controlcondo.com.br;
 			};
 			name = Release;
 		};

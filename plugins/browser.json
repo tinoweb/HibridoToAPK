@@ -7,12 +7,25 @@
         "files": {}
     },
     "installed_plugins": {
-        "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "com.phonegap.controlcondo"
+        "cordova-plugin-keyboard": {
+            "PACKAGE_NAME": "Controlcondo.com.br"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "Controlcondo.com.br"
         },
         "cordova-plugin-statusbar": {
-            "PACKAGE_NAME": "com.phonegap.controlcondo"
+            "PACKAGE_NAME": "Controlcondo.com.br"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "Controlcondo.com.br"
+        },
+        "cordova-plugin-wkwebview-file-xhr": {
+            "PACKAGE_NAME": "Controlcondo.com.br"
         }
     },
-    "dependent_plugins": {}
+    "dependent_plugins": {
+        "cordova-plugin-wkwebview-engine": {
+            "PACKAGE_NAME": "Controlcondo.com.br"
+        }
+    }
 }

@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="Controlcondo.com.br" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>ControlCondo-Hibrido</name>
+<widget android-versionCode="39" id="com.controlcondo.phonega" version="1.2.5" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:gap="http://phonegap.com/ns/1.0">
+    <name>ControlCondoMobile</name>
     <description>
-        A sample Apache Cordova application that responds to the deviceready event.
+        Aplicativo ControlCondoMobile.
     </description>
-    <author email="dev@cordova.apache.org" href="http://cordova.io">
-        Apache Cordova Team
+    <author email="rbelli@firstcontrol.com.br" href="https://www.controlcondo.com.br">
+       First Control Sistemas Inteligentes Ltda. Epp
     </author>
     <content src="index.html" />
     <access origin="*" />
@@ -15,9 +15,17 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
-    <allow-navigation href="*" />
-    <preference name="UIWebViewBounce" value="false" />
+    <preference name="phonegap-version" value="cli-9.0.0" />
     <preference name="DisallowOverscroll" value="true" />
+    <preference name="show-splash-screen-spinner" value="true" />
+    <preference name="auto-hide-splash-screen" value="true" />
+    <preference name="orientation" value="portrait" />
+    <preference name="fullscreen" value="false" />
+    <preference name="target-device" value="handset" />
+    <preference name="AndroidPersistentFileLocation" value="Compatibility" />
+    <preference name="KeyboardResize" value="true" />
+    <preference name="KeyboardResizeMode" value="native" />
+    <preference name="UIWebViewBounce" value="false" />
     <preference name="BackupWebStorage" value="local" />
     <preference name="AutoHideSplashScreen" value="false" />
     <preference name="ShowSplashScreenSpinner" value="false" />

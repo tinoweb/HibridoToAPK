@@ -17,7 +17,7 @@
        under the License.
  */
 
-package Controlcondo.com.br;
+package com.controlcondo.phonega;
 
 import android.os.Bundle;
 import org.apache.cordova.*;

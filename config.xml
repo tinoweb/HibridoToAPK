@@ -8,7 +8,6 @@
        First Control Sistemas Inteligentes Ltda. Epp
     </author>
     <content src="index.html" />
-	
     <preference name="phonegap-version" value="cli-9.0.0" />
     <preference name="DisallowOverscroll" value="true" />
     <preference name="show-splash-screen-spinner" value="true" />
@@ -19,22 +18,10 @@
     <preference name="AndroidPersistentFileLocation" value="Compatibility" />
     <preference name="KeyboardResize" value="true" />
     <preference name="KeyboardResizeMode" value="native" />
-	<preference name="UIWebViewBounce" value="false" />
-	<preference name="BackupWebStorage" value="local" />
-	<preference name="AutoHideSplashScreen" value="false" />
-	<preference name="ShowSplashScreenSpinner" value="false" />
-	<preference name="SplashScreenDelay" value="0" />
-	<preference name="Suppresses3DTouchGesture" value="true" />
-    <preference name="Allow3DTouchLinkPreview" value="false" />
-    <preference name="CordovaWebViewEngine" value="CDVWKWebViewEngine" />
-    <preference name="AllowInlineMediaPlayback" value="true" />
-	
+    <preference name="android-minSdkVersion" value="19" />
+    <preference name="android-targetSdkVersion" value="28" />
     <platform name="android">
-		<preference name="StatusBarOverlaysWebView" value="false" />
-		<preference name="android-minSdkVersion" value="19" />
-		<preference name="android-targetSdkVersion" value="28" />
-		<preference name="SplashMaintainAspectRatio" value="true" />
-		<icon density="ldpi" src="www/res/icon/android/drawable-ldpi-icon.png" />
+        <icon density="ldpi" src="www/res/icon/android/drawable-ldpi-icon.png" />
         <icon density="mdpi" src="www/res/icon/android/drawable-mdpi-icon.png" />
         <icon density="hdpi" src="www/res/icon/android/drawable-hdpi-icon.png" />
         <icon density="xhdpi" src="www/res/icon/android/drawable-xhdpi-icon.png" />
@@ -57,10 +44,6 @@
         <framework src="com.google.android.gms:play-services-location:11.8.0" />
     </platform>
     <platform name="ios">
-      	<config-file parent="CFBundleAllowMixedLocalizations" platform="ios" target="*-Info.plist">
-        	<true />
-      	</config-file>
-      	<preference name="StatusBarOverlaysWebView" value="true" />
         <icon height="57" platform="ios" src="www/res/icons/ios/icon.png" width="57" />
         <icon height="40" platform="ios" src="www/res/icons/ios/icon-40.png" width="40" />
         <icon height="80" platform="ios" src="www/res/icons/ios/icon-40@2x.png" width="80" />

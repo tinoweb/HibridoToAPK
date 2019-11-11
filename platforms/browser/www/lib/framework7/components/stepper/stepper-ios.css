@@ -1,0 +1,38 @@
+.ios .stepper-button .f7-icons,
+.ios .stepper-button-minus .f7-icons,
+.ios .stepper-button-plus .f7-icons {
+  font-size: 22px;
+}
+.ios .stepper-fill,
+.ios .stepper-fill-ios {
+  --f7-stepper-button-pressed-bg-color: var(--f7-stepper-fill-button-pressed-bg-color, var(--f7-theme-color-tint));
+}
+.ios .stepper-small.stepper-raised,
+.ios .stepper-small-ios.stepper-raised,
+.ios .stepper-small.stepper-raised-ios,
+.ios .stepper-small-ios.stepper-raised-ios {
+  --f7-stepper-border-width: 0px;
+}
+.ios .stepper-small .stepper-button,
+.ios .stepper-small-ios .stepper-button,
+.ios .stepper-small .stepper-button-minus,
+.ios .stepper-small-ios .stepper-button-minus,
+.ios .stepper-small .stepper-button-plus,
+.ios .stepper-small-ios .stepper-button-plus {
+  transition-duration: 200ms;
+}
+.ios .stepper-small .stepper-button.active-state:after,
+.ios .stepper-small-ios .stepper-button.active-state:after,
+.ios .stepper-small .stepper-button-minus.active-state:after,
+.ios .stepper-small-ios .stepper-button-minus.active-state:after,
+.ios .stepper-small .stepper-button-plus.active-state:after,
+.ios .stepper-small-ios .stepper-button-plus.active-state:after,
+.ios .stepper-small .stepper-button.active-state:before,
+.ios .stepper-small-ios .stepper-button.active-state:before,
+.ios .stepper-small .stepper-button-minus.active-state:before,
+.ios .stepper-small-ios .stepper-button-minus.active-state:before,
+.ios .stepper-small .stepper-button-plus.active-state:before,
+.ios .stepper-small-ios .stepper-button-plus.active-state:before {
+  transition-duration: 200ms;
+  background-color: var(--f7-theme-color);
+}

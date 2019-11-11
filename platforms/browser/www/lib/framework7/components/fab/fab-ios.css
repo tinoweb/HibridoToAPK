@@ -1,0 +1,4 @@
+.ios .fab > a.active-state,
+.ios .fab-buttons a.active-state {
+  transition-duration: 0ms;
+}

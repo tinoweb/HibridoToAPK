@@ -1,0 +1,8 @@
+.aurora .ios-only,
+.aurora .if-ios,
+.aurora .md-only,
+.aurora .if-md,
+.aurora .if-not-aurora,
+.aurora .not-aurora {
+  display: none !important;
+}

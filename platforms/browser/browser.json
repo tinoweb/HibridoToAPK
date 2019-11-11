@@ -110,15 +110,6 @@
         "cordova-plugin-customurlscheme": {
             "URL_SCHEME": "mycoolapp",
             "PACKAGE_NAME": "com.controlcondo.phonega"
-        },
-        "cordova-plugin-keyboard": {
-            "PACKAGE_NAME": "Controlcondo.com.br"
-        },
-        "cordova-plugin-wkwebview-file-xhr": {
-            "PACKAGE_NAME": "Controlcondo.com.br"
-        },
-        "cordova-plugin-wkwebview-engine": {
-            "PACKAGE_NAME": "Controlcondo.com.br"
         }
     },
     "dependent_plugins": {},
@@ -769,14 +760,6 @@
             "clobbers": [
                 "appAvailability"
             ]
-        },
-        {
-            "file": "plugins/cordova-plugin-keyboard/www/keyboard.js",
-            "id": "cordova-plugin-keyboard.keyboard",
-            "pluginId": "cordova-plugin-keyboard",
-            "clobbers": [
-                "window.Keyboard"
-            ]
         }
     ],
     "plugin_metadata": {
@@ -807,9 +790,6 @@
         "cordova-plugin-fileopener": "1.0.5",
         "cordova-plugin-vha-fileopener2": "2.0.19",
         "cordova-plugin-appavailability": "0.4.2",
-        "cordova-plugin-customurlscheme": "4.4.0",
-        "cordova-plugin-keyboard": "1.2.0",
-        "cordova-plugin-wkwebview-file-xhr": "2.1.1",
-        "cordova-plugin-wkwebview-engine": "1.2.1"
+        "cordova-plugin-customurlscheme": "4.4.0"
     }
 }

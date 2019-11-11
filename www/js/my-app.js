@@ -13,10 +13,15 @@ var app = new Framework7({
   // Add default routes
   routes: [
     {
+      path: '/home/',
+      url: 'paginas/home.html',
+    },
+    {
       path: '/about/',
-      url: 'about.html',
+      url: 'paginas/about.html',
     },
   ],
+	
   // ... other parameters
 });
 

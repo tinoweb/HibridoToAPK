@@ -1,0 +1,57 @@
+{
+  "_from": "git+https://github.com/ToniKorin/cordova-plugin-autostart.git",
+  "_id": "cordova-plugin-autostart@2.3.0",
+  "_inBundle": false,
+  "_integrity": "",
+  "_location": "/cordova-plugin-autostart",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "git",
+    "raw": "https://github.com/ToniKorin/cordova-plugin-autostart.git",
+    "rawSpec": "https://github.com/ToniKorin/cordova-plugin-autostart.git",
+    "saveSpec": "git+https://github.com/ToniKorin/cordova-plugin-autostart.git",
+    "fetchSpec": "https://github.com/ToniKorin/cordova-plugin-autostart.git",
+    "gitCommittish": null
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "git+https://github.com/ToniKorin/cordova-plugin-autostart.git#5bda6922a31f3a8aa11a4d9514e810d6028c6040",
+  "_spec": "https://github.com/ToniKorin/cordova-plugin-autostart.git",
+  "_where": "C:\\xampp\\htdocs\\FirstControl\\ControlCondoMobile",
+  "author": {
+    "name": "Toni Korin"
+  },
+  "bugs": {
+    "url": "https://github.com/ToniKorin/cordova-plugin-autostart/issues"
+  },
+  "bundleDependencies": false,
+  "cordova": {
+    "id": "cordova-plugin-autostart",
+    "platforms": [
+      "android"
+    ]
+  },
+  "deprecated": false,
+  "description": "\r\n        The application will be automatically started after the every boot and the automatic update of your application. \r\n        You can enable or disable the autostart function in your app.\r\n    ",
+  "engines": [
+    {
+      "name": "cordova",
+      "version": ">=3.0.0"
+    }
+  ],
+  "homepage": "https://github.com/ToniKorin/cordova-plugin-autostart",
+  "keywords": [
+    "autostart",
+    "ecosystem:cordova",
+    "cordova-android"
+  ],
+  "license": "Apache 2.0",
+  "name": "cordova-plugin-autostart",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ToniKorin/cordova-plugin-autostart.git"
+  },
+  "version": "2.3.0"
+}

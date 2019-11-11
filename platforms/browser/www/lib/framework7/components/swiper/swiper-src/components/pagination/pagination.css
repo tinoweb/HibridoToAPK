@@ -1,6 +1,6 @@
 /*
 Error: Undefined variable: "$colors".
-        on line 142 of /Users/Diego/Documents/firstcontrol/control-condo-hibrido/platforms/browser/www/lib/framework7/components/swiper/swiper-src/components/pagination/pagination.scss
+        on line 142 of /Users/Diego/Documents/firstcontrol/control-condo-hibrido/www/lib/framework7/components/swiper/swiper-src/components/pagination/pagination.scss
 
 137:     height: 100%;
 138:     left: 0;
@@ -15,7 +15,7 @@ Error: Undefined variable: "$colors".
 147: .swiper-pagination-lock {
 
 Backtrace:
-/Users/Diego/Documents/firstcontrol/control-condo-hibrido/platforms/browser/www/lib/framework7/components/swiper/swiper-src/components/pagination/pagination.scss:142
+/Users/Diego/Documents/firstcontrol/control-condo-hibrido/www/lib/framework7/components/swiper/swiper-src/components/pagination/pagination.scss:142
 /Applications/Adobe Dreamweaver 2020/Adobe Dreamweaver 2020.app/Contents/Resources/gems/rubygems/gems/sass-3.5.3/lib/sass/script/tree/variable.rb:49:in `_perform'
 /Applications/Adobe Dreamweaver 2020/Adobe Dreamweaver 2020.app/Contents/Resources/gems/rubygems/gems/sass-3.5.3/lib/sass/script/tree/node.rb:50:in `perform'
 /Applications/Adobe Dreamweaver 2020/Adobe Dreamweaver 2020.app/Contents/Resources/gems/rubygems/gems/sass-3.5.3/lib/sass/tree/visitors/perform.rb:233:in `visit_each'
@@ -50,4 +50,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$colors\".\A         on line 142 of /Users/Diego/Documents/firstcontrol/control-condo-hibrido/platforms/browser/www/lib/framework7/components/swiper/swiper-src/components/pagination/pagination.scss\A \A 137:     height: 100%;\A 138:     left: 0;\A 139:     top: 0;\A 140:   }\A 141: }\A 142: @each $paginationColorName, $paginationColorValue in $colors {\A 143:   .swiper-pagination-#{$paginationColorName} {\A 144:     --swiper-pagination-color: $paginationColorValue;\A 145:   }\A 146: }\A 147: .swiper-pagination-lock {"; }
+  content: "Error: Undefined variable: \"$colors\".\A         on line 142 of /Users/Diego/Documents/firstcontrol/control-condo-hibrido/www/lib/framework7/components/swiper/swiper-src/components/pagination/pagination.scss\A \A 137:     height: 100%;\A 138:     left: 0;\A 139:     top: 0;\A 140:   }\A 141: }\A 142: @each $paginationColorName, $paginationColorValue in $colors {\A 143:   .swiper-pagination-#{$paginationColorName} {\A 144:     --swiper-pagination-color: $paginationColorValue;\A 145:   }\A 146: }\A 147: .swiper-pagination-lock {"; }

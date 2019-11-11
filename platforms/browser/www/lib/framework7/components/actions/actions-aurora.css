@@ -1,0 +1,7 @@
+.aurora .actions-button-media {
+  margin-left: 16px;
+}
+.aurora .actions-button-media + .actions-button-text {
+  text-align: left;
+  margin-left: 16px;
+}

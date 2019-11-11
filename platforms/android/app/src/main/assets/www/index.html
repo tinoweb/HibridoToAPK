@@ -7,25 +7,12 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <!-- Color theme for statusbar (Android only) -->
     <meta name="theme-color" content="#2196f3">
-	  
-	<meta http-equiv="Content-Security-Policy" content="default-src * gap: ws: https://ssl.gstatic.com;img-src * 'self' data: content:;style-src 'self' 'unsafe-inline' data: blob:;script-src * 'unsafe-inline' 'unsafe-eval' data: blob:;">
     <!-- Your app title -->
     <title>My App</title>
     <!-- Path to Framework7 Library Bundle CSS -->
     <link rel="stylesheet" href="lib/framework7/css/framework7.bundle.min.css">
     <!-- Path to your custom app styles-->
     <link rel="stylesheet" href="css/styles.css">
-	  
-	<script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
-	<script type="text/javascript" src="cordova.js"></script>	  
-	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script type="text/javascript">
-		document.addEventListener("deviceready",onDeviceReady,false);
-		function onDeviceReady() {
-			app2.initialize();
-		}
-		
-	</script>
   </head>
   <body>
     <!-- App root element -->
@@ -48,8 +35,8 @@
           <div class="toolbar toolbar-bottom">
             <div class="toolbar-inner">
               <!-- Toolbar links -->
-              <a href="#" class="link" onClick="alert('teste inicia');">Link 1</a>
-              <a href="#" class="link" onClick="alert('teste inicia');">Link 2</a>
+              <a href="#" class="link">Link 1</a>
+              <a href="#" class="link">Link 2</a>
             </div>
           </div>
 
@@ -81,6 +68,5 @@
     <script type="text/javascript" src="lib/framework7/js/framework7.bundle.min.js"></script>
     <!-- Path to your app js-->
     <script type="text/javascript" src="js/my-app.js"></script>
-
   </body>
 </html>

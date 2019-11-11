@@ -1,0 +1,39 @@
+.ios .toolbar a.icon-only {
+  min-height: var(--f7-toolbar-height);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  min-width: 44px;
+}
+.ios .tabbar-labels .tab-link,
+.ios .tabbar-labels .link {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+.ios .tabbar-labels .tab-link i + span,
+.ios .tabbar-labels .link i + span {
+  margin: 0;
+}
+@media (min-width: 768px) and (min-height: 600px) {
+  .ios .tabbar .tab-link,
+  .ios .tabbar-labels .tab-link,
+  .ios .tabbar .link,
+  .ios .tabbar-labels .link {
+    justify-content: center;
+    flex-direction: row;
+  }
+  .ios .tabbar .tab-link i + span,
+  .ios .tabbar-labels .tab-link i + span,
+  .ios .tabbar .link i + span,
+  .ios .tabbar-labels .link i + span {
+    margin-left: 5px;
+  }
+}
+.ios .tabbar-scrollable .toolbar-inner {
+  justify-content: flex-start;
+}
+.ios .tabbar-scrollable .tab-link,
+.ios .tabbar-scrollable .link {
+  padding: 0 8px;
+}

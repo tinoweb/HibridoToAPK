@@ -1,6 +1,6 @@
 /*
 Error: Undefined variable: "$colors".
-        on line 50 of /Users/Diego/Documents/firstcontrol/control-condo-hibrido/www/lib/framework7/components/swiper/swiper-src/components/navigation/navigation.scss
+        on line 50 of /Users/Diego/Documents/firstcontrol/control-condo-hibrido/platforms/browser/www/lib/framework7/components/swiper/swiper-src/components/navigation/navigation.scss
 
 45:   }
 46:   right: 10px;
@@ -15,7 +15,7 @@ Error: Undefined variable: "$colors".
 55:     }
 
 Backtrace:
-/Users/Diego/Documents/firstcontrol/control-condo-hibrido/www/lib/framework7/components/swiper/swiper-src/components/navigation/navigation.scss:50
+/Users/Diego/Documents/firstcontrol/control-condo-hibrido/platforms/browser/www/lib/framework7/components/swiper/swiper-src/components/navigation/navigation.scss:50
 /Applications/Adobe Dreamweaver 2020/Adobe Dreamweaver 2020.app/Contents/Resources/gems/rubygems/gems/sass-3.5.3/lib/sass/script/tree/variable.rb:49:in `_perform'
 /Applications/Adobe Dreamweaver 2020/Adobe Dreamweaver 2020.app/Contents/Resources/gems/rubygems/gems/sass-3.5.3/lib/sass/script/tree/node.rb:50:in `perform'
 /Applications/Adobe Dreamweaver 2020/Adobe Dreamweaver 2020.app/Contents/Resources/gems/rubygems/gems/sass-3.5.3/lib/sass/tree/visitors/perform.rb:233:in `visit_each'
@@ -50,4 +50,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$colors\".\A         on line 50 of /Users/Diego/Documents/firstcontrol/control-condo-hibrido/www/lib/framework7/components/swiper/swiper-src/components/navigation/navigation.scss\A \A 45:   }\A 46:   right: 10px;\A 47:   left: auto;\A 48: }\A 49: \A 50: @each $navColorName, $navColorValue in $colors {\A 51:   .swiper-button-prev,\A 52:   .swiper-button-next {\A 53:     &.swiper-button-#{$navColorName} {\A 54:       --swiper-navigation-color: $navColorValue;\A 55:     }"; }
+  content: "Error: Undefined variable: \"$colors\".\A         on line 50 of /Users/Diego/Documents/firstcontrol/control-condo-hibrido/platforms/browser/www/lib/framework7/components/swiper/swiper-src/components/navigation/navigation.scss\A \A 45:   }\A 46:   right: 10px;\A 47:   left: auto;\A 48: }\A 49: \A 50: @each $navColorName, $navColorValue in $colors {\A 51:   .swiper-button-prev,\A 52:   .swiper-button-next {\A 53:     &.swiper-button-#{$navColorName} {\A 54:       --swiper-navigation-color: $navColorValue;\A 55:     }"; }

@@ -1,0 +1,20 @@
+.aurora .list .accordion-item-toggle .item-inner:before,
+.aurora .list:not(.media-list) .accordion-item:not(.media-item) .accordion-item-toggle .item-inner:before,
+.aurora .list:not(.media-list) .accordion-item:not(.media-item) > .item-link .item-inner:before,
+.aurora .media-list .accordion-item .accordion-item-toggle .item-title-row:before,
+.aurora .media-list .accordion-item > .item-link .item-title-row:before,
+.aurora .accordion-item.media-item .accordion-item-toggle .item-title-row:before,
+.aurora .accordion-item.media-item > .item-link .item-title-row:before,
+.aurora .links-list .accordion-item > a:before {
+  content: 'chevron_down_aurora';
+}
+.aurora .list .accordion-item-toggle.accordion-item-opened .item-inner:before,
+.aurora .list:not(.media-list) .accordion-item-opened:not(.media-item) .accordion-item-toggle .item-inner:before,
+.aurora .list:not(.media-list) .accordion-item-opened:not(.media-item) > .item-link .item-inner:before,
+.aurora .media-list .accordion-item-opened .accordion-item-toggle .item-title-row:before,
+.aurora .media-list .accordion-item-opened > .item-link .item-title-row:before,
+.aurora .accordion-item-opened.media-item .accordion-item-toggle .item-title-row:before,
+.aurora .accordion-item-opened.media-item > .item-link .item-title-row:before,
+.aurora .links-list .accordion-item-opened > a:before {
+  content: 'chevron_up_aurora';
+}

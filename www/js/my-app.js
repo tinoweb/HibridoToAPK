@@ -20,6 +20,10 @@ var app = new Framework7({
       path: '/about/',
       url: 'paginas/about.html',
     },
+    {
+      path: '/liberacao/',
+      url: 'paginas/liberacao/liberacao.html',
+    },
   ],
 	
   // ... other parameters

@@ -38,7 +38,7 @@
   :root .popup,
   :root .sheet-modal,
   :root .panel-left {
-    --f7-safe-area-left: env(safe-area-inset-left);
+    
     --f7-safe-area-outer-left: env(safe-area-inset-left);
   }
   :root .ios-right-edge,

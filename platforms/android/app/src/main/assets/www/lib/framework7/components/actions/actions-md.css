@@ -1,0 +1,9 @@
+.md .actions-button {
+  transition-duration: 300ms;
+}
+.md .actions-button-media {
+  min-width: 40px;
+}
+.md .actions-button-media + .actions-button-text {
+  margin-left: 16px;
+}

@@ -13,13 +13,17 @@
     <link rel="stylesheet" href="lib/framework7/css/framework7.bundle.min.css">
    	 <!-- Path to Framework7 Library Icons CSS -->
 	<link rel="stylesheet" href="lib/framework7/css/framework7-icons.css">
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	
     <!-- Path to your custom app styles-->
     <link rel="stylesheet" href="css/styles.css">
-	 
+	  
 	<script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
 	<script type="text/javascript" src="cordova.js"></script>	  
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<<<<<<< HEAD
+
+=======
+>>>>>>> DEV
   </head>
   <body>
     <!-- App root element -->
@@ -42,7 +46,7 @@
           <div class="toolbar toolbar-bottom">
             <div class="toolbar-inner">
               <!-- Toolbar links -->
-              <a href="/home/" data-transition="f7-circle" class="link">Link 1</a>
+              <a href="/home/" class="link">Link 1</a>
               <a href="#" class="link">Link 2</a>
             </div>
           </div>
@@ -75,14 +79,20 @@
     <script type="text/javascript" src="lib/framework7/js/framework7.bundle.min.js"></script>
     <!-- Path to your app js-->
     <script type="text/javascript" src="js/my-app.js"></script>
+<<<<<<< HEAD
+	  	<script type="text/javascript">
+=======
 	<script type="text/javascript">
+>>>>>>> DEV
 		document.addEventListener("deviceready",onDeviceReady,false);
 		function onDeviceReady() {
 			app2.initialize();
 		}
 		
 	</script>
-		
-	</script>
+<<<<<<< HEAD
+=======
+	  
+>>>>>>> DEV
   </body>
 </html>

@@ -1,0 +1,8 @@
+.md .ios-only,
+.md .if-ios,
+.md .aurora-only,
+.md .if-aurora,
+.md .if-not-md,
+.md .not-md {
+  display: none !important;
+}

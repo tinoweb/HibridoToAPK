@@ -1,0 +1,14 @@
+.ios .icon-checkbox:after,
+.ios .checkbox i:after {
+  content: 'checkbox_ios';
+  font-size: 21px;
+}
+.ios label.item-checkbox.active-state {
+  transition-duration: 0ms;
+}
+.ios label.item-checkbox input[type="checkbox"]:indeterminate ~ .icon-checkbox:after,
+.ios label.item-checkbox input[type="checkbox"]:indeterminate ~ * .icon-checkbox:after,
+.ios .checkbox input[type="checkbox"]:indeterminate ~ i:after {
+  height: 1px;
+  margin-top: 0px;
+}

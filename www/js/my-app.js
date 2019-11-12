@@ -1,7 +1,7 @@
 // Initialize app
 var app = new Framework7({
   // App root element
-  root: '#app',
+  root: '#app', 
   // App Name
   name: 'My App',
   // App id

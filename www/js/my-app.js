@@ -24,6 +24,18 @@ var app = new Framework7({
       path: '/liberacao/',
       url: 'paginas/liberacao/liberacao.html',
     },
+    {
+      path: '/lib_1/',
+      url: 'paginas/liberacao/liberacao_passo1.html',
+    },
+    {
+      path: '/lib_2/',
+      url: 'paginas/liberacao/liberacao_passo2.html',
+    },
+    {
+      path: '/lib_3/',
+      url: 'paginas/liberacao/liberacao_passo3.html',
+    },
   ],
 	
   // ... other parameters

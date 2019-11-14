@@ -36,6 +36,14 @@ var app = new Framework7({
       path: '/lib_3/',
       url: 'paginas/liberacao/liberacao_passo3.html',
     },
+    {
+      path: '/activationcode/',
+      url: 'paginas/login/receber_codigo_ativacao.html',
+    },
+    {
+      path: '/receveAtivationCode/',
+      url: 'paginas/login/treat_ativation_code.html',
+    },
   ],
 	
   // ... other parameters

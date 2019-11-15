@@ -154,13 +154,11 @@ function choosedSms(){
 }
 
 function voltaraoPrimeiroAcesso(){
-	$("#telaVerificaCodigo").hide();
-	$("#primeiroAcesso").show();
+	app.views.main.router.navigate("/home/", {animate:true});
 }
 
 function swich_to_primeiroAcesso(){
 	app.views.main.router.navigate("/activationcode/", {animate:true});
-	afed('#primeiroAcesso','#telaVerificaCodigo','','');	
 }
 
 function enviarCodigoAtivacao(){

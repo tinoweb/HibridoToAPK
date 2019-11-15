@@ -21,6 +21,14 @@ var app = new Framework7({
       url: 'paginas/about.html',
     },
     {
+      path: '/documentos/',
+      url: 'paginas/documentos/documentos.html',
+    },
+	{
+      path: '/entregas/',
+      url: 'paginas/entregas/entregas.html',
+    },
+    {
       path: '/liberacao/',
       url: 'paginas/liberacao/liberacao.html',
     },
@@ -45,6 +53,10 @@ var app = new Framework7({
       name: 'pgValidaCodigo',
       path: '/receveAtivationCode/',
       url: 'paginas/login/validar_codigo_ativacao.html',
+    },
+    {
+      path: '/lib_acessos/',
+      url: 'paginas/liberacao/liberacao_acessos.html',
     },
   ],
 	

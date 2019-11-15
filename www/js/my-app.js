@@ -21,6 +21,14 @@ var app = new Framework7({
       url: 'paginas/about.html',
     },
     {
+      path: '/documentos/',
+      url: 'paginas/documentos/documentos.html',
+    },
+	{
+      path: '/entregas/',
+      url: 'paginas/entregas/entregas.html',
+    },
+    {
       path: '/liberacao/',
       url: 'paginas/liberacao/liberacao.html',
     },
@@ -36,6 +44,7 @@ var app = new Framework7({
       path: '/lib_3/',
       url: 'paginas/liberacao/liberacao_passo3.html',
     },
+
   ],
 	
   // ... other parameters

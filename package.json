@@ -4,7 +4,7 @@
     "displayName": "ControlCondoMobile",
     "cordova": {
         "platforms": [
-            "android"
+            "browser"
         ],
         "plugins": {
             "cordova-plugin-battery-status": {},
@@ -29,16 +29,24 @@
             "cordova-plugin-media": {},
             "cordova-plugin-whitelist": {},
             "cordova-plugin-ionic-keyboard": {},
-            "cordova-backgroundvideo": {}
+            "cordova-backgroundvideo": {},
+            "cordova-plugin-customurlscheme": {
+                "URL_SCHEME": "mycoolapp",
+                "ANDROID_SCHEME": " ",
+                "ANDROID_HOST": " ",
+                "ANDROID_PATHPREFIX": "/"
+            }
         }
     },
     "dependencies": {
         "cordova-android": "^7.0.0",
         "cordova-backgroundvideo": "0.0.22",
+        "cordova-browser": "^6.0.0",
         "cordova-plugin-autostart": "git+https://github.com/ToniKorin/cordova-plugin-autostart.git",
         "cordova-plugin-battery-status": "^1.2.5",
         "cordova-plugin-camera": "^2.4.1",
         "cordova-plugin-compat": "^1.2.0",
+        "cordova-plugin-customurlscheme": "^4.4.0",
         "cordova-plugin-device": "^1.1.7",
         "cordova-plugin-dialogs": "^1.3.4",
         "cordova-plugin-file": "^4.3.3",

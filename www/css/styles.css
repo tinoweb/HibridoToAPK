@@ -14,6 +14,34 @@
     background: #000000;
 }
 
+
+/*FONT SIZE*/
+.size-5 { font-size: 5px }
+.size-10 { font-size: 10px }
+.size-15 { font-size: 15px }
+.size-20 { font-size: 20px }
+.size-25 { font-size: 25px }
+.size-30 { font-size: 30px }
+.size-35 { font-size: 35px }
+.size-40 { font-size: 40px }
+.size-45 { font-size: 45px }
+.size-50 { font-size: 50px }
+.size-55 { font-size: 55px }
+.size-60 { font-size: 60px }
+.size-65 { font-size: 65px }
+.size-70 { font-size: 70px }
+.size-75 { font-size: 75px }
+.size-80 { font-size: 80px }
+.size-85 { font-size: 85px }
+.size-70 { font-size: 70px }
+.size-75 { font-size: 75px }
+.size-80 { font-size: 80px }
+.size-85 { font-size: 85px }
+.size-90 { font-size: 90px }
+.size-95 { font-size: 95px }
+.size-100 { font-size: 100px }
+.size-105{ font-size: 105px }
+
 :root {
   /*
   --f7-progressbar-progress-color: var(--f7-theme-color);
@@ -66,10 +94,10 @@
   color: #FFF;
 }
 .facebook-card-liberacao .card-footer {
-   background-color: #007aff;
+   background-color: #FAFAFA;
 }
 .facebook-card-liberacao .card-footer a {
-  color: #FFF;
+  color: #81848b;
   font-weight: 500;
 }
 .facebook-card-liberacao .card-content p {
@@ -79,7 +107,23 @@
   padding: 15px 10px;
 }
 .facebook-card-liberacao .card-content-padding .likes {
-  color: #FFF;
+  color: #81848b;
 }
 
 /*********************************************************/
+
+.socialMidiaIcon{
+  position: relative; top: 3px;
+}
+.alingElement{
+  position: relative;
+  text-align: center;
+  top: 80px;
+}
+.alingElementCenter{
+  position: relative;
+  text-align: center;
+}
+.paddingTop10{
+  margin-top: 10%;
+}

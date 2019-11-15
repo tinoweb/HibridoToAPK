@@ -44,7 +44,10 @@ var app = new Framework7({
       path: '/lib_3/',
       url: 'paginas/liberacao/liberacao_passo3.html',
     },
-
+    {
+      path: '/lib_acessos/',
+      url: 'paginas/liberacao/liberacao_acessos.html',
+    },
   ],
 	
   // ... other parameters

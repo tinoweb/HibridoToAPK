@@ -21,6 +21,14 @@ var app = new Framework7({
       url: 'paginas/about.html',
     },
     {
+      path: '/documentos/',
+      url: 'paginas/documentos/documentos.html',
+    },
+	{
+      path: '/entregas/',
+      url: 'paginas/entregas/entregas.html',
+    },
+    {
       path: '/liberacao/',
       url: 'paginas/liberacao/liberacao.html',
     },

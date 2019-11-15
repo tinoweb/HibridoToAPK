@@ -99,13 +99,17 @@ function choosedMail(){
 	if (campoEmail.length !== 0) {
 
 		app.sheet.close('.recebEmail', true); // tirar depois
-		alert(JSON.stringify(app.views));
-		app.dialog.alert("Testo do Dialog", "title", chama);
 
 		let chama = () => {
 			console.log("certo");
 		}
-		// app.views..router.navigate("/receveAtivationCode/", {animate:true});
+
+		
+		app.views.main.router.navigate("/receveAtivationCode/", {animate:true});
+
+
+		app.dialog.alert("Testo do Dialog", "title", chama());
+
 
 		// console.log(localStorage.getItem('DOMINIO')+'appweb/ativacao_post.php');
 		// $.ajax({
@@ -377,6 +381,7 @@ confirmaCodeResetPassword = (recoveryCode) => {
   */
 
 function loginFB() {
+	console.log("chama funcao login FB");
 	facebookConnectPlugin.logout(
 	function(successo){
 		// alert(JSON.stringify(successo));
@@ -387,7 +392,8 @@ function loginFB() {
 	            let name = userData.name;
 	            let email = userData.email;
 	    		localStorage.setItem('emailSocialMidia', email);
-	            checkUsuarioFacebookToLogin(email);
+	    		alert("vai para a checkUsuarioFacebookToLogin()");
+	            // checkUsuarioFacebookToLogin(email);
 	        },function(error){
 	            alert("erro no query do api...");
 	        });
@@ -447,12 +453,15 @@ checkUsuarioFacebookToLogin = (email) => {
   */
 
 let loginGoogle = () =>{
+	console.log("chama funcao login");
 	window.plugins.googleplus.login({},
 	    function(obj) {
 	      	let email = obj.email;
 	      	let nome = obj.displayName;
 			localStorage.setItem('emailSocialMidia', email);
-		    checkUsuarioGoogleToLogin(email);
+
+			alert("vai para a checkUsuarioGoogleToLogin()");
+		    // checkUsuarioGoogleToLogin(email);
 	    },
 	    function(msg) {
 	      console.log('error: ' + msg);

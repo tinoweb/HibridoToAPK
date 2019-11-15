@@ -66,10 +66,10 @@
   color: #FFF;
 }
 .facebook-card-liberacao .card-footer {
-   background-color: #007aff;
+   background-color: #FAFAFA;
 }
 .facebook-card-liberacao .card-footer a {
-  color: #FFF;
+  color: #81848b;
   font-weight: 500;
 }
 .facebook-card-liberacao .card-content p {
@@ -79,7 +79,7 @@
   padding: 15px 10px;
 }
 .facebook-card-liberacao .card-content-padding .likes {
-  color: #FFF;
+  color: #81848b;
 }
 
 /*********************************************************/

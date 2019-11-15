@@ -39,12 +39,12 @@ var app = new Framework7({
     { 
       name: 'pgRecebeEmailToGetCode',
       path: '/activationcode/',
-      url: 'paginas/login/receber_codigo_ativacao.html',
+      url: 'paginas/login/gerar_codigo_ativacao.html',
     },
     { 
-      name: 'paginaValidaCodigo',
+      name: 'pgValidaCodigo',
       path: '/receveAtivationCode/',
-      url: 'paginas/login/treat_ativation_code.html',
+      url: 'paginas/login/validar_codigo_ativacao.html',
     },
   ],
 	

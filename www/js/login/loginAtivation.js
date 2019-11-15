@@ -100,15 +100,14 @@ function choosedMail(){
 
 		app.sheet.close('.recebEmail', true); // tirar depois
 
-		let chama = () => {
-			console.log("certo");
-		}
+		// let chama = () => {
+		// 	console.log("certo");
+		// }
+		// app.dialog.alert("Testo do Dialog", "title", chama());
 
 		
 		app.views.main.router.navigate("/receveAtivationCode/", {animate:true});
 
-
-		app.dialog.alert("Testo do Dialog", "title", chama());
 
 
 		// console.log(localStorage.getItem('DOMINIO')+'appweb/ativacao_post.php');
@@ -160,6 +159,7 @@ function voltaraoPrimeiroAcesso(){
 }
 
 function swich_to_primeiroAcesso(){
+	app.views.main.router.navigate("/activationcode/", {animate:true});
 	afed('#primeiroAcesso','#telaVerificaCodigo','','');	
 }
 

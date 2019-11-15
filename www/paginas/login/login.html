@@ -1,0 +1,49 @@
+<div class="pages">
+	<div id="login_ini" data-page="login" class="login_ini page">
+		<div class="alingElement">
+			<img src="img/logoicon.png" width="150">
+			<div class="sheet-modal loginApp" id="" style="display: block;height: 290px;">
+				<div class="toolbar bg-color-blue">
+					<div class="toolbar-inner">
+						<div class="left">
+							<i class="fa fa-sign-in" aria-hidden="true" style="margin-left: 10px;"></i>
+						</div>
+						<div class="right">
+							<a class="link color-white" id="sairLogin" onclick="loginOut()" href="#">Sair</a>
+						</div>
+					</div>
+				</div>
+				<div class="list no-hairlines-md">
+					<ul>
+					    <li class="item-content item-input">
+					      	<div class="item-inner">
+					      		<div class="item-title item-floating-label">Digite o seu email</div>
+						        <div class="item-input-wrap">
+						          <input id="login" type="email" validate class="" name="email" placeholder="seuemail@mail.com" autocomplete="off">
+						        </div>
+					      	</div>
+					    </li>
+
+					    <li class="item-content item-input">
+					      	<div class="item-inner">
+								<div class="item-title item-floating-label">Digite a senha</div>
+						        <div class="item-input-wrap">
+						          <input id="senha" type="password" validate class="" name="senha" placeholder="************" autocomplete="off">
+						        </div>
+						        <button class="button button-raised button-fill" onClick="login_user();" style="color: white;width: 100%;position: relative;top: 13px;" id="" name="entrar"> Entrar </button>
+						        
+					      	</div>
+					    </li>
+					     <li class="item-content item-input">
+					      	<div class="item-inner">
+		                      	<a href="#" data-transition="f7-circle"  onclick="esqueciMinhaSenha()" style="color: #919b97;"> Esqueci a minha Senha </a>
+					      	</div>
+					      	<!-- <div class="col-100" style="position: relative;top: 48px;">
+		                    </div>   -->
+					    </li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

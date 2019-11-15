@@ -13,8 +13,18 @@ var app = new Framework7({
   // Add default routes
   routes: [
     {
+      name: 'pgIndex',
+      path: '/index/',
+      url: 'index.html',
+    },
+    {
       path: '/home/',
       url: 'paginas/home.html',
+    },
+    {
+      name: 'pgLogin',
+      path: '/login/',
+      url: 'paginas/login/login.html',
     },
     {
       path: '/about/',

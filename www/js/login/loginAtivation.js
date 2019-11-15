@@ -1,98 +1,103 @@
 // DONE BY TINO 22/10/2019
 
 function swich_tela_login(){
-	afed('#login_ini','#initApp','','');
-	app2.sheet.create({
-	  el: '.loginApp',
-	  closeByOutsideClick: false,
-	  closeByBackdropClick: false,
-	  closeOnEscape: false
-	});
-	app2.actions.open('.loginApp', true);
+	app.views.main.router.navigate("/login/", {animate:true});
+	$(document).on('page:init', function (e) {
+		app.sheet.create({
+		  el: '.loginApp',
+		  closeByOutsideClick: false,
+		  closeByBackdropClick: false,
+		  closeOnEscape: false
+		});
+		app.actions.open('.loginApp', true);
+	})
 }
 
 loginOut = () => {
-	afed('#initApp','#login_ini','','');
+	app.views.main.router.navigate("/index/", {animate:true});
+	$(document).on('page:init', function (e) {
+		app.actions.close('.loginApp', true);
+	})
 }
 
-fechaRecoverEmail = () => {
-	app2.actions.close('#recoveryPasswordLogin', true);
-	app2.actions.open('.loginApp', true);
-}
+// fechaRecoverEmail = () => {
+// 	app2.actions.close('#recoveryPasswordLogin', true);
+// 	app2.actions.open('.loginApp', true);
+// }
 
-esqueciMinhaSenha = () => {
-	app2.actions.close('.loginApp', true);
-	app2.sheet.create({
-	 	el: '.recuperaSenha',
-		closeByOutsideClick: false,
-	  	closeByBackdropClick: false,
-	  	closeOnEscape: false
-	});
-	app2.actions.open('.recuperaSenha', true);
-}
+// esqueciMinhaSenha = () => {
+// 	app2.actions.close('.loginApp', true);
+// 	app2.sheet.create({
+// 	 	el: '.recuperaSenha',
+// 		closeByOutsideClick: false,
+// 	  	closeByBackdropClick: false,
+// 	  	closeOnEscape: false
+// 	});
+// 	app2.actions.open('.recuperaSenha', true);
+// }
 
-function primeiroAcessoBtnVoltar(){
-	afed('#initApp','#primeiroAcesso','','',1);	
-}
+// function primeiroAcessoBtnVoltar(){
+// 	afed('#initApp','#primeiroAcesso','','',1);	
+// }
 
-function swich_tela_primeiroAcesso(){
-	afed('#primeiroAcesso','#initApp','','',1);
-}
+// function swich_tela_primeiroAcesso(){
+// 	afed('#primeiroAcesso','#initApp','','',1);
+// }
 
-function emailNotRecognizedBySystemAlert(type, messenge, afterClose=null){
-	Swal.fire({
-	  	type: type,
-	  	text: messenge,
-		timer: 4000,
-		onBeforeOpen: () => {
-			Swal.showLoading()
-			timerInterval = setInterval(() => {}, 100)
-		},
-		onClose: () => {
-			if (afterClose == "primeiroAcesso") {
-				$("#inputReceveEmailToGetCode").val("");
-				$("#telaVerificaCodigo").css('display', 'block');
-				$("#primeiroAcesso").css('display', 'none');
-				$("#initApp").css('display', 'none');
-			}else if(afterClose == "defineSenha"){
-				switchTelaDefineSenhaToLogin();
-			}else if (afterClose == "logaNoApp") {
+// function emailNotRecognizedBySystemAlert(type, messenge, afterClose=null){
+// 	Swal.fire({
+// 	  	type: type,
+// 	  	text: messenge,
+// 		timer: 4000,
+// 		onBeforeOpen: () => {
+// 			Swal.showLoading()
+// 			timerInterval = setInterval(() => {}, 100)
+// 		},
+// 		onClose: () => {
+// 			if (afterClose == "primeiroAcesso") {
+// 				$("#inputReceveEmailToGetCode").val("");
+// 				$("#telaVerificaCodigo").css('display', 'block');
+// 				$("#primeiroAcesso").css('display', 'none');
+// 				$("#initApp").css('display', 'none');
+// 			}else if(afterClose == "defineSenha"){
+// 				switchTelaDefineSenhaToLogin();
+// 			}else if (afterClose == "logaNoApp") {
 
-			}else if(afterClose == "logaDoFace"){
-				login_user_device();
-			}else if(afterClose == "logaDoGoogle"){
-				login_user_device();
-			}else if (afterClose == "termoUso") {
-				$("#initApp").hide();
-				$("#login_ini").hide();
-				$("#telaAceitaTermo").show(); // a função coorespondente está no index logo abaixo do elemento button aceita termo
-			}
-		}
-	}).then((result) => {
-		if (result.dismiss === Swal.DismissReason.timer) {
-			// console.log('I was closed by the timer');
-		}
-	});
-}
+// 			}else if(afterClose == "logaDoFace"){
+// 				login_user_device();
+// 			}else if(afterClose == "logaDoGoogle"){
+// 				login_user_device();
+// 			}else if (afterClose == "termoUso") {
+// 				$("#initApp").hide();
+// 				$("#login_ini").hide();
+// 				$("#telaAceitaTermo").show(); // a função coorespondente está no index logo abaixo do elemento button aceita termo
+// 			}
+// 		}
+// 	}).then((result) => {
+// 		if (result.dismiss === Swal.DismissReason.timer) {
+// 			// console.log('I was closed by the timer');
+// 		}
+// 	});
+// }
 
-function alertShowPosibilityToResetPassword(email){
-	Swal.fire({
-	  	text: "Esse email se encontra ativo! Deseja recuperar a sua senha",
-	  	type: 'warning',
-	  	showCancelButton: true,
-	  	confirmButtonColor: '#3085d6',
-	  	cancelButtonColor: '#d33',
-	  	confirmButtonText: 'Sim recuperar senha!'
-	}).then((result) => {
-	  	if (result.value) {
-	  		Swal.close();
-	  		primeiroAcessoBtnVoltar();
-	  		swich_tela_login();
-	  		esqueciMinhaSenha();
-	  		$("#email_recupera").val(email);
-	  	}
-	});
-}
+// function alertShowPosibilityToResetPassword(email){
+// 	Swal.fire({
+// 	  	text: "Esse email se encontra ativo! Deseja recuperar a sua senha",
+// 	  	type: 'warning',
+// 	  	showCancelButton: true,
+// 	  	confirmButtonColor: '#3085d6',
+// 	  	cancelButtonColor: '#d33',
+// 	  	confirmButtonText: 'Sim recuperar senha!'
+// 	}).then((result) => {
+// 	  	if (result.value) {
+// 	  		Swal.close();
+// 	  		primeiroAcessoBtnVoltar();
+// 	  		swich_tela_login();
+// 	  		esqueciMinhaSenha();
+// 	  		$("#email_recupera").val(email);
+// 	  	}
+// 	});
+// }
 
 function choosedMail(){
 	let campoEmail = $("#inputReceveEmailToGetCode").val();
@@ -147,229 +152,229 @@ function choosedMail(){
 	}
 }
 
-function choosedSms(){
-	$("#primeiroAcesso").hide();
-	$("#initApp").hide();
-	$("#telaVerificaCodigo").css('display', 'block');
-}
+// function choosedSms(){
+// 	$("#primeiroAcesso").hide();
+// 	$("#initApp").hide();
+// 	$("#telaVerificaCodigo").css('display', 'block');
+// }
 
 function voltaraoPrimeiroAcesso(){
-	app.views.main.router.navigate("/home/", {animate:true});
+	app.views.main.router.navigate("/index/", {animate:true});
 }
 
 function swich_to_primeiroAcesso(){
 	app.views.main.router.navigate("/activationcode/", {animate:true});
 }
 
-function enviarCodigoAtivacao(){
-	let codigoAtivacao = $("#codigoAtivacao").val();
-	console.log(localStorage.getItem('DOMINIO')+'appweb/ativacao_post.php');
-	if (codigoAtivacao.length !== 0) {
-		$.ajax({
-			type: 'POST',
-			url: localStorage.getItem('DOMINIO')+'appweb/ativacao_post.php',
-			crossDomain: true,
-			beforeSend : function() { $("#wait").css("display", "block"); },
-			complete   : function() { $("#wait").css("display", "none"); },
-	        data       : { codigo : codigoAtivacao, typeFunction : 'enviarCodigoAtivacao' },
-	        dataType   : 'json',
-			success: function(retorno){
-				console.log(retorno);    
-				if (retorno.statuscode == 200 && retorno.status == "codigoOk") {
-					localStorage.setItem("idUsuarioAtivacao", retorno.idUsuario); // Id do usuario recebido atraves do codigo de ativacao
-					$("#btnCancelarConta").hide();
-					$("#btnAtivarConta").hide();
-					$("#telaVerificaCodigo").hide();
-					$("#telaAceitaTermo").show();
-					$(".aceitaTermoClass").css('display', 'block');
-					$("#concordaComTermo").hide();
-				}else if (retorno.statuscode == 204 && retorno.status == "usuarioNaoEncontradoParaCodigo") {
-					emailNotRecognizedBySystemAlert('error', "Código de Ativação Inválido, Confira o codigo enviado no seu email");
-					$("#codigoAtivacao").val("");
-				}
-	        },
-	        error: function(error) {
-				console.log(error);
-	        }
-		});	
-	}else{
-		app2.input.validate("#codigoAtivacao");
-	}
-}
+// function enviarCodigoAtivacao(){
+// 	let codigoAtivacao = $("#codigoAtivacao").val();
+// 	console.log(localStorage.getItem('DOMINIO')+'appweb/ativacao_post.php');
+// 	if (codigoAtivacao.length !== 0) {
+// 		$.ajax({
+// 			type: 'POST',
+// 			url: localStorage.getItem('DOMINIO')+'appweb/ativacao_post.php',
+// 			crossDomain: true,
+// 			beforeSend : function() { $("#wait").css("display", "block"); },
+// 			complete   : function() { $("#wait").css("display", "none"); },
+// 	        data       : { codigo : codigoAtivacao, typeFunction : 'enviarCodigoAtivacao' },
+// 	        dataType   : 'json',
+// 			success: function(retorno){
+// 				console.log(retorno);    
+// 				if (retorno.statuscode == 200 && retorno.status == "codigoOk") {
+// 					localStorage.setItem("idUsuarioAtivacao", retorno.idUsuario); // Id do usuario recebido atraves do codigo de ativacao
+// 					$("#btnCancelarConta").hide();
+// 					$("#btnAtivarConta").hide();
+// 					$("#telaVerificaCodigo").hide();
+// 					$("#telaAceitaTermo").show();
+// 					$(".aceitaTermoClass").css('display', 'block');
+// 					$("#concordaComTermo").hide();
+// 				}else if (retorno.statuscode == 204 && retorno.status == "usuarioNaoEncontradoParaCodigo") {
+// 					emailNotRecognizedBySystemAlert('error', "Código de Ativação Inválido, Confira o codigo enviado no seu email");
+// 					$("#codigoAtivacao").val("");
+// 				}
+// 	        },
+// 	        error: function(error) {
+// 				console.log(error);
+// 	        }
+// 		});	
+// 	}else{
+// 		app2.input.validate("#codigoAtivacao");
+// 	}
+// }
 
-let enviarSenhaEliberarAcesso = () => {
-	let email = localStorage.getItem('emailSocialMidia');
-			    localStorage.removeItem('emailSocialMidia');
-	$.ajax({
-		type: 'POST',
-		url: localStorage.getItem('DOMINIO')+'appweb/ativacao_post.php',
-		crossDomain: true,
-		beforeSend : function() { $("#wait").css("display", "block"); },
-		complete   : function() { $("#wait").css("display", "none"); },
-        data: { 
-			uuid: device.uuid,
-			nome: device.model,
-			versao: device.version,
-			sistema: device.platform,
-			typeFunction : "setPassworLiberaUsuario",
-			emailGmail : email, 
-			id_notificacao: localStorage.getItem('registrationId')
-		},
-        dataType   : 'json',
-		success: function(retorno){
-			console.log(retorno);
+// let enviarSenhaEliberarAcesso = () => {
+// 	let email = localStorage.getItem('emailSocialMidia');
+// 			    localStorage.removeItem('emailSocialMidia');
+// 	$.ajax({
+// 		type: 'POST',
+// 		url: localStorage.getItem('DOMINIO')+'appweb/ativacao_post.php',
+// 		crossDomain: true,
+// 		beforeSend : function() { $("#wait").css("display", "block"); },
+// 		complete   : function() { $("#wait").css("display", "none"); },
+//         data: { 
+// 			uuid: device.uuid,
+// 			nome: device.model,
+// 			versao: device.version,
+// 			sistema: device.platform,
+// 			typeFunction : "setPassworLiberaUsuario",
+// 			emailGmail : email, 
+// 			id_notificacao: localStorage.getItem('registrationId')
+// 		},
+//         dataType   : 'json',
+// 		success: function(retorno){
+// 			console.log(retorno);
 			
-			if (retorno.status == "usuarioValidoToLogin" && retorno.statuscode == 200) {
-				emailNotRecognizedBySystemAlert('success', "direcionando para App", afterClose="logaDoFace");
-			}else{
-				emailNotRecognizedBySystemAlert("error", 'O ' +email+ ' não está liberado para acessar o condominio tente outra forma de autenticar..', afterClose=null)
-			}
-        },
-        error: function(error) {
-			console.log(error);
-			// alert('não foi possivel continuar...');
-        }
-	});
-}
+// 			if (retorno.status == "usuarioValidoToLogin" && retorno.statuscode == 200) {
+// 				emailNotRecognizedBySystemAlert('success', "direcionando para App", afterClose="logaDoFace");
+// 			}else{
+// 				emailNotRecognizedBySystemAlert("error", 'O ' +email+ ' não está liberado para acessar o condominio tente outra forma de autenticar..', afterClose=null)
+// 			}
+//         },
+//         error: function(error) {
+// 			console.log(error);
+// 			// alert('não foi possivel continuar...');
+//         }
+// 	});
+// }
 
-function aceiteiTermo(prossigaOutroCaminho=null){
-	if (prossigaOutroCaminho == null) {
-		console.log("entrou aki");
-		$("#telaAceitaTermo").hide();
-		$("#defineSenha").show();
-		$("#btnSaveSenha").attr('disabled', true);
-		$("#inputDefineSenha").blur(function() {
-			$("#btnSaveSenha").attr('disabled', false);
-			if ($("#inputDefineSenha").val().length === 0 ) {
-				$("#btnSaveSenha").attr('disabled', true);
-			}
-		});
-	}else{
-		console.log("posso continuar agora...");
-		enviarSenhaEliberarAcesso();
-	}
-}
+// function aceiteiTermo(prossigaOutroCaminho=null){
+// 	if (prossigaOutroCaminho == null) {
+// 		console.log("entrou aki");
+// 		$("#telaAceitaTermo").hide();
+// 		$("#defineSenha").show();
+// 		$("#btnSaveSenha").attr('disabled', true);
+// 		$("#inputDefineSenha").blur(function() {
+// 			$("#btnSaveSenha").attr('disabled', false);
+// 			if ($("#inputDefineSenha").val().length === 0 ) {
+// 				$("#btnSaveSenha").attr('disabled', true);
+// 			}
+// 		});
+// 	}else{
+// 		console.log("posso continuar agora...");
+// 		enviarSenhaEliberarAcesso();
+// 	}
+// }
 
-function cancelarTermo(){	
-	localStorage.removeItem('idUsuarioAtivacao');	// remover o id_usuairo do storage... não aceitou o termo
-	afed('#initApp','#telaAceitaTermo','','',1);
-}
+// function cancelarTermo(){	
+// 	localStorage.removeItem('idUsuarioAtivacao');	// remover o id_usuairo do storage... não aceitou o termo
+// 	afed('#initApp','#telaAceitaTermo','','',1);
+// }
 
-function myFunction() {
-	if($("#tab-1").scrollTop() + $("#tab-1").height() >= $("#tab-1").get(0).scrollHeight -70) {
-		$("#concordaComTermo").show('700');
-		$("#checkboxElementoTermo").change(function() {
-			if (this.checked) {
-				$("#concordaComTermo").hide();
-				$("#btnAtivarConta").show();
-				$("#btnCancelarConta").show();
-			}
-		});
-	}else{
-		$("#checkboxElementoTermo").prop("checked", false);
-		$("#btnAtivarConta").hide();
-		$("#btnCancelarConta").hide();
-	}
-}
+// function myFunction() {
+// 	if($("#tab-1").scrollTop() + $("#tab-1").height() >= $("#tab-1").get(0).scrollHeight -70) {
+// 		$("#concordaComTermo").show('700');
+// 		$("#checkboxElementoTermo").change(function() {
+// 			if (this.checked) {
+// 				$("#concordaComTermo").hide();
+// 				$("#btnAtivarConta").show();
+// 				$("#btnCancelarConta").show();
+// 			}
+// 		});
+// 	}else{
+// 		$("#checkboxElementoTermo").prop("checked", false);
+// 		$("#btnAtivarConta").hide();
+// 		$("#btnCancelarConta").hide();
+// 	}
+// }
 
 
-function definesenha(){
-	afed('#defineSenha','#initApp','','',1);	
-}
+// function definesenha(){
+// 	afed('#defineSenha','#initApp','','',1);	
+// }
 
-function btnSairTelaDefineSenha(){
-	afed('#initApp','#defineSenha','','',1);
-}
+// function btnSairTelaDefineSenha(){
+// 	afed('#initApp','#defineSenha','','',1);
+// }
 
-function switchTelaDefineSenhaToLogin(){
-	afed('#login_ini','#defineSenha','','');
-	app2.sheet.create({
-	  el: '.loginApp',
-	  closeByOutsideClick: false,
-	  closeByBackdropClick: false,
-	  closeOnEscape: false
-	});
-	app2.actions.open('.loginApp', true);
-}
+// function switchTelaDefineSenhaToLogin(){
+// 	afed('#login_ini','#defineSenha','','');
+// 	app2.sheet.create({
+// 	  el: '.loginApp',
+// 	  closeByOutsideClick: false,
+// 	  closeByBackdropClick: false,
+// 	  closeOnEscape: false
+// 	});
+// 	app2.actions.open('.loginApp', true);
+// }
 
-function salvarSenha(){
-	if ($("#inputDefineSenha").val().length !== 0 ) {
-		$("#btnSaveSenha").attr('disabled', false);
-		if ($("#inputDefineSenha").val() != $("#inputDefineSenhaRepita").val()) {
-			alerta("", "As senhas não combinam. Elas devem ser iguais!", 4000);
-		}else{
+// function salvarSenha(){
+// 	if ($("#inputDefineSenha").val().length !== 0 ) {
+// 		$("#btnSaveSenha").attr('disabled', false);
+// 		if ($("#inputDefineSenha").val() != $("#inputDefineSenhaRepita").val()) {
+// 			alerta("", "As senhas não combinam. Elas devem ser iguais!", 4000);
+// 		}else{
 
-			let senha = $("#inputDefineSenha").val();
+// 			let senha = $("#inputDefineSenha").val();
 
-			idUsuario = null;	
-			idUsuario = localStorage.getItem('idUsuarioAtivacao');
-			alert("usuariio ===>>" + idUsuario);
+// 			idUsuario = null;	
+// 			idUsuario = localStorage.getItem('idUsuarioAtivacao');
+// 			alert("usuariio ===>>" + idUsuario);
 
-			$.ajax({
-				type: 'POST',
-				url: localStorage.getItem('DOMINIO')+'appweb/ativacao_post.php',
-				crossDomain: true,
-				beforeSend : function() { $("#wait").css("display", "block"); },
-				complete   : function() { $("#wait").css("display", "none"); },
-		        data: { 
-	    				idUsuario : idUsuario, 
-	    				senha : senha,
-	    				typeFunction : "definirSenha"
-		    		},
-		        dataType   : 'json',
-				success: function(retorno){
-					if (retorno.statuscode == 200 && retorno.status == "senhaDefinidoOk") {
-						$('#formSendDefineSenha').trigger("reset");
-						emailNotRecognizedBySystemAlert('success', "Senha definida com sucesso", "defineSenha");
-					}
-		        },
-		        error: function(error) {
-					console.log(error);
-					alert('Não foi possivel executar a ação pretendida, entre em contato com seu administrador');
-		        }
-			});	
-		}
-	}else{
-		alerta("","Defina uma senha para continuar", 3000);
-	}
-}
+// 			$.ajax({
+// 				type: 'POST',
+// 				url: localStorage.getItem('DOMINIO')+'appweb/ativacao_post.php',
+// 				crossDomain: true,
+// 				beforeSend : function() { $("#wait").css("display", "block"); },
+// 				complete   : function() { $("#wait").css("display", "none"); },
+// 		        data: { 
+// 	    				idUsuario : idUsuario, 
+// 	    				senha : senha,
+// 	    				typeFunction : "definirSenha"
+// 		    		},
+// 		        dataType   : 'json',
+// 				success: function(retorno){
+// 					if (retorno.statuscode == 200 && retorno.status == "senhaDefinidoOk") {
+// 						$('#formSendDefineSenha').trigger("reset");
+// 						emailNotRecognizedBySystemAlert('success', "Senha definida com sucesso", "defineSenha");
+// 					}
+// 		        },
+// 		        error: function(error) {
+// 					console.log(error);
+// 					alert('Não foi possivel executar a ação pretendida, entre em contato com seu administrador');
+// 		        }
+// 			});	
+// 		}
+// 	}else{
+// 		alerta("","Defina uma senha para continuar", 3000);
+// 	}
+// }
 
 // não ta sendo usado essa função..............
-confirmaCodeResetPassword = (recoveryCode) => {
-	alert("codigo recebido "+recoveryCode);
-	$.ajax({
-		type: 'POST',
-		url: localStorage.getItem('DOMINIO')+'appweb/ativacao_post.php',
-		crossDomain: true,
-		beforeSend : function() { $("#wait").css("display", "block"); },
-		complete   : function() { $("#wait").css("display", "none"); },
-        data: { 
-				recoveryCode : recoveryCode, 
-				typeFunction : "validaCodigo"
-    		},
-        dataType   : 'json',
-		success: function(retorno){
-			console.log(retorno);
+// confirmaCodeResetPassword = (recoveryCode) => {
+// 	alert("codigo recebido "+recoveryCode);
+// 	$.ajax({
+// 		type: 'POST',
+// 		url: localStorage.getItem('DOMINIO')+'appweb/ativacao_post.php',
+// 		crossDomain: true,
+// 		beforeSend : function() { $("#wait").css("display", "block"); },
+// 		complete   : function() { $("#wait").css("display", "none"); },
+//         data: { 
+// 				recoveryCode : recoveryCode, 
+// 				typeFunction : "validaCodigo"
+//     		},
+//         dataType   : 'json',
+// 		success: function(retorno){
+// 			console.log(retorno);
 
-			if (retorno.status == "codigoConfere" && retorno.statuscode == 200) {
+// 			if (retorno.status == "codigoConfere" && retorno.statuscode == 200) {
 				
-				console.log("definir senha");
-				alert("definir senha");
-				alert("codigo confirmado");
+// 				console.log("definir senha");
+// 				alert("definir senha");
+// 				alert("codigo confirmado");
 
-				localStorage.removeItem('idUsuarioAtivacao');
-				localStorage.setItem("idUsuarioAtivacao", retorno.id_usuario);
-				definesenha();
-			}else{
-				emailNotRecognizedBySystemAlert("error", "Não foi possivel continuar o processo...", afterClose=null)
-			}
-        },
-        error: function(error) {
-			console.log(error);
-			alert('Não foi possivel executar a ação pretendida, entre em contato com seu administrador');
-        }
-	});	
-}
+// 				localStorage.removeItem('idUsuarioAtivacao');
+// 				localStorage.setItem("idUsuarioAtivacao", retorno.id_usuario);
+// 				definesenha();
+// 			}else{
+// 				emailNotRecognizedBySystemAlert("error", "Não foi possivel continuar o processo...", afterClose=null)
+// 			}
+//         },
+//         error: function(error) {
+// 			console.log(error);
+// 			alert('Não foi possivel executar a ação pretendida, entre em contato com seu administrador');
+//         }
+// 	});	
+// }
 // não ta sendo usado essa função..............
 
   /*

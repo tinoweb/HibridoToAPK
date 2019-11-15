@@ -16,23 +16,60 @@
 	  </div>
 	  <!-- MENU --> 
 
-		<div class="demo-fab-fullscreen-sheet fab-morph-target" style=" width: 100%">
-					<div class="block-title">Choose Something</div>
-					<div class="list links-list">
-					<ul>
-					<li><a href="#" class="fab-close">Link 1</a></li>
-					<li><a href="#" class="fab-close">Link 2</a></li>
-					<li><a href="#" class="fab-close">Link 3</a></li>
-					<li><a href="#" class="fab-close">Link 4</a></li>
-					</ul>
-					</div>
-				</div>		 
-<div class="fab fab-right-bottom fab-morph color-theme-blue fab fab-extended " >
-<a href="#" class="">
-<i class="f7-icons">plus</i>
+	 
+		  <div class="fab fab-right-bottom fab-morph" data-morph-to=".demo-fab-sheet.fab-morph-target" style="opacity: 1;">
+			<a href="#" class="">
+			<i class="icon material-icons md-only">add</i>
+			</a>
+		 </div>
+<div class="list links-list demo-fab-sheet fab-morph-target" style="margin-bottom: -25%;margin-top: 15%;z-index: 999999">
 
-</a>
-</div>
+	<div class="block" style="background-color: white">
+					  <div class="item-content item-input" >
+						<div class="item-inner">
+						  <div class="item-title item-label">Título</div>
+						  <div class="item-input-wrap">
+							<input type="text" name="nome" placeholder="Buscar por Título">
+						  </div>
+						</div>
+					  </div>
+					<li class="item-content item-input item-input-with-value">
+					  <div class="item-inner">
+						<div class="item-title item-label">Categoria</div>
+						<div class="item-input-wrap input-dropdown-wrap">
+						  <select name="gender" placeholder="Please choose..." class="input-with-value">
+						    <option value="Male">Ata</option>
+						    <option value="Female">Construção</option>
+						    <option value="Female">Contratos</option>
+						    <option value="Female">Regras</option>
+						  </select>
+						</div>
+					  </div>
+					</li>
+					  <div class="item-content item-input">
+						<div class="item-inner">
+						  <div class="item-title item-label">De</div>
+						  <div class="item-input-wrap">
+							<input type="datetime-local" placeholder="Please choose...">
+						  </div>
+						</div>
+					  </div>
+
+					  <div class="item-content item-input">
+						<div class="item-inner">
+						  <div class="item-title item-label">Até</div>
+						  <div class="item-input-wrap">
+							<input type="datetime-local" placeholder="Please choose...">
+						  </div>
+						</div>
+					  </div>
+
+		
+		
+		<button type="button" class="col button button-fill color-green fab-close"><i class="f7-icons">doc_text_search</i> Buscar</button>
+	</div>
+</div>		  
+
 
 	  <div class="page-content">
 

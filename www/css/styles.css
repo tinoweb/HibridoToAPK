@@ -133,4 +133,18 @@ background: linear-gradient(#0064c0, #007aff);
 
 /*********************************************************/
 
-
+.socialMidiaIcon{
+  position: relative; top: 3px;
+}
+.alingElement{
+  position: relative;
+  text-align: center;
+  top: 80px;
+}
+.alingElementCenter{
+  position: relative;
+  text-align: center;
+}
+.paddingTop10{
+  margin-top: 10%;
+}

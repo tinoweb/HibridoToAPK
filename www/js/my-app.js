@@ -68,6 +68,16 @@ var app = new Framework7({
       path: '/lib_3/',
       url: 'paginas/liberacao/liberacao_passo3.html',
     },
+    { 
+      name: 'pgRecebeEmailToGetCode',
+      path: '/activationcode/',
+      url: 'paginas/login/gerar_codigo_ativacao.html',
+    },
+    { 
+      name: 'pgValidaCodigo',
+      path: '/receveAtivationCode/',
+      url: 'paginas/login/validar_codigo_ativacao.html',
+    },
     {
       path: '/lib_acessos/',
       url: 'paginas/liberacao/liberacao_acessos.html',

@@ -13,7 +13,16 @@
 .statusbar-overlay {
     background: #000000;
 }
-
+.centralizar
+{
+	text-align: -webkit-center;
+	
+	
+}
+.tema-azul
+{
+background: linear-gradient(#0064c0, #007aff);	
+}
 
 /*FONT SIZE*/
 .size-5 { font-size: 5px }
@@ -41,6 +50,18 @@
 .size-95 { font-size: 95px }
 .size-100 { font-size: 100px }
 .size-105{ font-size: 105px }
+.md .toolbar .link{
+	color: white;
+}
+.link .f7-icons{
+	color: white;
+}
+.tabbar-label{
+	color: white;
+}
+.md .icon-back{
+	color: white;
+}
 
 :root {
   /*
@@ -111,3 +132,5 @@
 }
 
 /*********************************************************/
+
+

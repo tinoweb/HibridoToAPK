@@ -13,7 +13,16 @@
 .statusbar-overlay {
     background: #000000;
 }
-
+.centralizar
+{
+	text-align: -webkit-center;
+	
+	
+}
+.tema-azul
+{
+background: linear-gradient(#0064c0, #007aff);	
+}
 
 /*FONT SIZE*/
 .size-5 { font-size: 5px }

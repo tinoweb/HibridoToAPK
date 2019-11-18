@@ -1,88 +1,67 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <!-- Required meta tags-->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <!-- Color theme for statusbar (Android only) -->
-    <meta name="theme-color" content="#fff">
-    <!-- Your app title -->
-    <title>My App</title>
-    <!-- Path to Framework7 Library Bundle CSS -->
+    <meta name="theme-color" content="#ffffff">
+    <title>Controlcondo</title>
     <link rel="stylesheet" href="lib/framework7/css/framework7.bundle.min.css">
-   	 <!-- Path to Framework7 Library Icons CSS -->
-	<link rel="stylesheet" href="lib/framework7/css/framework7-icons.css">
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!-- Path to your custom app styles-->
+    <link rel="stylesheet" href="lib/framework7/css/framework7-icons.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
 	 
 	<script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
 	<script type="text/javascript" src="cordova.js"></script>	  
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   </head>
+
   <body>
-    <!-- App root element -->
     <div id="app">
-
-      <!-- Your main view, should have "view-main" class -->
-      <div class="view view-main color-theme-white">
-        <!-- Initial Page, "data-name" contains page name -->
-        <div data-name="home" class="page">
-
-          <!-- Top Navbar -->
-          <div class="navbar">
-            <div class="navbar-bg"></div>
-            <div class="navbar-inner">
-              <div class="title">Awesome App</div>
+        <!-- Your main view, should have "view-main" class -->
+      <div class="view view-main">
+            <!-- Initial Page, "data-name" contains page name -->
+            <div data-name="home" class="page">
+              <div id="initApp" class="login_iniNew alingElement">
+                <img src="img/logoicon.png" width="150">
+                
+                <div id="formInit" class="form-signin" style="top: 64px;position: relative;padding: 15px 14px;"> 
+                  <div class="row" style="position: relative; padding: 12px;">
+                    <div class="col-100">
+                      <button class="col button button-raised button-fill color-white button-outline button-large text-color-black" onclick="swich_tela_login();">Entrar com e-mail</button>
+                    </div>
+                    <div class="col-50" style="position: relative;top: 14px;">
+                      <button class="col button button-raised button-fill color-blue button-large" onclick="loginFB()" name="entrar"> <img class="socialMidiaIcon" src="img/icons/face_white.png" width="18" height="18" alt=""> Facebook</button>
+                    </div>
+                    <div class="col-50" style="position: relative;top: 14px;">
+                      <button class="col button button-raised button-fill color-red button-large" onclick="loginGoogle()"> <img class="socialMidiaIcon" src="img/icons/gplus_white.png" width="18" height="18" alt=""> Google</button>
+            <div class="toolbar-inner " style="background-color: black">
+              <a href="/home/" data-transition="f7-circle" class="link ">HOME</a>
+              <a href="#" class="link ">Lugar nenhum</a>
+                    </div>
+                    <div class="col-100" style="position: relative;top: 48px;">
+                      <a href="/activationcode/" data-transition="f7-circle" class="link" style="color: #919b97;"> Primeiro Acesso</a>
+                    </div>  
+                    <br>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
-
-          <!-- Bottom Toolbar -->
-          <div class="toolbar toolbar-bottom">
-            <div class="toolbar-inner">
-              <!-- Toolbar links -->
-              <a href="/home/" data-transition="f7-circle" class="link">Link 1</a>
-              <a href="#" class="link">Link 2</a>
-            </div>
-          </div>
-
-          <!-- Scrollable page content -->
-          <div class="page-content">
-			<div class="card card-expandable">
-			  <div class="card-content">
-				<div class="bg-color-red" style="height: 300px">
-				  <div class="card-header text-color-white display-block">
-					Framework7
-					<br>
-					<small style="opacity: 0.7">Build Mobile Apps</small>
-				  </div>
-				  <a href="#" class="link card-close card-opened-fade-in color-white" style="position: absolute; right: 15px; top: 15px">
-					<i class="icon f7-icons">close_round_fill</i>
-				  </a>
-				</div>
-				<div class="card-content-padding">
-				  <p>Framework7 - is a free and open source HTML mobile framework to develop hybrid mobile apps or web apps with iOS or Android (Material) native look and feel. It is also an indispensable prototyping apps tool to show working app prototype as soon as possible in case you need to.</p>
-				  ...
-				</div>
-			  </div>
-			</div>
-		  </div> 
         </div>
-      </div>
     </div>
-    <!-- Path to Framework7 Library Bundle JS-->
+    
     <script type="text/javascript" src="lib/framework7/js/framework7.bundle.min.js"></script>
-    <!-- Path to your app js-->
     <script type="text/javascript" src="js/my-app.js"></script>
-	<script type="text/javascript">
-		document.addEventListener("deviceready",onDeviceReady,false);
-		function onDeviceReady() {
-			app2.initialize();
-		}
-		
-	</script>
-		
-	</script>
+    <script type="text/javascript" src="js/login/loginAtivation.js"></script>
+  	<script type="text/javascript">
+  		document.addEventListener("deviceready",onDeviceReady,false);
+  		function onDeviceReady() {
+  			app2.initialize();
+
+
+        
+  		}
+  	</script>
   </body>
 </html>
+

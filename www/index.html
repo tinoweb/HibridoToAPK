@@ -21,14 +21,14 @@
         <!-- Your main view, should have "view-main" class -->
         <div class="view view-main color-theme-blue">
             <!-- Initial Page, "data-name" contains page name -->
-            <div data-name="home" class="page">
+            <div data-name="home" class="page white_ice">
               <div id="initApp" class="login_iniNew alingElement">
                 <img src="img/logoicon.png" width="150">
                 
                 <div id="formInit" class="form-signin" style="top: 64px;position: relative;padding: 15px 14px;"> 
                   <div class="row" style="position: relative; padding: 12px;">
                     <div class="col-100">
-                      <button class="col button button-raised button-fill color-white button-outline button-large text-color-black" onclick="swich_tela_login();">Entrar com e-mail</button>
+                      <button class="col button button-raised button-fill color-white button-outline button-large text-color-gray" onclick="swich_tela_login();">Entrar com e-mail</button>
                     </div>
                     <div class="col-50" style="position: relative;top: 14px;">
                       <button class="col button button-raised button-fill color-blue button-large" onclick="loginFB()" name="entrar"> <img class="socialMidiaIcon" src="img/icons/face_white.png" width="18" height="18" alt=""> Facebook</button>
@@ -37,7 +37,7 @@
                       <button class="col button button-raised button-fill color-red button-large" onclick="loginGoogle()"> <img class="socialMidiaIcon" src="img/icons/gplus_white.png" width="18" height="18" alt=""> Google</button>
                     </div>
                     <div class="col-100" style="position: relative;top: 48px;">
-                      <a href="/activationcode/" data-transition="f7-circle" class="link" style="color: #919b97;"> Primeiro Acesso</a>
+                      <a href="#" onclick="swich_tela_primeiroAcesso()" data-transition="f7-cover" class="" style="color: #919b97;"> Primeiro Acesso</a>
                     </div>  
                     <br>
                   </div>

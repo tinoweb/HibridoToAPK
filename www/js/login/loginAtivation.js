@@ -1,8 +1,9 @@
 // DONE BY TINO 22/10/2019
 
-function swich_tela_login(){
-	app.views.main.router.navigate("/login/", {animate:true});
-	$(document).on('page:init', function (e) {
+swich_tela_login = () => {
+	app.views.main.router.navigate("/login/", {animate:true, transition: 'f7-dive'});
+	$$(document).on('page:init', function (e) {
+		// alert("tum");
 		app.sheet.create({
 		  el: '.loginApp',
 		  closeByOutsideClick: false,
@@ -15,34 +16,67 @@ function swich_tela_login(){
 
 loginOut = () => {
 	app.views.main.router.navigate("/index/", {animate:true});
-	$(document).on('page:init', function (e) {
+	$$(document).on('page:init', function (e) {
 		app.actions.close('.loginApp', true);
 	})
 }
 
-// fechaRecoverEmail = () => {
-// 	app2.actions.close('#recoveryPasswordLogin', true);
-// 	app2.actions.open('.loginApp', true);
-// }
+setPwdOut = () => {
+	app.actions.close('.defineSenhaApp', true);
+	app.views.main.router.navigate("/index/", {animate:true});
+	$$(document).on('page:init', function (e) {
+		app.actions.close('.defineSenhaApp', true);
+	})
+}
 
-// esqueciMinhaSenha = () => {
-// 	app2.actions.close('.loginApp', true);
-// 	app2.sheet.create({
-// 	 	el: '.recuperaSenha',
-// 		closeByOutsideClick: false,
-// 	  	closeByBackdropClick: false,
-// 	  	closeOnEscape: false
-// 	});
-// 	app2.actions.open('.recuperaSenha', true);
-// }
+setingPwdVoltar = () => {
+	app.actions.close('.defineSenhaApp', true);
+	$$(".defineSenhaApp").on('sheet:closed', function(event) {
+		app.views.main.router.navigate("/termo_de_uso/", {animate:true});
+		$$(document).on('page:init', function (e) {
+			app.actions.close('.defineSenhaApp', true);
+		})
+	});
+}
 
-// function primeiroAcessoBtnVoltar(){
-// 	afed('#initApp','#primeiroAcesso','','',1);	
-// }
+fechaRecoverEmail = () => {
+	app.actions.close('.recuperaSenha', true);
+	app.actions.open('.loginApp', true);
+	console.log("fecha recuypera e abre login....");
+}
 
-// function swich_tela_primeiroAcesso(){
-// 	afed('#primeiroAcesso','#initApp','','',1);
-// }
+esqueciMinhaSenha = () => {
+	app.actions.close('.loginApp', true);
+	app.sheet.create({
+	 	el: '.recuperaSenha',
+		closeByOutsideClick: false,
+	  	closeByBackdropClick: false,
+	  	closeOnEscape: false
+	});
+	app.actions.open('.recuperaSenha', true);
+}
+
+primeiroAcessoBtnVoltar = () => {
+	app.views.main.router.navigate("/index/", {animate:true});
+
+}
+
+swich_tela_primeiroAcesso = () => {
+	app.views.main.router.navigate("/activationcode/", {animate:true, transition: 'f7-cover'});
+}
+
+voltaraoPrimeiroAcesso = () => {
+	app.views.main.router.navigate("/index/", {animate:true});
+}
+
+swich_to_primeiroAcesso = () => {
+	app.views.main.router.navigate("/activationcode/", {animate:true});
+}
+
+cancelarTermo = () => {	
+	localStorage.removeItem('idUsuarioAtivacao');	// remover o id_usuairo do storage... não aceitou o termo
+	app.views.main.router.navigate("/index/", {animate:true});
+}
 
 // function emailNotRecognizedBySystemAlert(type, messenge, afterClose=null){
 // 	Swal.fire({
@@ -109,11 +143,8 @@ function choosedMail(){
 		// 	console.log("certo");
 		// }
 		// app.dialog.alert("Testo do Dialog", "title", chama());
-
 		
 		app.views.main.router.navigate("/receveAtivationCode/", {animate:true});
-
-
 
 		// console.log(localStorage.getItem('DOMINIO')+'appweb/ativacao_post.php');
 		// $.ajax({
@@ -158,15 +189,12 @@ function choosedMail(){
 // 	$("#telaVerificaCodigo").css('display', 'block');
 // }
 
-function voltaraoPrimeiroAcesso(){
-	app.views.main.router.navigate("/index/", {animate:true});
-}
 
-function swich_to_primeiroAcesso(){
-	app.views.main.router.navigate("/activationcode/", {animate:true});
-}
+enviarCodigoAtivacao = () => {
+	console.log("send code ativacao...");
+	app.views.main.router.navigate("/termo_de_uso/", {animate:true});
 
-// function enviarCodigoAtivacao(){
+
 // 	let codigoAtivacao = $("#codigoAtivacao").val();
 // 	console.log(localStorage.getItem('DOMINIO')+'appweb/ativacao_post.php');
 // 	if (codigoAtivacao.length !== 0) {
@@ -200,7 +228,7 @@ function swich_to_primeiroAcesso(){
 // 	}else{
 // 		app2.input.validate("#codigoAtivacao");
 // 	}
-// }
+}
 
 // let enviarSenhaEliberarAcesso = () => {
 // 	let email = localStorage.getItem('emailSocialMidia');
@@ -237,45 +265,50 @@ function swich_to_primeiroAcesso(){
 // 	});
 // }
 
-// function aceiteiTermo(prossigaOutroCaminho=null){
-// 	if (prossigaOutroCaminho == null) {
-// 		console.log("entrou aki");
-// 		$("#telaAceitaTermo").hide();
-// 		$("#defineSenha").show();
-// 		$("#btnSaveSenha").attr('disabled', true);
-// 		$("#inputDefineSenha").blur(function() {
-// 			$("#btnSaveSenha").attr('disabled', false);
-// 			if ($("#inputDefineSenha").val().length === 0 ) {
-// 				$("#btnSaveSenha").attr('disabled', true);
-// 			}
-// 		});
-// 	}else{
-// 		console.log("posso continuar agora...");
-// 		enviarSenhaEliberarAcesso();
-// 	}
-// }
+ let aceiteiTermo = (prossigaOutroCaminho=null) => {
+	if (prossigaOutroCaminho == null) {
+		console.log("entrou aki");
+		app.views.main.router.navigate("/define_senha/", {animate:true});
+		$$(document).on('page:init', function (e) {
+			app.sheet.create({
+			  el: '.defineSenhaApp',
+			  closeByOutsideClick: false,
+			  closeByBackdropClick: false,
+			  closeOnEscape: false
+			});
+			app.actions.open('.defineSenhaApp', true);
+		})
 
-// function cancelarTermo(){	
-// 	localStorage.removeItem('idUsuarioAtivacao');	// remover o id_usuairo do storage... não aceitou o termo
-// 	afed('#initApp','#telaAceitaTermo','','',1);
-// }
+		// $("#inputDefineSenha").blur(function() {
+		// 	$("#btnSaveSenha").attr('disabled', false);
+		// 	if ($("#inputDefineSenha").val().length === 0 ) {
+		// 		$("#btnSaveSenha").attr('disabled', true);
+		// 	}
+		// });
+	}else{
+		console.log("posso continuar agora...");
+		enviarSenhaEliberarAcesso();
+	}
+}
 
-// function myFunction() {
-// 	if($("#tab-1").scrollTop() + $("#tab-1").height() >= $("#tab-1").get(0).scrollHeight -70) {
-// 		$("#concordaComTermo").show('700');
-// 		$("#checkboxElementoTermo").change(function() {
-// 			if (this.checked) {
-// 				$("#concordaComTermo").hide();
-// 				$("#btnAtivarConta").show();
-// 				$("#btnCancelarConta").show();
-// 			}
-// 		});
-// 	}else{
-// 		$("#checkboxElementoTermo").prop("checked", false);
-// 		$("#btnAtivarConta").hide();
-// 		$("#btnCancelarConta").hide();
-// 	}
-// }
+
+
+myFunction = () => {
+	if($("#tab-1").scrollTop() + $("#tab-1").height() >= $("#tab-1").get(0).scrollHeight -70) {
+		$("#concordaComTermo").show('700');
+		$("#checkboxElementoTermo").change(function() {
+			if (this.checked) {
+				$("#concordaComTermo").hide();
+				$("#btnAtivarConta").show();
+				$("#btnCancelarConta").show();
+			}
+		});
+	}else{
+		$("#checkboxElementoTermo").prop("checked", false);
+		$("#btnAtivarConta").hide();
+		$("#btnCancelarConta").hide();
+	}
+}
 
 
 // function definesenha(){

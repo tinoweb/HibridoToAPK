@@ -1,6 +1,7 @@
 <div class="pages">
 	<div id="login_ini" data-page="login" class="login_ini page">
 		<div class="alingElement">
+			
 			<img src="img/logoicon.png" width="150">
 			<div class="sheet-modal loginApp" id="" style="display: block;height: 290px;">
 				<div class="toolbar bg-color-blue">
@@ -13,7 +14,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="list no-hairlines-md">
+				<div class="list no-hairlines-md list_no_margin">
 					<ul>
 					    <li class="item-content item-input">
 					      	<div class="item-inner">
@@ -30,20 +31,45 @@
 						        <div class="item-input-wrap">
 						          <input id="senha" type="password" validate class="" name="senha" placeholder="************" autocomplete="off">
 						        </div>
-						        <button class="button button-raised button-fill" onClick="login_user();" style="color: white;width: 100%;position: relative;top: 13px;" id="" name="entrar"> Entrar </button>
-						        
+						        <button class="button button-raised button-fill button-large color-green" onClick="login_user();" style="color: white;width: 100%;position: relative;top: 13px;" id="" name="entrar"> Entrar </button>
 					      	</div>
 					    </li>
-					     <li class="item-content item-input">
-					      	<div class="item-inner">
-		                      	<a href="#" data-transition="f7-circle"  onclick="esqueciMinhaSenha()" style="color: #919b97;"> Esqueci a minha Senha </a>
+					    <li class="item-content item-input">
+					      	<div class="item-inner col-100 alingCenter">
+		                      	<a href="#" data-transition="f7-circle"  onclick="esqueciMinhaSenha()" style=""> Esqueci a minha Senha </a>
 					      	</div>
-					      	<!-- <div class="col-100" style="position: relative;top: 48px;">
-		                    </div>   -->
 					    </li>
 					</ul>
 				</div>
 			</div>
+
+			<!-- ############# recovery senha ################# -->
+			<div class="sheet-modal recuperaSenha" id="recoveryPasswordLogin" style="">
+				<div class="toolbar">
+					<div class="toolbar-inner bg-color-blue">
+						<div class="left">
+							<i class="fa fa-envelope" aria-hidden="true" style="margin-left: 10px;"></i>
+						</div>
+						<div class="right">
+							<a class="link color-white" id="fechaRecuperaEmail" onclick="fechaRecoverEmail()" href="#">Fechar</a>
+						</div>
+					</div>
+				</div>
+				<div class="list" id="formSendEmail">
+				    <div class="item-content item-input">
+				      	<div class="item-inner">
+					        <div class="item-title item-floating-label">Digite o seu email</div>
+					        <div class="item-input-wrap">
+					          <input id="email_recupera" type="email" validate class="" name="email" placeholder="seuemail@mail.com" style="border: none;">
+					          <span class="input-clear-button"></span>
+					        </div>
+					        <button class="button button-raised button-fill button-large color-blue" style="color: white; width: 100%;margin-top: 10%;" id="" onclick="recuperaEmail()" name="entrar"> Recuperar </button>
+				      	</div>
+				    </div>
+				</div>
+			</div>
+			<!-- ############################## -->
+			
 		</div>
 	</div>
 </div>

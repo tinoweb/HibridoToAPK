@@ -64,6 +64,16 @@ var app = new Framework7({
       path: '/receveAtivationCode/',
       url: 'paginas/login/validar_codigo_ativacao.html',
     },
+    { 
+      name: 'pgTermoUso',
+      path: '/termo_de_uso/',
+      url: 'paginas/login/termo.html',
+    },
+    { 
+      name: 'pgDefineSenha',
+      path: '/define_senha/',
+      url: 'paginas/login/defineSenha.html',
+    },
     {
       path: '/lib_acessos/',
       url: 'paginas/liberacao/liberacao_acessos.html',
@@ -72,6 +82,8 @@ var app = new Framework7({
 	
   // ... other parameters
 });
+
+var $$ = Dom7;
 
 var mainView = app.views.create('.view-main'); 
 

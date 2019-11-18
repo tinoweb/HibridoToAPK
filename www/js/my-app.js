@@ -21,6 +21,14 @@ var app = new Framework7({
       url: 'paginas/about.html',
     },
     {
+      path: '/areacomum/',
+      url: 'paginas/areacomum/areacomum.html',
+    },
+    {
+      path: '/minha_reserva/',
+      url: 'paginas/areacomum/minha_reserva.html',
+    },
+    {
       path: '/documentos/',
       url: 'paginas/documentos/documentos.html',
     },

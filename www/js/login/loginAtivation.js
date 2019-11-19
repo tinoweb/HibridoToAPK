@@ -78,6 +78,23 @@ cancelarTermo = () => {
 	app.views.main.router.navigate("/index/", {animate:true});
 }
 
+myFunction = () => {
+	if($("#tab-1").scrollTop() + $("#tab-1").height() >= $("#tab-1").get(0).scrollHeight -70) {
+		$("#concordaComTermo").show('700');
+		$("#checkboxElementoTermo").change(function() {
+			if (this.checked) {
+				$("#concordaComTermo").hide();
+				$("#btnAtivarConta").show();
+				$("#btnCancelarConta").show();
+			}
+		});
+	}else{
+		$("#checkboxElementoTermo").prop("checked", false);
+		$("#btnAtivarConta").hide();
+		$("#btnCancelarConta").hide();
+	}
+}
+
 // function emailNotRecognizedBySystemAlert(type, messenge, afterClose=null){
 // 	Swal.fire({
 // 	  	type: type,
@@ -285,28 +302,10 @@ enviarCodigoAtivacao = () => {
 		// 		$("#btnSaveSenha").attr('disabled', true);
 		// 	}
 		// });
+		
 	}else{
 		console.log("posso continuar agora...");
 		enviarSenhaEliberarAcesso();
-	}
-}
-
-
-
-myFunction = () => {
-	if($("#tab-1").scrollTop() + $("#tab-1").height() >= $("#tab-1").get(0).scrollHeight -70) {
-		$("#concordaComTermo").show('700');
-		$("#checkboxElementoTermo").change(function() {
-			if (this.checked) {
-				$("#concordaComTermo").hide();
-				$("#btnAtivarConta").show();
-				$("#btnCancelarConta").show();
-			}
-		});
-	}else{
-		$("#checkboxElementoTermo").prop("checked", false);
-		$("#btnAtivarConta").hide();
-		$("#btnCancelarConta").hide();
 	}
 }
 

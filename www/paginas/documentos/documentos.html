@@ -4,7 +4,7 @@
 	  <!-- MENU -->
 	  <div class="navbar" >
 		<div class="navbar-bg"></div>
-		<div class="navbar-inner sliding" style="background: linear-gradient(#0064c0, #007aff);">
+		<div class="navbar-inner sliding tema-azul">
 		  <div class="left">
 			<a class="link back">
 			  <i class="icon icon-back"></i>
@@ -16,23 +16,60 @@
 	  </div>
 	  <!-- MENU --> 
 
-		<div class="demo-fab-fullscreen-sheet fab-morph-target" style=" width: 100%">
-					<div class="block-title">Choose Something</div>
-					<div class="list links-list">
-					<ul>
-					<li><a href="#" class="fab-close">Link 1</a></li>
-					<li><a href="#" class="fab-close">Link 2</a></li>
-					<li><a href="#" class="fab-close">Link 3</a></li>
-					<li><a href="#" class="fab-close">Link 4</a></li>
-					</ul>
-					</div>
-				</div>		 
-<div class="fab fab-right-bottom fab-morph color-theme-blue fab fab-extended " >
-<a href="#" class="">
-<i class="f7-icons">plus</i>
+	 
+		  <div class="fab fab-right-bottom fab-morph" data-morph-to=".demo-fab-sheet.fab-morph-target" style="opacity: 1;">
+			<a href="#" class="">
+			<i class="icon material-icons md-only">add</i>
+			</a>
+		 </div>
+<div class="list links-list demo-fab-sheet fab-morph-target" style="margin-bottom: -25%;margin-top: 15%;z-index: 999999">
 
-</a>
-</div>
+	<div class="block" style="background-color: white">
+					  <div class="item-content item-input" >
+						<div class="item-inner">
+						  <div class="item-title item-label">Título</div>
+						  <div class="item-input-wrap">
+							<input type="text" name="nome" placeholder="Buscar por Título">
+						  </div>
+						</div>
+					  </div>
+					<li class="item-content item-input item-input-with-value">
+					  <div class="item-inner">
+						<div class="item-title item-label">Categoria</div>
+						<div class="item-input-wrap input-dropdown-wrap">
+						  <select name="gender" placeholder="Please choose..." class="input-with-value">
+						    <option value="Male">Ata</option>
+						    <option value="Female">Construção</option>
+						    <option value="Female">Contratos</option>
+						    <option value="Female">Regras</option>
+						  </select>
+						</div>
+					  </div>
+					</li>
+					  <div class="item-content item-input">
+						<div class="item-inner">
+						  <div class="item-title item-label">De</div>
+						  <div class="item-input-wrap">
+							<input type="datetime-local" placeholder="Please choose...">
+						  </div>
+						</div>
+					  </div>
+
+					  <div class="item-content item-input">
+						<div class="item-inner">
+						  <div class="item-title item-label">Até</div>
+						  <div class="item-input-wrap">
+							<input type="datetime-local" placeholder="Please choose...">
+						  </div>
+						</div>
+					  </div>
+
+		
+		
+		<button type="button" class="col button button-fill color-green fab-close"><i class="f7-icons">doc_text_search</i> Buscar</button>
+	</div>
+</div>		  
+
 
 	  <div class="page-content">
 
@@ -44,7 +81,7 @@
 		<div class="list media-list no-ios-edges">
 		  <ul>
 			 <li class="item-content">
-				<div class="item-media"><img src="https://media.cdnandroid.com/5b/72/97/de/04/imagen-pdf-reader-pdf-viewer-pdf-files-for-android-0thumb.jpg" width="44"></div>
+				<div class="item-media"><img src="img/pdf.png" width="44"></div>
 				 <div class="item-inner">
 					 
 					<div class="item-title-row">
@@ -58,7 +95,7 @@
 				 </div>
 			 </li>
 			 <li class="item-content">
-				<div class="item-media"><img src="http://blog.valejet.com/wp-content/uploads/2016/03/word-780x780.png" width="44"></div>
+				<div class="item-media"><img src="img/word.png" width="44"></div>
 				 <div class="item-inner">
 					<div class="item-title-row">
 					   <div class="item-title">Contratro Nova empresa</div>
@@ -71,7 +108,7 @@
 				 </div>
 			 </li>
 			 <li class="item-content">
-				<div class="item-media"><img src="https://www.elconsejo.org/wp-content/uploads/2018/12/245px-Microsoft_PowerPoint_2013_logo.svg_.png" width="44"></div>
+				<div class="item-media"><img src="img/PowerPoint.png" width="44"></div>
 				 <div class="item-inner">
 					<div class="item-title-row">
 					   <div class="item-title">Contratro Nova empresa</div>
@@ -84,7 +121,7 @@
 				 </div>
 			 </li>
 			 <li class="item-content">
-				<div class="item-media"><img src="http://www.npsoluzioni.com/wp-content/uploads/2015/11/Excel2013.png" width="44"></div>
+				<div class="item-media"><img src="img/Excel2013.png" width="44"></div>
 				 <div class="item-inner">
 					<div class="item-title-row">
 					   <div class="item-title">Contratro Nova empresa</div>
@@ -97,7 +134,7 @@
 				 </div>
 			 </li>
 			 <li class="item-content">
-				<div class="item-media"><img src="https://cdn.icon-icons.com/icons2/56/PNG/512/Metro_Windows8photos_11358.png" width="44"></div>
+				<div class="item-media"><img src="img/imagem.png" width="44"></div>
 				 <div class="item-inner">
 					<div class="item-title-row">
 					   <div class="item-title">Contratro Nova empresa</div>
@@ -110,7 +147,7 @@
 				 </div>
 			 </li>
 			 <li class="item-content">
-				<div class="item-media"><img src="https://media.cdnandroid.com/5b/72/97/de/04/imagen-pdf-reader-pdf-viewer-pdf-files-for-android-0thumb.jpg" width="44"></div>
+				<div class="item-media"><img src="img/pdf.png" width="44"></div>
 				 <div class="item-inner">
 					 
 					<div class="item-title-row">
@@ -124,7 +161,7 @@
 				 </div>
 			 </li>
 			 <li class="item-content">
-				<div class="item-media"><img src="http://blog.valejet.com/wp-content/uploads/2016/03/word-780x780.png" width="44"></div>
+				<div class="item-media"><img src="img/word.png" width="44"></div>
 				 <div class="item-inner">
 					<div class="item-title-row">
 					   <div class="item-title">Contratro Nova empresa</div>
@@ -137,7 +174,7 @@
 				 </div>
 			 </li>
 			 <li class="item-content">
-				<div class="item-media"><img src="https://www.elconsejo.org/wp-content/uploads/2018/12/245px-Microsoft_PowerPoint_2013_logo.svg_.png" width="44"></div>
+				<div class="item-media"><img src="img/PowerPoint.png" width="44"></div>
 				 <div class="item-inner">
 					<div class="item-title-row">
 					   <div class="item-title">Contratro Nova empresa</div>
@@ -150,7 +187,7 @@
 				 </div>
 			 </li>
 			 <li class="item-content">
-				<div class="item-media"><img src="http://www.npsoluzioni.com/wp-content/uploads/2015/11/Excel2013.png" width="44"></div>
+				<div class="item-media"><img src="img/Excel2013.png" width="44"></div>
 				 <div class="item-inner">
 					<div class="item-title-row">
 					   <div class="item-title">Contratro Nova empresa</div>
@@ -163,7 +200,7 @@
 				 </div>
 			 </li>
 			 <li class="item-content">
-				<div class="item-media"><img src="https://cdn.icon-icons.com/icons2/56/PNG/512/Metro_Windows8photos_11358.png" width="44"></div>
+				<div class="item-media"><img src="img/imagem.png" width="44"></div>
 				 <div class="item-inner">
 					<div class="item-title-row">
 					   <div class="item-title">Contratro Nova empresa</div>

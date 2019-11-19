@@ -251,6 +251,7 @@ login_user_device = () => {
 
 								localStorage.setItem('MPET',retorno[0]['MPET']);
 								localStorage.setItem('MCAM',retorno[0]['MCAM']);
+								localStorage.setItem('FOTO',retorno[0]['foto']);
 								localStorage.setItem('LOTE',retorno[0]['rlote']+' '+retorno[0]['lote']);
 								localStorage.setItem('MFALE',retorno[0]['MFALE']);
 								localStorage.setItem('MHOME',retorno[0]['perfil']);
@@ -289,9 +290,6 @@ login_user_device = () => {
 								localStorage.setItem('ROTULO_LOTE' ,retorno[0]['rlote']);
 								localStorage.setItem('AUTORIZA' ,retorno[0]['autoriza']);
 
-								// descomentar e rever corretamente ======>>>
-								// $('.user_foto').css("background-image", "url(data:image/jpeg;base64,"+retorno[0]['foto']+")");
-
 								localStorage.setItem('CHAT_EMAIL',retorno[0]['CHAT_EMAIL']);
 								localStorage.setItem('CHAT_TOCA' ,retorno[0]['CHAT_TOCA']);
 								localStorage.setItem('CHAT_VIBRA',retorno[0]['CHAT_VIBRA']);
@@ -317,23 +315,8 @@ login_user_device = () => {
 								localStorage.setItem('COR_VIBRA',retorno[0]['COR_VIBRA']);
 								localStorage.setItem('COR_MSG',retorno[0]['COR_MSG']);
 
-								console.log("direcionar para a pagina home interno");
-								app.views.main.router.navigate("/home/", {animate:true});
 
-								$$(document).on('page:init', '.page[data-name="pgHome"]', function (e) {
-									app.actions.close('.loginApp', true);
-								}); 
-								
-								// $$(document).on('page:init', function (e) {
-								// })
-
-								// descomentar e rever corretamente ======>>>
-
-								// afed('#home','#login_ini','','',3,'home');
-								// $("#initApp").hide('fast');
-								// afed('.smenu,#perfil_abre,#perfil','#perfil_edit,#perfil_fecha','','',2);
-
-								/* Tratativa para limitar nome do morador no menu */
+								MORADOR_NOME = retorno[0]['nome'];
 								var nome_formatado = '';
 								if(MORADOR_NOME.length > 18){
 									nome_formatado = MORADOR_NOME.substr(0,18)+'...';
@@ -343,15 +326,29 @@ login_user_device = () => {
 
 								if(localStorage.getItem("PARENTESCO") == 1 ){ 
 									tipo_user_ = ' - Titular';		 
-									// descomentar e rever corretamente ======>>>
-									// $("#edit_moradores").css("display","block"); 
 								}else{
 									tipo_user_ = '';	
 								}
 
+								app.views.main.router.navigate("/home/", {animate:true});
+
+								$$(document).on('page:init', '.page[data-name="pgHome"]', function (e) {
+									app.actions.close('.loginApp', true);
+								}); 
+
+								setTimeout(function(){
+									$(".perfil_condominio").html(limita_txt(retorno[0]['nome_condominio'],27));
+									$(".perfil_nome").html(nome_formatado+tipo_user_);
+									let img = "data:image/png;base64,"+retorno[0]['foto'];
+									$('.user_foto').attr("src", img);
+								},500);
+					
 								// descomentar e rever corretamente ======>>>
-								// $(".perfil_condominio").html(limita_txt(retorno[0]['nome_condominio'],27));
-								// $(".perfil_nome").html(nome_formatado+tipo_user_);
+								// afed('#home','#login_ini','','',3,'home');
+								// $("#initApp").hide('fast');
+								// afed('.smenu,#perfil_abre,#perfil','#perfil_edit,#perfil_fecha','','',2);
+
+								// descomentar e rever corretamente ======>>>
 								// $("#bloco").html(QUADRA);
 								// $("#apto").html(LOTE);
 								// $("#blocoapto").html(QUADRA.toLowerCase()+' - '+LOTE.toLowerCase());
@@ -394,9 +391,11 @@ login_user_device = () => {
 								}
 
 								if(localStorage.getItem("MFALE") == 1){
-									afed('','','','',3); 
+									// descomentar e rever corretamente ======>>>
+									// afed('','','','',3); 
 								}else{
-									afed('','','','',3); 
+									// descomentar e rever corretamente ======>>>
+									// afed('','','','',3); 
 								}
 
 								if(localStorage.getItem("MENQUENTE") == 1){
@@ -463,7 +462,6 @@ login_user_device = () => {
 									// $("#foto_user_mor").attr("onclick","alerta('','Para alterar a foto, entre em contato com administração');"); 
 								}
 
-
  									// $('.back').hide();
 									// carrega_chat();
 									// inicia(0);
@@ -471,10 +469,10 @@ login_user_device = () => {
 									// atualiza_notificacao(0);
 
 
+									// setTimeout(function(){
+									// 	nome_exibicao(retorno[0]['id_condominio']);
+									// },500);
 
-									setTimeout(function(){
-										nome_exibicao(retorno[0]['id_condominio']);
-									},500);
 							}else{
 								notifica('Perfil/Perfil usuário inválido/Fechar',0,0);
 							}
@@ -513,22 +511,15 @@ logout = () => {
 	});
 }
 
-
-
-nome_exibicao = (id_condominio) => {
-	$.ajax({
-		type: 'POST',
-		url: localStorage.getItem('DOMINIO')+'appweb/login.php',
-		data: 'NOME_EXIBICAO=""&id_condominio='+id_condominio,
-		crossDomain: true,
-	    dataType   : 'json',
-		success: function(retorno){
-			console.log("exibicao de nome......");
-			// descomentar e rever corretamente ======>>>
-	       // $('.perfil_condominio').html(retorno);
-		}
-	});
+// levar essa função para arquivo geral;.....
+limita_txt = (titulo,qtd) => {
+	if(titulo.length > qtd){
+		$(this).text($(this).text().substr(0,qtd)+'...');
+		titulo = titulo.substr(0,qtd)+'...';
+	}
+	return titulo;
 }
+// levar essa função para arquivo geral;.....
 
 
 aceiteiTermo = (prossigaOutroCaminho=null) => {

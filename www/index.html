@@ -21,7 +21,7 @@
         <!-- Your main view, should have "view-main" class -->
       <div class="view view-main">
             <!-- Initial Page, "data-name" contains page name -->
-            <div data-name="home" class="page white_ice">
+            <div data-name="pgIndex" class="page white_ice">
               <div id="initApp" class="login_iniNew alingElement">
                 <img src="img/logoicon.png" width="150">
                 
@@ -35,9 +35,6 @@
                     </div>
                     <div class="col-50" style="position: relative;top: 14px;">
                       <button class="col button button-raised button-fill color-red button-large" onclick="loginGoogle()"> <img class="socialMidiaIcon" src="img/icons/gplus_white.png" width="18" height="18" alt=""> Google</button>
-            <div class="toolbar-inner " style="background-color: black">
-              <a href="/home/" data-transition="f7-circle" class="link ">HOME</a>
-              <a href="#" class="link ">Lugar nenhum</a>
                     </div>
                     <div class="col-100" style="position: relative;top: 48px;">
                       <a href="#" onclick="swich_tela_primeiroAcesso()" data-transition="f7-cover" class="" style="color: #919b97;"> Primeiro Acesso</a>
@@ -51,8 +48,8 @@
     </div>
     
     <script type="text/javascript" src="lib/framework7/js/framework7.bundle.min.js"></script>
+    <script type="text/javascript" src="paginas/login/loginAtivation.js"></script>
     <script type="text/javascript" src="js/my-app.js"></script>
-    <script type="text/javascript" src="js/login/loginAtivation.js"></script>
   	<script type="text/javascript">
   		document.addEventListener("deviceready",onDeviceReady,false);
   		function onDeviceReady() {

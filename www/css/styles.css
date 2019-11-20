@@ -184,6 +184,9 @@ background: linear-gradient(#0064c0, #007aff);
   position: relative;
   left: 10px !important;
 }
+.moradorBloco{
+  text-transform: capitalize;
+}
 
 /*************************** Area Comum *****************************************/
 .facebook-card-area .card-header {

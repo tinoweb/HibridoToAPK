@@ -14,7 +14,7 @@ swich_tela_login = () => {
 }
 
 loginOut = () => {
-	app.views.main.router.navigate("/index/", {animate:true});
+	goToIndexPage();
 	$$(document).on('page:init', function (e) {
 		app.actions.close('.loginApp', true);
 	})

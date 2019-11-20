@@ -1,5 +1,5 @@
 <div class="pages">
-    <div class="page" data-page="chat">
+    <div class="page" data-page="" data-name="pgPerfil">
         <div class="page">
             
             <div class="navbar">
@@ -44,11 +44,16 @@
                     </div>
                     <div class="item-inner">
                         <div class="item-title" style="margin-top: -10%">
-                            <h1>
+                            <h1 id="moradorName">
                                 Juliano Silveira
                             </h1>
                             <p class="size-15">
-                                Bloco 1  Apt: 23
+                                <span id="moradorBloco" class="moradorBloco">
+                                    Bloco --- 
+                                </span>
+                                <span id="moradorApt">
+                                    Apt: ---
+                                </span>
                             </p>
                         </div>
                     </div>
@@ -57,41 +62,42 @@
                 <div class="row block block-strong " style="margin-top:30%;">
                     <div class="col-50 medium-25">
                         <p class="size-10 col-50 medium-25">
-                            RG : 482987462
+                            RG : <span id="perfil_rg"></span>
                         </p>
                         <p class="size-10 col-50 medium-25">
-                            Telefone : (19)3833-3344
+                            Telefone : <span id="perfil_telefone"></span>
                         </p>
                         <p class="size-10">
-                            Nascimento : 20/02/1978
+                            Nascimento : <span id="perfil_nascimento"></span>
                         </p>
                         <p class="size-10">
-                            Sexo : Masculino
+                            Sexo : <span id="perfil_gernero"></span>
                         </p>
                     </div>
                     <div class="col-50 medium-25">
                         <p class="size-10">
-                            Parentesco : Titular
+                            Parentesco : <span id="perfil_parentesco"></span>
                         </p>
                         <p class="size-10">
-                            Control Condo : Ativo
+                            Control Condo : <span id="perfil_statusCondo"></span>
                         </p>
                         <p class="size-10">
-                            Autoriza Visita : Ativo
+                            Autoriza Visita : <span id="perfil_statusVisita"></span>
                         </p>
                         <p class="size-10">
-                            Email : david@firstcontrol.com.br
+                            Email : <span id="perfil_email"></span>
                         </p>
                     </div>
-                    <div class="item-title">
+
+                    <div class="item-title hasFamilia">
                         Família
                     </div>
                 </div>
                 
-                <div style="margin-top: -10%">
+                <div style="margin-top: -10%" class="hasFamilia">
                     <div class="list accordion-list">
-                        <ul>
-                            <li class="accordion-item">
+                        <ul id="familiares_morador">
+                            <!-- <li class="accordion-item">
                                 <a class="item-content item-link" href="#">
                                     <div class="item-media">
                                         <div class="item-media">
@@ -140,6 +146,7 @@
                                     </div>
                                 </div>
                             </li>
+
                             <li class="accordion-item">
                                 <a class="item-content item-link" href="#">
                                     <div class="item-media">
@@ -189,7 +196,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </li>
+                            </li> -->
                         </ul>
                     </div>
                 </div>

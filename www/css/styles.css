@@ -16,14 +16,12 @@
 .centralizar
 {
 	text-align: -webkit-center;
-	
-	
 }
 .tema-azul
 {
 background: linear-gradient(#0064c0, #007aff);	
 }
-
+.list input[type=datetime-local]{max-width:100% !important}
 /*FONT SIZE*/
 .size-5 { font-size: 5px }
 .size-10 { font-size: 10px }
@@ -165,6 +163,28 @@ background: linear-gradient(#0064c0, #007aff);
   margin-top: 10%;
 }
 
+.list_no_margin{
+  margin: 0px !important;
+}
+.alingCenter{
+  position: relative;
+  left: 22%;
+  top: 15px;
+}
+.white_ice{
+  background-color: #efefef3d !important;
+}
+.left-6{
+  left: 6px !important;
+}
+.rigth-6{
+  right: 6px !important;
+}
+.left-10{
+  position: relative;
+  left: 10px !important;
+}
+
 /*************************** Area Comum *****************************************/
 .facebook-card-area .card-header {
   display: block;
@@ -221,3 +241,4 @@ background: linear-gradient(#0064c0, #007aff);
 }
 
 /*********************************************************/
+

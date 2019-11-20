@@ -1,5 +1,5 @@
 <div class="pages">
-	<div id="primeiroAcesso" data-page="activationcode" class="primeiroAcessoPage page ">
+	<div id="primeiroAcesso" data-page="activationcode" class="primeiroAcessoPage page">
 		
 		<div class="navbar">
 	        <div class="navbar-bg">
@@ -7,12 +7,12 @@
 	        
 	        <div class="navbar-inner sliding">
 	            <div class="left">
-	                <a class="link back" href="#">
-	                    <i class="icon icon-back">
+	                <a class="link" onclick="primeiroAcessoBtnVoltar()" href="#">
+	                    <i class="icon icon-back text-color-blue">
 	                    </i>
 	                </a>
 	            </div>
-	            <div class="title">
+	            <div class="title text-color-gray">
 	                Receber código de ativação
 	            </div>
 	        </div>
@@ -29,13 +29,14 @@
 				<div class="row" style="position: relative; padding: 12px;">
 
 					<!-- ############# receber pelo email ################# -->
-					<div class="col-xs-12" id="divRecevebyEmail">
-						<a href="#" style="color:white" data-sheet=".recebEmail" class="sheet-open button button-raised button-fill color-blue">
-							<i class="fa fa-envelope" aria-hidden="true"></i>
-							Receber pelo e-mail 
-						</a> 
+					<a href="#" style="color:white" data-sheet=".recebEmail" class="col-100 sheet-open button button-raised button-fill color-blue">
+						<i class="fa fa-envelope" aria-hidden="true"></i>
+						Receber pelo e-mail 
+					</a> 
+
+					<div class="col-100" id="divRecevebyEmail">
 						
-						<div class="sheet-modal recebEmail" id="" style="height: 40%; display: block; display: none">
+						<div class="sheet-modal recebEmail" id="" style="">
 							<div class="toolbar bg-color-blue">
 								<div class="toolbar-inner">
 									<div class="left">
@@ -49,12 +50,12 @@
 							<div class="list" id="formSendEmail">
 							    <div class="item-content item-input">
 							      	<div class="item-inner">
-								        <div class="item-title">Digite o seu email</div>
+								        <div class="item-title item-floating-label">Digite o seu email</div>
 								        <div class="item-input-wrap">
 								          <input type="email" name="emailCode" validate id="inputReceveEmailToGetCode" required="true" placeholder="usuario@mail.com" style="border: none;">
 								          <span class="input-clear-button"></span>
 								        </div>
-								        <button class="button button-raised button-fill paddingTop10" id="btnSendEmailToGetCode" onclick="choosedMail()" name="entrar"> ENVIAR </button>
+								        <button class="button button-raised button-fill button-large" id="btnSendEmailToGetCode" style="color: white; width: 100%;margin-top: 10%;" onclick="choosedMail()" name="entrar"> ENVIAR </button>
 								        <!--  -->
 							      	</div>
 							    </div>
@@ -66,37 +67,37 @@
 
 					<!-- ############# receber pelo SMS ################# -->
 					<div class="hide"> <!--temporariamente escondido até implementar o o envio e recebimento de SMS-->
-					<div class="col-xs-12" style="position: relative;top: 14px;" id="divRecevebySMS">
-						<a href="#" style="color:white" data-sheet=".recebSMS" class="sheet-open btn btn-primary btn-lg btn-block btn-no-border">
-							<i class="fa fa-commenting-o" aria-hidden="true"></i>
-							Receber pelo SMS 
-						</a> 
+						<div class="col-xs-12" style="position: relative;top: 14px;" id="divRecevebySMS">
+							<a href="#" style="color:white" data-sheet=".recebSMS" class="sheet-open btn btn-primary btn-lg btn-block btn-no-border">
+								<i class="fa fa-commenting-o" aria-hidden="true"></i>
+								Receber pelo SMS 
+							</a> 
 
-						<div class="sheet-modal recebSMS" id="" style="height: 40%; display: block; display: none">
-							<div class="toolbar">
-								<div class="toolbar-inner">
-									<div class="left">
-										<i class="fa fa-commenting-o" aria-hidden="true" style="margin-left: 10px;"></i>
-									</div>
-									<div class="right">
-										<a class="link sheet-close" id="fecha_busca_pet" href="#">Fechar</a>
+							<div class="sheet-modal recebSMS" id="" style="height: 40%; display: block; display: none">
+								<div class="toolbar">
+									<div class="toolbar-inner">
+										<div class="left">
+											<i class="fa fa-commenting-o" aria-hidden="true" style="margin-left: 10px;"></i>
+										</div>
+										<div class="right">
+											<a class="link sheet-close" id="fecha_busca_pet" href="#">Fechar</a>
+										</div>
 									</div>
 								</div>
+								<form class="list" id="formSendSMS">
+								    <div class="item-content item-input">
+								      	<div class="item-inner">
+									        <div class="item-title">Digite o seu Telefone</div>
+									        <div class="item-input-wrap">
+									          <input type="tel" validate required name="telefone" placeholder="(99) 99999-9999" style="border: none;">
+									          <span class="input-clear-button"></span>
+									        </div>
+									        <button type="button" style="width: 100%;margin-top: 10%;" class="button button-fill color-green link sheet-close" onclick="choosedSms()">ENVIAR</button>
+								      	</div>
+								    </div>
+								</form>
 							</div>
-							<form class="list" id="formSendSMS">
-							    <div class="item-content item-input">
-							      	<div class="item-inner">
-								        <div class="item-title">Digite o seu Telefone</div>
-								        <div class="item-input-wrap">
-								          <input type="tel" validate required name="telefone" placeholder="(99) 99999-9999" style="border: none;">
-								          <span class="input-clear-button"></span>
-								        </div>
-								        <button type="button" style="width: 100%;margin-top: 10%;" class="button button-fill color-green link sheet-close" onclick="choosedSms()">ENVIAR</button>
-							      	</div>
-							    </div>
-							</form>
 						</div>
-					</div>
 					</div>
 					<!-- ############################## -->
 				</div>

@@ -15,8 +15,18 @@ var app = new Framework7({
   // Add default routes
   routes: [
     {
+      name: 'pgIndex',
+      path: '/index/',
+      url: 'index.html',
+    },
+    {
       path: '/home/',
       url: 'paginas/home.html',
+    },
+    {
+      name: 'pgLogin',
+      path: '/login/',
+      url: 'paginas/login/login.html',
     },
     {
       path: '/about/',
@@ -43,6 +53,14 @@ var app = new Framework7({
       url: 'paginas/ocorrencia/ocorrencia.html',
     },
 	  
+    {
+      path: '/areacomum/',
+      url: 'paginas/areacomum/areacomum.html',
+    },
+    {
+      path: '/minha_reserva/',
+      url: 'paginas/areacomum/minha_reserva.html',
+    },
     {
       path: '/documentos/',
       url: 'paginas/documentos/documentos.html',
@@ -91,6 +109,26 @@ var app = new Framework7({
       path: '/lib_3/',
       url: 'paginas/liberacao/liberacao_passo3.html',
     },
+    { 
+      name: 'pgRecebeEmailToGetCode',
+      path: '/activationcode/',
+      url: 'paginas/login/gerar_codigo_ativacao.html',
+    },
+    { 
+      name: 'pgValidaCodigo',
+      path: '/receveAtivationCode/',
+      url: 'paginas/login/validar_codigo_ativacao.html',
+    },
+    { 
+      name: 'pgTermoUso',
+      path: '/termo_de_uso/',
+      url: 'paginas/login/termo.html',
+    },
+    { 
+      name: 'pgDefineSenha',
+      path: '/define_senha/',
+      url: 'paginas/login/defineSenha.html',
+    },
     {
       path: '/lib_acessos/',
       url: 'paginas/liberacao/liberacao_acessos.html',
@@ -101,6 +139,8 @@ var app = new Framework7({
 	
 	
 });
+
+var $$ = Dom7;
 
 var mainView = app.views.create('.view-main'); 
 

@@ -16,8 +16,6 @@
 .centralizar
 {
 	text-align: -webkit-center;
-	
-	
 }
 .tema-azul
 {
@@ -109,9 +107,25 @@ background: linear-gradient(#0064c0, #007aff);
   font-weight: 500;
   color: #FFF;
 }
+.facebook-card-liberacao .demo-facebook-name2 {
+  margin-left: 85px;
+  font-size: 18px;
+  font-weight: 500;
+  color: #FFF;
+}
 .facebook-card-liberacao .demo-facebook-date {
   margin-left: 44px;
   font-size: 13px;
+  color: #FFF;
+}
+.facebook-card-liberacao .demo-facebook-motivo {
+  margin-left: 85px;
+  font-size: 16px;
+  color: #FFF;
+}
+.facebook-card-liberacao .demo-facebook-status {
+  margin-left: 85px;
+  font-size: 16px;
   color: #FFF;
 }
 .facebook-card-liberacao .card-footer {
@@ -133,4 +147,97 @@ background: linear-gradient(#0064c0, #007aff);
 
 /*********************************************************/
 
+.socialMidiaIcon{
+  position: relative; top: 3px;
+}
+.alingElement{
+  position: relative;
+  text-align: center;
+  top: 80px;
+}
+.alingElementCenter{
+  position: relative;
+  text-align: center;
+}
+.paddingTop10{
+  margin-top: 10%;
+}
+
+.list_no_margin{
+  margin: 0px !important;
+}
+.alingCenter{
+  position: relative;
+  left: 22%;
+  top: 15px;
+}
+.white_ice{
+  background-color: #efefef3d !important;
+}
+.left-6{
+  left: 6px !important;
+}
+.rigth-6{
+  right: 6px !important;
+}
+.left-10{
+  position: relative;
+  left: 10px !important;
+}
+
+/*************************** Area Comum *****************************************/
+.facebook-card-area .card-header {
+  display: block;
+  padding: 10px;
+  background-color: #007aff;
+}
+.facebook-card-area .demo-facebook-avatar {
+  float: left;
+}
+.facebook-card-area .demo-facebook-name {
+  margin-left: 44px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #FFF;
+}
+.facebook-card-area .demo-facebook-name2 {
+  margin-left: 85px;
+  font-size: 18px;
+  font-weight: 500;
+  color: #FFF;
+}
+.facebook-card-area .demo-facebook-date {
+  margin-left: 44px;
+  font-size: 13px;
+  color: #FFF;
+}
+.facebook-card-area .demo-facebook-motivo {
+  margin-left: 85px;
+  font-size: 16px;
+  color: #FFF;
+}
+.facebook-card-area .demo-facebook-status {
+  margin-left: 85px;
+  font-size: 16px;
+  color: #FFF;
+}
+
+.facebook-card-area .card-footer {
+   background-color: #FAFAFA;
+}
+.facebook-card-area .card-footer a {
+  color: #81848b;
+  font-weight: 500;
+}
+.facebook-card-area .card-content p {
+  padding: 0 10px ;
+}
+.facebook-card-area .card-content-padding {
+  padding: 15px 10px;
+}
+.facebook-card-area .card-content-padding .likes {
+  color: #81848b;
+}
+
+/*********************************************************/
 

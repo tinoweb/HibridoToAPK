@@ -1,0 +1,107 @@
+<div class="pages">
+	<div id="primeiroAcesso" data-page="activationcode" class="primeiroAcessoPage page">
+		
+		<div class="navbar">
+	        <div class="navbar-bg">
+	        </div>
+	        
+	        <div class="navbar-inner sliding">
+	            <div class="left">
+	                <a class="link" onclick="primeiroAcessoBtnVoltar()" href="#">
+	                    <i class="icon icon-back">
+	                    </i>
+	                </a>
+	            </div>
+	            <div class="title text-color-gray">
+	                Receber código de ativação
+	            </div>
+	        </div>
+	    </div>
+	    <div class="alingElement">
+			<img src="img/logoicon.png" width="150">
+			<div class="row">
+				<p class="col-xs-12" style="position: relative;top: 20px;padding: 15px 41px;">
+					clica em um dos botões abaixo para escolher como quer receber o codigo de ativação para ter acesso ao seu condominio!
+				</p>
+			</div>
+
+			<div id="" class="form-signin" style="top: 35px;position: relative;padding: 15px 14px;"> 
+				<div class="row" style="position: relative; padding: 12px;">
+
+					<!-- ############# receber pelo email ################# -->
+					<a href="#" style="color:white" data-sheet=".recebEmail" class="col-100 sheet-open button button-raised button-fill color-blue">
+						<i class="fa fa-envelope" aria-hidden="true"></i>
+						Receber pelo e-mail 
+					</a> 
+
+					<div class="col-100" id="divRecevebyEmail">
+						
+						<div class="sheet-modal recebEmail" id="" style="">
+							<div class="toolbar bg-color-blue">
+								<div class="toolbar-inner">
+									<div class="left">
+										<i class="fa fa-envelope" aria-hidden="true" style="margin-left: 10px;"></i>
+									</div>
+									<div class="right">
+										<a class="link sheet-close color-white" id="fecha_busca_pet" href="#">Fechar</a>
+									</div>
+								</div>
+							</div>
+							<div class="list" id="formSendEmail">
+							    <div class="item-content item-input">
+							      	<div class="item-inner">
+								        <div class="item-title item-floating-label">Digite o seu email</div>
+								        <div class="item-input-wrap">
+								          <input type="email" name="emailCode" validate id="inputReceveEmailToGetCode" required="true" placeholder="usuario@mail.com" style="border: none;">
+								          <span class="input-clear-button"></span>
+								        </div>
+								        <button class="button button-raised button-fill button-large" id="btnSendEmailToGetCode" style="color: white; width: 100%;margin-top: 10%;" onclick="choosedMail()" name="entrar"> ENVIAR </button>
+								        <!--  -->
+							      	</div>
+							    </div>
+							</div>
+						</div>
+					</div>
+					<!-- ############################## -->
+
+
+					<!-- ############# receber pelo SMS ################# -->
+					<div class="hide"> <!--temporariamente escondido até implementar o o envio e recebimento de SMS-->
+						<div class="col-xs-12" style="position: relative;top: 14px;" id="divRecevebySMS">
+							<a href="#" style="color:white" data-sheet=".recebSMS" class="sheet-open btn btn-primary btn-lg btn-block btn-no-border">
+								<i class="fa fa-commenting-o" aria-hidden="true"></i>
+								Receber pelo SMS 
+							</a> 
+
+							<div class="sheet-modal recebSMS" id="" style="height: 40%; display: block; display: none">
+								<div class="toolbar">
+									<div class="toolbar-inner">
+										<div class="left">
+											<i class="fa fa-commenting-o" aria-hidden="true" style="margin-left: 10px;"></i>
+										</div>
+										<div class="right">
+											<a class="link sheet-close" id="fecha_busca_pet" href="#">Fechar</a>
+										</div>
+									</div>
+								</div>
+								<form class="list" id="formSendSMS">
+								    <div class="item-content item-input">
+								      	<div class="item-inner">
+									        <div class="item-title">Digite o seu Telefone</div>
+									        <div class="item-input-wrap">
+									          <input type="tel" validate required name="telefone" placeholder="(99) 99999-9999" style="border: none;">
+									          <span class="input-clear-button"></span>
+									        </div>
+									        <button type="button" style="width: 100%;margin-top: 10%;" class="button button-fill color-green link sheet-close" onclick="choosedSms()">ENVIAR</button>
+								      	</div>
+								    </div>
+								</form>
+							</div>
+						</div>
+					</div>
+					<!-- ############################## -->
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

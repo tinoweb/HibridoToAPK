@@ -169,7 +169,8 @@ background: linear-gradient(#0064c0, #007aff);
 .facebook-card-area .card-header {
   display: block;
   padding: 10px;
-  background-color: #007aff;
+  background-color:#EAEAEA;
+  color: #8e8e93;
 }
 .facebook-card-area .demo-facebook-avatar {
   float: left;

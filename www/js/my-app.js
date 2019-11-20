@@ -1,3 +1,5 @@
+var $$ = Dom7;
+
 // Initialize app
 var app = new Framework7({
   root: '#app', 
@@ -26,6 +28,27 @@ var app = new Framework7({
       path: '/about/',
       url: 'paginas/about.html',
     },
+	{
+      path: '/comunicado/',
+      url: 'paginas/comunicado/comunicado.html',
+    },
+	{
+      path: '/pet/',
+      url: 'paginas/pet/pet.html',
+    },
+	{
+      path: '/perfil_pet/',
+      url: 'paginas/pet/pet_perfil.html',
+    },
+	{
+      path: '/pet_cadastro/',
+      url: 'paginas/pet/pet_cadastro.html',
+    },
+	{
+      path: '/ocorrencia/',
+      url: 'paginas/ocorrencia/ocorrencia.html',
+    },
+	  
     {
       path: '/areacomum/',
       url: 'paginas/areacomum/areacomum.html',

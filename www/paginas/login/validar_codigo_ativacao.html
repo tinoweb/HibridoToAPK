@@ -1,5 +1,5 @@
 <div class="pages">
-	<div id="telaVerificaCodigo" data-page="activationcode" class="page">
+	<div id="telaVerificaCodigo" data-name="pgAtivationCode" class="page">
 		<div class="navbar">
 	        <div class="navbar-bg">
 	        </div>
@@ -10,6 +10,7 @@
 	                    </i>
 	                </a>
 	            </div>
+	           <div class="title text-color-gray">Confirmar Ativação</div>
 	        </div>
 	    </div>
 		
@@ -18,12 +19,12 @@
 				<form class="list" id="formGetActivationCode">
 				    <div class="item-content item-input">
 				      	<div id="authCodeAtivacao" class="item-inner">
-					        <div class="item-title" style="">Código Ativação</div>
+					        <!-- <div class="item-title" style=""></div> -->
 					        <div class="item-input-wrap">
 					          <input id="codigoAtivacao" data-error-message="Por favor, preencha este campo!" type="text" required name="codigoativacaoField" style="border: none;">
 					          <span class="input-clear-button"></span>
 					        </div>
-					        <button type="button" style="width: 100%;margin-top: 10%;" class="button button-fill color-green link sheet-close" onclick="enviarCodigoAtivacao()">ENVIAR</button>
+					        <button type="button" style="width: 100%;margin-top: 10%;" class="button button-fill color-green button-large link sheet-close" onclick="enviarCodigoAtivacao()">ENVIAR</button>
 				      	</div>
 				    </div>
 				</form>

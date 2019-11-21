@@ -5,3 +5,5 @@
 			app.views.main.router.navigate("/perfil/", {animate:true});
 		}
 	}
+
+	

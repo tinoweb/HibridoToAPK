@@ -10,15 +10,19 @@ carregaInfoProfile = () => {
 	let nomeMorador = localStorage.getItem("MORADOR_NOME");
 	let blocoMorador = localStorage.getItem("QUADRA").toLowerCase();
 	let loteMorador = localStorage.getItem("LOTE").toLowerCase();
+	let nomeCondominio = localStorage.getItem("CONDOMINIO").toLowerCase();
 
- 	blocoMorador = blocoMorador.charAt(0).toUpperCase() + blocoMorador.slice(1);
 	loteMorador = loteMorador.charAt(0).toUpperCase() + loteMorador.slice(1);
+	nomeMorador = nomeMorador.charAt(0).toUpperCase() + nomeMorador.slice(1);
+ 	blocoMorador = blocoMorador.charAt(0).toUpperCase() + blocoMorador.slice(1);
+	nomeCondominio = nomeCondominio.charAt(0).toUpperCase() + nomeCondominio.slice(1);
 
 	setTimeout(function() {
-		$("#moradorName").html(nomeMorador);
+		$("#moradorName, #nomeMorardorMenu").html(nomeMorador);
 		$("#moradorBloco").html(blocoMorador);
 		$("#moradorApt").html(loteMorador);
 		$('.Perfil_user_foto').attr("src", img);
+		$(".perfil_condominio").html(nomeCondominio);
 	}, 100);
 }
 

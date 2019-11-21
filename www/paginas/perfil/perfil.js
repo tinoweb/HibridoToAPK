@@ -1,8 +1,12 @@
-console.log("Estamos na tela do perfil.....");
-	
 carregaInfoProfile = () => {
+	let img;
 	let foto = localStorage.getItem("FOTO");
-	let img = "data:image/png;base64,"+foto;
+	if (foto.length > 0) {
+		img = "data:image/png;base64,"+foto;
+	}else{
+		img = "img/avatar.png";
+	}
+
 	let nomeMorador = localStorage.getItem("MORADOR_NOME");
 	let blocoMorador = localStorage.getItem("QUADRA").toLowerCase();
 	let loteMorador = localStorage.getItem("LOTE").toLowerCase();
@@ -10,13 +14,15 @@ carregaInfoProfile = () => {
  	blocoMorador = blocoMorador.charAt(0).toUpperCase() + blocoMorador.slice(1);
 	loteMorador = loteMorador.charAt(0).toUpperCase() + loteMorador.slice(1);
 
-	$$("#moradorName").html(nomeMorador);
-	$$("#moradorBloco").html(blocoMorador);
-	$$("#moradorApt").html(loteMorador);
-	$$('.Perfil_user_foto').attr("src", img);
+	setTimeout(function() {
+		$("#moradorName").html(nomeMorador);
+		$("#moradorBloco").html(blocoMorador);
+		$("#moradorApt").html(loteMorador);
+		$('.Perfil_user_foto').attr("src", img);
+	}, 100);
 }
 
-function carrega_dados_and_info(id_condominio) {
+carrega_dados_and_info = (id_condominio) => {
 	var families = {};
 	let dados
 	let id_unidade = localStorage.getItem('ID_UNIDADE');
@@ -27,64 +33,58 @@ function carrega_dados_and_info(id_condominio) {
         data       : { id_condominio : id_condominio, id_unidade_morador: id_unidade, getType: "parentes" },
         dataType   : 'json',
 		success: function(retorno){
-			console.log(retorno);
-
-		// return false;
-
-
 			$.each(retorno, function(index, el) {
-				console.log(el);
-			$$("#familiares_morador").append( `<li class="accordion-item">
-				    <a class="item-content item-link" href="#">
-				        <div class="item-media">
-				            <div class="item-media">
-				               <img src="${el.foto.length <= 0 ? "img/avatar.png" : "data:image/png;base64,"+el.foto}" width="40"/>
-				            </div>
-				        </div>
-				        <div class="item-inner">
-				            <div class="item-title">
-				                ${el.nome}
-				                <p class="size-10">
-				                    ${el.descricao}
-				                </p>
-				            </div>
-				        </div>
-				    </a>
-				    <div class="accordion-item-content">
-				        <div class="block" style="margin-bottom: 5%">
-				            <div class="navbar">
-				                <div class="navbar-inner">
-				                    <div class="left">
-				                        <a class="link color-theme-green size-10" data-transition="f7-circle" href="/chat1/">
-				                            <i class="f7-icons" style="color:green">
-				                                chat_bubble_text
-				                            </i>
-				                            Conversar
-				                        </a>
-				                    </div>
-				                    <div class="center">
-				                        <a class="link color-theme-blue size-10" href="/perfil/">
-				                            <i class="f7-icons" style="color:blue">
-				                                person_crop_circle_badge_exclam
-				                            </i>
-				                            Perfil
-				                        </a>
-				                    </div>
-				                    <div class="right">
-				                        <a class="link color-theme-red size-10" href="/perfil_editar/">
-				                            <i class="f7-icons" style="color:red">
-				                                pencil_circle
-				                            </i>
-				                            Editar
-				                        </a>
-				                    </div>
-				                </div>
-				            </div>
-				        </div>
-				    </div>
-				</li>`);
-				
+				$$("#familiares_morador").append( `<li class="accordion-item">
+					    <a class="item-content item-link" href="#">
+					        <div class="item-media">
+					            <div class="item-media">
+					               <img src="${el.foto.length <= 0 ? "img/avatar.png" : "data:image/png;base64,"+el.foto}" width="40"/>
+					            </div>
+					        </div>
+					        <div class="item-inner">
+					            <div class="item-title">
+					                ${el.nome}
+					                <p class="size-10">
+					                    ${el.descricao}
+					                </p>
+					            </div>
+					        </div>
+					    </a>
+					    <div class="accordion-item-content">
+					        <div class="block" style="margin-bottom: 5%">
+					            <div class="navbar">
+					                <div class="navbar-inner">
+					                    <div class="left">
+					                        <a class="link color-theme-green size-10" data-transition="f7-circle" href="/chat1/">
+					                            <i class="f7-icons" style="color:green">
+					                                chat_bubble_text
+					                            </i>
+					                            Conversar
+					                        </a>
+					                    </div>
+					                    <div class="center">
+					                        <a class="link color-theme-blue size-10" href="/perfil/">
+					                            <i class="f7-icons" style="color:blue">
+					                                person_crop_circle_badge_exclam
+					                            </i>
+					                            Perfil
+					                        </a>
+					                    </div>
+					                    <div class="right">
+					                        <a class="link color-theme-red size-10" href="/perfil_editar/">
+					                            <i class="f7-icons" style="color:red">
+					                                pencil_circle
+					                            </i>
+					                            Editar
+					                        </a>
+					                    </div>
+					                </div>
+					            </div>
+					        </div>
+					    </div>
+					</li>`);
 				});
+        	localStorage.setItem("FAMILIASGETED", "geted");
         },
         error: function() {
             alerta(4);
@@ -114,8 +114,6 @@ carrega_morador_dados = (id_morador) => {
 			$("#perfil_statusCondo").html(statusCondo);
 			$("#perfil_statusVisita").html(statusVisita);
 			$("#perfil_email").html(retorno[0]['email']);
-			
-
 
 			if (retorno[0]['parentesco'] == 1) {
 				carrega_dados_and_info(localStorage.getItem('ID_CONDOMINIO'));

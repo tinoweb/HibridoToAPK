@@ -909,13 +909,38 @@ function carrega_user_perfil(id) {
 				  	closeByBackdropClick: false,
 				  	closeOnEscape: false
 				});
+
 				app.actions.close('.loginApp', true);
 				app.actions.open('#multiProfileUser', true);
 
+				console.log("inicializando view");
+				var viewSheetModal = app.views.create('.view-sheet-modal');
+
+				smartSelect = app.smartSelect.create({
+					el:'.selectCondo',
+					on: {
+					    opened: function () {
+					      	console.log('Smart select opened');
+					      	console.log($(".page-content")[1]);
+
+					      	let elemento = $(".page-content")[1];
+							let esseElemento = elemento.firstElementChild;
+							esseElemento.style.position="relative";
+							esseElemento.style.top="26px";
+							$(".icon-back").attr('style', 'color: #037aff !important');
+					    },
+
+					}
+				});
+
+				console.log(smartSelect);
+				
+				var primeiro = '<option value="" selected="">Selecione o seu Condominio</option>';
                 for (x in retorno) {
-                    var dado = '<option value="'+retorno[x]['id_usuario_condominio']+'">'+retorno[x]['nome_condominio']+'</option>';
+                    dado = '<option onclick="select_user('+retorno[x]['id_usuario_condominio']+')" value="'+retorno[x]['id_usuario_condominio']+'">'+retorno[x]['nome_condominio']+'</option>';
                     dados = dados + dado;
                 }
+                dados = primeiro + dados;
 
                 $('#perfil_login').html(dados);
 			}
@@ -1394,6 +1419,3 @@ checkUsuarioGoogleToLogin = (email) => {
         }
 	});	
 }
-
-
-

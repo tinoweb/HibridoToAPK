@@ -119,6 +119,8 @@ carrega_morador_dados = (id_morador) => {
 			$("#perfil_statusVisita").html(statusVisita);
 			$("#perfil_email").html(retorno[0]['email']);
 
+			console.log(retorno);
+
 			if (retorno[0]['parentesco'] == 1) {
 				carrega_dados_and_info(localStorage.getItem('ID_CONDOMINIO'));
 			}else{

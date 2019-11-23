@@ -1,5 +1,4 @@
 var $$ = Dom7;
-
 // Initialize app
 var app = new Framework7({
   // App root element
@@ -52,8 +51,23 @@ var app = new Framework7({
       path: '/ocorrencia/',
       url: 'paginas/ocorrencia/ocorrencia.html',
     },
-	  
+	{
+      path: '/ticket/',
+      url: 'paginas/ocorrencia/ticket.html',
+    },
+	{
+      path: '/novo_ticket/',
+      url: 'paginas/ocorrencia/novo_ticket.html',
+    }, 
+	{
+      path: '/nova_ocorrencia/',
+      url: 'paginas/ocorrencia/nova_ocorrencia.html',
+    },	  
     {
+      path: '/enquetes/',
+      url: 'paginas/enquetes/enquete.html',
+    }, 
+	{
       path: '/areacomum/',
       url: 'paginas/areacomum/areacomum.html',
     },
@@ -133,6 +147,7 @@ var app = new Framework7({
       path: '/lib_acessos/',
       url: 'paginas/liberacao/liberacao_acessos.html',
     },
+
   ],
 	
   // ... other parameters
@@ -140,7 +155,7 @@ var app = new Framework7({
 	
 });
 
-var $$ = Dom7;
+
 
 var mainView = app.views.create('.view-main'); 
 

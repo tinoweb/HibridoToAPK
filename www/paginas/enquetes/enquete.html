@@ -1,0 +1,175 @@
+<div class="pages">
+    <div data-page="Enquetes" class="page">
+	 <div class="page">
+		  <!-- MENU -->
+	  <div class="navbar" >
+		<div class="navbar-bg"></div>
+		<div class="navbar-inner sliding" style="background: linear-gradient(#0064c0, #007aff);">
+		  <div class="left">
+			<a class="link" href="/home/" data-transition="f7-push">
+			  <i class="icon icon-back"></i>
+			  <span class="if-not-md">Back</span>
+			</a>
+		  </div>
+		  <div class="title" style="color: white">Ocorrência</div>
+		</div>
+	  </div>
+	  <!-- MENU --> 
+	  <div class="fab fab-right-bottom color-blue">
+		<a href="#" class="">
+		    <i class="material-icons" id="botao_ocorrencia_mais">add</i>
+		    <i class="material-icons">close</i>
+		</a>
+		<div class="fab-buttons fab-buttons-top">
+		  <a id="link-ocorr" class="fab-label-button fab-buttons-left tab-link" onClick="abas_ocorr()" href="#tab-2" style="margin-left: 100%;margin-top: 0%;">
+		     <input type="hidden" id="valor_tab" value="1">
+		     <span class="f7-icons" >exclamationmark_octagon</span>
+		     <span class="fab-label">Minhas Ocorrência</span>
+		  </a>	
+		  <a  class="fab-label-button fab-buttons-bottom tab-link"   href="/nova_ocorrencia/">
+		     <span class="f7-icons"  >plus</span>
+		     <span class="fab-label">Cadastrar</span>
+		  </a>
+		  <div class="fab fab-top fab-morph" data-morph-to=".demo-fab-sheet.fab-morph-target" style="opacity: 1;position: absolute;margin-top: -55px;">
+		     <a class="fab-label-button" href="#">
+		     <span class="f7-icons">search</span>
+		     <span class="fab-label">Filtro</span>
+		     </a>
+		  </div>			   
+		</div>
+	  </div>	 
+	  <div class="list links-list demo-fab-sheet fab-morph-target" style="margin-bottom: -25%;margin-top: 15%;z-index: 999999">
+		<div class="block" style="background-color: white">
+			<div class="item-content item-input" >
+			   <div class="item-inner">
+			     <div class="item-title item-label">Título</div>
+			     <div class="item-input-wrap">
+			        <input type="text" name="nome" placeholder="Buscar por Título">
+			     </div>
+			   </div>
+			</div>
+			<li class="item-content item-input item-input-with-value">
+			   <div class="item-inner">
+			     <div class="item-title item-label">Categoria</div>
+			     <div class="item-input-wrap input-dropdown-wrap">
+			       <select name="gender" placeholder="Please choose..." class="input-with-value">
+						<option value="Male">Ata</option>
+						<option value="Female">Construção</option>
+						<option value="Female">Contratos</option>
+						<option value="Female">Regras</option>
+				   </select>
+			     </div>
+			   </div>
+			</li>
+			<div class="item-content item-input">
+			   <div class="item-inner">
+			     <div class="item-title item-label">De</div>
+			     <div class="item-input-wrap">
+					<input type="datetime-local" style="width: 100%" placeholder="Please choose...">
+			     </div>
+			   </div>
+			</div>
+			<div class="item-content item-input">
+			   <div class="item-inner">
+			     <div class="item-title item-label">Até</div>
+			     <div class="item-input-wrap"  style="width: 100%">
+			        <input type="datetime-local" placeholder="Please choose...">
+			     </div>
+			   </div>
+			</div>
+			<button type="button" class="col button button-fill color-green fab-close" onClick="buscar_ocorrencia()"><i class="f7-icons">doc_text_search</i> Buscar</button>
+		</div>
+	  </div>			 
+	  <div class="page-content">
+		<div class="card demo-facebook-card">
+		  <div class="card-header">
+			<div class="list accordion-list" style="width: 100%">
+			  <ul>
+				<li class="accordion-item">
+				 <a href="#" class="item-content item-link">
+					  <div class="item-media">
+						 <div class="item-media">
+							<img src="https://c.pxhere.com/photos/e8/60/smile_profile_face_male_portrait_young_person_glasses-451653.jpg!d" width="40">
+						  </div>
+					  </div>
+					  <div class="item-inner">
+						 <div class="item-title"> João da Silva Nascimento
+							<p class="size-10">Sindico</p>
+						 </div>
+					  </div>
+					</a>
+					<div class="accordion-item-content">
+							<div class="block" style="margin-bottom: 5%">
+								<div class="navbar">
+									<div class="navbar-inner">
+										<div class="left">
+											<a class="link color-theme-green size-10 "  data-transition="f7-circle"  href="/chat1/"> <i class="f7-icons" style="color:green" >chat_bubble_text</i>  Conversar  </a>
+										</div>
+										<div class="right">
+											<a class="link color-theme-blue size-10" href="/perfil/"> <i class="f7-icons" style="color:blue" >person_crop_circle_badge_exclam </i>  Perfil  </a>
+										</div>
+ 
+									</div>
+								</div>
+							</div>
+				    </div>
+				</li>
+			  </ul>
+			</div>
+		  </div>
+		  <div class="card-content card-content-padding">
+            <div style="text-align: -webkit-center;">
+               <div class="chip color-green" >
+                  <div class="chip-label">Falta de água</div>
+               </div>
+            </div>
+            <p class="size-10">Postado em 21 de Fevereiro 2019</p>
+            <p class="date">Votação para definir novo síndico para 2020</p>
+
+			<p  style="text-align: right">
+			  <i class="f7-icons" style="font-size: 10px">check</i>
+			  <span class="tabbar-label" style="font-size: 8px;color: #333333 !important;">200</span>
+		
+			</p>
+		  </div>
+		  <div class="card-footer">
+	 
+		  </div>
+		</div>		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+	  </div>
+	 </div>
+    </div>
+</div>
+		  
+		  
+		  
+		  
+		  

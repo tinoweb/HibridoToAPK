@@ -1,5 +1,12 @@
 // DONE BY TINO 22/10/2019
 
+// let loginEl = $("#login").val();
+// let senhaEl = $("#senha").val();
+
+// if ($$("#login").val().length>0 && $$("#senha").val().length>0) {
+// 	$$("#btnLoginEntrar").removeAttr('disabled');
+// }
+
 swich_tela_login = () => {
 	app.views.main.router.navigate("/login/", {animate:true, transition: 'f7-dive'});
 	$$(document).on('page:init', '.page[data-name="pgLogin"]', function (e) {
@@ -14,7 +21,7 @@ swich_tela_login = () => {
 }
 
 loginOut = () => {
-	app.views.main.router.navigate("/index/", {animate:true});
+	goToIndexPage();
 	$$(document).on('page:init', function (e) {
 		app.actions.close('.loginApp', true);
 	})
@@ -104,7 +111,13 @@ myFunction = () => {
 login_user = (e) => {
 	e.preventDefault();
 	if(navigator.connection.type != 'none'){
-		var dados = $( "#form_login" ).serialize();
+		var dados = $("#form_login").serialize();
+		
+		if(dados.indexOf('=&') > -1 || dados.substr(dados.length - 1) == '='){
+		   alerta("Falha ao Logar","Necessário email e senha para continuar");
+		   return false;
+		}
+
         if(device.uuid == null){
             var UUID = '1234567890';
         }else{
@@ -120,17 +133,17 @@ login_user = (e) => {
 			data: dados+'&nome='+device.model+'&sistema='+device.platform+'&uuid='+UUID+'&versao='+device.version+'&id_notificacao='+localStorage.getItem('registrationId'), //APP
 			success: function(retorno){
 				if(retorno[0]['error'] == 1){
-					notifica('Falha ao Entrar/Usu\u00e1rio ou senha inv\u00e1lida/Fechar',0,0);
+					alerta("Falha ao Entrar", "Usuário ou senha inválida", );
 				}else{
 					login_user_device();	
 				}
 			},
             error: function(error){
-                notifica('Aviso/Erro de conexão com o servidor/Fechar',0,0);
+                alerta('Aviso','Erro de conexão com o servidor');
             }
 		});
 	}else{
-		notifica('Internet/Sem conex\u00e3o com a Internet/Fechar',2000,0)
+		alerta('Internet','Sem conex\u00e3o com a Internet');
 	}
 }
 
@@ -160,9 +173,9 @@ login_user_device = () => {
 				if(retorno[0]['error'] == 0){
 					if(retorno[0]['VERSAO'] == localStorage.getItem('VERSAO')){
 						if(retorno[0]['perfil'] > 1){
-							// abre a tela para escolher qual perfil quer logar com...
-							afed('#login_perfil,#troca_perfil','#login_ini','','',3,'perfil_login');
+							// multprofile user....
 							carrega_user_perfil(retorno[0]['id_usuario']);
+
 							localStorage.setItem('ID_USER_L',retorno[0]['id_usuario']);
 						}else{  
 							if(retorno[0]['usar_control_condo'] == 1){
@@ -286,34 +299,34 @@ login_user_device = () => {
 								QUADRA  = retorno[0]['rquadra']+' '+retorno[0]['quadra'];
 								MORADOR_SEXO = retorno[0]['masculino'];
 
+								localStorage.setItem('AUTORIZA',     retorno[0]['autoriza']);
+								localStorage.setItem('ROTULO_LOTE',  retorno[0]['rlote']);
 								localStorage.setItem('ROTULO_QUADRA',retorno[0]['rotulo_quadra']);
-								localStorage.setItem('ROTULO_LOTE' ,retorno[0]['rlote']);
-								localStorage.setItem('AUTORIZA' ,retorno[0]['autoriza']);
 
-								localStorage.setItem('CHAT_EMAIL',retorno[0]['CHAT_EMAIL']);
-								localStorage.setItem('CHAT_TOCA' ,retorno[0]['CHAT_TOCA']);
-								localStorage.setItem('CHAT_VIBRA',retorno[0]['CHAT_VIBRA']);
 								localStorage.setItem('CHAT_MSG'  ,retorno[0]['CHAT_MSG']);
+								localStorage.setItem('CHAT_TOCA' ,retorno[0]['CHAT_TOCA']);
+								localStorage.setItem('CHAT_EMAIL',retorno[0]['CHAT_EMAIL']);
+								localStorage.setItem('CHAT_VIBRA',retorno[0]['CHAT_VIBRA']);
 
-								localStorage.setItem('COM_EMAIL',retorno[0]['COM_EMAIL']);
-								localStorage.setItem('COM_TOCA' ,retorno[0]['COM_TOCA']);
-								localStorage.setItem('COM_VIBRA',retorno[0]['COM_VIBRA']);
 								localStorage.setItem('COM_MSG'  ,retorno[0]['COM_MSG']);
+								localStorage.setItem('COM_TOCA' ,retorno[0]['COM_TOCA']);
+								localStorage.setItem('COM_EMAIL',retorno[0]['COM_EMAIL']);
+								localStorage.setItem('COM_VIBRA',retorno[0]['COM_VIBRA']);
 
-								localStorage.setItem('DOC_EMAIL',retorno[0]['DOC_EMAIL']);
-								localStorage.setItem('DOC_TOCA' ,retorno[0]['DOC_TOCA']);
-								localStorage.setItem('DOC_VIBRA',retorno[0]['DOC_VIBRA']);
 								localStorage.setItem('DOC_MSG'  ,retorno[0]['DOC_MSG']);
+								localStorage.setItem('DOC_TOCA' ,retorno[0]['DOC_TOCA']);
+								localStorage.setItem('DOC_EMAIL',retorno[0]['DOC_EMAIL']);
+								localStorage.setItem('DOC_VIBRA',retorno[0]['DOC_VIBRA']);
 
+								localStorage.setItem('ENQ_MSG',  retorno[0]['ENQ_MSG']);
+								localStorage.setItem('ENQ_TOCA', retorno[0]['ENQ_TOCA']);
 								localStorage.setItem('ENQ_EMAIL',retorno[0]['ENQ_EMAIL']);
-								localStorage.setItem('ENQ_TOCA',retorno[0]['ENQ_TOCA']);
 								localStorage.setItem('ENQ_VIBRA',retorno[0]['ENQ_VIBRA']);
-								localStorage.setItem('ENQ_MSG',retorno[0]['ENQ_MSG']);
 
+								localStorage.setItem('COR_MSG',  retorno[0]['COR_MSG']);
+								localStorage.setItem('COR_TOCA', retorno[0]['COR_TOCA']);
 								localStorage.setItem('COR_EMAIL',retorno[0]['COR_EMAIL']);
-								localStorage.setItem('COR_TOCA',retorno[0]['COR_TOCA']);
 								localStorage.setItem('COR_VIBRA',retorno[0]['COR_VIBRA']);
-								localStorage.setItem('COR_MSG',retorno[0]['COR_MSG']);
 
 
 								MORADOR_NOME = retorno[0]['nome'];
@@ -474,21 +487,376 @@ login_user_device = () => {
 									// },500);
 
 							}else{
-								notifica('Perfil/Perfil usuário inválido/Fechar',0,0);
+								// notifica('Perfil/Perfil usuário inválido/Fechar',0,0);
+								alerta("Perfil","Perfil usuário inválido");
 							}
 						}
 					}else{
-						alert('0','Há uma nova versão do Control Condo. Atualize seu aplicativo para continuar...',4000);
+						alerta('Atualização','Há uma nova versão do Control Condo. Atualize seu aplicativo para continuar...');
 					}
 				}
             
             },
             error : function() {
-                notifica('Aviso/Erro ao logar automático/Fechar',0,0);
+                alerta('Aviso','Erro ao logar automático');
             }
         });
     }
 }
+
+/*
+########################################
+# Actions login UserByCondominioID     #
+########################################
+*/
+select_user = (id_usuario_condominio=0) => {
+	if(navigator.connection.type != 'none'){
+	console.log("entrou na funcao.... kakakak");
+	console.log(id_usuario_condominio);
+        if(id_usuario_condominio == 0){
+            var dados = $("#perfil_login").val();
+        }else{
+            var dados = 'perfil='+id_usuario_condominio;
+        }
+		$.ajax({
+			type: 'POST',
+			url: localStorage.getItem('DOMINIO')+'appweb/login.php',
+			data: dados,
+			crossDomain: true,
+			beforeSend : function() { $("#wait").css("display", "block"); },
+			complete   : function() { $("#wait").css("display", "none"); },
+			success: function(retorno){
+
+                if(retorno[0]['usar_control_condo'] == 1){
+                    localStorage.setItem('ID_USER',retorno[0]['id_usuario_condominio']);
+					localStorage.setItem('ID_USER_L',retorno[0]['id_usuario']);
+					localStorage.setItem('ID_MORADOR',retorno[0]['id_referencia']);
+					localStorage.setItem('ID_UNIDADE',retorno[0]['id_unidade']);
+
+					setTimeout(function(){
+						$.ajax({
+							type       : "POST",
+							url        : localStorage.getItem('DOMINIO')+"appweb/notificacao_correspondencia.php",
+							data       : {id_condominio : $("#DADOS #ID_CONDOMINIO").val(),id_unidade : $("#DADOS #ID_UNIDADE").val()}, //APP
+							success    : function(retornos) {
+								localStorage.setItem('ID_MORADORES_UNIDADE',retornos);
+						    }
+						});	
+					},3);		
+                    
+					localStorage.setItem('CONDOMINIO',retorno[0]['nome_condominio']);
+					localStorage.setItem('QTD_CREDITO',retorno[0]['qtd_credito_liberacao']);
+					localStorage.setItem('EXIBIR_NOME',retorno[0]['exibir_nome_qrcode']);
+					localStorage.setItem('PERIODO_MAX',retorno[0]['periodo_max_liberacao']);
+                    localStorage.setItem('ID_CONDOMINIO',retorno[0]['id_condominio']);
+					localStorage.setItem('QTD_CONTROL_CONDO',retorno[0]['qtd_control_condo']);
+                    localStorage.setItem('TIPO_BUSCA_VISITANTE',retorno[0]['tipo_busca_visitante']);
+
+                    if(retorno[0]['tipo_busca_visitante'] == 0){
+                    	// descomentar e rever corretamente ======>>>
+                        // afed('#btipo_nome','#btipo_rg','','',3,'home');
+                    }else{
+                    	// descomentar e rever corretamente ======>>>
+                        // afed('#btipo_rg','#btipo_nome','','',3,'home');
+                    }
+
+                    if(retorno[0]['GRUPOS'].indexOf("Morador") != -1){ 
+                    	// descomentar e rever corretamente ======>>>
+                    	// $( "#DADOS #GRUPO_MOR" ).val(1); 
+                    	// $( "#gmor" ).css("display","block"); 
+                    }
+                    
+                    if(retorno[0]['GRUPOS'].indexOf("Síndico") != -1){ 
+                    	// descomentar e rever corretamente ======>>>
+                    	// $(".mlsindico").show();$(".msindico").show(); 
+                    	// $( "#DADOS #GRUPO_SIN" ).val(1); 
+                    	// $( "#gsin" ).css("display","block"); 
+                    }else{ 
+                    	// descomentar e rever corretamente ======>>>
+                    	// $(".mlsindico").hide();$(".msindico").hide(); 
+                    }
+
+                    if(retorno[0]['GRUPOS'].indexOf("Administração") != -1){ 
+                    	// descomentar e rever corretamente ======>>>
+                    	// $(".mlsindico").show();
+                    	// $(".madministracao").show(); 
+                    	// $( "#DADOS #GRUPO_ADM" ).val(1); 
+                    	// $( "#gadm" ).css("display","block"); 
+                    }else{ 
+                    	// descomentar e rever corretamente ======>>>
+                    	// $(".mlsindico").hide();$(".madministracao").hide();  
+                    }
+                    
+                    if(retorno[0]['GRUPOS'].indexOf("Administradora") != -1){ 
+                    	// descomentar e rever corretamente ======>>>
+                    	// $(".mlsindico").show();
+                    	// $(".madministradora").show(); 
+                    	// $("#DADOS #GRUPO_ADM2" ).val(1); 
+                    	// $("#gadm2" ).css("display","block"); 
+                    }else{ 
+                    	// descomentar e rever corretamente ======>>>
+                    	// $(".mlsindico").hide(); 
+                    	// $(".madministradora").hide(); 
+                    }
+
+                    if(retorno[0]['GRUPOS'].indexOf("Diretoria") != -1){ 
+                    	// descomentar e rever corretamente ======>>>
+                    	// $(".mlsindico").show();
+                    	// $(".mdiretoria").show(); 
+                    	// $("#DADOS #GRUPO_DIR").val(1); 
+                    	// $("#gdir").css("display","block"); 
+                    }else{ 
+                    	// descomentar e rever corretamente ======>>>
+                    	// $(".mlsindico").hide();
+                    	// $(".mdiretoria").hide(); 
+                    }
+
+					localStorage.setItem('LOTE',retorno[0]['rlote']+' '+retorno[0]['lote']);
+                    localStorage.setItem('MPET',retorno[0]['MPET']);
+                    localStorage.setItem('MCAM',retorno[0]['MCAM']);
+					localStorage.setItem('MHOME',retorno[0]['perfil']);
+					localStorage.setItem('MFALE',retorno[0]['MFALE']);
+					localStorage.setItem('QUADRA',retorno[0]['rquadra']+' '+retorno[0]['quadra']);
+					localStorage.setItem('MAGENDA',retorno[0]['MAGENDA']);
+					localStorage.setItem('MLUNICA',retorno[0]['MLUNICA']);
+					localStorage.setItem('MFPERFIL',retorno[0]['MFPERFIL']);
+					localStorage.setItem('MMUDANCA',retorno[0]['MMUDANCA']);
+					localStorage.setItem('MMORADOR',retorno[0]['MMORADOR']);
+					localStorage.setItem('CRESERVA',retorno[0]['CRESERVA']);
+					localStorage.setItem('MRESERVA',retorno[0]['MRESERVA']);
+					localStorage.setItem('CENQUETE',retorno[0]['CENQUETE']);
+					localStorage.setItem('MENTREGAS',retorno[0]['MENTREGAS']);
+					localStorage.setItem('MENQUENTE',retorno[0]['MENQUENTE']);
+					localStorage.setItem('MCONTATOS',retorno[0]['MCONTATOS']);
+					localStorage.setItem('MVEICULOS',retorno[0]['MVEICULOS']);
+					localStorage.setItem('CUNIDADES',retorno[0]['CUNIDADES']);
+					localStorage.setItem('CMORADORES',retorno[0]['CMORADORES']);
+					localStorage.setItem('PARENTESCO',retorno[0]['parentesco']);
+                    localStorage.setItem('MOCORRENCIA',retorno[0]['MOCORRENCIA']);
+					localStorage.setItem('MRELATORIOS',retorno[0]['MRELATORIOS']);
+					localStorage.setItem('MDOCUMENTOS',retorno[0]['MDOCUMENTOS']);
+					localStorage.setItem('CDOCUMENTOS',retorno[0]['CDOCUMENTOS']);
+					localStorage.setItem('MCOMUNICADOS',retorno[0]['MCOMUNICADOS']);
+					localStorage.setItem('MLRECORRENTE',retorno[0]['MLRECORRENTE']);
+					localStorage.setItem('CCOMUNICADOS',retorno[0]['CCOMUNICADOS']);
+					localStorage.setItem('NOME_MORADOR',retorno[0]['nome']);
+					localStorage.setItem('MORADOR_NOME',retorno[0]['nome']);
+                    
+                    LOTE = retorno[0]['rlote']+' '+retorno[0]['lote'];
+                    QUADRA = retorno[0]['rquadra']+' '+retorno[0]['quadra'];
+                    MORADOR_NOME = retorno[0]['nome'];
+                    MORADOR_SEXO = retorno[0]['masculino'];
+                    MORADOR_PARENTESCO = retorno[0]['parentesco'];
+				  	
+				  	// descomentar e rever corretamente ======>>>
+				  	// $( "#blocoapto" ).html(QUADRA+' - '+LOTE);
+                    
+                    localStorage.setItem('AUTORIZA' ,retorno[0]['autoriza']);
+                    localStorage.setItem('ROTULO_LOTE' ,retorno[0]['rlote']);
+                    localStorage.setItem('ROTULO_QUADRA',retorno[0]['rotulo_quadra']);
+					localStorage.setItem('OCORRENCIA_PUBLICA',retorno[0]['TIPO_OCORRENCIA']);
+					
+					if(retorno[0]['foto']==""){
+						// descomentar e rever corretamente ======>>>
+						// $( '.back' ).hide();
+						// $( '.fundo1 #bloco' ).css('margin','2% 0 0 -3%');
+						// $( '.fundo1 #apto' ).css('margin','-8% 0 0 81%;');
+						// $( '.user_foto' ).attr("style","");
+						// $( '.user_foto' ).css('border','none').html('<div class="back" style=""><span class="fa fa-user-circle icone_sem_foto" style="color:#c2c2c2;font-size: 3.1em;" ></span></div>');
+					}else{
+						// descomentar e rever corretamente ======>>>
+						// $( '.back' ).hide();
+						// $( '.user_foto' ).css("background-image", "url(data:image/jpeg;base64,"+retorno[0]['foto']+")");
+						// $( '.fundo1 .user_foto' ).css("border","2px solid white");
+						// $( '.fundo1 #bloco' ).css('margin','2% 0 0 -8%');
+						// $( '#perfil .user_foto').html('<div id="border_m"></div>');
+                    }
+					
+                    localStorage.setItem('CHAT_MSG',retorno[0]['CHAT_MSG']);
+                    localStorage.setItem('CHAT_TOCA',retorno[0]['CHAT_TOCA']);
+                    localStorage.setItem('CHAT_EMAIL',retorno[0]['CHAT_EMAIL']);
+                    localStorage.setItem('CHAT_VIBRA',retorno[0]['CHAT_VIBRA']);
+
+                    localStorage.setItem('COM_MSG',retorno[0]['COM_MSG']);
+                    localStorage.setItem('COM_TOCA',retorno[0]['COM_TOCA']);
+                    localStorage.setItem('COM_EMAIL',retorno[0]['COM_EMAIL']);
+                    localStorage.setItem('COM_VIBRA',retorno[0]['COM_VIBRA']);
+
+                    localStorage.setItem('DOC_MSG',retorno[0]['DOC_MSG']);
+                    localStorage.setItem('DOC_TOCA',retorno[0]['DOC_TOCA']);
+                    localStorage.setItem('DOC_EMAIL',retorno[0]['DOC_EMAIL']);
+                    localStorage.setItem('DOC_VIBRA',retorno[0]['DOC_VIBRA']);
+
+                    localStorage.setItem('ENQ_MSG',retorno[0]['ENQ_MSG']);
+                    localStorage.setItem('ENQ_TOCA',retorno[0]['ENQ_TOCA']);
+                    localStorage.setItem('ENQ_EMAIL',retorno[0]['ENQ_EMAIL']);
+                    localStorage.setItem('ENQ_VIBRA',retorno[0]['ENQ_VIBRA']);
+
+                    localStorage.setItem('COR_MSG',retorno[0]['COR_MSG']);
+                    localStorage.setItem('COR_TOCA',retorno[0]['COR_TOCA']);
+                    localStorage.setItem('COR_EMAIL',retorno[0]['COR_EMAIL']);
+                    localStorage.setItem('COR_VIBRA',retorno[0]['COR_VIBRA']);
+
+					/* Tratativa para limitar nome do morador no menu */
+					var nome_formatado = '' 
+					if(MORADOR_NOME.length > 18){
+						nome_formatado = MORADOR_NOME.substr(0,18)+'...';
+					}else{
+						nome_formatado = MORADOR_NOME;
+					}
+			
+					if(localStorage.getItem("PARENTESCO") == 1 ){ 
+						tipo_user_ = ' - Titular';		 
+					}else{
+						tipo_user_ = '';	
+					}
+			
+                    app.views.main.router.navigate("/home/", {animate:true});
+                    $$(document).on('page:init', '.page[data-name="pgHome"]', function (e) {
+						app.actions.close('#multiProfileUser', true);
+					}); 
+
+                 	setTimeout(function(){
+	                    $(".perfil_condominio" ).html(limita_txt(retorno[0]['nome_condominio'],27));
+	                    $(".perfil_nome" ).html(nome_formatado+tipo_user_);
+	                    // $("#apto" ).html("<strong> "+LOTE+"</storng>");
+	                    // $("#bloco" ).html("<strong> "+QUADRA+"</storng>");
+                    },500);
+
+                    if(MORADOR_PARENTESCO == 1){ 
+                    	$("#edit_moradores").css("display","block"); 
+                    }
+
+                    // descomentar e rever corretamente ======>>>
+                    // carrega_notificacoes(0);
+
+                    if(localStorage.getItem("MCOMUNICADOS") == 1){ 
+						// descomentar e rever corretamente ======>>>
+						// afed('#menu_comunicado','','','',3); 
+					}else{ 
+						// descomentar e rever corretamente ======>>>
+						// afed('','#menu_comunicado','','',3); 
+					}
+
+                    if(localStorage.getItem("MLUNICA") == 1){
+						if(localStorage.getItem('AUTORIZA') == 1){
+							// descomentar e rever corretamente ======>>>
+							// afed('#menu_liberacao,#libt1,#libt2,#libt3','#liberacao_desativada','','',3);
+						}else{
+							// descomentar e rever corretamente ======>>>
+							// afed('#liberacao_desativada','#menu_liberacao,#libt1,#libt2,#libt3','','',3);
+						}
+					}else{ 
+						// descomentar e rever corretamente ======>>>
+						// afed('#liberacao_desativada','#menu_liberacao,#libt1,#libt2,#libt3','','',3); 
+					}
+
+                    if(localStorage.getItem("DADOS #MRESERVA") == 1){ 
+                    	// descomentar e rever corretamente ======>>>
+                    	// afed('#menu_area','','','',3); 
+                    }else{ 
+                    	// descomentar e rever corretamente ======>>>
+                    	// afed('','#menu_area','','',3);
+                    }
+
+                    if(localStorage.getItem("MENTREGAS") == 1){
+                    	// descomentar e rever corretamente ======>>> 
+                    	// afed('#menu_entregas','','','',3); 
+                    }else{ 
+                    	// descomentar e rever corretamente ======>>>
+                    	// afed('','#menu_entregas','','',3); 
+                    } 
+                    
+                    if(localStorage.getItem("MFALE") == 1){  
+                    	// afed('','','','',3); 
+                    }else{ 
+                    	// afed('','','','',3); 
+                    }
+
+                    if(localStorage.getItem("MENQUENTE") == 1){ 
+                    	// descomentar e rever corretamente ======>>>
+                    	// afed('#menu_enquete','','','',3);
+                    }else{ 
+                    	// descomentar e rever corretamente ======>>>
+                    	// afed('','#menu_enquete','','',3);
+                    }
+
+                    if(localStorage.getItem("MDOCUMENTOS") == 1){ 
+                    	// descomentar e rever corretamente ======>>>
+                    	// afed('#menu_documentos','','','',3);
+                    }else{ 
+                    	// descomentar e rever corretamente ======>>>
+                    	// afed('','#menu_documentos','','',3);
+                    }
+
+                    if(localStorage.getItem('MOCORRENCIA') == 1){
+                    	// descomentar e rever corretamente ======>>>
+                    	// afed('#menu_ocorrencia','','','',3); 
+                    }else{ 
+                    	// descomentar e rever corretamente ======>>>
+                    	// afed('','#menu_ocorrencia','','',3);
+                    } 
+                    
+                    if(localStorage.getItem('MPET') == 1){ 
+                    	// descomentar e rever corretamente ======>>>
+                    	// afed('#menu_pet','','','',3);
+                    }else{ 
+                    	// descomentar e rever corretamente ======>>>
+                    	// afed('','#menu_pet','','',3);
+                    }
+
+                    if(localStorage.getItem('MCAM') == 1){ 
+                    	// descomentar e rever corretamente ======>>>
+                    	// afed('#menu_cameras','','','',3);
+                    }else{ 
+                    	// descomentar e rever corretamente ======>>>
+                    	// afed('','#menu_cameras','','',3); 
+                    }
+
+                    if(localStorage.getItem('MMUDANCA') == 1){ 
+                    	// descomentar e rever corretamente ======>>>
+                    	// afed('#menu_mudanca','','','',3); 
+                    }else{ 
+                    	// descomentar e rever corretamente ======>>>
+                    	// afed('','#menu_mudanca','','',3); 
+                    }
+
+                    if(localStorage.getItem('MAGENDA') == 1){
+                    // descomentar e rever corretamente ======>>> 
+                    	// afed('#menu_agenda','','','',3); 
+                    }else{ 
+                    	// descomentar e rever corretamente ======>>>
+                    	// afed('','#menu_agenda','','',3); 
+                    }
+
+					if(localStorage.getItem('MFPERFIL') == 1){ 
+						// descomentar e rever corretamente ======>>> 
+						// $("#foto_user_mor").attr("onclick","afed('#bg_box3','','','',1);");
+					}else{ 
+						// descomentar e rever corretamente ======>>> 
+						// $("#foto_user_mor").attr("onclick","alerta('','Para alterar a foto, entre em contato com administração');"); 
+					}
+              
+                    // carrega_chat();
+                    // inicia(0);
+					// altera_menu();
+
+                    // localStorage.setItem('TELA_ATUAL','home');	
+					// atualiza_notificacao();
+					// setTimeout(function(){
+					// 	nome_exibicao(retorno[0]['id_condominio']);
+					// },500);
+
+                }else{
+                    alerta('Perfil','Perfil usuário inválido');
+                }
+			}
+		});
+	}else{
+		alerta('Internet','Sem conex\u00e3o com a Internet');
+	}
+}
+
 
 /*
 ########################################
@@ -511,6 +879,8 @@ logout = () => {
 	});
 }
 
+
+
 // levar essa função para arquivo geral;.....
 limita_txt = (titulo,qtd) => {
 	if(titulo.length > qtd){
@@ -519,7 +889,157 @@ limita_txt = (titulo,qtd) => {
 	}
 	return titulo;
 }
+
+// FUNCAO CARREGA PERFIL
+function carrega_user_perfil(id) {
+    var dados = '';
+	if(navigator.connection.type != 'none'){
+		$.ajax({
+			type: 'POST',
+			url: localStorage.getItem('DOMINIO')+'appweb/login.php',
+			crossDomain: true,
+			beforeSend : function() { $("#wait").css("display", "block"); },
+			complete   : function() { $("#wait").css("display", "none"); },
+            data       : {id_usuario : id},
+            dataType   : 'json',
+			success: function(retorno){
+				
+				app.sheet.create({
+				 	el: '#multiProfileUser',
+					closeByOutsideClick: false,
+				  	closeByBackdropClick: false,
+				  	closeOnEscape: false
+				});
+				app.actions.close('.loginApp', true);
+				app.actions.open('#multiProfileUser', true);
+				$$('#multiProfileUser').on('sheet:opened', function (e) {
+				  	console.log('my-sheet opened');
+					$(".selectCondo")[0].click();
+				});
+				
+				var viewSheetModal = app.views.create('.view-sheet-modal');
+				smartSelect = app.smartSelect.create({
+					el:'.selectCondo',
+					on: {
+					    opened: function () {
+					      	// console.log('Smart select opened');
+					      	// console.log($(".page-content")[1]);
+
+					      	let elemento = $(".page-content")[1];
+							let esseElemento = elemento.firstElementChild;
+							esseElemento.style.position="relative";
+							esseElemento.style.top="26px";
+							$(".icon-back").attr('style', 'color: #037aff !important');
+					    },
+					}
+				});
+
+				// console.log(smartSelect);
+				
+				var primeiro = '<option value="" selected="">Selecione o seu Condominio</option>';
+                for (x in retorno) {
+                    dado = '<option onclick="select_user('+retorno[x]['id_usuario_condominio']+')" value="'+retorno[x]['id_usuario_condominio']+'">'+retorno[x]['nome_condominio']+'</option>';
+                    dados = dados + dado;
+                }
+                dados = primeiro + dados;
+
+                $('#perfil_login').html(dados);
+			}
+		});
+	}else{
+		notifica('Internet/Sem conex\u00e3o com a Internet/Fechar',2000,0);
+	}
+}
+
+// ====>>>>>>>>>>>>>>>>>>>>>
+
+alerta = (title,msg, afterClose=null) => {
+	app.dialog.create({
+		title: title,
+		text: msg,
+		buttons: [{
+			text:"Fechar"
+		}],
+		on: {
+		    close: function () {
+		    	$("#login").val("");
+		    	$("#senha").val("");
+
+		    	if (afterClose == "primeiroAcesso") {
+					$("#inputReceveEmailToGetCode").val("");
+
+					// $("#telaVerificaCodigo").css('display', 'block');
+					// $("#primeiroAcesso").css('display', 'none');
+					// $("#initApp").css('display', 'none');
+
+				}else if(afterClose == "defineSenha"){
+					switchTelaDefineSenhaToLogin();
+				}else if (afterClose == "logaNoApp") {
+
+				}else if(afterClose == "logaDoFace"){
+					login_user_device();
+				}else if(afterClose == "logaDoGoogle"){
+					login_user_device();
+				}else if (afterClose == "termoUso") {
+
+					// $("#initApp").hide();
+					// $("#login_ini").hide();
+
+					$("#telaAceitaTermo").show(); // a função coorespondente está no index logo abaixo do elemento button aceita termo
+				}
+		    }
+		},
+	}).open();
+	
+	if (afterClose == "logaDoFace") {
+		setTimeout(function () {
+			app.dialog.close();
+		}, 1000);
+	}else{
+		setTimeout(function () {
+			app.dialog.close();
+		}, 4000);
+	}
+
+}
 // levar essa função para arquivo geral;.....
+
+
+function emailNotRecognizedBySystemAlert(type, messenge, afterClose=null){
+	Swal.fire({
+	  	type: type,
+	  	text: messenge,
+		timer: 4000,
+		onBeforeOpen: () => {
+			Swal.showLoading()
+			timerInterval = setInterval(() => {}, 100)
+		},
+		onClose: () => {
+			if (afterClose == "primeiroAcesso") {
+				$("#inputReceveEmailToGetCode").val("");
+				$("#telaVerificaCodigo").css('display', 'block');
+				$("#primeiroAcesso").css('display', 'none');
+				$("#initApp").css('display', 'none');
+			}else if(afterClose == "defineSenha"){
+				switchTelaDefineSenhaToLogin();
+			}else if (afterClose == "logaNoApp") {
+
+			}else if(afterClose == "logaDoFace"){
+				login_user_device();
+			}else if(afterClose == "logaDoGoogle"){
+				login_user_device();
+			}else if (afterClose == "termoUso") {
+				$("#initApp").hide();
+				$("#login_ini").hide();
+				$("#telaAceitaTermo").show(); // a função coorespondente está no index logo abaixo do elemento button aceita termo
+			}
+		}
+	}).then((result) => {
+		if (result.dismiss === Swal.DismissReason.timer) {
+			// console.log('I was closed by the timer');
+		}
+	});
+}
 
 
 aceiteiTermo = (prossigaOutroCaminho=null) => {
@@ -548,42 +1068,6 @@ aceiteiTermo = (prossigaOutroCaminho=null) => {
 		enviarSenhaEliberarAcesso();
 	}
 }
-
-// function emailNotRecognizedBySystemAlert(type, messenge, afterClose=null){
-// 	Swal.fire({
-// 	  	type: type,
-// 	  	text: messenge,
-// 		timer: 4000,
-// 		onBeforeOpen: () => {
-// 			Swal.showLoading()
-// 			timerInterval = setInterval(() => {}, 100)
-// 		},
-// 		onClose: () => {
-// 			if (afterClose == "primeiroAcesso") {
-// 				$("#inputReceveEmailToGetCode").val("");
-// 				$("#telaVerificaCodigo").css('display', 'block');
-// 				$("#primeiroAcesso").css('display', 'none');
-// 				$("#initApp").css('display', 'none');
-// 			}else if(afterClose == "defineSenha"){
-// 				switchTelaDefineSenhaToLogin();
-// 			}else if (afterClose == "logaNoApp") {
-
-// 			}else if(afterClose == "logaDoFace"){
-// 				login_user_device();
-// 			}else if(afterClose == "logaDoGoogle"){
-// 				login_user_device();
-// 			}else if (afterClose == "termoUso") {
-// 				$("#initApp").hide();
-// 				$("#login_ini").hide();
-// 				$("#telaAceitaTermo").show(); // a função coorespondente está no index logo abaixo do elemento button aceita termo
-// 			}
-// 		}
-// 	}).then((result) => {
-// 		if (result.dismiss === Swal.DismissReason.timer) {
-// 			// console.log('I was closed by the timer');
-// 		}
-// 	});
-// }
 
 // function alertShowPosibilityToResetPassword(email){
 // 	Swal.fire({
@@ -845,30 +1329,33 @@ enviarCodigoAtivacao = () => {
   */
 
 function loginFB() {
-	console.log("chama funcao login FB");
-	facebookConnectPlugin.logout(
-	function(successo){
-		// alert(JSON.stringify(successo));
-	    facebookConnectPlugin.login(['public_profile', 'email'], function(result){
-	    	// alert(JSON.stringify(result));
-	        facebookConnectPlugin.api("/me?fields=id,name,email", ["email"], function(userData){
-	        	// alert(JSON.stringify(userData));
-	            let name = userData.name;
-	            let email = userData.email;
-	    		localStorage.setItem('emailSocialMidia', email);
-	    		alert("vai para a checkUsuarioFacebookToLogin()");
+	// console.log("chama funcao login FB");
+	// facebookConnectPlugin.logout(
+	// function(successo){
+	// 	// alert(JSON.stringify(successo));
+	//     facebookConnectPlugin.login(['public_profile', 'email'], function(result){
+	//     	// alert(JSON.stringify(result));
+	//         facebookConnectPlugin.api("/me?fields=id,name,email", ["email"], function(userData){
+	//         	// alert(JSON.stringify(userData));
+	//             let name = userData.name;
+	//             let email = userData.email;
+	//     		localStorage.setItem('emailSocialMidia', email);
+	//     		alert("vai para a checkUsuarioFacebookToLogin()");
+	            
+	            // email = "tino@firstcontrol.com.br";
 	            // checkUsuarioFacebookToLogin(email);
-	        },function(error){
-	            alert("erro no query do api...");
-	        });
-	    },function(error){
-	        alert(JSON.stringify(error));
-	        alert("erro no metodo login...");
-	    })
-	},
-	function(erroror){
-		alert(JSON.stringify(erroror));
-	});
+
+	//         },function(error){
+	//             alert("erro no query do api...");
+	//         });
+	//     },function(error){
+	//         alert(JSON.stringify(error));
+	//         alert("erro no metodo login...");
+	//     })
+	// },
+	// function(erroror){
+	// 	alert(JSON.stringify(erroror));
+	// });
 
 
 }
@@ -891,16 +1378,22 @@ checkUsuarioFacebookToLogin = (email) => {
 		},
         dataType   : 'json',
 		success: function(retorno){
-			// alert(retorno);
+			
+			console.log(retorno);
+			return false;
+
 			// alert(JSON.stringify(retorno));
+			
 			if (retorno.status == "usuarioValidoToLoginFacebook" && retorno.statuscode == 200) {
-				emailNotRecognizedBySystemAlert('success', "direcionando para App", afterClose="logaDoFace");
+				alerta('Login', "Direcionando para App", afterClose="logaDoFace");
 			}else 
 			if (retorno.status == "perfilAtivoSemSenha" && retorno.statuscode == 200) {
 				$("#btnAtivarConta").attr('data-liberarSemSenha', 'liberarSemSenha');
-				emailNotRecognizedBySystemAlert('success', "direcionando para termo de uso", afterClose="termoUso");
+				alerta('Login', "direcionando para termo de uso", afterClose="termoUso");
 			}else{
-				emailNotRecognizedBySystemAlert("error", 'O ' +email+ ' não está liberado para acessar o condominio tente outra forma de autenticar ou entre em contato com a sua adminstradora..', afterClose=null)
+				let msg = "Não está liberado para acessar o condominio tente outra forma de autenticar ou entre em contato com a sua adminstradora..";
+				alerta("Tentativa de login",msg, afterClose=null)
+				// emailNotRecognizedBySystemAlert("error", 'O ' +email+ ' ', afterClose=null)
 			}
         },
         error: function(error) {
@@ -971,6 +1464,3 @@ checkUsuarioGoogleToLogin = (email) => {
         }
 	});	
 }
-
-
-

@@ -120,9 +120,9 @@ carrega_morador_dados = (id_morador) => {
 			$("#perfil_email").html(retorno[0]['email']);
 
 			alert(JSON.stringify(retorno));
-
+			// localStorage.getItem('ID_CONDOMINIO')
 			if (retorno[0]['parentesco'] == 1) {
-				carrega_dados_and_info(localStorage.getItem('ID_CONDOMINIO'));
+				carrega_dados_and_info(retorno[0][id_condominio]);
 			}else{
 				$$(".hasFamilia").hide();
 			}

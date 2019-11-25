@@ -1356,9 +1356,11 @@ let loginFB = () => {
 		    		localStorage.setItem('emailSocialMidia', email);
 		            checkUsuarioFacebookToLogin(email);
 		        },function(error){
+		        	app.dialog.close();
 		            alerta("Login com FB", "Erro ao logar com facebook (api)...");
 		        });
 		    },function(error){
+		    	app.dialog.close();
 		        alerta("Login com FB", "Erro ao logar com facebook (login)...");
 		    })
 		},
@@ -1371,9 +1373,11 @@ let loginFB = () => {
 		    		localStorage.setItem('emailSocialMidia', email);
 		            checkUsuarioFacebookToLogin(email);
 		        },function(error){
+		        	app.dialog.close();
 		            alerta("Login com FB", "Erro ao logar com facebook (api)...");
 		        });
 		    },function(error){
+		    	app.dialog.close();
 		        alerta("Login com FB", "Erro ao logar com facebook (login)...");
 		    });
 			// alerta("Login com FB", "Erro ao conectar com FB...");
@@ -1440,7 +1444,8 @@ let loginGoogle = () =>{
 		    checkUsuarioGoogleToLogin(email);
 	    },
 	    function(msg) {
-	      console.log('error: ' + msg);
+	    	app.dialog.close();
+	      	console.log('error: ' + msg);
 	    }
 	);
 }

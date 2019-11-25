@@ -20,6 +20,10 @@ var app = new Framework7({
       url: 'index.html',
     },
     {
+      path: '/multiProfile/',
+      url: 'paginas/login/escolheCondominio.html',
+    },
+    {
       path: '/home/',
       url: 'paginas/home.html',
     },
@@ -32,23 +36,23 @@ var app = new Framework7({
       path: '/about/',
       url: 'paginas/about.html',
     },
-	{
+	  {
       path: '/comunicado/',
       url: 'paginas/comunicado/comunicado.html',
     },
-	{
+	  {
       path: '/pet/',
       url: 'paginas/pet/pet.html',
     },
-	{
+	  {
       path: '/perfil_pet/',
       url: 'paginas/pet/pet_perfil.html',
     },
-	{
+	  {
       path: '/pet_cadastro/',
       url: 'paginas/pet/pet_cadastro.html',
     },
-	{
+	  {
       path: '/ocorrencia/',
       url: 'paginas/ocorrencia/ocorrencia.html',
     },
@@ -158,6 +162,10 @@ var app = new Framework7({
 
 
 var mainView = app.views.create('.view-main');
+  // console.log("inicializando view");
+  // var viewSheetModal = app.views.create('.view-sheet-modal');
+  // console.log(viewSheetModal);
+
 const SERVIDOR_CAMINHO = 'https://old.controlcondo.com.br/controlcondo/v2/'; // teste
 // const SERVIDOR_CAMINHO = 'https://controlcondo.com.br/controlcondo/v2/'; // producao
 localStorage.setItem('DOMINIO', SERVIDOR_CAMINHO);

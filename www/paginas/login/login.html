@@ -1,9 +1,10 @@
 <div class="pages">
 	<div id="login_ini" data-page="login" data-name="pgLogin" class="login_ini page">
 		<div class="alingElement">
-			
 			<img src="img/logoicon.png" width="150">
-			<div class="sheet-modal loginApp" id="" style="display: block;height: 290px;">
+			
+			<!-- ############# login user ################# -->
+			<div class="sheet-modal loginApp" id="" style="display: block;height: 316px;">
 				<div class="toolbar bg-color-blue">
 					<div class="toolbar-inner">
 						<div class="left">
@@ -21,7 +22,8 @@
 						      	<div class="item-inner">
 						      		<div class="item-title item-floating-label">Digite o seu email</div>
 							        <div class="item-input-wrap">
-							          <input id="login" type="email" validate class="" name="email" placeholder="seuemail@mail.com" autocomplete="off">
+							          <input id="login" type="email" required="true" validate class="" name="email" placeholder="seuemail@mail.com" autocomplete="off">
+							          <span class="input-clear-button"></span>
 							        </div>
 						      	</div>
 						    </li>
@@ -30,9 +32,10 @@
 						      	<div class="item-inner">
 									<div class="item-title item-floating-label">Digite a senha</div>
 							        <div class="item-input-wrap">
-							          <input id="senha" type="password" validate class="" name="senha" placeholder="************" autocomplete="off">
+							          <input id="senha" type="password" required="true" validate class="" name="senha" placeholder="************" autocomplete="off">
+							          <span class="input-clear-button"></span>
 							        </div>
-							        <button class="button button-raised button-fill button-large color-green" onClick="login_user(event);" style="color: white;width: 100%;position: relative;top: 13px;" id="" name="entrar"> Entrar </button>
+							        <button class="button button-raised button-fill button-large color-green" onclick="login_user(event)"  style="color: white;width: 100%;position: relative;top: 13px;" id="btnLoginEntrar" name="entrar"> Entrar </button>
 						      	</div>
 						    </li>
 						    <li class="item-content item-input">
@@ -44,6 +47,7 @@
 					</form>
 				</div>
 			</div>
+			<!-- ############# login user ################# -->
 
 			<!-- ############# recovery senha ################# -->
 			<div class="sheet-modal recuperaSenha" id="recoveryPasswordLogin" style="">
@@ -72,6 +76,41 @@
 			</div>
 			<!-- ############################## -->
 			
+			<!-- ############# multiprofileUser ################# -->
+			<div id="multiProfileUser" class="sheet-modal sheet-modal-top" style="height: 100%;">
+			    <div class="view view-sheet-modal ios-edges">
+			      	<div class="page">
+			          
+						<div class="page-content">
+						  <div class="sheet-modal-inner">
+						      	<div class="list" style="position: relative;top: 25px;">
+						          	<ul>
+							            <li>
+											<a class="item-link smart-select selectCondo" href="#">
+											  	<select name="perfil" onchange="select_user($(this).val())" id="perfil_login" class="input-with-value"></select> <!-- <select que trazz os condominios> -->
+												<div class="item-content">
+													<div class="item-inner">
+														<!-- Select label -->
+														<div class="item-title">
+															Condominios
+														</div>
+														<!-- Selected value, not required -->
+														<div class="item-after">
+
+														</div>
+													</div>
+												</div>
+											</a>
+							            </li>
+						          	</ul>
+						      	</div>
+						  	</div>
+						</div>
+			      	</div>
+			    </div>
+			</div>
+
+			<!-- ############################## -->
 		</div>
 	</div>
 </div>

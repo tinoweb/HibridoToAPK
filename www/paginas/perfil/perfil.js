@@ -23,7 +23,7 @@ carregaInfoProfile = () => {
 		$("#moradorApt").html(loteMorador);
 		$('.Perfil_user_foto').attr("src", img);
 		$(".perfil_condominio").html(nomeCondominio);
-	}, 100);
+	}, 200);
 }
 
 carrega_dados_and_info = (id_condominio) => {
@@ -119,8 +119,9 @@ carrega_morador_dados = (id_morador) => {
 			$("#perfil_statusVisita").html(statusVisita);
 			$("#perfil_email").html(retorno[0]['email']);
 
-			alert(JSON.stringify(retorno));
-			// localStorage.getItem('ID_CONDOMINIO')
+			// alert(JSON.stringify(retorno));
+			// localStorage.getItem('ID_CONDOMINIO');
+
 			if (retorno[0]['parentesco'] == 1) {
 				carrega_dados_and_info(retorno[0][id_condominio]);
 			}else{

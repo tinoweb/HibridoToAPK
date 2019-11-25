@@ -36,7 +36,7 @@ setPwdOut = () => {
 		transition: 'f7-dive',
 		reloadAll:true
 	});
-	// goToIndexPage();
+	
 	$$(document).on('page:init', '.page[data-name="pgIndex"]', function (e) {
 		app.actions.close('.defineSenhaApp', true);
 	})
@@ -96,7 +96,11 @@ swich_to_primeiroAcesso = () => {
 
 cancelarTermo = () => {	
 	localStorage.removeItem('idUsuarioAtivacao');	// remover o id_usuairo do storage... não aceitou o termo
-	goToIndexPage();
+	app.views.main.router.navigate("/index/", {
+		animate:true,
+		transition: 'f7-dive',
+		reloadAll:true
+	});
 }
 
 myFunction = () => {
@@ -1337,6 +1341,8 @@ let enviarSenhaEliberarAcesso = () => {
 // }
 // não ta sendo usado essa função..............
 
+
+
   /*
   ########################################
   #     Adicionar Facebook login         #
@@ -1351,6 +1357,7 @@ let loginFB = () => {
 		    facebookConnectPlugin.login(['public_profile', 'email'], function(result){
 		    	app.dialog.close();
 		        facebookConnectPlugin.api("/me?fields=id,name,email", ["email"], function(userData){
+		        	app.dialog.close();
 		            let name = userData.name;
 		            let email = userData.email;
 		    		localStorage.setItem('emailSocialMidia', email);
@@ -1368,6 +1375,7 @@ let loginFB = () => {
 			facebookConnectPlugin.login(['public_profile', 'email'], function(result){
 				app.dialog.close();
 		        facebookConnectPlugin.api("/me?fields=id,name,email", ["email"], function(userData){
+		        	app.dialog.close();
 		            let name = userData.name;
 		            let email = userData.email;
 		    		localStorage.setItem('emailSocialMidia', email);
@@ -1405,11 +1413,17 @@ checkUsuarioFacebookToLogin = (email) => {
         dataType   : 'json',
 		success: function(retorno){
 			if (retorno.status == "usuarioValidoToLoginFacebook" && retorno.statuscode == 200) {
-				alerta('Login pelo Facebook', "Direcionando para App", afterClose="logaDoFace");
+				// alerta('Login pelo Facebook', "Direcionando para App", afterClose="logaDoFace");
+				app.dialog.preloader("Direcionando para App", 'blue');
+				setTimeout(function () {
+					app.dialog.close();
+					login_user_device();
+				}, 1000);
+
 			}else 
 			if (retorno.status == "perfilAtivoSemSenha" && retorno.statuscode == 200) {
 				localStorage.setItem('data-liberarSemSenha','liberarSemSenha');
-				alerta('Login pelo Facebook', "direcionando para termo de uso", afterClose="termoUso");
+				alerta('Login pelo Facebook', "Direcionando para termo de uso", afterClose="termoUso");
 			}else{
 				let msg = `O  ${email} Não está liberado para acessar o condominio tente outra forma de autenticar ou entre em contato com a sua adminstradora..`;
 				alerta("Tentativa de login",msg, afterClose=null)
@@ -1421,8 +1435,6 @@ checkUsuarioFacebookToLogin = (email) => {
         }
 	});	
 }
-
-
 
 
 
@@ -1448,6 +1460,7 @@ let loginGoogle = () =>{
 	      	console.log('error: ' + msg);
 	    }
 	);
+	app.dialog.close();
 }
 
 checkUsuarioGoogleToLogin = (email) => {

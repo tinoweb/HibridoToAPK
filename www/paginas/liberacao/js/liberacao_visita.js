@@ -15,41 +15,28 @@ function define_hora(valor){
 	
 }
 
-function carrega_liberacao(tipo){
-    //alert('teste');
-	app.controler_pull("liberacao");
-	if(tipo ==4){
-		$("#busca_liberacao").val("");
-	}
-    if(tipo == 0 || tipo==3 || tipo==4){
-        var pg = 1;
-    }else{
-        //var offset = $("#retorno_liberacao").find(".liberado").size();
-        var offset = $(".liberado-card").length;
-        //alert(offset);
-        if(offset != 0){
-            var pg = (offset/5)+1;
-        }else{
-            var pg = 1
-        }
-		if(parseInt(pg) != parseFloat(pg)) { 
-			pg = pg+1; 
-		}
-	}
-    //alert(pg);
+function carrega_liberacao(){
+		$("#retorno_liberacao").html('');
+	var id_condominio = localStorage.getItem('ID_CONDOMINIO');
+	
+	var id_morador = localStorage.getItem('ID_MORADOR');
+
+  //  alert(id_condominio);
+   /// alert(id_morador);
 	var cont =0;
     var dados = '';
 	$.ajax({
 		type: 'POST',
 		//url: localStorage.getItem('DOMINIO')+"appweb/liberacao_get.php",
 		url: localStorage.getItem('DOMINIO')+'appweb/liberacao_get.php',
-        data       : {id_condominio : $( "#DADOS #ID_CONDOMINIO" ).val(),id_morador : $( "#DADOS #ID_MORADOR" ).val(),pg : parseInt(pg),tipo : 1,nome : $( "#busca_liberacao" ).val()},
+        data       : {id_condominio : id_condominio ,id_morador : id_morador,op:1},
         dataType   : 'json',
 		crossDomain: true,
-		beforeSend : function() { $("#wait").css("display", "block"); },
-		complete   : function() { $("#wait").css("display", "none"); },
-		success: function(retorno){
-            for (x in retorno) {
+		//beforeSend : function() { $("#wait").css("display", "block"); },
+		//complete   : function() { $("#wait").css("display", "none"); },
+		success: function(retorno){ 
+			//alert('retorno');
+			  for (x in retorno) {
 				cont++;
                 var credito = '';
                 if(retorno[x]['numero_acesso_perm'] != null){
@@ -61,65 +48,75 @@ function carrega_liberacao(tipo){
                 }
                 var bt_convite = '';
 				if(retorno[x]['valido']==1){
+
                     if(retorno[x]['numero_acesso_perm'] != null){
-					   bt_convite = '<button type="button" onClick="gera_qrcode(\''+retorno[x]['id']+'\',\''+retorno[x]['nome']+'\')" class="col button button-fill color-orange">Reenviar Convite</button>';
+						//$("#enviar_qr").attr('onClick','gera_qrcode(\''+retorno[x]['id']+'\',\''+retorno[x]['nome']+'\')');
+					   bt_convite ='<a href="#" id="enviar_qr" style="color:green"  onClick="gera_qrcode(\''+retorno[x]['id']+'\',\''+retorno[x]['nome']+'\')" class="link sheet-open"  data-sheet=".my-sheet"><i class="f7-icons" style="color:green">qrcode</i> Enviar</a>';
+						   
+						  // '<button type="button" class="col button button-fill color-orange">Reenviar Convite</button>';
                     }else{
-					   bt_convite = '<button type="button" onClick="gera_qrcode(\''+retorno[x]['id']+'\',\''+retorno[x]['nome']+'\')" class="col button button-fill color-green">Enviar Convite</button>';
+						 bt_convite ='<a href="#"  " id="enviar_qr" style="color:orange"  onClick="gera_qrcode(\''+retorno[x]['id']+'\',\''+retorno[x]['nome']+'\')" class="link"><i class="f7-icons" style="color:orange">qrcode</i>Reenviar</a>';
+						
+						
+					  // bt_convite = '<button type="button" onClick="gera_qrcode(\''+retorno[x]['id']+'\',\''+retorno[x]['nome']+'\')" class="col button button-fill color-green">Enviar Convite</button>';
                     }
 				}else{
-					bt_convite = '<button type="button" class="col button button-fill color-red">CONVITE VENCIDO</button>';	
+					  bt_convite ='<a href="#" class="link " id="enviar_qr" style="color:red" ><i class="f7-icons" style="color:red">qrcode</i> Vencido</a>';
 				}
-                
-                var foto           = '';
-				var foto_veiculo   = '';
-				var icone_foto     = '';
-				var modelo         = '';
-				var placa          = '';
-				var icon           = '';
+				  
+				  
+                var foto  = '';
+
 				
-                if(retorno[x]['foto'].length>0){
-                    foto = 'style="background-image:url(data:image/jpeg;base64,'+retorno[x]['foto']+')"';
-                }
+                      if(retorno[x]['foto'].length>0){
+                    foto = '<img src="data:image/jpeg;base64,'+retorno[x]['foto']+'" width="34" height="34"/>';
+                }else
+					{
+					foto = '<img src="https://osegredo.com.br/wp-content/uploads/2018/03/O-lugar-da-mulher-830x450.jpg" width="34" height="34"/>'	
+					}
+				  
+				  dados = '<div class="card demo-facebook-card">'
+		  	 + '<div class="card-header">'
 				
-				if(retorno[x]['foto_veiculo'] != ""){
-					foto_veiculo = 'display:none;background-image:url(data:image/jpeg;base64,'+retorno[x]['foto_veiculo']+')';
-					icone_foto   = '<i onClick="afed(\'\',\'\',\'\',\'\',2,\'foto_veiculo_visitante\')" data-sheet=".veiculo-foto_veiculo" class="sheet-open material-icons">directions_car</i>';
-					modelo       = retorno[x]['modelo'];
-					placa        = retorno[x]['placa'];
-                }
-				
-				if(foto == ""){
-					icon = '<span class="fa fa-user-circle" style="font-size: 2.5em;color: gray;"></span>';
-				}else{
-					icon = '';
-				}
+						+' <div class="item-media">'+foto+''
+						+ '</div>'
+					
+					 +'  <div class="item-inner">'
+					   + ' <div class="size-15">'+retorno[x]['nome']+''	
+					  +   '</div>'
+					+'  </div>'
+		  	 +' </div>'
+		  	  +'<div class="card-content card-content-padding">'
+				  +'<div class="card-content card-content-padding">'
+				    +'<div class="item-subtitle" style="color:gray;font-size:12px;"><b class="size-15" >Validade</b>: '+retorno[x]['validadeInicio']+' á '+retorno[x]['validadeFim']+'</div>'
+				  		  +'<div class="item-subtitle" style="color:gray"><b >Crédito</b>:  '+credito+' </div>'
+				  		  +'<div class="item-subtitle" style="color:gray"><b >Motivo</b>:   '+retorno[x]['motivo']+' </div>'  
+			+	'<div class="card-footer" >'
+				+'<a href="#" class="link left">Alterar</a>'+bt_convite+' '
 				
 
-                var dado =  '<div class="card liberado-card">'+
-                                '<div class="card-header">'+
-                                    '<div class="liberacao2-avatar" '+foto+'  onClick="foto_visita(\''+retorno[x]['visitante']+'\')">'+icon+'</div><div style="float:right" data-img="'+foto_veiculo+'" data-modelo="'+modelo+'" data-placa="'+placa+'" onclick="abre_imagem_carro(this);" id="veic_foto">'+icone_foto+'</div>'+
-                                    '<div class="liberacao2-name" onClick="$(\'#cad_veiculo\').hide();carrega_liberacao_visita(\''+retorno[x]['id']+'\',\'1\')">'+retorno[x]['nome']+'</div>'+
-                                    '<div class="liberacao2-date" onClick="$(\'#cad_veiculo\').hide();carrega_liberacao_visita(\''+retorno[x]['id']+'\',\'1\')">'+retorno[x]['motivo']+'</div>'+
-                                '</div>'+
-                                '<div class="card-content card-content-padding">Validade de: '+retorno[x]['validadeInicio']+' até '+retorno[x]['validadeFim']+'<br>'+credito+bt_convite+'</div>'+ 
-                            '</div>';
-                dados = dados + dado;
-            }
-            //alert(dados);
-			//dados = '<div class="main">'+dados+'</div>';
-			if(tipo == 0 || tipo==3 || tipo==4){
-				$("#retorno_liberacao").html("");
-			}
+			+	'</div>'
+		  +	 ' </div> '  
+		  +'  </div>'
+				  
+               	$( "#retorno_liberacao" ).append(dados);
+          }
+     
 		
-			$( "#retorno_liberacao" ).append(dados);
+		
+           
 		},
-        error   : function() {
-            //alert('Erro ao carregar liberacao');
-			$("#wait").css("display", "none");
+        error   : function(retorno) {
+           alert('Erro ao carregar liberacao');
+           alert(retorno);
+			
         }
 	});
-    localStorage.setItem('TELA_ATUAL','liberacao_list');
+    
 }
+
+
+
 
 function carrega_liberacao2(tipo,id_visita=0){
     //alert('teste');
@@ -429,31 +426,35 @@ function salva_liberacao(){
 }
 
 function gera_qrcode(qrcode_numero,nome){
+	var id_condominio = localStorage.getItem('ID_CONDOMINIO');
+	var conde_nome = localStorage.getItem('CONDOMINIO');
+	
 
-    localStorage.setItem('TELA_ATUAL','qrcode_gera');
+ //alert(nome);
+   
     $.ajax({
         type: 'POST',
         url: localStorage.getItem('DOMINIO')+'appweb/qrcode_insert.php',
 		crossDomain: true,
 		beforeSend : function() { $("#wait").css("display", "block"); },
 		complete   : function() { $("#wait").css("display", "none"); },
-        data       : {id_condominio : $( "#DADOS #ID_CONDOMINIO" ).val(),id_autorizacao_visita : qrcode_numero},
+        data       : {id_condominio : id_condominio,id_autorizacao_visita : qrcode_numero},
         dataType   : 'json',
         success: function(retorno){
-            $('#qrcodeCanvas').html('');
-            jQuery('#qrcodeCanvas').qrcode({
-                text	: retorno[0]['code'],
-                quiet   : 2,
-                ecLevel: 'L',
-                radius: 0.5
-            });
-            //preview();
-            var dados_qr = 'Olá '+nome+', <br>essa é sua autorização para acessar o <br>condomínio '+$( "#DADOS #CONDOMINIO" ).val()+' <br>no período de '+retorno[0]['data_inicio']+' a '+retorno[0]['data_validade']+'';
-            //var dados_qr = 'Condominio '+$( "#DADOS #CONDOMINIO" ).val()+'<br>Morador: '+$( "#DADOS #NOME_MORADOR" ).val()+'<br>'+$( "#DADOS #QUADRA" ).val()+' '+$( "#DADOS #LOTE" ).val()+'<br>Válido de '+retorno[0]['data_inicio']+'<br>Até '+retorno[0]['data_validade']+'';
-            $('#qr_dados').html(dados_qr);
-			afed('#qrcode','#home,#del_lib','','',3,'qrcode');
-			closePopUp();
-            
+			
+	
+			
+$("#qr_liberacao").ClassyQR({
+    type: 'text',
+    text: retorno[0]['code']
+});
+
+        var dados_qr = 'Olá '+nome+', <br>essa é sua autorização para acessar o <br>condomínio '+conde_nome+' <br>no período de '+retorno[0]['data_inicio']+' a '+retorno[0]['data_validade']+'';
+			
+			$("#conde_nome").html(dados_qr);
+			
+
+			
             //var canvas = document.getElementById('qrcodeCanvas');
             //var dataURL = canvas.toDataURL();
             //alert(dataURL);
@@ -500,21 +501,28 @@ function gera_qrcode(qrcode_numero,nome){
 //}
 
 function preview(){
-    //alert(globale);
-    var element = $("#printscr_qrcode"); // global variable
+
+    html2canvas(document.querySelector("#share_img")).then(canvas => {
+    document.body.appendChild(canvas)
+});
+	alert(html2canvas);
+	
+	
+	
+	
+/*    var element = $("#qr_visita"); // global variable
     var getCanvas; // global variable
 	$("#share_img").html("");
+	//alert(element);
     html2canvas(element, {
+		
         onrendered: function (canvas) {
             $("#share_img").html(canvas);
             var dataURL = canvas.toDataURL();
-            //alert(dataURL); 
-            localStorage.setItem("img_share", dataURL);
+           alert(dataURL); 
+           // localStorage.setItem("img_share", dataURL);
         }
-    });
-    afed('#qrcode_share','#qrcode','','',2,'qrcode_share');
-
-    
+    });    */
 }
 
 //
@@ -536,14 +544,17 @@ function download_qrcode(){
     console.log('0');
     console.log(cordova.file.externalRootDirectory);
     console.log('1');
-	statusDom    = document.querySelector('#status');
-	$('#downloadProgress').css({"display":"block"});
-  	app2.progressbar.set('#status', "0");
+	//statusDom    = document.querySelector('#status');
+	//$('#downloadProgress').css({"display":"block"});
+  //	app2.progressbar.set('#status', "0");
 	
     var fileTransfer = new FileTransfer();
-    //var uri = encodeURI("http://portal.mec.gov.br/seb/arquivos/pdf/Profa/apres.pdf");
+   // var uri = encodeURI("http://portal.mec.gov.br/seb/arquivos/pdf/Profa/apres.pdf");
     //var canvas = document.getElementById('qr_s_teste');
-    var dataURL = localStorage.getItem("img_share");
+	
+	alert($("qr_liberacao").html());
+    var dataURL = localStorage.getItem("qr_liberacao");
+	//alert(dataURL);
     var uri = encodeURI(dataURL);
     var filePath = cordova.file.externalApplicationStorageDirectory+'Download/qrcode.png';
     console.log('2');
@@ -558,9 +569,10 @@ function download_qrcode(){
     fileTransfer.download(
         uri,
         filePath,
+	
         function(entry) {
-            console.log("download complete: " + entry.fullPath);
-			$('#downloadProgress').css({"display":"none"});
+          //  console.log("download complete: " + entry.fullPath);
+			//$('#downloadProgress').css({"display":"none"});
             //notifica('Download/Download Concluído90 /ok',0,0);
 			var path = entry.toURL(); //**THIS IS WHAT I NEED**
 			//alert(path);
@@ -574,7 +586,8 @@ function download_qrcode(){
             console.log("download error source " + error.source);
             console.log("download error target " + error.target);
             //console.log("upload error code" + error.code);
-			alert("erro");
+			alert(uri);
+			alert(filePath);
 			$('#downloadProgress').css({"display":"none"});
         },
         false,
@@ -589,7 +602,7 @@ function download_qrcode(){
 
 function whatsapp_qrcode(){
     //var canvas = document.getElementById('qr_s_teste');
-    var dataURL = localStorage.getItem("img_share");
+    var dataURL = localStorage.getItem("qr_liberacao");
     var uri = encodeURI(dataURL);
     window.plugins.socialsharing.shareViaWhatsApp('' /* msg */, uri /* img */, null /* url */, function() {console.log('share ok')}, function(errormsg){alert(errormsg)});
 }

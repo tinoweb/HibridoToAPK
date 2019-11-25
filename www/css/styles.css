@@ -19,7 +19,12 @@
 }
 .tema-azul
 {
-background: linear-gradient(#0064c0, #007aff);	
+background: linear-gradient(#0064c0, #007aff) !important;	
+}
+.sem_shadownmenu
+{
+--f7-toolbar-bottom-shadow-image: white !important;	
+--f7-toolbar-top-shadow-image: white !important;	
 }
 .list input[type=datetime-local]{max-width:100% !important}
 /*FONT SIZE*/

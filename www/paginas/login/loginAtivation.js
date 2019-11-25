@@ -378,9 +378,9 @@ login_user_device = () => {
 
 								if(localStorage.getItem("MLUNICA") == 1){ 
 									if(localStorage.getItem('AUTORIZA') == 1){
-										afed('#menu_liberacao,#libt1,#libt2,#libt3','#liberacao_desativada','','',3);
+										// afed('#menu_liberacao,#libt1,#libt2,#libt3','#liberacao_desativada','','',3);
 									}else{
-										afed('#liberacao_desativada','#menu_liberacao,#libt1,#libt2,#libt3','','',3);
+										// afed('#liberacao_desativada','#menu_liberacao,#libt1,#libt2,#libt3','','',3);
 									}
 								}else{
 									// descomentar e rever corretamente ======>>>
@@ -981,20 +981,21 @@ alerta = (title,msg, afterClose=null) => {
 				}else if(afterClose == "logaDoGoogle"){
 					login_user_device();
 				}else if (afterClose == "termoUso") {
-
+					app.views.main.router.navigate("/termo_de_uso/", {animate:true, transition: 'f7-dive'});
+					
+					// let dataAcao = localStorage.getItem('data-liberarSemSenha');
 					// $("#initApp").hide();
 					// $("#login_ini").hide();
-
-					$("#telaAceitaTermo").show(); // a função coorespondente está no index logo abaixo do elemento button aceita termo
+					// $("#telaAceitaTermo").show(); // a função coorespondente está no index logo abaixo do elemento button aceita termo
 				}
 		    }
 		},
 	}).open();
 	
-	if (afterClose == "logaDoFace") {
+	if (afterClose == "logaDoFace" || afterClose == "logaDoGoogle" || afterClose == "termoUso") {
 		setTimeout(function () {
 			app.dialog.close();
-		}, 1000);
+		}, 2000);
 	}else{
 		setTimeout(function () {
 			app.dialog.close();
@@ -1043,8 +1044,8 @@ function emailNotRecognizedBySystemAlert(type, messenge, afterClose=null){
 
 
 aceiteiTermo = (prossigaOutroCaminho=null) => {
+
 	if (prossigaOutroCaminho == null) {
-		console.log("entrou aki");
 		app.views.main.router.navigate("/define_senha/", {animate:true});
 		$$(document).on('page:init', function (e) {
 			app.sheet.create({
@@ -1065,6 +1066,7 @@ aceiteiTermo = (prossigaOutroCaminho=null) => {
 		
 	}else{
 		console.log("posso continuar agora...");
+		localStorage.removeItem('data-liberarSemSenha');
 		enviarSenhaEliberarAcesso();
 	}
 }
@@ -1108,8 +1110,8 @@ function choosedMail(){
 		// 	crossDomain: true,
 		// 	beforeSend : function() { $("#wait").css("display", "block"); },
 		// 	complete   : function() { $("#wait").css("display", "none"); },
-	 //        data       : { email : campoEmail, typeFunction : 'enviarEmailParaAtivacao' },
-	 //        dataType   : 'json',
+	 	//        data       : { email : campoEmail, typeFunction : 'enviarEmailParaAtivacao' },
+	 	//        dataType   : 'json',
 		// 	success: function(retorno){
 		// 		if (retorno.status == "emailNaoReconhecidoPeloSistema") {
 		// 			app2.sheet.close('.recebEmail', true);
@@ -1185,40 +1187,40 @@ enviarCodigoAtivacao = () => {
 // 	}
 }
 
-// let enviarSenhaEliberarAcesso = () => {
-// 	let email = localStorage.getItem('emailSocialMidia');
-// 			    localStorage.removeItem('emailSocialMidia');
-// 	$.ajax({
-// 		type: 'POST',
-// 		url: localStorage.getItem('DOMINIO')+'appweb/ativacao_post.php',
-// 		crossDomain: true,
-// 		beforeSend : function() { $("#wait").css("display", "block"); },
-// 		complete   : function() { $("#wait").css("display", "none"); },
-//         data: { 
-// 			uuid: device.uuid,
-// 			nome: device.model,
-// 			versao: device.version,
-// 			sistema: device.platform,
-// 			typeFunction : "setPassworLiberaUsuario",
-// 			emailGmail : email, 
-// 			id_notificacao: localStorage.getItem('registrationId')
-// 		},
-//         dataType   : 'json',
-// 		success: function(retorno){
-// 			console.log(retorno);
+let enviarSenhaEliberarAcesso = () => {
+	let email = localStorage.getItem('emailSocialMidia');
+			    localStorage.removeItem('emailSocialMidia');
+	$.ajax({
+		type: 'POST',
+		url: localStorage.getItem('DOMINIO')+'appweb/ativacao_post.php',
+		crossDomain: true,
+		beforeSend : function() { $("#wait").css("display", "block"); },
+		complete   : function() { $("#wait").css("display", "none"); },
+        data: { 
+			uuid: device.uuid,
+			nome: device.model,
+			versao: device.version,
+			sistema: device.platform,
+			typeFunction : "setPassworLiberaUsuario",
+			emailGmail : email, 
+			id_notificacao: localStorage.getItem('registrationId')
+		},
+        dataType   : 'json',
+		success: function(retorno){
+			console.log(retorno);
 			
-// 			if (retorno.status == "usuarioValidoToLogin" && retorno.statuscode == 200) {
-// 				emailNotRecognizedBySystemAlert('success', "direcionando para App", afterClose="logaDoFace");
-// 			}else{
-// 				emailNotRecognizedBySystemAlert("error", 'O ' +email+ ' não está liberado para acessar o condominio tente outra forma de autenticar..', afterClose=null)
-// 			}
-//         },
-//         error: function(error) {
-// 			console.log(error);
-// 			// alert('não foi possivel continuar...');
-//         }
-// 	});
-// }
+			if (retorno.status == "usuarioValidoToLogin" && retorno.statuscode == 200) {
+				alerta('Login success', "Direcionando para App", afterClose="logaDoFace");
+			}else{
+				alerta("Tentativa login", 'O ' +email+ ' não está liberado para acessar o condominio tente outra forma de autenticar..', afterClose=null)
+			}
+        },
+        error: function(error) {
+			console.log(error);
+			// alert('não foi possivel continuar...');
+        }
+	});
+}
 
 
 
@@ -1328,36 +1330,33 @@ enviarCodigoAtivacao = () => {
   ########################################
   */
 
-function loginFB() {
-	// console.log("chama funcao login FB");
-	// facebookConnectPlugin.logout(
-	// function(successo){
-	// 	// alert(JSON.stringify(successo));
-	//     facebookConnectPlugin.login(['public_profile', 'email'], function(result){
-	//     	// alert(JSON.stringify(result));
-	//         facebookConnectPlugin.api("/me?fields=id,name,email", ["email"], function(userData){
-	//         	// alert(JSON.stringify(userData));
-	//             let name = userData.name;
-	//             let email = userData.email;
-	//     		localStorage.setItem('emailSocialMidia', email);
-	//     		alert("vai para a checkUsuarioFacebookToLogin()");
-	            
-	            // email = "tino@firstcontrol.com.br";
-	            // checkUsuarioFacebookToLogin(email);
+let loginFB = () => {
+	console.log("chama funcao login FB");
+	facebookConnectPlugin.logout(
+		function(successo){
+			// alert(JSON.stringify(successo));
+		    facebookConnectPlugin.login(['public_profile', 'email'], function(result){
+		    	// alert(JSON.stringify(result));
+		        facebookConnectPlugin.api("/me?fields=id,name,email", ["email"], function(userData){
+		        	// alert(JSON.stringify(userData));
+		            let name = userData.name;
+		            let email = userData.email;
 
-	//         },function(error){
-	//             alert("erro no query do api...");
-	//         });
-	//     },function(error){
-	//         alert(JSON.stringify(error));
-	//         alert("erro no metodo login...");
-	//     })
-	// },
-	// function(erroror){
-	// 	alert(JSON.stringify(erroror));
-	// });
+		    		localStorage.setItem('emailSocialMidia', email);
+		            checkUsuarioFacebookToLogin(email);
 
-
+		        },function(error){
+		            alerta("Login com FB", "Erro ao logar com facebook (api)...");
+		        });
+		    },function(error){
+		        alerta("Login com FB", "Erro ao logar com facebook (login)...");
+		    })
+		},
+		function(erroror){
+			alerta("Login com FB", "Erro ao conectar com FB...");
+			// alert(JSON.stringify(erroror));
+		}
+	);
 }
 
 checkUsuarioFacebookToLogin = (email) => {
@@ -1378,22 +1377,15 @@ checkUsuarioFacebookToLogin = (email) => {
 		},
         dataType   : 'json',
 		success: function(retorno){
-			
-			console.log(retorno);
-			return false;
-
-			// alert(JSON.stringify(retorno));
-			
 			if (retorno.status == "usuarioValidoToLoginFacebook" && retorno.statuscode == 200) {
-				alerta('Login', "Direcionando para App", afterClose="logaDoFace");
+				alerta('Login pelo Facebook', "Direcionando para App", afterClose="logaDoFace");
 			}else 
 			if (retorno.status == "perfilAtivoSemSenha" && retorno.statuscode == 200) {
-				$("#btnAtivarConta").attr('data-liberarSemSenha', 'liberarSemSenha');
-				alerta('Login', "direcionando para termo de uso", afterClose="termoUso");
+				localStorage.setItem('data-liberarSemSenha','liberarSemSenha');
+				alerta('Login pelo Facebook', "direcionando para termo de uso", afterClose="termoUso");
 			}else{
-				let msg = "Não está liberado para acessar o condominio tente outra forma de autenticar ou entre em contato com a sua adminstradora..";
+				let msg = `O  ${email} Não está liberado para acessar o condominio tente outra forma de autenticar ou entre em contato com a sua adminstradora..`;
 				alerta("Tentativa de login",msg, afterClose=null)
-				// emailNotRecognizedBySystemAlert("error", 'O ' +email+ ' ', afterClose=null)
 			}
         },
         error: function(error) {
@@ -1410,15 +1402,13 @@ checkUsuarioFacebookToLogin = (email) => {
   */
 
 let loginGoogle = () =>{
-	console.log("chama funcao login");
+	console.log("chama funcao login G+");
 	window.plugins.googleplus.login({},
 	    function(obj) {
 	      	let email = obj.email;
 	      	let nome = obj.displayName;
 			localStorage.setItem('emailSocialMidia', email);
-
-			alert("vai para a checkUsuarioGoogleToLogin()");
-		    // checkUsuarioGoogleToLogin(email);
+		    checkUsuarioGoogleToLogin(email);
 	    },
 	    function(msg) {
 	      console.log('error: ' + msg);
@@ -1444,18 +1434,17 @@ checkUsuarioGoogleToLogin = (email) => {
 		},
         dataType   : 'json',
 		success: function(retorno){
-			if (retorno.status == "usuarioValidoToLogin" && retorno.statuscode == 200) {
-				emailNotRecognizedBySystemAlert('success', "direcionando para App", afterClose="logaDoFace");
-			}else 
+	
 			if (retorno.status == "perfilAtivoSemSenha" && retorno.statuscode == 200) {
 				$("#btnAtivarConta").data('liberarSemSenha', 'liberarSemSenha');
-				emailNotRecognizedBySystemAlert('success', "direcionando para termo de uso", afterClose="termoUso");
+				alerta('Login Google', "direcionando para termo de uso", afterClose="termoUso");
 			}else 
 			if (retorno.status == "usuarioValidoToLoginGoogle" && retorno.statuscode == 200){
-				emailNotRecognizedBySystemAlert('success', "direcionando para App", afterClose="logaDoGoogle");
+				alerta('Login Google', "direcionando para App", afterClose="logaDoGoogle");
 			}
 			else{
-				emailNotRecognizedBySystemAlert("error", 'O ' +email+ ' não está liberado para acessar o condominio tente outra forma de autenticar ou entre em contato com a sua adminstradora..', afterClose=null)
+				let msg = `O  ${email} Não está liberado para acessar o condominio tente outra forma de autenticar ou entre em contato com a sua adminstradora..`;
+				alerta("Tentativa de login",msg, afterClose=null);
 			}
         },
         error: function(error) {

@@ -1345,17 +1345,12 @@ let loginFB = () => {
 	console.log("chama funcao login FB");
 	facebookConnectPlugin.logout(
 		function(successo){
-			// alert(JSON.stringify(successo));
 		    facebookConnectPlugin.login(['public_profile', 'email'], function(result){
-		    	// alert(JSON.stringify(result));
 		        facebookConnectPlugin.api("/me?fields=id,name,email", ["email"], function(userData){
-		        	// alert(JSON.stringify(userData));
 		            let name = userData.name;
 		            let email = userData.email;
-
 		    		localStorage.setItem('emailSocialMidia', email);
 		            checkUsuarioFacebookToLogin(email);
-
 		        },function(error){
 		            alerta("Login com FB", "Erro ao logar com facebook (api)...");
 		        });
@@ -1364,8 +1359,20 @@ let loginFB = () => {
 		    })
 		},
 		function(erroror){
-			alerta("Login com FB", "Erro ao conectar com FB...");
-			alert(JSON.stringify(erroror));
+			facebookConnectPlugin.login(['public_profile', 'email'], function(result){
+		        facebookConnectPlugin.api("/me?fields=id,name,email", ["email"], function(userData){
+		            let name = userData.name;
+		            let email = userData.email;
+		    		localStorage.setItem('emailSocialMidia', email);
+		            checkUsuarioFacebookToLogin(email);
+		        },function(error){
+		            alerta("Login com FB", "Erro ao logar com facebook (api)...");
+		        });
+		    },function(error){
+		        alerta("Login com FB", "Erro ao logar com facebook (login)...");
+		    });
+			// alerta("Login com FB", "Erro ao conectar com FB...");
+			// alert(JSON.stringify(erroror));
 		}
 	);
 }

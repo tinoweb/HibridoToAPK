@@ -22,14 +22,19 @@ swich_tela_login = () => {
 
 loginOut = () => {
 	goToIndexPage();
-	$$(document).on('page:init', function (e) {
+	$$(document).on('page:init', '.page[data-name="pgIndex"]', function (e) {
 		app.actions.close('.loginApp', true);
 	})
 }
 
 setPwdOut = () => {
 	app.actions.close('.defineSenhaApp', true);
-	goToIndexPage();
+	app.views.main.router.navigate("/index/", {
+		animate:true,
+		transition: 'f7-dive',
+		reloadAll:true
+	});
+	// goToIndexPage();
 	$$(document).on('page:init', '.page[data-name="pgIndex"]', function (e) {
 		app.actions.close('.defineSenhaApp', true);
 	})
@@ -66,11 +71,17 @@ goToIndexPage = () => {
 }
 
 primeiroAcessoBtnVoltar = () => {
-	goToIndexPage();
+	// goToIndexPage();
+	app.views.main.router.navigate("/index/", {
+		animate:true,
+		transition: 'f7-dive',
+		reloadAll:true
+	});
 }
 
 swich_tela_primeiroAcesso = () => {
-	app.views.main.router.navigate("/activationcode/", {animate:true, transition: 'f7-cover'});
+	app.views.main.router.navigate("/activationcode/", {animate:true});
+
 }
 
 voltaraoPrimeiroAcesso = () => {
@@ -1354,7 +1365,7 @@ let loginFB = () => {
 		},
 		function(erroror){
 			alerta("Login com FB", "Erro ao conectar com FB...");
-			// alert(JSON.stringify(erroror));
+			alert(JSON.stringify(erroror));
 		}
 	);
 }

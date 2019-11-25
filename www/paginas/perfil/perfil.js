@@ -6,7 +6,7 @@ carregaInfoProfile = () => {
 	}else{
 		img = "img/avatar.png";
 	}
-	
+
 	let nomeMorador = localStorage.getItem("MORADOR_NOME");
 	let blocoMorador = localStorage.getItem("QUADRA").toLowerCase();
 	let loteMorador = localStorage.getItem("LOTE").toLowerCase();
@@ -106,6 +106,7 @@ carrega_morador_dados = (id_morador) => {
         data       : { id_condominio : localStorage.getItem("ID_CONDOMINIO"), id_morador : id_morador },
         dataType   : 'json',
 		success: function(retorno){
+
             let gernero = retorno[0]['masculino']==1? "Masculino" : "Feminino";
             let statusVisita = retorno[0]['perfil_statusVisita']==1? "Ativo" : "Inativo";
             let statusCondo = retorno[0]['usar_control_condo']==1? "Ativo" : "Inativo";  
@@ -119,6 +120,8 @@ carrega_morador_dados = (id_morador) => {
 			$("#perfil_statusVisita").html(statusVisita);
 			$("#perfil_email").html(retorno[0]['email']);
 
+			console.log(retorno);
+			return false;
 			// alert(JSON.stringify(retorno));
 			// localStorage.getItem('ID_CONDOMINIO');
 

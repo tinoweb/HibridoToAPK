@@ -1202,6 +1202,7 @@ enviarCodigoAtivacao = () => {
 }
 
 let enviarSenhaEliberarAcesso = () => {
+	app.dialog.preloader("Direcionando para App", 'blue');
 	let email = localStorage.getItem('emailSocialMidia');
 			    localStorage.removeItem('emailSocialMidia');
 	$.ajax({
@@ -1222,10 +1223,14 @@ let enviarSenhaEliberarAcesso = () => {
         dataType   : 'json',
 		success: function(retorno){
 			console.log(retorno);
-			
 			if (retorno.status == "usuarioValidoToLogin" && retorno.statuscode == 200) {
-				alerta('Login success', "Direcionando para App", afterClose="logaDoFace");
+				// alerta('Login success', "Direcionando para App", afterClose="logaDoFace");
+				setTimeout(function () {
+					app.dialog.close();
+					login_user_device();
+				}, 1000);
 			}else{
+				app.dialog.close();
 				alerta("Tentativa login", 'O ' +email+ ' não está liberado para acessar o condominio tente outra forma de autenticar..', afterClose=null)
 			}
         },

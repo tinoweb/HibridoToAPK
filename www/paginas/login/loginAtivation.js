@@ -7,6 +7,8 @@
 // 	$$("#btnLoginEntrar").removeAttr('disabled');
 // }
 
+
+
 swich_tela_login = () => {
 	app.views.main.router.navigate("/login/", {animate:true, transition: 'f7-dive'});
 	$$(document).on('page:init', '.page[data-name="pgLogin"]', function (e) {
@@ -964,7 +966,7 @@ function carrega_user_perfil(id) {
 
 // ====>>>>>>>>>>>>>>>>>>>>>
 
-alerta = (title,msg, afterClose=null) => {
+alerta = (title, msg, afterClose=null) => {
 	app.dialog.create({
 		title: title,
 		text: msg,
@@ -1006,52 +1008,52 @@ alerta = (title,msg, afterClose=null) => {
 	if (afterClose == "logaDoFace" || afterClose == "logaDoGoogle" || afterClose == "termoUso") {
 		setTimeout(function () {
 			app.dialog.close();
-		}, 2000);
+		}, 4000);
 	}else{
 		setTimeout(function () {
 			app.dialog.close();
-		}, 4000);
+		}, 5000);
 	}
 
 }
 // levar essa função para arquivo geral;.....
 
 
-function emailNotRecognizedBySystemAlert(type, messenge, afterClose=null){
-	Swal.fire({
-	  	type: type,
-	  	text: messenge,
-		timer: 4000,
-		onBeforeOpen: () => {
-			Swal.showLoading()
-			timerInterval = setInterval(() => {}, 100)
-		},
-		onClose: () => {
-			if (afterClose == "primeiroAcesso") {
-				$("#inputReceveEmailToGetCode").val("");
-				$("#telaVerificaCodigo").css('display', 'block');
-				$("#primeiroAcesso").css('display', 'none');
-				$("#initApp").css('display', 'none');
-			}else if(afterClose == "defineSenha"){
-				switchTelaDefineSenhaToLogin();
-			}else if (afterClose == "logaNoApp") {
+// function emailNotRecognizedBySystemAlert(type, messenge, afterClose=null){
+// 	Swal.fire({
+// 	  	type: type,
+// 	  	text: messenge,
+// 		timer: 4000,
+// 		onBeforeOpen: () => {
+// 			Swal.showLoading()
+// 			timerInterval = setInterval(() => {}, 100)
+// 		},
+// 		onClose: () => {
+// 			if (afterClose == "primeiroAcesso") {
+// 				$("#inputReceveEmailToGetCode").val("");
+// 				$("#telaVerificaCodigo").css('display', 'block');
+// 				$("#primeiroAcesso").css('display', 'none');
+// 				$("#initApp").css('display', 'none');
+// 			}else if(afterClose == "defineSenha"){
+// 				switchTelaDefineSenhaToLogin();
+// 			}else if (afterClose == "logaNoApp") {
 
-			}else if(afterClose == "logaDoFace"){
-				login_user_device();
-			}else if(afterClose == "logaDoGoogle"){
-				login_user_device();
-			}else if (afterClose == "termoUso") {
-				$("#initApp").hide();
-				$("#login_ini").hide();
-				$("#telaAceitaTermo").show(); // a função coorespondente está no index logo abaixo do elemento button aceita termo
-			}
-		}
-	}).then((result) => {
-		if (result.dismiss === Swal.DismissReason.timer) {
-			// console.log('I was closed by the timer');
-		}
-	});
-}
+// 			}else if(afterClose == "logaDoFace"){
+// 				login_user_device();
+// 			}else if(afterClose == "logaDoGoogle"){
+// 				login_user_device();
+// 			}else if (afterClose == "termoUso") {
+// 				$("#initApp").hide();
+// 				$("#login_ini").hide();
+// 				$("#telaAceitaTermo").show(); // a função coorespondente está no index logo abaixo do elemento button aceita termo
+// 			}
+// 		}
+// 	}).then((result) => {
+// 		if (result.dismiss === Swal.DismissReason.timer) {
+// 			// console.log('I was closed by the timer');
+// 		}
+// 	});
+// }
 
 
 aceiteiTermo = (prossigaOutroCaminho=null) => {
@@ -1343,9 +1345,11 @@ let enviarSenhaEliberarAcesso = () => {
 
 let loginFB = () => {
 	console.log("chama funcao login FB");
+	app.dialog.preloader("carregando", 'blue');
 	facebookConnectPlugin.logout(
 		function(successo){
 		    facebookConnectPlugin.login(['public_profile', 'email'], function(result){
+		    	app.dialog.close();
 		        facebookConnectPlugin.api("/me?fields=id,name,email", ["email"], function(userData){
 		            let name = userData.name;
 		            let email = userData.email;
@@ -1360,6 +1364,7 @@ let loginFB = () => {
 		},
 		function(erroror){
 			facebookConnectPlugin.login(['public_profile', 'email'], function(result){
+				app.dialog.close();
 		        facebookConnectPlugin.api("/me?fields=id,name,email", ["email"], function(userData){
 		            let name = userData.name;
 		            let email = userData.email;
@@ -1413,6 +1418,10 @@ checkUsuarioFacebookToLogin = (email) => {
 	});	
 }
 
+
+
+
+
   /*
   ########################################
   #       Adicionar Google login         #
@@ -1421,8 +1430,10 @@ checkUsuarioFacebookToLogin = (email) => {
 
 let loginGoogle = () =>{
 	console.log("chama funcao login G+");
+	app.dialog.preloader("carregando", 'blue');
 	window.plugins.googleplus.login({},
 	    function(obj) {
+			app.dialog.close();
 	      	let email = obj.email;
 	      	let nome = obj.displayName;
 			localStorage.setItem('emailSocialMidia', email);

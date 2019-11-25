@@ -903,25 +903,27 @@ function carrega_user_perfil(id) {
             data       : {id_usuario : id},
             dataType   : 'json',
 			success: function(retorno){
+				
 				app.sheet.create({
 				 	el: '#multiProfileUser',
 					closeByOutsideClick: false,
 				  	closeByBackdropClick: false,
 				  	closeOnEscape: false
 				});
-
 				app.actions.close('.loginApp', true);
 				app.actions.open('#multiProfileUser', true);
-
-				console.log("inicializando view");
+				$$('#multiProfileUser').on('sheet:opened', function (e) {
+				  	console.log('my-sheet opened');
+					$(".selectCondo")[0].click();
+				});
+				
 				var viewSheetModal = app.views.create('.view-sheet-modal');
-
 				smartSelect = app.smartSelect.create({
 					el:'.selectCondo',
 					on: {
 					    opened: function () {
-					      	console.log('Smart select opened');
-					      	console.log($(".page-content")[1]);
+					      	// console.log('Smart select opened');
+					      	// console.log($(".page-content")[1]);
 
 					      	let elemento = $(".page-content")[1];
 							let esseElemento = elemento.firstElementChild;
@@ -929,11 +931,10 @@ function carrega_user_perfil(id) {
 							esseElemento.style.top="26px";
 							$(".icon-back").attr('style', 'color: #037aff !important');
 					    },
-
 					}
 				});
 
-				console.log(smartSelect);
+				// console.log(smartSelect);
 				
 				var primeiro = '<option value="" selected="">Selecione o seu Condominio</option>';
                 for (x in retorno) {
@@ -952,7 +953,7 @@ function carrega_user_perfil(id) {
 
 // ====>>>>>>>>>>>>>>>>>>>>>
 
-alerta = (title,msg) => {
+alerta = (title,msg, afterClose=null) => {
 	app.dialog.create({
 		title: title,
 		text: msg,
@@ -963,11 +964,82 @@ alerta = (title,msg) => {
 		    close: function () {
 		    	$("#login").val("");
 		    	$("#senha").val("");
+
+		    	if (afterClose == "primeiroAcesso") {
+					$("#inputReceveEmailToGetCode").val("");
+
+					// $("#telaVerificaCodigo").css('display', 'block');
+					// $("#primeiroAcesso").css('display', 'none');
+					// $("#initApp").css('display', 'none');
+
+				}else if(afterClose == "defineSenha"){
+					switchTelaDefineSenhaToLogin();
+				}else if (afterClose == "logaNoApp") {
+
+				}else if(afterClose == "logaDoFace"){
+					login_user_device();
+				}else if(afterClose == "logaDoGoogle"){
+					login_user_device();
+				}else if (afterClose == "termoUso") {
+
+					// $("#initApp").hide();
+					// $("#login_ini").hide();
+
+					$("#telaAceitaTermo").show(); // a função coorespondente está no index logo abaixo do elemento button aceita termo
+				}
 		    }
 		},
 	}).open();
+	
+	if (afterClose == "logaDoFace") {
+		setTimeout(function () {
+			app.dialog.close();
+		}, 1000);
+	}else{
+		setTimeout(function () {
+			app.dialog.close();
+		}, 4000);
+	}
+
 }
 // levar essa função para arquivo geral;.....
+
+
+function emailNotRecognizedBySystemAlert(type, messenge, afterClose=null){
+	Swal.fire({
+	  	type: type,
+	  	text: messenge,
+		timer: 4000,
+		onBeforeOpen: () => {
+			Swal.showLoading()
+			timerInterval = setInterval(() => {}, 100)
+		},
+		onClose: () => {
+			if (afterClose == "primeiroAcesso") {
+				$("#inputReceveEmailToGetCode").val("");
+				$("#telaVerificaCodigo").css('display', 'block');
+				$("#primeiroAcesso").css('display', 'none');
+				$("#initApp").css('display', 'none');
+			}else if(afterClose == "defineSenha"){
+				switchTelaDefineSenhaToLogin();
+			}else if (afterClose == "logaNoApp") {
+
+			}else if(afterClose == "logaDoFace"){
+				login_user_device();
+			}else if(afterClose == "logaDoGoogle"){
+				login_user_device();
+			}else if (afterClose == "termoUso") {
+				$("#initApp").hide();
+				$("#login_ini").hide();
+				$("#telaAceitaTermo").show(); // a função coorespondente está no index logo abaixo do elemento button aceita termo
+			}
+		}
+	}).then((result) => {
+		if (result.dismiss === Swal.DismissReason.timer) {
+			// console.log('I was closed by the timer');
+		}
+	});
+}
 
 
 aceiteiTermo = (prossigaOutroCaminho=null) => {
@@ -996,42 +1068,6 @@ aceiteiTermo = (prossigaOutroCaminho=null) => {
 		enviarSenhaEliberarAcesso();
 	}
 }
-
-// function emailNotRecognizedBySystemAlert(type, messenge, afterClose=null){
-// 	Swal.fire({
-// 	  	type: type,
-// 	  	text: messenge,
-// 		timer: 4000,
-// 		onBeforeOpen: () => {
-// 			Swal.showLoading()
-// 			timerInterval = setInterval(() => {}, 100)
-// 		},
-// 		onClose: () => {
-// 			if (afterClose == "primeiroAcesso") {
-// 				$("#inputReceveEmailToGetCode").val("");
-// 				$("#telaVerificaCodigo").css('display', 'block');
-// 				$("#primeiroAcesso").css('display', 'none');
-// 				$("#initApp").css('display', 'none');
-// 			}else if(afterClose == "defineSenha"){
-// 				switchTelaDefineSenhaToLogin();
-// 			}else if (afterClose == "logaNoApp") {
-
-// 			}else if(afterClose == "logaDoFace"){
-// 				login_user_device();
-// 			}else if(afterClose == "logaDoGoogle"){
-// 				login_user_device();
-// 			}else if (afterClose == "termoUso") {
-// 				$("#initApp").hide();
-// 				$("#login_ini").hide();
-// 				$("#telaAceitaTermo").show(); // a função coorespondente está no index logo abaixo do elemento button aceita termo
-// 			}
-// 		}
-// 	}).then((result) => {
-// 		if (result.dismiss === Swal.DismissReason.timer) {
-// 			// console.log('I was closed by the timer');
-// 		}
-// 	});
-// }
 
 // function alertShowPosibilityToResetPassword(email){
 // 	Swal.fire({
@@ -1293,30 +1329,33 @@ enviarCodigoAtivacao = () => {
   */
 
 function loginFB() {
-	console.log("chama funcao login FB");
-	facebookConnectPlugin.logout(
-	function(successo){
-		// alert(JSON.stringify(successo));
-	    facebookConnectPlugin.login(['public_profile', 'email'], function(result){
-	    	// alert(JSON.stringify(result));
-	        facebookConnectPlugin.api("/me?fields=id,name,email", ["email"], function(userData){
-	        	// alert(JSON.stringify(userData));
-	            let name = userData.name;
-	            let email = userData.email;
-	    		localStorage.setItem('emailSocialMidia', email);
-	    		alert("vai para a checkUsuarioFacebookToLogin()");
+	// console.log("chama funcao login FB");
+	// facebookConnectPlugin.logout(
+	// function(successo){
+	// 	// alert(JSON.stringify(successo));
+	//     facebookConnectPlugin.login(['public_profile', 'email'], function(result){
+	//     	// alert(JSON.stringify(result));
+	//         facebookConnectPlugin.api("/me?fields=id,name,email", ["email"], function(userData){
+	//         	// alert(JSON.stringify(userData));
+	//             let name = userData.name;
+	//             let email = userData.email;
+	//     		localStorage.setItem('emailSocialMidia', email);
+	//     		alert("vai para a checkUsuarioFacebookToLogin()");
+	            
+	            // email = "tino@firstcontrol.com.br";
 	            // checkUsuarioFacebookToLogin(email);
-	        },function(error){
-	            alert("erro no query do api...");
-	        });
-	    },function(error){
-	        alert(JSON.stringify(error));
-	        alert("erro no metodo login...");
-	    })
-	},
-	function(erroror){
-		alert(JSON.stringify(erroror));
-	});
+
+	//         },function(error){
+	//             alert("erro no query do api...");
+	//         });
+	//     },function(error){
+	//         alert(JSON.stringify(error));
+	//         alert("erro no metodo login...");
+	//     })
+	// },
+	// function(erroror){
+	// 	alert(JSON.stringify(erroror));
+	// });
 
 
 }
@@ -1339,16 +1378,22 @@ checkUsuarioFacebookToLogin = (email) => {
 		},
         dataType   : 'json',
 		success: function(retorno){
-			// alert(retorno);
+			
+			console.log(retorno);
+			return false;
+
 			// alert(JSON.stringify(retorno));
+			
 			if (retorno.status == "usuarioValidoToLoginFacebook" && retorno.statuscode == 200) {
-				emailNotRecognizedBySystemAlert('success', "direcionando para App", afterClose="logaDoFace");
+				alerta('Login', "Direcionando para App", afterClose="logaDoFace");
 			}else 
 			if (retorno.status == "perfilAtivoSemSenha" && retorno.statuscode == 200) {
 				$("#btnAtivarConta").attr('data-liberarSemSenha', 'liberarSemSenha');
-				emailNotRecognizedBySystemAlert('success', "direcionando para termo de uso", afterClose="termoUso");
+				alerta('Login', "direcionando para termo de uso", afterClose="termoUso");
 			}else{
-				emailNotRecognizedBySystemAlert("error", 'O ' +email+ ' não está liberado para acessar o condominio tente outra forma de autenticar ou entre em contato com a sua adminstradora..', afterClose=null)
+				let msg = "Não está liberado para acessar o condominio tente outra forma de autenticar ou entre em contato com a sua adminstradora..";
+				alerta("Tentativa de login",msg, afterClose=null)
+				// emailNotRecognizedBySystemAlert("error", 'O ' +email+ ' ', afterClose=null)
 			}
         },
         error: function(error) {

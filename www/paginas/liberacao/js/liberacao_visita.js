@@ -554,7 +554,7 @@ function download_qrcode(){
 	
 	alert($("qr_liberacao").html());
     var dataURL = localStorage.getItem("qr_liberacao");
-	//alert(dataURL);
+	alert(dataURL);
     var uri = encodeURI(dataURL);
     var filePath = cordova.file.externalApplicationStorageDirectory+'Download/qrcode.png';
     console.log('2');

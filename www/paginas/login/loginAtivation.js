@@ -993,17 +993,14 @@ alerta = (title, msg, afterClose=null) => {
 					switchTelaDefineSenhaToLogin();
 				}else if (afterClose == "logaNoApp") {
 
-				}else if(afterClose == "logaDoFace"){
-					login_user_device();
-				}else if(afterClose == "logaDoGoogle"){
-					login_user_device();
-				}else if (afterClose == "termoUso") {
+				}
+				// else if(afterClose == "logaDoFace"){
+				// 	login_user_device();
+				// }else if(afterClose == "logaDoGoogle"){
+				// 	login_user_device();
+				// }
+				else if (afterClose == "termoUso") {
 					app.views.main.router.navigate("/termo_de_uso/", {animate:true, transition: 'f7-dive'});
-					
-					// let dataAcao = localStorage.getItem('data-liberarSemSenha');
-					// $("#initApp").hide();
-					// $("#login_ini").hide();
-					// $("#telaAceitaTermo").show(); // a função coorespondente está no index logo abaixo do elemento button aceita termo
 				}
 		    }
 		},
@@ -1350,42 +1347,41 @@ let enviarSenhaEliberarAcesso = () => {
   */
 
 let loginFB = () => {
-	console.log("chama funcao login FB");
-	app.dialog.preloader("carregando", 'blue');
+	// app.dialog.preloader("carregando", 'blue');
 	facebookConnectPlugin.logout(
 		function(successo){
 		    facebookConnectPlugin.login(['public_profile', 'email'], function(result){
-		    	app.dialog.close();
+		    	// app.dialog.close();
 		        facebookConnectPlugin.api("/me?fields=id,name,email", ["email"], function(userData){
-		        	app.dialog.close();
+		        	// app.dialog.close();
 		            let name = userData.name;
 		            let email = userData.email;
 		    		localStorage.setItem('emailSocialMidia', email);
 		            checkUsuarioFacebookToLogin(email);
 		        },function(error){
-		        	app.dialog.close();
+		        	// app.dialog.close();
 		            alerta("Login com FB", "Erro ao logar com facebook (api)...");
 		        });
 		    },function(error){
-		    	app.dialog.close();
+		    	// app.dialog.close();
 		        alerta("Login com FB", "Erro ao logar com facebook (login)...");
 		    })
 		},
 		function(erroror){
 			facebookConnectPlugin.login(['public_profile', 'email'], function(result){
-				app.dialog.close();
+				// app.dialog.close();
 		        facebookConnectPlugin.api("/me?fields=id,name,email", ["email"], function(userData){
-		        	app.dialog.close();
+		        	// app.dialog.close();
 		            let name = userData.name;
 		            let email = userData.email;
 		    		localStorage.setItem('emailSocialMidia', email);
 		            checkUsuarioFacebookToLogin(email);
 		        },function(error){
-		        	app.dialog.close();
+		        	// app.dialog.close();
 		            alerta("Login com FB", "Erro ao logar com facebook (api)...");
 		        });
 		    },function(error){
-		    	app.dialog.close();
+		    	// app.dialog.close();
 		        alerta("Login com FB", "Erro ao logar com facebook (login)...");
 		    });
 			// alerta("Login com FB", "Erro ao conectar com FB...");
@@ -1445,7 +1441,6 @@ checkUsuarioFacebookToLogin = (email) => {
   */
 
 let loginGoogle = () =>{
-	console.log("chama funcao login G+");
 	app.dialog.preloader("carregando", 'blue');
 	window.plugins.googleplus.login({},
 	    function(obj) {
@@ -1460,7 +1455,6 @@ let loginGoogle = () =>{
 	      	console.log('error: ' + msg);
 	    }
 	);
-	app.dialog.close();
 }
 
 checkUsuarioGoogleToLogin = (email) => {
@@ -1487,7 +1481,12 @@ checkUsuarioGoogleToLogin = (email) => {
 				alerta('Login Google', "direcionando para termo de uso", afterClose="termoUso");
 			}else 
 			if (retorno.status == "usuarioValidoToLoginGoogle" && retorno.statuscode == 200){
-				alerta('Login Google', "direcionando para App", afterClose="logaDoGoogle");
+				app.dialog.preloader("Direcionando para App", 'blue');
+				setTimeout(function () {
+					app.dialog.close();
+					login_user_device();
+				}, 1000);
+				// alerta('Login Google', "direcionando para App", afterClose="logaDoGoogle");
 			}
 			else{
 				let msg = `O  ${email} Não está liberado para acessar o condominio tente outra forma de autenticar ou entre em contato com a sua adminstradora..`;

@@ -6,11 +6,12 @@ carregaInfoProfile = () => {
 	}else{
 		img = "img/avatar.png";
 	}
-
-	let nomeMorador = localStorage.getItem("MORADOR_NOME");
-	let blocoMorador = localStorage.getItem("QUADRA").toLowerCase();
-	let loteMorador = localStorage.getItem("LOTE").toLowerCase();
-	let nomeCondominio = localStorage.getItem("CONDOMINIO").toLowerCase();
+	setTimeout(function() {
+		var nomeMorador = localStorage.getItem("MORADOR_NOME");
+		var blocoMorador = localStorage.getItem("QUADRA").toLowerCase();
+		var loteMorador = localStorage.getItem("LOTE").toLowerCase();
+		var nomeCondominio = localStorage.getItem("CONDOMINIO").toLowerCase();
+	}, 200);
 
 	loteMorador = loteMorador.charAt(0).toUpperCase() + loteMorador.slice(1);
 	nomeMorador = nomeMorador.charAt(0).toUpperCase() + nomeMorador.slice(1);
@@ -23,7 +24,7 @@ carregaInfoProfile = () => {
 		$("#moradorApt").html(loteMorador);
 		$('.Perfil_user_foto').attr("src", img);
 		$(".perfil_condominio").html(nomeCondominio);
-	}, 200);
+	}, 100);
 }
 
 carrega_dados_and_info = (id_condominio) => {

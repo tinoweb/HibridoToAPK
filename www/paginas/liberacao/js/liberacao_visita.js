@@ -21,8 +21,8 @@ function carrega_liberacao(){
 	
 	var id_morador = localStorage.getItem('ID_MORADOR');
 
-  //  alert(id_condominio);
-   /// alert(id_morador);
+   // alert(id_condominio);
+//  alert(id_morador);
 	var cont =0;
     var dados = '';
 	$.ajax({
@@ -72,7 +72,7 @@ function carrega_liberacao(){
                     foto = '<img src="data:image/jpeg;base64,'+retorno[x]['foto']+'" width="34" height="34"/>';
                 }else
 					{
-					foto = '<img src="https://osegredo.com.br/wp-content/uploads/2018/03/O-lugar-da-mulher-830x450.jpg" width="34" height="34"/>'	
+					foto = '<img src="img/avatar.png" width="34" height="34"/>'	
 					}
 				  
 				  dados = '<div class="card demo-facebook-card">'
@@ -366,6 +366,8 @@ function adiciona_liberacao(){
 
 //FUNCAO ADICIONA LIBERACAO
 function salva_liberacao(){
+	var id_condominio = localStorage.getItem('ID_CONDOMINIO');
+	var id_morador = localStorage.getItem('ID_MORADOR');
 	var msg = '';
 	if($( "#add_liberacao #visita" ).val() == 0 || $( "#add_liberacao #dt_de" ).val() == '' || $( "#add_liberacao #hr_de" ).val() == '' || $( "#add_liberacao #dt_ate" ).val() == '' || $( "#add_liberacao #hr_ate" ).val() == ''){
 		notifica('Preencha o campo/Preencha todos os campos/Ok',1000,0);
@@ -406,7 +408,7 @@ function salva_liberacao(){
 					crossDomain: true,
 					beforeSend : function() { $("#wait").css("display", "block"); },
 					complete   : function() { $("#wait").css("display", "none"); },
-					data       : dados+'&id_condominio='+$( "#DADOS #ID_CONDOMINIO" ).val()+'&id_morador='+$( "#DADOS #ID_MORADOR" ).val(),
+					data       : dados+'&id_condominio='+id_condominio+'&id_morador='+id_morador,
 					success: function(retorno){
 							//alert(retorno);
 							carrega_liberacao(0);
@@ -429,9 +431,6 @@ function gera_qrcode(qrcode_numero,nome){
 	var id_condominio = localStorage.getItem('ID_CONDOMINIO');
 	var conde_nome = localStorage.getItem('CONDOMINIO');
 	
-
- //alert(nome);
-   
     $.ajax({
         type: 'POST',
         url: localStorage.getItem('DOMINIO')+'appweb/qrcode_insert.php',
@@ -442,103 +441,55 @@ function gera_qrcode(qrcode_numero,nome){
         dataType   : 'json',
         success: function(retorno){
 			
-	
+	            $('#qrcodeCanvas').html('');
+            jQuery('#qrcodeCanvas').qrcode({
+                text	: retorno[0]['code'],
+                quiet   : 2,
+                ecLevel: 'L',
+                radius: 0.5
+            });
+         
+            var dados_qr = 'Olá '+nome+', <br>essa é sua autorização para acessar o <br>condomínio '+conde_nome+' <br>no período de '+retorno[0]['data_inicio']+' a '+retorno[0]['data_validade']+'';
+       
+            $('#qr_dados').html(dados_qr);
 			
-$("#qr_liberacao").ClassyQR({
-    type: 'text',
-    text: retorno[0]['code']
-});
 
-        var dados_qr = 'Olá '+nome+', <br>essa é sua autorização para acessar o <br>condomínio '+conde_nome+' <br>no período de '+retorno[0]['data_inicio']+' a '+retorno[0]['data_validade']+'';
-			
-			$("#conde_nome").html(dados_qr);
-			
-
-			
-            //var canvas = document.getElementById('qrcodeCanvas');
-            //var dataURL = canvas.toDataURL();
-            //alert(dataURL);
         },
         error      : function() {
-            //alert('Erro ao carregar qcode');
+            
 			$("#wait").css("display", "none");
         }
     });
    
 }
 
-//function downloadCanvas(link) {
-////    var canvas = document.getElementById('qr_code_img');
-////    var dataURL = canvas.toDataURL();
-//    var url = 'http://www.planalto.gov.br/ccivil_03/manual/manualredpr2aed.pdf';
-//    var filePath = 'qrcode.pdf';
-//    alert(filePath);
-//    var fileTransfer = new FileTransfer();
-//    var uri = encodeURI(url);
-//    fileTransfer.download(
-//        uri,
-//        filePath,
-//        function(entry) {
-//            console.log("download complete: " + entry.fullPath);
-//        },
-//        function(error) {
-//            console.log("download error source " + error.source);
-//            console.log("download error target " + error.target);
-//            console.log("upload error code" + error.code);
-//        },
-//        false,
-//        {
-//            headers: {
-//                "Authorization": "Basic dGVzdHVzZXJuYW1lOnRlc3RwYXNzd29yZA=="
-//            }
-//        }
-//    );
-////    var canvas = document.getElementById('qr_code_img');
-////    var dataURL = canvas.toDataURL();
-////    //alert(dataURL);
-////    link.href = dataURL;
-////    link.download = 'qrcode.png';
-//}
+
 
 function preview(){
-
-    html2canvas(document.querySelector("#share_img")).then(canvas => {
-    document.body.appendChild(canvas)
-});
-	alert(html2canvas);
 	
-	
-	
-	
-/*    var element = $("#qr_visita"); // global variable
+	//$("#enviar_qr").attr('style','display:none');
+  var element = document.querySelector("#printscr_qrcode"); // global variable
     var getCanvas; // global variable
-	$("#share_img").html("");
+	$("#resultado_qr").html("");
 	//alert(element);
     html2canvas(element, {
 		
         onrendered: function (canvas) {
-            $("#share_img").html(canvas);
+            $("#resultado_qr").html(canvas);
             var dataURL = canvas.toDataURL();
-           alert(dataURL); 
-           // localStorage.setItem("img_share", dataURL);
+           $("#url_qr").val(dataURL); 
+            localStorage.setItem("resultado_qr", dataURL);
         }
-    });    */
+    }); 
+	$("#printscr_qrcode").hide();
+	
+	
+	$("#download").show();
+	$("#whatsp").show();
+	
 }
 
-//
-//function download_qrcode(){
-//        alert('1');
-//        var getCanvas = localStorage.getItem("getCanvas");
-//        //alert(getCanvas);
-//        alert('2');
-//        var imgageData = getCanvas.toDataURL("image/png");
-//        // Now browser starts downloading it instead of just showing it
-//        alert('3');
-//        var newData = imgageData.replace(/^data:image\/png/, "data:application/octet-stream");
-//        alert('4');
-//        $("#qrcodeCanvas").attr("download", "your_pic_name.png").attr("href", newData);
-//
-//}
+
 
 function download_qrcode(){ 
     console.log('0');
@@ -552,9 +503,9 @@ function download_qrcode(){
    // var uri = encodeURI("http://portal.mec.gov.br/seb/arquivos/pdf/Profa/apres.pdf");
     //var canvas = document.getElementById('qr_s_teste');
 	
-	alert($("qr_liberacao").html());
-    var dataURL = localStorage.getItem("qr_liberacao");
-	alert(dataURL);
+	//alert($('img[id="qr_liberacao"]').attr('src'));
+    var dataURL = $("#url_qr").val();
+	
     var uri = encodeURI(dataURL);
     var filePath = cordova.file.externalApplicationStorageDirectory+'Download/qrcode.png';
     console.log('2');
@@ -577,6 +528,7 @@ function download_qrcode(){
 			var path = entry.toURL(); //**THIS IS WHAT I NEED**
 			//alert(path);
 			var ref = cordova.InAppBrowser.open(uri, '_blank', 'location=no,hideurlbar=yes');
+			
 			/*var myCallback = function(event) { console.log('envio ok'); }
 			ref.addEventListener('loadstart', myCallback);
 			ref.addEventListener('loaderror', myCallback);
@@ -585,9 +537,8 @@ function download_qrcode(){
         function(error) {
             console.log("download error source " + error.source);
             console.log("download error target " + error.target);
-            //console.log("upload error code" + error.code);
-			alert(uri);
-			alert(filePath);
+           
+			
 			$('#downloadProgress').css({"display":"none"});
         },
         false,
@@ -602,7 +553,7 @@ function download_qrcode(){
 
 function whatsapp_qrcode(){
     //var canvas = document.getElementById('qr_s_teste');
-    var dataURL = localStorage.getItem("qr_liberacao");
+    var dataURL = $("#url_qr").val();
     var uri = encodeURI(dataURL);
     window.plugins.socialsharing.shareViaWhatsApp('' /* msg */, uri /* img */, null /* url */, function() {console.log('share ok')}, function(errormsg){alert(errormsg)});
 }

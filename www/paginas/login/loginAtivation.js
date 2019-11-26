@@ -926,6 +926,7 @@ function carrega_user_perfil(id) {
 				  	closeByBackdropClick: false,
 				  	closeOnEscape: false
 				});
+
 				app.actions.close('.loginApp', true);
 				app.actions.open('#multiProfileUser', true);
 				$$('#multiProfileUser').on('sheet:opened', function (e) {
@@ -1020,7 +1021,8 @@ alerta = (title, msg, afterClose=null) => {
 
 
 aceiteiTermo = (prossigaOutroCaminho=null) => {
-	if (prossigaOutroCaminho == null) {
+	var liberar = localStorage.getItem('data-liberarSemSenha');
+	if (liberar == null) {
 		app.views.main.router.navigate("/define_senha/", {animate:true});
 		$$(document).on('page:init', function (e) {
 			app.sheet.create({
@@ -1308,37 +1310,29 @@ let loginFB = () => {
 	facebookConnectPlugin.logout(
 		function(successo){
 		    facebookConnectPlugin.login(['public_profile', 'email'], function(result){
-		    	// app.dialog.close();
 		        facebookConnectPlugin.api("/me?fields=id,name,email", ["email"], function(userData){
-		        	// app.dialog.close();
 		            let name = userData.name;
 		            let email = userData.email;
 		    		localStorage.setItem('emailSocialMidia', email);
 		            checkUsuarioFacebookToLogin(email);
 		        },function(error){
-		        	// app.dialog.close();
 		            alerta("Login com FB", "Erro ao logar com facebook (api)...");
 		        });
 		    },function(error){
-		    	// app.dialog.close();
 		        alerta("Login com FB", "Erro ao logar com facebook (login)...");
 		    })
 		},
 		function(erroror){
 			facebookConnectPlugin.login(['public_profile', 'email'], function(result){
-				// app.dialog.close();
 		        facebookConnectPlugin.api("/me?fields=id,name,email", ["email"], function(userData){
-		        	// app.dialog.close();
 		            let name = userData.name;
 		            let email = userData.email;
 		    		localStorage.setItem('emailSocialMidia', email);
 		            checkUsuarioFacebookToLogin(email);
 		        },function(error){
-		        	// app.dialog.close();
 		            alerta("Login com FB", "Erro ao logar com facebook (api)...");
 		        });
 		    },function(error){
-		    	// app.dialog.close();
 		        alerta("Login com FB", "Erro ao logar com facebook (login)...");
 		    });
 			// alerta("Login com FB", "Erro ao conectar com FB...");
@@ -1398,6 +1392,16 @@ checkUsuarioFacebookToLogin = (email) => {
 
 let loginGoogle = () =>{
 	app.dialog.preloader("carregando", 'blue');
+
+
+
+	// window.plugins.googleplus.disconnect(
+	//     function (msg) {
+	//       alert(msg); 
+	//     }
+	// );
+
+
 	window.plugins.googleplus.login({},
 	    function(obj) {
 			app.dialog.close();

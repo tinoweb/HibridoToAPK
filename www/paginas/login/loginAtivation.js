@@ -72,6 +72,14 @@ goToIndexPage = () => {
 	return app.views.main.router.navigate("/index/", {animate:true});
 }
 
+goToIndexPageNoCache = () => {
+	return app.views.main.router.navigate("/index/", {
+		animate:true,
+		transition: 'f7-dive',
+		reloadAll:true
+	});
+}
+
 primeiroAcessoBtnVoltar = () => {
 	app.views.main.router.navigate("/index/", {
 		animate:true,
@@ -989,15 +997,13 @@ alerta = (title, msg, afterClose=null) => {
 					// $("#initApp").css('display', 'none');
 
 				}else if(afterClose == "defineSenha"){
-					switchTelaDefineSenhaToLogin();
-				}else if (afterClose == "logaNoApp") {
-
+					// definir um geito de auto logar apos a definição de senha na validacão do cadastro
+					alert("Logar no sistema automaticamente.....");
+					// login_user_device();
+				}else if (afterClose == "voltaInicio") {
+					goToIndexPageNoCache();
 				}
-				// else if(afterClose == "logaDoFace"){
-				// 	login_user_device();
-				// }else if(afterClose == "logaDoGoogle"){
-				// 	login_user_device();
-				// }
+				
 				else if (afterClose == "termoUso") {
 					app.views.main.router.navigate("/termo_de_uso/", {animate:true, transition: 'f7-dive'});
 				}
@@ -1033,14 +1039,6 @@ aceiteiTermo = (prossigaOutroCaminho=null) => {
 			});
 			app.actions.open('.defineSenhaApp', true);
 		})
-
-		// $("#inputDefineSenha").blur(function() {
-		// 	$("#btnSaveSenha").attr('disabled', false);
-		// 	if ($("#inputDefineSenha").val().length === 0 ) {
-		// 		$("#btnSaveSenha").attr('disabled', true);
-		// 	}
-		// });
-		
 	}else{
 		console.log("posso continuar agora...");
 		localStorage.removeItem('data-liberarSemSenha');
@@ -1118,44 +1116,37 @@ function choosedMail(){
 // }
 
 
-enviarCodigoAtivacao = () => {
-	console.log("send code ativacao...");
-	app.views.main.router.navigate("/termo_de_uso/", {animate:true});
+enviarCodigoAtivacao = (codigoAtivacao) => {
+	console.log(codigoAtivacao);
+	console.log(localStorage.getItem('DOMINIO')+'appweb/ativacao_post.php');
 
-
-// 	let codigoAtivacao = $("#codigoAtivacao").val();
-// 	console.log(localStorage.getItem('DOMINIO')+'appweb/ativacao_post.php');
-// 	if (codigoAtivacao.length !== 0) {
-// 		$.ajax({
-// 			type: 'POST',
-// 			url: localStorage.getItem('DOMINIO')+'appweb/ativacao_post.php',
-// 			crossDomain: true,
-// 			beforeSend : function() { $("#wait").css("display", "block"); },
-// 			complete   : function() { $("#wait").css("display", "none"); },
-// 	        data       : { codigo : codigoAtivacao, typeFunction : 'enviarCodigoAtivacao' },
-// 	        dataType   : 'json',
-// 			success: function(retorno){
-// 				console.log(retorno);    
-// 				if (retorno.statuscode == 200 && retorno.status == "codigoOk") {
-// 					localStorage.setItem("idUsuarioAtivacao", retorno.idUsuario); // Id do usuario recebido atraves do codigo de ativacao
-// 					$("#btnCancelarConta").hide();
-// 					$("#btnAtivarConta").hide();
-// 					$("#telaVerificaCodigo").hide();
-// 					$("#telaAceitaTermo").show();
-// 					$(".aceitaTermoClass").css('display', 'block');
-// 					$("#concordaComTermo").hide();
-// 				}else if (retorno.statuscode == 204 && retorno.status == "usuarioNaoEncontradoParaCodigo") {
-// 					emailNotRecognizedBySystemAlert('error', "Código de Ativação Inválido, Confira o codigo enviado no seu email");
-// 					$("#codigoAtivacao").val("");
-// 				}
-// 	        },
-// 	        error: function(error) {
-// 				console.log(error);
-// 	        }
-// 		});	
-// 	}else{
-// 		app2.input.validate("#codigoAtivacao");
-// 	}
+	if (codigoAtivacao.length !== 0) {
+		$.ajax({
+			type: 'POST',
+			url: localStorage.getItem('DOMINIO')+'appweb/ativacao_post.php',
+			crossDomain: true,
+			beforeSend : function() { $("#wait").css("display", "block"); },
+			complete   : function() { $("#wait").css("display", "none"); },
+	        data       : { codigo : codigoAtivacao, typeFunction : 'enviarCodigoAtivacao' },
+	        dataType   : 'json',
+			success: function(retorno){
+				console.log(retorno);    
+				
+				if (retorno.statuscode == 200 && retorno.status == "codigoOk") {
+					localStorage.setItem("idUsuarioAtivacao", retorno.idUsuario); // Id do usuario recebido atraves do codigo de ativacao
+					app.views.main.router.navigate("/termo_de_uso/", {animate:true});
+				}else if (retorno.statuscode == 204 && retorno.status == "usuarioNaoEncontradoParaCodigo") {
+					alerta('Erro Validação', "Código de Ativação Inválido, Confira o codigo enviado no seu email", afterClose="voltaInicio");
+					$("#codigoAtivacao").val("");
+				}
+	        },
+	        error: function(error) {
+				console.log(error);
+	        }
+		});	
+	}else{
+		app2.input.validate("#codigoAtivacao");
+	}
 }
 
 let enviarSenhaEliberarAcesso = () => {
@@ -1217,49 +1208,54 @@ let enviarSenhaEliberarAcesso = () => {
 // 	app2.actions.open('.loginApp', true);
 // }
 
-// function salvarSenha(){
-// 	if ($("#inputDefineSenha").val().length !== 0 ) {
-// 		$("#btnSaveSenha").attr('disabled', false);
-// 		if ($("#inputDefineSenha").val() != $("#inputDefineSenhaRepita").val()) {
-// 			alerta("", "As senhas não combinam. Elas devem ser iguais!", 4000);
-// 		}else{
+function salvarSenha(){
+	if ($("#inputDefineSenha").val().length !== 0 ) {
+		$("#btnSaveSenha").attr('disabled', false);
+		if ($("#inputDefineSenha").val() != $("#inputDefineSenhaRepita").val()) {
+			$$("#inputDefineSenha").val('');
+			$$("#inputDefineSenhaRepita").val('');
+			alerta("Erro na Senha", "As senhas não combinam. Elas devem ser iguais!");
+		}else{
 
-// 			let senha = $("#inputDefineSenha").val();
+			let senha = $("#inputDefineSenha").val();
+			idUsuario = null;	
+			idUsuario = localStorage.getItem('idUsuarioAtivacao');
 
-// 			idUsuario = null;	
-// 			idUsuario = localStorage.getItem('idUsuarioAtivacao');
-// 			alert("usuariio ===>>" + idUsuario);
+			$.ajax({
+				type: 'POST',
+				url: localStorage.getItem('DOMINIO')+'appweb/ativacao_post.php',
+				crossDomain: true,
+				beforeSend : function() { $("#wait").css("display", "block"); },
+				complete   : function() { $("#wait").css("display", "none"); },
+		        data: { 
+	    				idUsuario : idUsuario, 
+	    				senha : senha,
+	    				typeFunction : "definirSenha"
+		    		},
+		        dataType   : 'json',
+				success: function(retorno){
 
-// 			$.ajax({
-// 				type: 'POST',
-// 				url: localStorage.getItem('DOMINIO')+'appweb/ativacao_post.php',
-// 				crossDomain: true,
-// 				beforeSend : function() { $("#wait").css("display", "block"); },
-// 				complete   : function() { $("#wait").css("display", "none"); },
-// 		        data: { 
-// 	    				idUsuario : idUsuario, 
-// 	    				senha : senha,
-// 	    				typeFunction : "definirSenha"
-// 		    		},
-// 		        dataType   : 'json',
-// 				success: function(retorno){
-// 					if (retorno.statuscode == 200 && retorno.status == "senhaDefinidoOk") {
-// 						$('#formSendDefineSenha').trigger("reset");
-// 						emailNotRecognizedBySystemAlert('success', "Senha definida com sucesso", "defineSenha");
-// 					}
-// 		        },
-// 		        error: function(error) {
-// 					console.log(error);
-// 					alert('Não foi possivel executar a ação pretendida, entre em contato com seu administrador');
-// 		        }
-// 			});	
-// 		}
-// 	}else{
-// 		alerta("","Defina uma senha para continuar", 3000);
-// 	}
-// }
+					console.log(retorno);
+					// return false;
+
+					if (retorno.statuscode == 200 && retorno.status == "senhaDefinidoOk") {
+						$('#formSendDefineSenha').trigger("reset");
+						alerta('Define Senha', "Senha definida com sucesso", 'defineSenha');
+					}
+		        },
+		        error: function(error) {
+					console.log(error);
+					alerta('Erro', 'Não foi possivel executar a ação pretendida, entre em contato com seu administrador');
+		        }
+			});	
+		}
+	}else{
+		alerta("Erro","Senha não definida");
+	}
+}
 
 // não ta sendo usado essa função..............
+
 // confirmaCodeResetPassword = (recoveryCode) => {
 // 	alert("codigo recebido "+recoveryCode);
 // 	$.ajax({
@@ -1278,9 +1274,9 @@ let enviarSenhaEliberarAcesso = () => {
 
 // 			if (retorno.status == "codigoConfere" && retorno.statuscode == 200) {
 				
-// 				console.log("definir senha");
-// 				alert("definir senha");
-// 				alert("codigo confirmado");
+// 				// console.log("definir senha");
+// 				// alert("definir senha");
+// 				// alert("codigo confirmado");
 
 // 				localStorage.removeItem('idUsuarioAtivacao');
 // 				localStorage.setItem("idUsuarioAtivacao", retorno.id_usuario);
@@ -1295,6 +1291,7 @@ let enviarSenhaEliberarAcesso = () => {
 //         }
 // 	});	
 // }
+
 // não ta sendo usado essa função..............
 
 

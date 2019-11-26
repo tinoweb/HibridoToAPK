@@ -177,6 +177,12 @@ login_user_device = () => {
         }else{
             var UUID = device.uuid;
         }
+
+        alert("parametros de query....");
+        alert(UUID);
+        alert(localStorage.getItem('registrationId'));
+        
+
         $.ajax({
             type       : "POST",
             url        : localStorage.getItem('DOMINIO')+"appweb/login.php",

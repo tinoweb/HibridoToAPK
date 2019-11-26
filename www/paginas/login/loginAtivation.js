@@ -1411,6 +1411,7 @@ let loginGoogle = () =>{
 	    function(msg) {
 	    	app.dialog.close();
 	      	console.log('error: ' + msg);
+	      	alert(JSON.stringify(msg));
 	    }
 	);
 }
@@ -1452,6 +1453,7 @@ checkUsuarioGoogleToLogin = (email) => {
         },
         error: function(error) {
 			console.log(error);
+			alert(JSON.stringify(error));
 			console.log('não foi possivel continuar...');
         }
 	});	

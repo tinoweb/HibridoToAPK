@@ -1,12 +1,6 @@
 <div class="pages">
 	<div data-page="home" class="page">
-        <div class="toolbar toolbar-bottom" style="background-color: #007aff">
-          <div class="toolbar-inner">
-            <a class="link"></a>
-            <a class="link" href="/lib_2/">Proximo</a>
-            <a class="link"></a>
-          </div>
-        </div>
+
         <div class="navbar">
             <div class="navbar-bg" style="background-color: #007aff" ></div>
             <div class="navbar-inner sliding">
@@ -21,6 +15,12 @@
             </div>
         </div>	
         <div class="page-content">
+	       <div class="tabs-animated-wrap" >
+            <div class="tabs" >	 
+		     <div id="tab-1" data-swipe="false" class="page-content tab tab-active" style=" margin-top: -20%;height: auto; overflow-x: hidden  !important" >			
+			
+			
+			
             <div class="content-block">
 				<div>
 					<p style="padding: 0 20px;">
@@ -37,7 +37,8 @@
 						<div class="item-inner">
 						  <div class="item-title item-label">Nome</div>
 						  <div class="item-input-wrap">
-							<input type="text" name="nome" placeholder="Nome do Visitante">
+							<input type="text" name="nome" value="" placeholder="Nome do Visitante" onKeyUp="carrega_visitantes(this.value,0)">
+							
 						  </div>
 						</div>
 					  </div>
@@ -52,7 +53,7 @@
 						</div>
 					  </div>
 					</li>
-					<li class="accordion-item">
+					<li class="accordion-item" style="display: none">
 						<a href="#" class="item-content item-link">
 							<div class="item-inner">
 							  <div class="item-title">Mais Informações</div>
@@ -159,7 +160,7 @@
 								</div>
 							  </div>
 							</li>
-							<li class="accordion-item-content">
+							<li class="accordion-item-content" style="margin-bottom: 15px">
 							  <div class="item-content item-input">
 								<div class="item-inner">
 								  <div class="item-title item-label">Observação</div>
@@ -173,7 +174,217 @@
 					</li>
 				  </ul>
 				</form>
+				
 			</div>
+			<div class="block">
+			 <div id="visitantes"></div>	 
+				 <div class="card-content">
+<div class="list media-list no-ios-edges">
+<ul>
+
+
+</ul>
+</div>
+</div>
+			</div>	 
+		<div class="toolbar toolbar-bottom" style="background-color: #007aff;margin-top: 100%;position: fixed">
+			 <a class="link tab-link" href="#tab-2">
+        	 <label class="centralizar size-15" style="width: 100%"><b>Proximo</b> </label>
+			</a>
+        </div>
+				</div>	
+				
+				 <div id="tab-2" class="page-content tab" data-swipe="false" style=" margin-top: -20%;height: auto; overflow-x: hidden  !important">
+            <div class="content-block">
+				<div>
+					<p style="padding: 0 20px;">
+						<span data-progress="66" class="progressbar color-blue" id="demo-inline-progressbar">
+							<span style="transform: translate3d(-90%, 0px, 0px);"></span>
+						</span>
+					</p>
+				</div>
+				<form class="list accordion-list custom-accordion" id="my-form">
+				  <ul>
+					<li>
+					  <div class="item-content item-input">
+						<div class="item-inner">
+						  <div class="item-title item-label">Nome</div>
+						  <div class="item-input-wrap">
+							<input type="text" name="nome" value="Visitante Nome" disabled>
+						  </div>
+						</div>
+					  </div>
+					</li>
+					<li>
+					  <div class="item-content item-input">
+						<div class="item-inner">
+						  <div class="item-title item-label">RG</div>
+						  <div class="item-input-wrap">
+							<input type="text" name="rg" value="999999999" disabled>
+						  </div>
+						</div>
+					  </div>
+					</li>
+					<li>
+					  <a class="item-link smart-select smart-select-init">
+						<select name="fruits">
+						  <option value="apple" selected>Apple</option>
+						  <option value="pineapple">Pineapple</option>
+						  <option value="pear">Pear</option>
+						  <option value="orange">Orange</option>
+						  <option value="melon">Melon</option>
+						  <option value="peach">Peach</option>
+						  <option value="banana">Banana</option>
+						</select>
+						<div class="item-content">
+						  <div class="item-inner">
+							<div class="item-title">Motivo</div>
+						  </div>
+						</div>
+					  </a>
+					</li>
+					<li>
+					  <div class="item-content item-input">
+						<div class="item-inner">
+						  <div class="item-title item-label">De</div>
+						  <div class="item-input-wrap">
+							<input type="datetime-local" placeholder="Please choose...">
+						  </div>
+						</div>
+					  </div>
+					</li>
+					<li>
+					  <div class="item-content item-input">
+						<div class="item-inner">
+						  <div class="item-title item-label">Até</div>
+						  <div class="item-input-wrap">
+							<input type="datetime-local" placeholder="Please choose...">
+						  </div>
+						</div>
+					  </div>
+					</li>
+					<li>
+					  <a class="item-link smart-select smart-select-init">
+						<select name="fruits">
+						  <option value="apple" selected>1</option>
+						  <option value="pineapple">2</option>
+						  <option value="pear">3</option>
+						  <option value="orange">4</option>
+						  <option value="melon">5</option>
+						  <option value="peach">6</option>
+						  <option value="banana">7</option>
+						  <option value="banana">8</option>
+						  <option value="banana">9</option>
+						  <option value="banana">Ilimitados</option>
+						</select>
+						<div class="item-content">
+						  <div class="item-inner">
+							<div class="item-title">Créditos</div>
+						  </div>
+						</div>
+					  </a>
+					</li>
+				  </ul>
+				</form>
+				<div class="toolbar toolbar-bottom" style="background-color: #007aff; position: absolute;margin-top: 100%">
+					 <a class="link tab-link" href="#tab-3">
+					 <label class="centralizar size-15" style="width: 100%"><b>Proximo</b> </label>
+					</a>
+				</div>
+			</div>
+				
+				
+				
+				
+				</div>
+				 <div id="tab-3" class="page-content tab" data-swipe="false" style=" margin-top: -20%;height: auto; overflow-x: hidden  !important">
+				
+     		<div class="content-block">
+				<div>
+					<p style="padding: 0 20px;">
+						<span data-progress="100" class="progressbar color-blue" id="demo-inline-progressbar">
+							<span style="transform: translate3d(-90%, 0px, 0px);"></span>
+						</span>
+					</p>
+				</div>
+				<form class="list accordion-list custom-accordion" id="my-form">
+				  <ul>
+					<li>
+					  <div class="item-content item-input">
+						<div class="item-inner">
+						  <div class="item-title item-label">Placa</div>
+						  <div class="item-input-wrap">
+							<input type="text" name="nome" value="AAA-1111" >
+						  </div>
+						</div>
+					  </div>
+					</li>
+					<li>
+					  <a class="item-link smart-select smart-select-init">
+						<select name="fruits">
+						  <option value="apple" selected>Apple</option>
+						  <option value="pineapple">Pineapple</option>
+						  <option value="pear">Pear</option>
+						  <option value="orange">Orange</option>
+						  <option value="melon">Melon</option>
+						  <option value="peach">Peach</option>
+						  <option value="banana">Banana</option>
+						</select>
+						<div class="item-content">
+						  <div class="item-inner">
+							<div class="item-title">Marca</div>
+						  </div>
+						</div>
+					  </a>
+					</li>
+					<li>
+					  <a class="item-link smart-select smart-select-init">
+						<select name="fruits">
+						  <option value="apple" selected>Apple</option>
+						  <option value="pineapple">Pineapple</option>
+						  <option value="pear">Pear</option>
+						  <option value="orange">Orange</option>
+						  <option value="melon">Melon</option>
+						  <option value="peach">Peach</option>
+						  <option value="banana">Banana</option>
+						</select>
+						<div class="item-content">
+						  <div class="item-inner">
+							<div class="item-title">Modelo</div>
+						  </div>
+						</div>
+					  </a>
+					</li>
+					<li>
+					  <a class="item-link smart-select smart-select-init">
+						<select name="fruits">
+						  <option value="apple" selected>Apple</option>
+						  <option value="pineapple">Pineapple</option>
+						  <option value="pear">Pear</option>
+						  <option value="orange">Orange</option>
+						  <option value="melon">Melon</option>
+						  <option value="peach">Peach</option>
+						  <option value="banana">Banana</option>
+						</select>
+						<div class="item-content">
+						  <div class="item-inner">
+							<div class="item-title">Cor</div>
+						  </div>
+						</div>
+					  </a>
+					</li>
+				  </ul>
+				</form>
+			<div class="toolbar toolbar-bottom" style="background-color: #007aff; position: absolute;margin-top: 100%">
+			 <a class="link tab-link" href="/liberacao/">
+        	 <label class="centralizar size-15" style="width: 100%"><b>Salvar</b> </label>
+			</a>
+			</div>
+        </div>
+			</div>	
+				
+				</div>	 
+				</div>	 
         </div>
     </div>
 </div>

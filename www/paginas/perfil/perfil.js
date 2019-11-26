@@ -23,7 +23,7 @@ carregaInfoProfile = () => {
 		$("#moradorApt").html(loteMorador);
 		$('.Perfil_user_foto').attr("src", img);
 		$(".perfil_condominio").html(nomeCondominio);
-	}, 100);
+	}, 200);
 }
 
 carrega_dados_and_info = (id_condominio) => {
@@ -106,6 +106,7 @@ carrega_morador_dados = (id_morador) => {
         data       : { id_condominio : localStorage.getItem("ID_CONDOMINIO"), id_morador : id_morador },
         dataType   : 'json',
 		success: function(retorno){
+
             let gernero = retorno[0]['masculino']==1? "Masculino" : "Feminino";
             let statusVisita = retorno[0]['perfil_statusVisita']==1? "Ativo" : "Inativo";
             let statusCondo = retorno[0]['usar_control_condo']==1? "Ativo" : "Inativo";  
@@ -120,9 +121,12 @@ carrega_morador_dados = (id_morador) => {
 			$("#perfil_email").html(retorno[0]['email']);
 
 			console.log(retorno);
+			return false;
+			// alert(JSON.stringify(retorno));
+			// localStorage.getItem('ID_CONDOMINIO');
 
 			if (retorno[0]['parentesco'] == 1) {
-				carrega_dados_and_info(localStorage.getItem('ID_CONDOMINIO'));
+				carrega_dados_and_info(retorno[0][id_condominio]);
 			}else{
 				$$(".hasFamilia").hide();
 			}

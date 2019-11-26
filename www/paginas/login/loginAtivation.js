@@ -1370,12 +1370,6 @@ checkUsuarioFacebookToLogin = (email) => {
 			if (retorno.status == "perfilAtivoSemSenha" && retorno.statuscode == 200) {
 				localStorage.setItem('data-liberarSemSenha','liberarSemSenha');
 				app.views.main.router.navigate("/termo_de_uso/", {animate:true, transition: 'f7-dive'});
-				// $$(document).on('page:init', '.page[data-name="pgTermo"]', function (e) {
-					
-				// });
-
-				// alerta('Login pelo Facebook', "Direcionando para termo de uso", afterClose="termoUso");
-				// app.dialog.preloader("Direcionando para App", 'blue');
 			}else{
 				let msg = `O  ${email} Não está liberado para acessar o condominio tente outra forma de autenticar ou entre em contato com a sua adminstradora..`;
 				alerta("Tentativa de login",msg, afterClose=null)
@@ -1443,7 +1437,6 @@ checkUsuarioGoogleToLogin = (email) => {
 		success: function(retorno){
 	
 			if (retorno.status == "perfilAtivoSemSenha" && retorno.statuscode == 200) {
-				// $("#btnAtivarConta").data('liberarSemSenha', 'liberarSemSenha');
 				localStorage.setItem('data-liberarSemSenha','liberarSemSenha');
 				alerta('Login Google', "direcionando para termo de uso", afterClose="termoUso");
 			}else 

@@ -73,7 +73,6 @@ goToIndexPage = () => {
 }
 
 primeiroAcessoBtnVoltar = () => {
-	// goToIndexPage();
 	app.views.main.router.navigate("/index/", {
 		animate:true,
 		transition: 'f7-dive',
@@ -1020,45 +1019,7 @@ alerta = (title, msg, afterClose=null) => {
 // levar essa função para arquivo geral;.....
 
 
-// function emailNotRecognizedBySystemAlert(type, messenge, afterClose=null){
-// 	Swal.fire({
-// 	  	type: type,
-// 	  	text: messenge,
-// 		timer: 4000,
-// 		onBeforeOpen: () => {
-// 			Swal.showLoading()
-// 			timerInterval = setInterval(() => {}, 100)
-// 		},
-// 		onClose: () => {
-// 			if (afterClose == "primeiroAcesso") {
-// 				$("#inputReceveEmailToGetCode").val("");
-// 				$("#telaVerificaCodigo").css('display', 'block');
-// 				$("#primeiroAcesso").css('display', 'none');
-// 				$("#initApp").css('display', 'none');
-// 			}else if(afterClose == "defineSenha"){
-// 				switchTelaDefineSenhaToLogin();
-// 			}else if (afterClose == "logaNoApp") {
-
-// 			}else if(afterClose == "logaDoFace"){
-// 				login_user_device();
-// 			}else if(afterClose == "logaDoGoogle"){
-// 				login_user_device();
-// 			}else if (afterClose == "termoUso") {
-// 				$("#initApp").hide();
-// 				$("#login_ini").hide();
-// 				$("#telaAceitaTermo").show(); // a função coorespondente está no index logo abaixo do elemento button aceita termo
-// 			}
-// 		}
-// 	}).then((result) => {
-// 		if (result.dismiss === Swal.DismissReason.timer) {
-// 			// console.log('I was closed by the timer');
-// 		}
-// 	});
-// }
-
-
 aceiteiTermo = (prossigaOutroCaminho=null) => {
-
 	if (prossigaOutroCaminho == null) {
 		app.views.main.router.navigate("/define_senha/", {animate:true});
 		$$(document).on('page:init', function (e) {
@@ -1109,12 +1070,6 @@ function choosedMail(){
 	if (campoEmail.length !== 0) {
 
 		app.sheet.close('.recebEmail', true); // tirar depois
-
-		// let chama = () => {
-		// 	console.log("certo");
-		// }
-		// app.dialog.alert("Testo do Dialog", "title", chama());
-		
 		app.views.main.router.navigate("/receveAtivationCode/", {animate:true});
 
 		// console.log(localStorage.getItem('DOMINIO')+'appweb/ativacao_post.php');
@@ -1224,7 +1179,6 @@ let enviarSenhaEliberarAcesso = () => {
 		success: function(retorno){
 			console.log(retorno);
 			if (retorno.status == "usuarioValidoToLogin" && retorno.statuscode == 200) {
-				// alerta('Login success', "Direcionando para App", afterClose="logaDoFace");
 				setTimeout(function () {
 					app.dialog.close();
 					login_user_device();
@@ -1414,7 +1368,6 @@ checkUsuarioFacebookToLogin = (email) => {
         dataType   : 'json',
 		success: function(retorno){
 			if (retorno.status == "usuarioValidoToLoginFacebook" && retorno.statuscode == 200) {
-				// alerta('Login pelo Facebook', "Direcionando para App", afterClose="logaDoFace");
 				app.dialog.preloader("Direcionando para App", 'blue');
 				setTimeout(function () {
 					app.dialog.close();
@@ -1486,12 +1439,11 @@ checkUsuarioGoogleToLogin = (email) => {
 				alerta('Login Google', "direcionando para termo de uso", afterClose="termoUso");
 			}else 
 			if (retorno.status == "usuarioValidoToLoginGoogle" && retorno.statuscode == 200){
-				app.dialog.preloader("Direcionando para App", 'blue');
-				setTimeout(function () {
+				// app.dialog.preloader("Direcionando para App", 'blue');
+				// setTimeout(function () {
 					app.dialog.close();
 					login_user_device();
-				}, 1000);
-				// alerta('Login Google', "direcionando para App", afterClose="logaDoGoogle");
+				// }, 100);
 			}
 			else{
 				let msg = `O  ${email} Não está liberado para acessar o condominio tente outra forma de autenticar ou entre em contato com a sua adminstradora..`;

@@ -169,7 +169,6 @@ login_user = (e) => {
 ########################################
 */
 login_user_device = () => {
-	alert("entrou agora user device...");
 	localStorage.setItem('VERSAO','1.2.5');
     if(navigator.connection.type != 'none'){
         if(device.uuid == null){
@@ -177,12 +176,6 @@ login_user_device = () => {
         }else{
             var UUID = device.uuid;
         }
-
-        alert("parametros de query....");
-        alert(UUID);
-        alert(localStorage.getItem('registrationId'));
-        
-
         $.ajax({
             type       : "POST",
             url        : localStorage.getItem('DOMINIO')+"appweb/login.php",
@@ -193,13 +186,10 @@ login_user_device = () => {
             dataType   : 'json',
             success    : function(retorno) {
 				console.log(retorno);
-				alert(JSON.stringify(retorno));
-
 				if(retorno[0]['error'] == 0){
 					if(retorno[0]['VERSAO'] == localStorage.getItem('VERSAO')){
 						if(retorno[0]['perfil'] > 1){
 							// multprofile user....
-
 							carrega_user_perfil(retorno[0]['id_usuario']);
 
 							localStorage.setItem('ID_USER_L',retorno[0]['id_usuario']);
@@ -523,8 +513,7 @@ login_user_device = () => {
 				}
             
             },
-            error : function(error) {
-            	alert(JSON.stringify(error));
+            error : function() {
                 alerta('Aviso','Erro ao logar automático');
             }
         });
@@ -919,7 +908,6 @@ limita_txt = (titulo,qtd) => {
 
 // FUNCAO CARREGA PERFIL
 function carrega_user_perfil(id) {
-	alert("entrou na carrega perfil....");
     var dados = '';
 	if(navigator.connection.type != 'none'){
 		$.ajax({
@@ -931,8 +919,6 @@ function carrega_user_perfil(id) {
             data       : {id_usuario : id},
             dataType   : 'json',
 			success: function(retorno){
-
-				alert(JSON.stringify(retorno));
 				
 				app.sheet.create({
 				 	el: '#multiProfileUser',
@@ -952,6 +938,9 @@ function carrega_user_perfil(id) {
 					el:'.selectCondo',
 					on: {
 					    opened: function () {
+					      	// console.log('Smart select opened');
+					      	// console.log($(".page-content")[1]);
+
 					      	let elemento = $(".page-content")[1];
 							let esseElemento = elemento.firstElementChild;
 							esseElemento.style.position="relative";
@@ -1190,10 +1179,8 @@ let enviarSenhaEliberarAcesso = () => {
 		success: function(retorno){
 			console.log(retorno);
 			if (retorno.status == "usuarioValidoToLogin" && retorno.statuscode == 200) {
-				setTimeout(function () {
-					app.dialog.close();
-					login_user_device();
-				}, 1000);
+				app.dialog.close();
+				login_user_device();
 			}else{
 				app.dialog.close();
 				alerta("Tentativa login", 'O ' +email+ ' não está liberado para acessar o condominio tente outra forma de autenticar..', afterClose=null)
@@ -1411,24 +1398,17 @@ checkUsuarioFacebookToLogin = (email) => {
 
 let loginGoogle = () =>{
 	app.dialog.preloader("carregando", 'blue');
-	alert("entrando ....");
 	window.plugins.googleplus.login({},
 	    function(obj) {
-	    	alert(JSON.stringify(obj));
 			app.dialog.close();
 	      	let email = obj.email;
 	      	let nome = obj.displayName;
-
-	      	alert(email);
-	      	alert(nome);
-
 			localStorage.setItem('emailSocialMidia', email);
 		    checkUsuarioGoogleToLogin(email);
 	    },
 	    function(msg) {
 	    	app.dialog.close();
 	      	console.log('error: ' + msg);
-	      	alert(JSON.stringify(msg));
 	    }
 	);
 }
@@ -1451,27 +1431,22 @@ checkUsuarioGoogleToLogin = (email) => {
 		},
         dataType   : 'json',
 		success: function(retorno){
-			
-			alert(JSON.stringify(retorno));
-
+	
 			if (retorno.status == "perfilAtivoSemSenha" && retorno.statuscode == 200) {
 				$("#btnAtivarConta").data('liberarSemSenha', 'liberarSemSenha');
 				alerta('Login Google', "direcionando para termo de uso", afterClose="termoUso");
 			}else 
 			if (retorno.status == "usuarioValidoToLoginGoogle" && retorno.statuscode == 200){
-				// app.dialog.preloader("Direcionando para App", 'blue');
-				// setTimeout(function () {
-					// app.dialog.close();
-					login_user_device();
-				// }, 100);
-			}else{
+				app.dialog.close();
+				login_user_device();
+			}
+			else{
 				let msg = `O  ${email} Não está liberado para acessar o condominio tente outra forma de autenticar ou entre em contato com a sua adminstradora..`;
 				alerta("Tentativa de login",msg, afterClose=null);
 			}
         },
         error: function(error) {
 			console.log(error);
-			alert(JSON.stringify(error));
 			console.log('não foi possivel continuar...');
         }
 	});	

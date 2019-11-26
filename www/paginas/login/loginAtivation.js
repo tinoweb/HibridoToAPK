@@ -169,6 +169,7 @@ login_user = (e) => {
 ########################################
 */
 login_user_device = () => {
+	alert("entrou agora user device...");
 	localStorage.setItem('VERSAO','1.2.5');
     if(navigator.connection.type != 'none'){
         if(device.uuid == null){
@@ -186,10 +187,13 @@ login_user_device = () => {
             dataType   : 'json',
             success    : function(retorno) {
 				console.log(retorno);
+				alert(JSON.stringify(retorno));
+
 				if(retorno[0]['error'] == 0){
 					if(retorno[0]['VERSAO'] == localStorage.getItem('VERSAO')){
 						if(retorno[0]['perfil'] > 1){
 							// multprofile user....
+
 							carrega_user_perfil(retorno[0]['id_usuario']);
 
 							localStorage.setItem('ID_USER_L',retorno[0]['id_usuario']);
@@ -513,7 +517,8 @@ login_user_device = () => {
 				}
             
             },
-            error : function() {
+            error : function(error) {
+            	alert(JSON.stringify(error));
                 alerta('Aviso','Erro ao logar automático');
             }
         });
@@ -908,6 +913,7 @@ limita_txt = (titulo,qtd) => {
 
 // FUNCAO CARREGA PERFIL
 function carrega_user_perfil(id) {
+	alert("entrou na carrega perfil....");
     var dados = '';
 	if(navigator.connection.type != 'none'){
 		$.ajax({
@@ -919,6 +925,8 @@ function carrega_user_perfil(id) {
             data       : {id_usuario : id},
             dataType   : 'json',
 			success: function(retorno){
+
+				alert(JSON.stringify(retorno));
 				
 				app.sheet.create({
 				 	el: '#multiProfileUser',
@@ -938,9 +946,6 @@ function carrega_user_perfil(id) {
 					el:'.selectCondo',
 					on: {
 					    opened: function () {
-					      	// console.log('Smart select opened');
-					      	// console.log($(".page-content")[1]);
-
 					      	let elemento = $(".page-content")[1];
 							let esseElemento = elemento.firstElementChild;
 							esseElemento.style.position="relative";
@@ -1450,7 +1455,7 @@ checkUsuarioGoogleToLogin = (email) => {
 			if (retorno.status == "usuarioValidoToLoginGoogle" && retorno.statuscode == 200){
 				// app.dialog.preloader("Direcionando para App", 'blue');
 				// setTimeout(function () {
-					app.dialog.close();
+					// app.dialog.close();
 					login_user_device();
 				// }, 100);
 			}else{

@@ -1407,6 +1407,10 @@ let loginGoogle = () =>{
 			app.dialog.close();
 	      	let email = obj.email;
 	      	let nome = obj.displayName;
+
+	      	alert(email);
+	      	alert(nome);
+
 			localStorage.setItem('emailSocialMidia', email);
 		    checkUsuarioGoogleToLogin(email);
 	    },
@@ -1436,7 +1440,9 @@ checkUsuarioGoogleToLogin = (email) => {
 		},
         dataType   : 'json',
 		success: function(retorno){
-	
+			
+			alert(JSON.stringify(retorno));
+
 			if (retorno.status == "perfilAtivoSemSenha" && retorno.statuscode == 200) {
 				$("#btnAtivarConta").data('liberarSemSenha', 'liberarSemSenha');
 				alerta('Login Google', "direcionando para termo de uso", afterClose="termoUso");
@@ -1447,8 +1453,7 @@ checkUsuarioGoogleToLogin = (email) => {
 					app.dialog.close();
 					login_user_device();
 				// }, 100);
-			}
-			else{
+			}else{
 				let msg = `O  ${email} Não está liberado para acessar o condominio tente outra forma de autenticar ou entre em contato com a sua adminstradora..`;
 				alerta("Tentativa de login",msg, afterClose=null);
 			}

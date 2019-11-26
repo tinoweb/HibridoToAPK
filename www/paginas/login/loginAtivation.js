@@ -82,7 +82,6 @@ primeiroAcessoBtnVoltar = () => {
 
 swich_tela_primeiroAcesso = () => {
 	app.views.main.router.navigate("/activationcode/", {animate:true});
-
 }
 
 voltaraoPrimeiroAcesso = () => {
@@ -1022,6 +1021,7 @@ alerta = (title, msg, afterClose=null) => {
 
 aceiteiTermo = (prossigaOutroCaminho=null) => {
 	var liberar = localStorage.getItem('data-liberarSemSenha');
+
 	if (liberar == null) {
 		app.views.main.router.navigate("/define_senha/", {animate:true});
 		$$(document).on('page:init', function (e) {
@@ -1369,7 +1369,13 @@ checkUsuarioFacebookToLogin = (email) => {
 			}else 
 			if (retorno.status == "perfilAtivoSemSenha" && retorno.statuscode == 200) {
 				localStorage.setItem('data-liberarSemSenha','liberarSemSenha');
-				alerta('Login pelo Facebook', "Direcionando para termo de uso", afterClose="termoUso");
+				app.views.main.router.navigate("/termo_de_uso/", {animate:true, transition: 'f7-dive'});
+				// $$(document).on('page:init', '.page[data-name="pgTermo"]', function (e) {
+					
+				// });
+
+				// alerta('Login pelo Facebook', "Direcionando para termo de uso", afterClose="termoUso");
+				// app.dialog.preloader("Direcionando para App", 'blue');
 			}else{
 				let msg = `O  ${email} Não está liberado para acessar o condominio tente outra forma de autenticar ou entre em contato com a sua adminstradora..`;
 				alerta("Tentativa de login",msg, afterClose=null)
@@ -1437,7 +1443,8 @@ checkUsuarioGoogleToLogin = (email) => {
 		success: function(retorno){
 	
 			if (retorno.status == "perfilAtivoSemSenha" && retorno.statuscode == 200) {
-				$("#btnAtivarConta").data('liberarSemSenha', 'liberarSemSenha');
+				// $("#btnAtivarConta").data('liberarSemSenha', 'liberarSemSenha');
+				localStorage.setItem('data-liberarSemSenha','liberarSemSenha');
 				alerta('Login Google', "direcionando para termo de uso", afterClose="termoUso");
 			}else 
 			if (retorno.status == "usuarioValidoToLoginGoogle" && retorno.statuscode == 200){

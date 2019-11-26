@@ -1400,8 +1400,10 @@ checkUsuarioFacebookToLogin = (email) => {
 
 let loginGoogle = () =>{
 	app.dialog.preloader("carregando", 'blue');
+	alert("entrando ....");
 	window.plugins.googleplus.login({},
 	    function(obj) {
+	    	alert(JSON.stringify(obj));
 			app.dialog.close();
 	      	let email = obj.email;
 	      	let nome = obj.displayName;

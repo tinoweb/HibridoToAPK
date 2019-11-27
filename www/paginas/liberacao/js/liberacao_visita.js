@@ -1,5 +1,15 @@
 //FUNCAO CARREGA LIBERACOES TODAS
 
+goToLiberacao = () => {
+	console.log("pagina liberacao");
+	app.views.main.router.navigate("/liberacao/", {animate:true});
+
+	$$(document).on('page:init', '.page[data-name="PgLiberacao"]', function (e) {
+		carrega_liberacao();
+	}); 
+}
+
+
 function define_hora(valor){
 	
 	var formata_h  = valor.substr(0,2);
@@ -16,13 +26,10 @@ function define_hora(valor){
 }
 
 function carrega_liberacao(){
-		$("#retorno_liberacao").html('');
+	$("#retorno_liberacao").html('');
 	var id_condominio = localStorage.getItem('ID_CONDOMINIO');
-	
 	var id_morador = localStorage.getItem('ID_MORADOR');
 
-   // alert(id_condominio);
-//  alert(id_morador);
 	var cont =0;
     var dados = '';
 	$.ajax({
@@ -112,11 +119,7 @@ function carrega_liberacao(){
 			
         }
 	});
-    
 }
-
-
-
 
 function carrega_liberacao2(tipo,id_visita=0){
     //alert('teste');

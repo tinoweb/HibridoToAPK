@@ -77,10 +77,10 @@
   		document.addEventListener("deviceready",onDeviceReady,false);
   		
       function onDeviceReady() {
-  			app2.initialize();
+  			// app2.initialize();
 
-        let url = "mycoolapp://auth?recoveryPassword=rYVLhyK1";
-        handleOpenURL(url);
+        let url = "mycoolapp://auth?codigo=zxxeXvIt";
+        // handleOpenURL(url);
 
         function handleOpenURL(url) {
           setTimeout(function() {
@@ -93,10 +93,10 @@
                 $("#codigoAtivacao").val(resultado[1]);
               });
             }
-            // else if(resultado[0] == "mycoolapp://auth?recoveryPassword"){
-            //   let recoveryCode = resultado[1];
-            //   confirmaCodeResetPassword(recoveryCode);
-            // }
+            else if(resultado[0] == "mycoolapp://auth?recoveryPassword"){
+              let recoveryCode = resultado[1];
+              confirmaCodeResetPassword(recoveryCode);
+            }
           }, 1000);
         }
   		}

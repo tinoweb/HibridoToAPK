@@ -10,8 +10,9 @@
 						<div class="left">
 							<i class="fa fa-sign-in" aria-hidden="true" style="margin-left: 10px;"></i>
 						</div>
+						<div class="title text-color-white">LOGIN</div>
 						<div class="right">
-							<a class="link color-white" id="sairLogin" onclick="loginOut()" href="#">Sair</a>
+							<a class="link color-white" id="sairLogin" onclick="loginOut()" href="#">X</a>
 						</div>
 					</div>
 				</div>
@@ -56,8 +57,9 @@
 						<div class="left">
 							<i class="fa fa-envelope" aria-hidden="true" style="margin-left: 10px;"></i>
 						</div>
+						<div class="title text-color-white">RECUPERAR SENHA</div>
 						<div class="right">
-							<a class="link color-white" id="fechaRecuperaEmail" onclick="fechaRecoverEmail()" href="#">Fechar</a>
+							<a class="link color-white" id="fechaRecuperaEmail" onclick="fechaRecoverEmail()" href="#">X</a>
 						</div>
 					</div>
 				</div>
@@ -66,10 +68,10 @@
 				      	<div class="item-inner">
 					        <div class="item-title item-floating-label">Digite o seu email</div>
 					        <div class="item-input-wrap">
-					          <input id="email_recupera" type="email" validate class="" name="email" placeholder="seuemail@mail.com" style="border: none;">
+					          <input id="email_recupera" required="true" type="email" validate class="inputRecuperaSenha" name="email" placeholder="" style="border: none;">
 					          <span class="input-clear-button"></span>
 					        </div>
-					        <button class="button button-raised button-fill button-large color-blue" style="color: white; width: 100%;margin-top: 10%;" id="" onclick="recuperaEmail()" name="entrar"> Recuperar </button>
+					        <button class="button button-raised button-fill button-large color-blue" style="color: white; width: 100%;margin-top: 10%;" id="" onclick="recuperaEmail($('#email_recupera').val())" name="entrar"> Recuperar </button>
 				      	</div>
 				    </div>
 				</div>
@@ -80,9 +82,8 @@
 			<div id="multiProfileUser" class="sheet-modal sheet-modal-top" style="height: 100%;">
 			    <div class="view view-sheet-modal ios-edges">
 			      	<div class="page">
-			          
 						<div class="page-content">
-						  <div class="sheet-modal-inner">
+						  	<div class="sheet-modal-inner">
 						      	<div class="list" style="position: relative;top: 25px;">
 						          	<ul>
 							            <li>
@@ -90,11 +91,9 @@
 											  	<select name="perfil" onchange="select_user($(this).val())" id="perfil_login" class="input-with-value"></select> <!-- <select que trazz os condominios> -->
 												<div class="item-content">
 													<div class="item-inner">
-														<!-- Select label -->
 														<div class="item-title">
 															Condominios
 														</div>
-														<!-- Selected value, not required -->
 														<div class="item-after">
 
 														</div>
@@ -109,8 +108,8 @@
 			      	</div>
 			    </div>
 			</div>
-
 			<!-- ############################## -->
+
 		</div>
 	</div>
 </div>

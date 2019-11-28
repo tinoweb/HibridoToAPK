@@ -1,15 +1,7 @@
 // DONE BY TINO 22/10/2019
 
-// let loginEl = $("#login").val();
-// let senhaEl = $("#senha").val();
-
-// if ($$("#login").val().length>0 && $$("#senha").val().length>0) {
-// 	$$("#btnLoginEntrar").removeAttr('disabled');
-// }
-
 var sheetDefineSenhaApp=null;
 var sheetloginApp=null;
-
 
 swich_tela_login = () => {
 	app.views.main.router.navigate("/login/", {animate:true, transition: 'f7-dive'});
@@ -24,10 +16,11 @@ swich_tela_login = () => {
 	})
 }
 
-swich_tela_login_recuperaSenha = () => {
+swich_tela_login_recuperaSenha = (email_recupera) => {
 	console.log("entrou na tela sim...");
-	app.views.main.router.navigate("/login/", {animate:true, transition: 'f7-dive'});
+	console.log(email_recupera);
 
+	app.views.main.router.navigate("/login/", {animate:true, transition: 'f7-dive'});
 	$$(document).on('page:init', '.page[data-name="pgLogin"]', function (e) {
 		sheetloginApp = app.sheet.create({
 		  el: '.loginApp',
@@ -38,7 +31,6 @@ swich_tela_login_recuperaSenha = () => {
 		app.sheet.open('.loginApp', true);
 		app.sheet.close('.loginApp', true);
 
-
 		app.sheet.create({
 		  el: '.recuperaSenha',
 		  closeByOutsideClick: false,
@@ -46,6 +38,8 @@ swich_tela_login_recuperaSenha = () => {
 		  closeOnEscape: false
 		});
 		app.sheet.open('.recuperaSenha', true);
+		$$('#email_recupera').val(email_recupera);
+		// $$(".inputRecuperaSenha").focus();
 	})
 }
 
@@ -154,7 +148,7 @@ myFunction = () => {
 login_user = (e, logarDaValidacao=null) => {
 	e.preventDefault();
 	if(navigator.connection.type != 'none'){
-		if (logarDaValidacao=null) {
+		if (logarDaValidacao == null) {
 			var dados = $("#form_login").serialize();
 
 			if(dados.indexOf('=&') > -1 || dados.substr(dados.length - 1) == '='){
@@ -180,6 +174,8 @@ login_user = (e, logarDaValidacao=null) => {
             dataType   : 'json',
 			data: dados+'&nome='+device.model+'&sistema='+device.platform+'&uuid='+UUID+'&versao='+device.version+'&id_notificacao='+localStorage.getItem('registrationId'), //APP
 			success: function(retorno){
+				console.log(retorno);
+
 				if(retorno[0]['error'] == 1){
 					alerta("Falha ao Entrar", "Usuário ou senha inválida", );
 				}else{
@@ -391,7 +387,7 @@ login_user_device = () => {
 									tipo_user_ = '';	
 								}
 
-
+								app.sheet.close('.loginApp', true);
 								app.views.main.router.navigate("/home/", {reloadAll:true});
 
 								$$(document).on('page:init', '.page[data-name="pgHome"]', function (e) {
@@ -977,9 +973,6 @@ function carrega_user_perfil(id) {
 					el:'.selectCondo',
 					on: {
 					    opened: function () {
-					      	// console.log('Smart select opened');
-					      	// console.log($(".page-content")[1]);
-
 					      	let elemento = $(".page-content")[1];
 							let esseElemento = elemento.firstElementChild;
 							esseElemento.style.position="relative";
@@ -1026,9 +1019,7 @@ alerta = (title, msg, afterClose=null) => {
 					console.log("Logar no sistema automaticamente.....");
 				}else if (afterClose == "voltaInicio") {
 					goToIndexPageNoCache();
-				}
-				
-				else if (afterClose == "termoUso") {
+				}else if (afterClose == "termoUso") {
 					app.views.main.router.navigate("/termo_de_uso/", {animate:true, transition: 'f7-dive'});
 				}
 		    }
@@ -1048,6 +1039,17 @@ alerta = (title, msg, afterClose=null) => {
 }
 // levar essa função para arquivo geral;.....
 
+elementoDefineSenha = () => {
+	sheetDefineSenhaApp = 
+	app.sheet.create({
+		el: '.defineSenhaApp',
+	 	closeByOutsideClick: false,
+	  	closeByBackdropClick: false,
+	  	closeOnEscape: false
+	});
+	return sheetDefineSenhaApp;
+}
+
 
 aceiteiTermo = (prossigaOutroCaminho=null) => {
 	var liberar = localStorage.getItem('data-liberarSemSenha');
@@ -1055,12 +1057,7 @@ aceiteiTermo = (prossigaOutroCaminho=null) => {
 	if (liberar == null) {
 		app.views.main.router.navigate("/define_senha/", {animate:true});
 		$$(document).on('page:init', '.page[data-name="pgDefineSenha"]', function (e) {
-			sheetDefineSenhaApp = app.sheet.create({
-			  el: '.defineSenhaApp',
-			  closeByOutsideClick: false,
-			  closeByBackdropClick: false,
-			  closeOnEscape: false
-			});
+			elementoDefineSenha();
 			app.sheet.open('.defineSenhaApp', true);
 		})
 	}else{
@@ -1070,27 +1067,45 @@ aceiteiTermo = (prossigaOutroCaminho=null) => {
 	}
 }
 
-// function alertShowPosibilityToResetPassword(email){
-// 	Swal.fire({
-// 	  	text: "Esse email se encontra ativo! Deseja recuperar a sua senha",
-// 	  	type: 'warning',
-// 	  	showCancelButton: true,
-// 	  	confirmButtonColor: '#3085d6',
-// 	  	cancelButtonColor: '#d33',
-// 	  	confirmButtonText: 'Sim recuperar senha!'
-// 	}).then((result) => {
-// 	  	if (result.value) {
-// 	  		Swal.close();
-// 	  		primeiroAcessoBtnVoltar();
-// 	  		swich_tela_login();
-// 	  		esqueciMinhaSenha();
-// 	  		$("#email_recupera").val(email);
-// 	  	}
-// 	});
-// }
+recuperaEmail = (email) => {
+    if(email.length>0){
+        var dados = 'email='+email+'&origin=mobileApp';
+        $.ajax({
+            type: 'POST',
+            data: dados,
+            url: localStorage.getItem('DOMINIO')+'mail_template/pt-br/recupera_senha.php',
+            crossDomain: true,
+            dataType   : 'json',
+            beforeSend : function() { $("#wait").css("display", "block"); },
+            complete   : function() { $("#wait").css("display", "none"); },
+            success: function(retorno){
+                console.log(retorno);
+                if (retorno.statuscode == 200 && retorno.status == "successoEmailEnviado") {
+                    app.sheet.close('.recuperaSenha', true);
+                    alerta('Sucesso', 'Dados para recuperação de senha enviado por email Verifique seu email!', 'voltaInicio');
+                    $("#email_recupera").val("");
+                }else if (retorno.statuscode == 204 && retorno.status == "emailNaoEnviadoErro"){
+                    app.sheet.close('.recuperaSenha', true);
+                    alerta('Erro', 'não foi possivel processar o pedido, tente mais tarde!');
+                    $("#email_recupera").val("");
+                }else{
+                    app.sheet.close('.recuperaSenha', true);
+                    alerta('Erro', 'Não foi possivel solicitar a recuperacao da senha! Entre em contato com a administração!');
+                    $("#email_recupera").val("");
+                }
+                
+            },
+            error: function(){
+            }
+        })
+    }else{
+    	alerta('Erro',"É necessário o email para continuar... ");
+    }
+}
 
 function choosedMail(){
 	let campoEmail = $("#inputReceveEmailToGetCode").val();
+	console.log(campoEmail);
 	if (campoEmail.length !== 0) {
 		$.ajax({
 			url: localStorage.getItem('DOMINIO')+'appweb/ativacao_post.php',
@@ -1114,21 +1129,21 @@ function choosedMail(){
 					app.sheet.close('.recebEmail', true);
 					alerta('Ativação do Cadastro', "Código de Ativação enviado para o email. Clica no link no seu email, ou copia o codigo para continuar a validação", "primeiroAcesso");
 				}else if (retorno.status == "proporRecuperacaoSenhaUsuarioAtivo" && retorno.statuscode == 200) {
-				  	app.dialog.confirm('Ativação do Cadastro', 'Esse email se encontra ativo! Deseja recuperar a sua senha', 
+				  	app.dialog.confirm('Esse email se encontra ativo! Deseja recuperar a sua senha', 'Ativação do Cadastro', 
 					  	function () {
 							app.sheet.close('.recebEmail', true);
 							app.sheet.destroy('.recebEmail');
 					  		app.dialog.close();
 					  		primeiroAcessoBtnVoltar();
 					  		setTimeout(function() {
-					    		swich_tela_login_recuperaSenha();
+					    		swich_tela_login_recuperaSenha(campoEmail);
 					  		}, 500);
 					  	}, 
 					  	function () {
+					  		app.sheet.close('.recebEmail', true);
 					  		primeiroAcessoBtnVoltar();
 					  	}
 				 	);
-					// alertShowPosibilityToResetPassword(campoEmail);
 					$("#inputReceveEmailToGetCode").val("");
 				}
 	        },
@@ -1269,6 +1284,8 @@ function salvarSenha(){
 
 						localStorage.setItem('emailDefinidoOk', retorno.emailUsuario);
 						localStorage.setItem('senhaDefinidoOk', senha);
+
+						localStorage.removeItem('idUsuarioAtivacao');
 						
 						app.sheet.close('.defineSenhaApp', true);
 						app.sheet.destroy(sheetDefineSenhaApp);
@@ -1295,39 +1312,45 @@ function salvarSenha(){
 }
 
 // não ta sendo usado essa função..............
-// confirmaCodeResetPassword = (recoveryCode) => {
-// 	alert("codigo recebido "+recoveryCode);
-// 	$.ajax({
-// 		type: 'POST',
-// 		url: localStorage.getItem('DOMINIO')+'appweb/ativacao_post.php',
-// 		crossDomain: true,
-// 		beforeSend : function() { $("#wait").css("display", "block"); },
-// 		complete   : function() { $("#wait").css("display", "none"); },
-//         data: { 
-// 				recoveryCode : recoveryCode, 
-// 				typeFunction : "validaCodigo"
-//     		},
-//         dataType   : 'json',
-// 		success: function(retorno){
-// 			console.log("chegou agora....");
-// 			console.log(retorno);
-// 			return false;
+// beforeSend : function() { $("#wait").css("display", "block"); },
+// complete   : function() { $("#wait").css("display", "none"); },
 
-// 			if (retorno.status == "codigoConfere" && retorno.statuscode == 200) {
+confirmaCodeResetPassword = (recoveryCode) => {
+	alert("codigo recebido "+recoveryCode);
+	$.ajax({
+		type: 'POST',
+		url: localStorage.getItem('DOMINIO')+'appweb/ativacao_post.php',
+		crossDomain: true,
+        data: { 
+			recoveryCode : recoveryCode, 
+			typeFunction : "validaCodigo"
+		},
+        dataType   : 'json',
+		success: function(retorno){
+			
+			console.log("chegou agora....");
+			console.log(retorno);
 
-// 				localStorage.removeItem('idUsuarioAtivacao');
-// 				localStorage.setItem("idUsuarioAtivacao", retorno.id_usuario);
-// 				definesenha();
-// 			}else{
-// 				emailNotRecognizedBySystemAlert("error", "Não foi possivel continuar o processo...", afterClose=null)
-// 			}
-//         },
-//         error: function(error) {
-// 			console.log(error);
-// 			alert('Não foi possivel executar a ação pretendida, entre em contato com seu administrador');
-//         }
-// 	});	
-// }
+			if (retorno.status == "codigoConfere" && retorno.statuscode == 200) {
+				app.views.main.router.navigate("/define_senha/", {animate:true});
+				$$(document).on('page:init', '.page[data-name="pgDefineSenha"]', function (e) {
+					elementoDefineSenha();
+					app.sheet.open('.defineSenhaApp', true);
+				})
+				
+				localStorage.removeItem('idUsuarioAtivacao');
+				localStorage.setItem("idUsuarioAtivacao", retorno.idUsuario);
+				
+			}else{
+				alerta("error", "Não foi possivel continuar o processo...", afterClose=null)
+			}
+        },
+        error: function(error) {
+			console.log(error);
+			alert('Não foi possivel executar a ação pretendida, entre em contato com seu administrador');
+        }
+	});	
+}
 // não ta sendo usado essa função..............
 
 

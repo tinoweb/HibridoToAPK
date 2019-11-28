@@ -148,6 +148,11 @@ var app = new Framework7({
       path: '/define_senha/',
       url: 'paginas/login/defineSenha.html',
     },
+    { 
+      name: 'pgMultiProfile',
+      path: '/select_profile/',
+      url: 'paginas/login/multiProfile.html',
+    },
     {
       path: '/lib_acessos/',
       url: 'paginas/liberacao/liberacao_acessos.html',

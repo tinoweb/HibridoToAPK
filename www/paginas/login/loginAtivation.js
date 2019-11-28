@@ -2,6 +2,9 @@
 
 var sheetDefineSenhaApp=null;
 var sheetloginApp=null;
+var sheetMultiUser=null;
+var smartSelect=null;
+
 
 swich_tela_login = () => {
 	app.views.main.router.navigate("/login/", {animate:true, transition: 'f7-dive'});
@@ -217,6 +220,7 @@ login_user_device = () => {
 				if(retorno[0]['error'] == 0){
 					if(retorno[0]['VERSAO'] == localStorage.getItem('VERSAO')){
 						if(retorno[0]['perfil'] > 1){
+							console.log("vai carregar perfil.........");
 							// multprofile user....
 							carrega_user_perfil(retorno[0]['id_usuario']);
 
@@ -764,6 +768,11 @@ select_user = (id_usuario_condominio=0) => {
                     $$(document).on('page:init', '.page[data-name="pgHome"]', function (e) {
 						app.actions.close('#multiProfileUser', true);
 						app.actions.close('.defineSenhaApp', true);
+						
+						// app.actions.close('.multiProfileUser', true);
+						// app.actions.close('.selectCondo', true);
+						// sheetMultiUser.destroy();
+						// smartSelect.destroy();
 					}); 
 
                  	setTimeout(function(){
@@ -953,45 +962,93 @@ function carrega_user_perfil(id) {
             data       : {id_usuario : id},
             dataType   : 'json',
 			success: function(retorno){
-				
-				app.sheet.create({
-				 	el: '#multiProfileUser',
-					closeByOutsideClick: false,
-				  	closeByBackdropClick: false,
-				  	closeOnEscape: false
-				});
 
-				app.actions.close('.loginApp', true);
-				app.actions.open('#multiProfileUser', true);
-				$$('#multiProfileUser').on('sheet:opened', function (e) {
-				  	console.log('my-sheet opened');
-					$(".selectCondo")[0].click();
-				});
-				
-				var viewSheetModal = app.views.create('.view-sheet-modal');
-				smartSelect = app.smartSelect.create({
-					el:'.selectCondo',
-					on: {
-					    opened: function () {
-					      	let elemento = $(".page-content")[1];
-							let esseElemento = elemento.firstElementChild;
-							esseElemento.style.position="relative";
-							esseElemento.style.top="26px";
-							$(".icon-back").attr('style', 'color: #037aff !important');
-					    },
-					}
-				});
+				if (localStorage.getItem('loginSocialMidia') == "loginsocialmidiaFG") {
+					app.views.main.router.navigate("/select_profile/", {animate:true, transition: 'f7-dive'});
+					$$(document).on('page:init', '.page[data-name="pgMultiprofile"]', function (e) {
+						$$(".loginApp").hide();
+						sheetMultiUser = app.sheet.create({
+						 	el: '.multiProfileUser',
+							closeByOutsideClick: false,
+						  	closeByBackdropClick: false,
+						  	closeOnEscape: false
+						}).open(true);
+						
+						$$('.multiProfileUser').on('sheet:opened', function (e) {
+						  	console.log('my-sheet opened');
+							$(".selectCondo")[0].click();
+						});
+						// Declarando a smart-select como view para poder funcionar...
+						app.views.create('.multiprofileSheet');
 
-				// console.log(smartSelect);
-				
-				var primeiro = '<option value="" selected="">Selecione o seu Condominio</option>';
-                for (x in retorno) {
-                    dado = '<option onclick="select_user('+retorno[x]['id_usuario_condominio']+')" value="'+retorno[x]['id_usuario_condominio']+'">'+retorno[x]['nome_condominio']+'</option>';
-                    dados = dados + dado;
-                }
-                dados = primeiro + dados;
+						smartSelect = app.smartSelect.create({
+							el:'.selectCondo',
+							on: {
+							    opened: function () {
+							      	let elemento = $(".page-content")[1];
+									let esseElemento = elemento.firstElementChild;
+									esseElemento.style.position="relative";
+									esseElemento.style.top="26px";
+									$(".icon-back").attr('style', 'color: #037aff !important');
+							    },
+							}
+						});
+						
+						var primeiro = '<option value="" selected="">Selecione o seu Condominio</option>';
+		                for (x in retorno) {
+		                    dado = '<option onclick="select_user('+retorno[x]['id_usuario_condominio']+')" value="'+retorno[x]['id_usuario_condominio']+'">'+retorno[x]['nome_condominio']+'</option>';
+		                    dados = dados + dado;
+		                }
+		                dados = primeiro + dados;
 
-                $('#perfil_login').html(dados);
+		                setTimeout(function() {
+			                $('.perfil_loginClass').html(dados);
+		                }, 200);
+
+	                });
+					localStorage.removeItem('loginSocialMidia');
+				}else{
+					console.log("login multiuser com usuario e senha....");
+					app.sheet.create({
+					 	el: '#multiProfileUser',
+						closeByOutsideClick: false,
+					  	closeByBackdropClick: false,
+					  	closeOnEscape: false
+					});
+
+					app.actions.close('.loginApp', true);
+					app.actions.open('#multiProfileUser', true);
+					$$('#multiProfileUser').on('sheet:opened', function (e) {
+					  	console.log('my-sheet opened');
+						$(".selectCondo")[0].click();
+					});
+					
+					// Declarando a smart-select como view para poder funcionar...
+					var viewSheetModal = app.views.create('.view-sheet-modal');
+					
+					smartSelect = app.smartSelect.create({
+						el:'.selectCondo',
+						on: {
+						    opened: function () {
+						      	let elemento = $(".page-content")[1];
+								let esseElemento = elemento.firstElementChild;
+								esseElemento.style.position="relative";
+								esseElemento.style.top="26px";
+								$(".icon-back").attr('style', 'color: #037aff !important');
+						    },
+						}
+					});
+										
+					var primeiro = '<option value="" selected="">Selecione o seu Condominio</option>';
+	                for (x in retorno) {
+	                    dado = '<option onclick="select_user('+retorno[x]['id_usuario_condominio']+')" value="'+retorno[x]['id_usuario_condominio']+'">'+retorno[x]['nome_condominio']+'</option>';
+	                    dados = dados + dado;
+	                }
+	                dados = primeiro + dados;
+
+	                $('#perfil_login').html(dados);
+				}
+				
 			}
 		});
 	}else{
@@ -1417,6 +1474,7 @@ checkUsuarioFacebookToLogin = (email) => {
 		success: function(retorno){
 			if (retorno.status == "usuarioValidoToLoginFacebook" && retorno.statuscode == 200) {
 				app.dialog.preloader("Direcionando para App", 'blue');
+				localStorage.setItem("loginSocialMidia", "loginsocialmidiaFG");
 				setTimeout(function () {
 					app.dialog.close();
 					login_user_device();
@@ -1449,28 +1507,26 @@ checkUsuarioFacebookToLogin = (email) => {
 let loginGoogle = () =>{
 	app.dialog.preloader("carregando", 'blue');
 
-
-
 	// window.plugins.googleplus.disconnect(
 	//     function (msg) {
 	//       alert(msg); 
 	//     }
 	// );
 
-
-	window.plugins.googleplus.login({},
-	    function(obj) {
-			app.dialog.close();
-	      	let email = obj.email;
-	      	let nome = obj.displayName;
+	// window.plugins.googleplus.login({},
+	//     function(obj) {
+	// 		app.dialog.close();
+	//       	let email = obj.email;
+	//       	let nome = obj.displayName;
+			email = 'secticom@gmail.com';
 			localStorage.setItem('emailSocialMidia', email);
 		    checkUsuarioGoogleToLogin(email);
-	    },
-	    function(msg) {
-	    	app.dialog.close();
-	      	console.log('error: ' + msg);
-	    }
-	);
+	//     },
+	//     function(msg) {
+	//     	app.dialog.close();
+	//       	console.log('error: ' + msg);
+	//     }
+	// );
 }
 
 checkUsuarioGoogleToLogin = (email) => {
@@ -1497,6 +1553,7 @@ checkUsuarioGoogleToLogin = (email) => {
 				alerta('Login Google', "direcionando para termo de uso", afterClose="termoUso");
 			}else 
 			if (retorno.status == "usuarioValidoToLoginGoogle" && retorno.statuscode == 200){
+				localStorage.setItem("loginSocialMidia", "loginsocialmidiaFG");
 				app.dialog.close();
 				login_user_device();
 			}

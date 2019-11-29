@@ -1513,20 +1513,20 @@ let loginGoogle = () =>{
 	//     }
 	// );
 
-	// window.plugins.googleplus.login({},
-	//     function(obj) {
-	// 		app.dialog.close();
-	//       	let email = obj.email;
-	//       	let nome = obj.displayName;
-			email = 'secticom@gmail.com';
+	window.plugins.googleplus.login({},
+	    function(obj) {
+			app.dialog.close();
+	      	let email = obj.email;
+	      	let nome = obj.displayName;
+			// email = 'secticom@gmail.com';
 			localStorage.setItem('emailSocialMidia', email);
 		    checkUsuarioGoogleToLogin(email);
-	//     },
-	//     function(msg) {
-	//     	app.dialog.close();
-	//       	console.log('error: ' + msg);
-	//     }
-	// );
+	    },
+	    function(msg) {
+	    	app.dialog.close();
+	      	console.log('error: ' + msg);
+	    }
+	);
 }
 
 checkUsuarioGoogleToLogin = (email) => {

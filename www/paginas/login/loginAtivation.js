@@ -170,7 +170,7 @@ login_user = (e, logarDaValidacao=null) => {
 
 		$.ajax({
 			type: 'POST',
-			url: localStorage.getItem('DOMINIO')+'appweb/login.php',
+			url: localStorage.getItem('DOMINIO_LOGIN')+'appweb/login.php',
 			crossDomain: true,
 			beforeSend : function() { $("#wait").css("display", "block"); },
 			complete   : function() { $("#wait").css("display", "none"); },
@@ -186,6 +186,7 @@ login_user = (e, logarDaValidacao=null) => {
 				}
 			},
             error: function(error){
+            	console.log(error);
                 alerta('Aviso','Erro de conexão com o servidor');
             }
 		});
@@ -209,14 +210,17 @@ login_user_device = () => {
         }
         $.ajax({
             type       : "POST",
-            url        : localStorage.getItem('DOMINIO')+"appweb/login.php",
+            url        : localStorage.getItem('DOMINIO_LOGIN')+"/appweb/login.php",
 			crossDomain: true,
 			beforeSend : function() { $("#wait").css("display", "block"); },
 			complete   : function() { $("#wait").css("display", "none"); },
             data       : {uuid : UUID, id_notificacao : localStorage.getItem('registrationId')}, //APP
             dataType   : 'json',
             success    : function(retorno) {
+				console.log("retorno do login.....");
 				console.log(retorno);
+				// return false;
+
 				if(retorno[0]['error'] == 0){
 					if(retorno[0]['VERSAO'] == localStorage.getItem('VERSAO')){
 						if(retorno[0]['perfil'] > 1){
@@ -573,7 +577,7 @@ select_user = (id_usuario_condominio=0) => {
         }
 		$.ajax({
 			type: 'POST',
-			url: localStorage.getItem('DOMINIO')+'appweb/login.php',
+			url: localStorage.getItem('DOMINIO_LOGIN')+'appweb/login.php',
 			data: dados,
 			crossDomain: true,
 			beforeSend : function() { $("#wait").css("display", "block"); },
@@ -581,21 +585,22 @@ select_user = (id_usuario_condominio=0) => {
 			success: function(retorno){
 
                 if(retorno[0]['usar_control_condo'] == 1){
+					localStorage.setItem('IP_LOCAL',retorno[0]['ip_local']);
                     localStorage.setItem('ID_USER',retorno[0]['id_usuario_condominio']);
 					localStorage.setItem('ID_USER_L',retorno[0]['id_usuario']);
 					localStorage.setItem('ID_MORADOR',retorno[0]['id_referencia']);
 					localStorage.setItem('ID_UNIDADE',retorno[0]['id_unidade']);
 
-					setTimeout(function(){
-						$.ajax({
-							type       : "POST",
-							url        : localStorage.getItem('DOMINIO')+"appweb/notificacao_correspondencia.php",
-							data       : {id_condominio : $("#DADOS #ID_CONDOMINIO").val(),id_unidade : $("#DADOS #ID_UNIDADE").val()}, //APP
-							success    : function(retornos) {
-								localStorage.setItem('ID_MORADORES_UNIDADE',retornos);
-						    }
-						});	
-					},3);		
+					// setTimeout(function(){
+					// 	$.ajax({
+					// 		type       : "POST",
+					// 		url        : localStorage.getItem('DOMINIO')+"appweb/notificacao_correspondencia.php",
+					// 		data       : {id_condominio : $("#DADOS #ID_CONDOMINIO").val(),id_unidade : $("#DADOS #ID_UNIDADE").val()}, //APP
+					// 		success    : function(retornos) {
+					// 			localStorage.setItem('ID_MORADORES_UNIDADE',retornos);
+					// 	    }
+					// 	});	
+					// },3);		
                     
 					localStorage.setItem('CONDOMINIO',retorno[0]['nome_condominio']);
 					localStorage.setItem('QTD_CREDITO',retorno[0]['qtd_credito_liberacao']);
@@ -708,6 +713,7 @@ select_user = (id_usuario_condominio=0) => {
                     localStorage.setItem('ROTULO_LOTE' ,retorno[0]['rlote']);
                     localStorage.setItem('ROTULO_QUADRA',retorno[0]['rotulo_quadra']);
 					localStorage.setItem('OCORRENCIA_PUBLICA',retorno[0]['TIPO_OCORRENCIA']);
+					localStorage.setItem('FOTO',retorno[0]['FOTO']);
 					
 					if(retorno[0]['foto']==""){
 						// descomentar e rever corretamente ======>>>
@@ -924,9 +930,10 @@ select_user = (id_usuario_condominio=0) => {
 */
 logout = () => {
 	// inicia2(0); // descomenta se for necessário
+	
 	$.ajax({
 		type: 'POST',
-		url: localStorage.getItem('DOMINIO')+'appweb/logout.php',
+		url: localStorage.getItem('DOMINIO_LOGIN')+'appweb/logout.php',
 		data: 'id='+localStorage.getItem('ID_USER_L'),
 		crossDomain: true,
 		beforeSend : function() { $("#wait").css("display", "block"); },
@@ -949,19 +956,21 @@ limita_txt = (titulo,qtd) => {
 	return titulo;
 }
 
+
 // FUNCAO CARREGA PERFIL
 function carrega_user_perfil(id) {
     var dados = '';
 	if(navigator.connection.type != 'none'){
 		$.ajax({
 			type: 'POST',
-			url: localStorage.getItem('DOMINIO')+'appweb/login.php',
+			url: localStorage.getItem('DOMINIO_LOGIN')+'appweb/login.php',
 			crossDomain: true,
 			beforeSend : function() { $("#wait").css("display", "block"); },
 			complete   : function() { $("#wait").css("display", "none"); },
             data       : {id_usuario : id},
             dataType   : 'json',
 			success: function(retorno){
+				console.log("carrega user perfil .....");
 
 				if (localStorage.getItem('loginSocialMidia') == "loginsocialmidiaFG") {
 					app.views.main.router.navigate("/select_profile/", {animate:true, transition: 'f7-dive'});
@@ -1055,8 +1064,8 @@ function carrega_user_perfil(id) {
 		notifica('Internet/Sem conex\u00e3o com a Internet/Fechar',2000,0);
 	}
 }
-
 // ====>>>>>>>>>>>>>>>>>>>>>
+
 
 alerta = (title, msg, afterClose=null) => {
 	app.dialog.create({
@@ -1285,28 +1294,6 @@ let enviarSenhaEliberarAcesso = () => {
 	});
 }
 
-
-
-
-// function definesenha(){
-// 	afed('#defineSenha','#initApp','','',1);	
-// }
-
-// function btnSairTelaDefineSenha(){
-// 	afed('#initApp','#defineSenha','','',1);
-// }
-
-// function switchTelaDefineSenhaToLogin(){
-// 	afed('#login_ini','#defineSenha','','');
-// 	app2.sheet.create({
-// 	  el: '.loginApp',
-// 	  closeByOutsideClick: false,
-// 	  closeByBackdropClick: false,
-// 	  closeOnEscape: false
-// 	});
-// 	app2.actions.open('.loginApp', true);
-// }
-
 function salvarSenha(){
 	if ($("#inputDefineSenha").val().length !== 0 ) {
 		$("#btnSaveSenha").attr('disabled', false);
@@ -1368,10 +1355,6 @@ function salvarSenha(){
 	}
 }
 
-// não ta sendo usado essa função..............
-// beforeSend : function() { $("#wait").css("display", "block"); },
-// complete   : function() { $("#wait").css("display", "none"); },
-
 confirmaCodeResetPassword = (recoveryCode) => {
 	alert("codigo recebido "+recoveryCode);
 	$.ajax({
@@ -1408,9 +1391,6 @@ confirmaCodeResetPassword = (recoveryCode) => {
         }
 	});	
 }
-// não ta sendo usado essa função..............
-
-
 
   /*
   ########################################
@@ -1495,8 +1475,6 @@ checkUsuarioFacebookToLogin = (email) => {
         }
 	});	
 }
-
-
 
   /*
   ########################################

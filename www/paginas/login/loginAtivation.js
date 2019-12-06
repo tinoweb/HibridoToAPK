@@ -170,7 +170,7 @@ login_user = (e, logarDaValidacao=null) => {
 
 		$.ajax({
 			type: 'POST',
-			url: localStorage.getItem('DOMINIO')+'appweb/login.php',
+			url: localStorage.getItem('DOMINIO_LOGIN')+'appweb/login.php',
 			crossDomain: true,
 			beforeSend : function() { $("#wait").css("display", "block"); },
 			complete   : function() { $("#wait").css("display", "none"); },
@@ -186,6 +186,7 @@ login_user = (e, logarDaValidacao=null) => {
 				}
 			},
             error: function(error){
+            	console.log(error);
                 alerta('Aviso','Erro de conexão com o servidor');
             }
 		});
@@ -199,7 +200,7 @@ login_user = (e, logarDaValidacao=null) => {
 # Actions Function Device by uuid      #
 ########################################
 */
-login_user_device = () => {
+login_user_device = (autoInit=null) => {
 	localStorage.setItem('VERSAO','1.2.5');
     if(navigator.connection.type != 'none'){
         if(device.uuid == null){
@@ -209,20 +210,27 @@ login_user_device = () => {
         }
         $.ajax({
             type       : "POST",
-            url        : localStorage.getItem('DOMINIO')+"appweb/login.php",
+            url        : localStorage.getItem('DOMINIO_LOGIN')+"/appweb/login.php",
 			crossDomain: true,
 			beforeSend : function() { $("#wait").css("display", "block"); },
 			complete   : function() { $("#wait").css("display", "none"); },
             data       : {uuid : UUID, id_notificacao : localStorage.getItem('registrationId')}, //APP
             dataType   : 'json',
             success    : function(retorno) {
+				console.log("retorno do login.....===>>>");
 				console.log(retorno);
+				// return false;
+
 				if(retorno[0]['error'] == 0){
 					if(retorno[0]['VERSAO'] == localStorage.getItem('VERSAO')){
 						if(retorno[0]['perfil'] > 1){
 							console.log("vai carregar perfil.........");
 							// multprofile user....
-							carrega_user_perfil(retorno[0]['id_usuario']);
+							if (autoInit != null) {
+								carrega_user_perfil(retorno[0]['id_usuario'], autoInit);
+							}else{
+								carrega_user_perfil(retorno[0]['id_usuario']);
+							}
 
 							localStorage.setItem('ID_USER_L',retorno[0]['id_usuario']);
 						}else{  
@@ -573,7 +581,7 @@ select_user = (id_usuario_condominio=0) => {
         }
 		$.ajax({
 			type: 'POST',
-			url: localStorage.getItem('DOMINIO')+'appweb/login.php',
+			url: localStorage.getItem('DOMINIO_LOGIN')+'appweb/login.php',
 			data: dados,
 			crossDomain: true,
 			beforeSend : function() { $("#wait").css("display", "block"); },
@@ -581,21 +589,22 @@ select_user = (id_usuario_condominio=0) => {
 			success: function(retorno){
 
                 if(retorno[0]['usar_control_condo'] == 1){
+					localStorage.setItem('IP_LOCAL',retorno[0]['ip_local']);
                     localStorage.setItem('ID_USER',retorno[0]['id_usuario_condominio']);
 					localStorage.setItem('ID_USER_L',retorno[0]['id_usuario']);
 					localStorage.setItem('ID_MORADOR',retorno[0]['id_referencia']);
 					localStorage.setItem('ID_UNIDADE',retorno[0]['id_unidade']);
 
-					setTimeout(function(){
-						$.ajax({
-							type       : "POST",
-							url        : localStorage.getItem('DOMINIO')+"appweb/notificacao_correspondencia.php",
-							data       : {id_condominio : $("#DADOS #ID_CONDOMINIO").val(),id_unidade : $("#DADOS #ID_UNIDADE").val()}, //APP
-							success    : function(retornos) {
-								localStorage.setItem('ID_MORADORES_UNIDADE',retornos);
-						    }
-						});	
-					},3);		
+					// setTimeout(function(){
+					// 	$.ajax({
+					// 		type       : "POST",
+					// 		url        : localStorage.getItem('DOMINIO')+"appweb/notificacao_correspondencia.php",
+					// 		data       : {id_condominio : $("#DADOS #ID_CONDOMINIO").val(),id_unidade : $("#DADOS #ID_UNIDADE").val()}, //APP
+					// 		success    : function(retornos) {
+					// 			localStorage.setItem('ID_MORADORES_UNIDADE',retornos);
+					// 	    }
+					// 	});	
+					// },3);		
                     
 					localStorage.setItem('CONDOMINIO',retorno[0]['nome_condominio']);
 					localStorage.setItem('QTD_CREDITO',retorno[0]['qtd_credito_liberacao']);
@@ -708,6 +717,7 @@ select_user = (id_usuario_condominio=0) => {
                     localStorage.setItem('ROTULO_LOTE' ,retorno[0]['rlote']);
                     localStorage.setItem('ROTULO_QUADRA',retorno[0]['rotulo_quadra']);
 					localStorage.setItem('OCORRENCIA_PUBLICA',retorno[0]['TIPO_OCORRENCIA']);
+					localStorage.setItem('FOTO',retorno[0]['FOTO']);
 					
 					if(retorno[0]['foto']==""){
 						// descomentar e rever corretamente ======>>>
@@ -769,10 +779,8 @@ select_user = (id_usuario_condominio=0) => {
 						app.actions.close('#multiProfileUser', true);
 						app.actions.close('.defineSenhaApp', true);
 						
-						// app.actions.close('.multiProfileUser', true);
-						// app.actions.close('.selectCondo', true);
-						// sheetMultiUser.destroy();
-						// smartSelect.destroy();
+						app.sheet.destroy('#multiProfileUser');
+						app.sheet.destroy('.defineSenhaApp');
 					}); 
 
                  	setTimeout(function(){
@@ -926,13 +934,14 @@ logout = () => {
 	// inicia2(0); // descomenta se for necessário
 	$.ajax({
 		type: 'POST',
-		url: localStorage.getItem('DOMINIO')+'appweb/logout.php',
+		url: localStorage.getItem('DOMINIO_LOGIN')+'appweb/logout.php',
 		data: 'id='+localStorage.getItem('ID_USER_L'),
 		crossDomain: true,
-		beforeSend : function() { $("#wait").css("display", "block"); },
-		complete   : function() { $("#wait").css("display", "none"); },
+		// beforeSend : function() { $("#wait").css("display", "block"); },
+		// complete   : function() { $("#wait").css("display", "none"); },
 		success: function(retorno){
-			console.log(retorno);
+			localStorage.removeItem('loginSocialMidia');
+			console.log(`Deslogado o usuario id ${retorno}`);
 			setPwdOut();
 		}
 	});
@@ -949,21 +958,31 @@ limita_txt = (titulo,qtd) => {
 	return titulo;
 }
 
+
+socialAutologinMultiUser = () => {
+	
+}
+
+
 // FUNCAO CARREGA PERFIL
-function carrega_user_perfil(id) {
+function carrega_user_perfil(id, autoInit=null) {
+	console.log("entrou na funcao carrega_user_perfil");
     var dados = '';
 	if(navigator.connection.type != 'none'){
 		$.ajax({
 			type: 'POST',
-			url: localStorage.getItem('DOMINIO')+'appweb/login.php',
+			url: localStorage.getItem('DOMINIO_LOGIN')+'appweb/login.php',
 			crossDomain: true,
 			beforeSend : function() { $("#wait").css("display", "block"); },
 			complete   : function() { $("#wait").css("display", "none"); },
             data       : {id_usuario : id},
             dataType   : 'json',
 			success: function(retorno){
+				console.log("carrega user perfil .....");
+				console.log(autoInit);
 
 				if (localStorage.getItem('loginSocialMidia') == "loginsocialmidiaFG") {
+					console.log('carrega perfil loginSocialMidia');
 					app.views.main.router.navigate("/select_profile/", {animate:true, transition: 'f7-dive'});
 					$$(document).on('page:init', '.page[data-name="pgMultiprofile"]', function (e) {
 						$$(".loginApp").hide();
@@ -995,18 +1014,149 @@ function carrega_user_perfil(id) {
 						});
 						
 						var primeiro = '<option value="" selected="">Selecione o seu Condominio</option>';
-		                for (x in retorno) {
-		                    dado = '<option onclick="select_user('+retorno[x]['id_usuario_condominio']+')" value="'+retorno[x]['id_usuario_condominio']+'">'+retorno[x]['nome_condominio']+'</option>';
-		                    dados = dados + dado;
-		                }
-		                dados = primeiro + dados;
+				        for (x in retorno) {
+				            dado = '<option onclick="select_user('+retorno[x]['id_usuario_condominio']+')" value="'+retorno[x]['id_usuario_condominio']+'">'+retorno[x]['nome_condominio']+'</option>';
+				            dados = dados + dado;
+				        }
+				        dados = primeiro + dados;
 
-		                setTimeout(function() {
-			                $('.perfil_loginClass').html(dados);
-		                }, 200);
+				        setTimeout(function() {
+				            $('.perfil_loginClass').html(dados);
+				        }, 200);
+				    });
+					console.log('carrega condominios do perfil');
+					// localStorage.removeItem('loginSocialMidia');
+				}else if (autoInit == "inicializaAutomatico" && localStorage.getItem('loginSocialMidia') == "loginsocialmidiaFG") {
+					app.views.main.router.navigate("/select_profile/", {animate:true, transition: 'f7-dive'});
+					$$(document).on('page:init', '.page[data-name="pgMultiprofile"]', function (e) {
+						$$(".loginApp").hide();
+						sheetMultiUser = app.sheet.create({
+						 	el: '.multiProfileUser',
+							closeByOutsideClick: false,
+						  	closeByBackdropClick: false,
+						  	closeOnEscape: false
+						}).open(true);
+						
+						$$('.multiProfileUser').on('sheet:opened', function (e) {
+						  	console.log('my-sheet opened');
+							$(".selectCondo")[0].click();
+						});
+						// Declarando a smart-select como view para poder funcionar...
+						app.views.create('.multiprofileSheet');
 
-	                });
-					localStorage.removeItem('loginSocialMidia');
+						smartSelect = app.smartSelect.create({
+							el:'.selectCondo',
+							on: {
+							    opened: function () {
+							      	let elemento = $(".page-content")[1];
+									let esseElemento = elemento.firstElementChild;
+									esseElemento.style.position="relative";
+									esseElemento.style.top="26px";
+									$(".icon-back").attr('style', 'color: #037aff !important');
+							    },
+							}
+						});
+						
+						var primeiro = '<option value="" selected="">Selecione o seu Condominio</option>';
+				        for (x in retorno) {
+				            dado = '<option onclick="select_user('+retorno[x]['id_usuario_condominio']+')" value="'+retorno[x]['id_usuario_condominio']+'">'+retorno[x]['nome_condominio']+'</option>';
+				            dados = dados + dado;
+				        }
+				        dados = primeiro + dados;
+
+				        setTimeout(function() {
+				            $('.perfil_loginClass').html(dados);
+				        }, 200);
+				    });
+				}else if (localStorage.getItem('logarDaValidacao') == 'true') {
+					console.log("login multiuser com usuario e senha logarDaValidacao....");
+					app.views.main.router.navigate("/select_profile/", {animate:true, transition: 'f7-dive'});
+					$$(document).on('page:init', '.page[data-name="pgMultiprofile"]', function (e) {
+						$$(".loginApp").hide();
+						sheetMultiUser = app.sheet.create({
+						 	el: '.multiProfileUser',
+							closeByOutsideClick: false,
+						  	closeByBackdropClick: false,
+						  	closeOnEscape: false
+						}).open(true);
+						
+						$$('.multiProfileUser').on('sheet:opened', function (e) {
+						  	console.log('my-sheet opened');
+							$(".selectCondo")[0].click();
+						});
+						// Declarando a smart-select como view para poder funcionar...
+						app.views.create('.multiprofileSheet');
+
+						smartSelect = app.smartSelect.create({
+							el:'.selectCondo',
+							on: {
+							    opened: function () {
+							    	console.log('atribui props para multiprofile');
+							      	let elemento = $(".page-content")[1];
+									let esseElemento = elemento.firstElementChild;
+									esseElemento.style.position="relative";
+									esseElemento.style.top="26px";
+									$(".icon-back").attr('style', 'color: #037aff !important');
+							    },
+							}
+						});
+						
+						var primeiro = '<option value="" selected="">Selecione o seu Condominio</option>';
+				        for (x in retorno) {
+				            dado = '<option onclick="select_user('+retorno[x]['id_usuario_condominio']+')" value="'+retorno[x]['id_usuario_condominio']+'">'+retorno[x]['nome_condominio']+'</option>';
+				            dados = dados + dado;
+				        }
+				        dados = primeiro + dados;
+
+				        setTimeout(function() {
+				            $('.perfil_loginClass').html(dados);
+				        }, 200);
+				    });
+				    localStorage.removeItem('logarDaValidacao');
+				}else if (autoInit == "inicializaAutomatico") {
+					console.log("login automatico multiuser com usuario e senha ....");
+					app.views.main.router.navigate("/select_profile/", {animate:true, transition: 'f7-dive'});
+					$$(document).on('page:init', '.page[data-name="pgMultiprofile"]', function (e) {
+						$$(".loginApp").hide();
+						sheetMultiUser = app.sheet.create({
+						 	el: '.multiProfileUser',
+							closeByOutsideClick: false,
+						  	closeByBackdropClick: false,
+						  	closeOnEscape: false
+						}).open(true);
+						
+						$$('.multiProfileUser').on('sheet:opened', function (e) {
+						  	console.log('my-sheet opened');
+							$(".selectCondo")[0].click();
+						});
+						// Declarando a smart-select como view para poder funcionar...
+						app.views.create('.multiprofileSheet');
+
+						smartSelect = app.smartSelect.create({
+							el:'.selectCondo',
+							on: {
+							    opened: function () {
+							    	console.log('atribui props para multiprofile');
+							      	let elemento = $(".page-content")[1];
+									let esseElemento = elemento.firstElementChild;
+									esseElemento.style.position="relative";
+									esseElemento.style.top="26px";
+									$(".icon-back").attr('style', 'color: #037aff !important');
+							    },
+							}
+						});
+						
+						var primeiro = '<option value="" selected="">Selecione o seu Condominio</option>';
+				        for (x in retorno) {
+				            dado = '<option onclick="select_user('+retorno[x]['id_usuario_condominio']+')" value="'+retorno[x]['id_usuario_condominio']+'">'+retorno[x]['nome_condominio']+'</option>';
+				            dados = dados + dado;
+				        }
+				        dados = primeiro + dados;
+
+				        setTimeout(function() {
+				            $('.perfil_loginClass').html(dados);
+				        }, 200);
+				    });
 				}else{
 					console.log("login multiuser com usuario e senha....");
 					app.sheet.create({
@@ -1055,8 +1205,8 @@ function carrega_user_perfil(id) {
 		notifica('Internet/Sem conex\u00e3o com a Internet/Fechar',2000,0);
 	}
 }
-
 // ====>>>>>>>>>>>>>>>>>>>>>
+
 
 alerta = (title, msg, afterClose=null) => {
 	app.dialog.create({
@@ -1126,11 +1276,12 @@ aceiteiTermo = (prossigaOutroCaminho=null) => {
 
 recuperaEmail = (email) => {
     if(email.length>0){
-        var dados = 'email='+email+'&origin=mobileApp';
+        var dados = 'email='+email+'&origin=mobileApp&type=appNovo';
+        var url = "https://aut.controlcondo.com.br/login/appweb/recupera_senha.php";
         $.ajax({
             type: 'POST',
             data: dados,
-            url: localStorage.getItem('DOMINIO')+'mail_template/pt-br/recupera_senha.php',
+            url: url,
             crossDomain: true,
             dataType   : 'json',
             beforeSend : function() { $("#wait").css("display", "block"); },
@@ -1165,7 +1316,7 @@ function choosedMail(){
 	console.log(campoEmail);
 	if (campoEmail.length !== 0) {
 		$.ajax({
-			url: localStorage.getItem('DOMINIO')+'appweb/ativacao_post.php',
+			url: localStorage.getItem('DOMINIO_LOGIN')+'appweb/ativacao_post.php',
 			type: 'POST',
 	 	    data: {
 	 	    	email : campoEmail, 
@@ -1194,6 +1345,10 @@ function choosedMail(){
 					  		primeiroAcessoBtnVoltar();
 					  		setTimeout(function() {
 					    		swich_tela_login_recuperaSenha(campoEmail);
+					    		setTimeout(function() {
+					    			$$('#itemInput').addClass('item-input-focused');
+					    			$$('#email_recupera').addClass('input-focused');
+					    		}, 100);
 					  		}, 500);
 					  	}, 
 					  	function () {
@@ -1285,28 +1440,6 @@ let enviarSenhaEliberarAcesso = () => {
 	});
 }
 
-
-
-
-// function definesenha(){
-// 	afed('#defineSenha','#initApp','','',1);	
-// }
-
-// function btnSairTelaDefineSenha(){
-// 	afed('#initApp','#defineSenha','','',1);
-// }
-
-// function switchTelaDefineSenhaToLogin(){
-// 	afed('#login_ini','#defineSenha','','');
-// 	app2.sheet.create({
-// 	  el: '.loginApp',
-// 	  closeByOutsideClick: false,
-// 	  closeByBackdropClick: false,
-// 	  closeOnEscape: false
-// 	});
-// 	app2.actions.open('.loginApp', true);
-// }
-
 function salvarSenha(){
 	if ($("#inputDefineSenha").val().length !== 0 ) {
 		$("#btnSaveSenha").attr('disabled', false);
@@ -1322,7 +1455,7 @@ function salvarSenha(){
 
 			$.ajax({
 				type: 'POST',
-				url: localStorage.getItem('DOMINIO')+'appweb/ativacao_post.php',
+				url: localStorage.getItem('DOMINIO_LOGIN')+'appweb/ativacao_post.php',
 		        data: { 
     				idUsuario : idUsuario, 
     				senha : senha,
@@ -1350,6 +1483,7 @@ function salvarSenha(){
 						app.dialog.preloader("Direcionando para App", 'blue');
 						setTimeout(function () {
 							event = new CustomEvent('click');
+							localStorage.setItem('logarDaValidacao', true);							
 							login_user(event, 'logarDaValidacao');
 							app.dialog.close();
 						}, 1000);
@@ -1368,15 +1502,12 @@ function salvarSenha(){
 	}
 }
 
-// não ta sendo usado essa função..............
-// beforeSend : function() { $("#wait").css("display", "block"); },
-// complete   : function() { $("#wait").css("display", "none"); },
-
 confirmaCodeResetPassword = (recoveryCode) => {
 	alert("codigo recebido "+recoveryCode);
 	$.ajax({
 		type: 'POST',
-		url: localStorage.getItem('DOMINIO')+'appweb/ativacao_post.php',
+		url: localStorage.getItem('DOMINIO_LOGIN')+'appweb/ativacao_post.php',
+		// url: "https://aut.controlcondo.com.br/login/appweb/ativacao_post_multi.php",
 		crossDomain: true,
         data: { 
 			recoveryCode : recoveryCode, 
@@ -1408,9 +1539,6 @@ confirmaCodeResetPassword = (recoveryCode) => {
         }
 	});	
 }
-// não ta sendo usado essa função..............
-
-
 
   /*
   ########################################
@@ -1419,7 +1547,7 @@ confirmaCodeResetPassword = (recoveryCode) => {
   */
 
 let loginFB = () => {
-	// app.dialog.preloader("carregando", 'blue');
+	app.dialog.preloader("carregando", 'blue');
 	facebookConnectPlugin.logout(
 		function(successo){
 		    facebookConnectPlugin.login(['public_profile', 'email'], function(result){
@@ -1429,10 +1557,10 @@ let loginFB = () => {
 		    		localStorage.setItem('emailSocialMidia', email);
 		            checkUsuarioFacebookToLogin(email);
 		        },function(error){
-		            alerta("Login com FB", "Erro ao logar com facebook (api)...");
+		            alerta("Login com FB", "Falha ao tentar logar com facebook");
 		        });
 		    },function(error){
-		        alerta("Login com FB", "Erro ao logar com facebook (login)...");
+		        alerta("Login com FB", "Falha ao tentar logar com facebook");
 		    })
 		},
 		function(erroror){
@@ -1443,13 +1571,24 @@ let loginFB = () => {
 		    		localStorage.setItem('emailSocialMidia', email);
 		            checkUsuarioFacebookToLogin(email);
 		        },function(error){
-		            alerta("Login com FB", "Erro ao logar com facebook (api)...");
+		            alerta("Login com FB", "Falha ao tentar logar com facebook");
 		        });
 		    },function(error){
-		        alerta("Login com FB", "Erro ao logar com facebook (login)...");
+		        alerta("Login com FB", "Falha ao tentar logar com facebook");
 		    });
-			// alerta("Login com FB", "Erro ao conectar com FB...");
-			// alert(JSON.stringify(erroror));
+		}
+	);
+}
+
+logoutFacebookOnError = () => {
+	facebookConnectPlugin.logout(
+		function sucesso(succes){
+			alert(succes);
+	      	alert(JSON.stringify(succes)); 
+		}, 
+		function erro(error){
+			alert(error);
+	      	alert(JSON.stringify(error)); 
 		}
 	);
 }
@@ -1457,7 +1596,7 @@ let loginFB = () => {
 checkUsuarioFacebookToLogin = (email) => {
 	$.ajax({
 		type: 'POST',
-		url: localStorage.getItem('DOMINIO')+'appweb/ativacao_post.php',
+		url: localStorage.getItem('DOMINIO_LOGIN')+'appweb/ativacao_post.php',
 		crossDomain: true,
 		beforeSend : function() { $("#wait").css("display", "block"); },
 		complete   : function() { $("#wait").css("display", "none"); },
@@ -1472,21 +1611,25 @@ checkUsuarioFacebookToLogin = (email) => {
 		},
         dataType   : 'json',
 		success: function(retorno){
+			console.log(retorno);
+			// return false;
 			if (retorno.status == "usuarioValidoToLoginFacebook" && retorno.statuscode == 200) {
 				app.dialog.preloader("Direcionando para App", 'blue');
 				localStorage.setItem("loginSocialMidia", "loginsocialmidiaFG");
+				app.dialog.close();
 				setTimeout(function () {
 					app.dialog.close();
 					login_user_device();
 				}, 1000);
-
+				app.dialog.close();
 			}else 
 			if (retorno.status == "perfilAtivoSemSenha" && retorno.statuscode == 200) {
 				localStorage.setItem('data-liberarSemSenha','liberarSemSenha');
 				app.views.main.router.navigate("/termo_de_uso/", {animate:true, transition: 'f7-dive'});
 			}else{
 				let msg = `O  ${email} Não está liberado para acessar o condominio tente outra forma de autenticar ou entre em contato com a sua adminstradora..`;
-				alerta("Tentativa de login",msg, afterClose=null)
+				alerta("Tentativa de login",msg, afterClose=null);
+				logoutFacebookOnError();
 			}
         },
         error: function(error) {
@@ -1496,8 +1639,6 @@ checkUsuarioFacebookToLogin = (email) => {
 	});	
 }
 
-
-
   /*
   ########################################
   #       Adicionar Google login         #
@@ -1506,33 +1647,41 @@ checkUsuarioFacebookToLogin = (email) => {
 
 let loginGoogle = () =>{
 	app.dialog.preloader("carregando", 'blue');
-
-	// window.plugins.googleplus.disconnect(
-	//     function (msg) {
-	//       alert(msg); 
-	//     }
-	// );
-
-	// window.plugins.googleplus.login({},
-	//     function(obj) {
-	// 		app.dialog.close();
-	//       	let email = obj.email;
-	//       	let nome = obj.displayName;
-			email = 'secticom@gmail.com';
+	window.plugins.googleplus.login({},
+	    function(obj) {
+			app.dialog.close();
+	      	let email = obj.email;
+	      	let nome = obj.displayName;
+			// email = 'tino477@gmail.com';
 			localStorage.setItem('emailSocialMidia', email);
+			app.dialog.close();
 		    checkUsuarioGoogleToLogin(email);
-	//     },
-	//     function(msg) {
-	//     	app.dialog.close();
-	//       	console.log('error: ' + msg);
-	//     }
-	// );
+	    },
+	    function(msg) {
+	    	app.dialog.close();
+	      	console.log('error: ' + msg);
+	    }
+	);
+}
+
+logoutGoogleOnError = () => {
+	window.plugins.googleplus.disconnect(
+	    function (msg) {
+	      	alert(msg);
+	      	alert(JSON.stringify(msg)); 
+	    },
+	    function (args) {
+	    	alert(args);
+	    	alert(JSON.stringify(args));
+	    }	
+	);
+	// console.log("eexecuta a funcao...");
 }
 
 checkUsuarioGoogleToLogin = (email) => {
 	$.ajax({
 		type: 'POST',
-		url: localStorage.getItem('DOMINIO')+'appweb/ativacao_post.php',
+		url: localStorage.getItem('DOMINIO_LOGIN')+'appweb/ativacao_post.php',
 		crossDomain: true,
 		beforeSend : function() { $("#wait").css("display", "block"); },
 		complete   : function() { $("#wait").css("display", "none"); },
@@ -1547,7 +1696,7 @@ checkUsuarioGoogleToLogin = (email) => {
 		},
         dataType   : 'json',
 		success: function(retorno){
-	
+
 			if (retorno.status == "perfilAtivoSemSenha" && retorno.statuscode == 200) {
 				localStorage.setItem('data-liberarSemSenha','liberarSemSenha');
 				alerta('Login Google', "direcionando para termo de uso", afterClose="termoUso");
@@ -1560,6 +1709,7 @@ checkUsuarioGoogleToLogin = (email) => {
 			else{
 				let msg = `O  ${email} Não está liberado para acessar o condominio tente outra forma de autenticar ou entre em contato com a sua adminstradora..`;
 				alerta("Tentativa de login",msg, afterClose=null);
+				logoutGoogleOnError();
 			}
         },
         error: function(error) {

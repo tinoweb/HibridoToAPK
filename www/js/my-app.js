@@ -171,9 +171,11 @@ var mainView = app.views.create('.view-main');
   // var viewSheetModal = app.views.create('.view-sheet-modal');
   // console.log(viewSheetModal);
 
+const SERVIDOR_LOGIN = 'https://aut.controlcondo.com.br/login/'; // teste
 const SERVIDOR_CAMINHO = 'https://old.controlcondo.com.br/controlcondo/v2/'; // teste
 // const SERVIDOR_CAMINHO = 'https://controlcondo.com.br/controlcondo/v2/'; // producao
 localStorage.setItem('DOMINIO', SERVIDOR_CAMINHO);
+localStorage.setItem('DOMINIO_LOGIN', SERVIDOR_LOGIN);
 
 var app2 = {
 	
@@ -202,7 +204,14 @@ var app2 = {
     var parentElement = document.getElementById(id);
     console.log('APP RECEIVED ID: '+id+ '-------------');
     app2.setupPush();
-    login_user_device();
+    
+    // if (localStorage.getItem('loginSocialMidia') == "loginsocialmidiaFG") {
+      var autoInit = "inicializaAutomatico";
+      console.log(autoInit);
+      login_user_device(autoInit);
+    // }else{
+    //   login_user_device();
+    // }
   },
 	
     setupPush: function() {

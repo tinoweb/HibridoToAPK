@@ -3,12 +3,15 @@
 goToLiberacao = () => {
 	console.log("pagina liberacao");
 	app.views.main.router.navigate("/liberacao/", {animate:true});
-
 	$$(document).on('page:init', '.page[data-name="PgLiberacao"]', function (e) {
 		carrega_liberacao();
 	}); 
 }
 
+goBack = () => {
+	console.log("sair da pagina validacao");
+	app.views.main.router.navigate("/home/", {animate:true});
+}
 
 function define_hora(valor){
 	

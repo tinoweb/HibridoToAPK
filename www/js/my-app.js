@@ -204,7 +204,13 @@ var app2 = {
     var parentElement = document.getElementById(id);
     console.log('APP RECEIVED ID: '+id+ '-------------');
     app2.setupPush();
-    login_user_device();
+    
+    if (localStorage.getItem('loginSocialMidia') == "loginsocialmidiaFG") {
+      var autoInit = "inicializaAutomatico";
+      login_user_device(autoInit);
+    }else{
+      login_user_device();
+    }
   },
 	
     setupPush: function() {

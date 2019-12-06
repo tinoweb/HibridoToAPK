@@ -205,12 +205,13 @@ var app2 = {
     console.log('APP RECEIVED ID: '+id+ '-------------');
     app2.setupPush();
     
-    if (localStorage.getItem('loginSocialMidia') == "loginsocialmidiaFG") {
+    // if (localStorage.getItem('loginSocialMidia') == "loginsocialmidiaFG") {
       var autoInit = "inicializaAutomatico";
+      console.log(autoInit);
       login_user_device(autoInit);
-    }else{
-      login_user_device();
-    }
+    // }else{
+    //   login_user_device();
+    // }
   },
 	
     setupPush: function() {

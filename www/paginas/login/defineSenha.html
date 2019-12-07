@@ -1,61 +1,60 @@
 <div class="pages">
-	<div id="" data-name="pgDefineSenha" class="page">
-		<div class="alingElement">
-			
-			<img class="" src="img/logoicon.png" width="150">
-			<div class="sheet-modal defineSenhaApp" id="" style="display: block;height: 290px;">
-				<div class="toolbar bg-color-blue">
-					<div class="toolbar-inner">
-						<div class="left left-10">
-			                <a class="color-white" onclick="setingPwdVoltar()" href="#">
-			                    <i class="icon icon-back">
-			                    </i>
-			                </a>
-			            </div>
+	<div data-name="pgDefineSenha" class="page">
+		<div class="alingElement page-content">
+			<div class="content-block">
+				<img class="" src="img/logoicon.png" width="150">
+				
+				<div class="sheet-modal defineSenhaApp" style="display: block;height: 290px;">
+					<div class="toolbar bg-color-blue">
+						<div class="toolbar-inner">
+							<div class="left left-10">
+				                <a class="color-white" onclick="setingPwdVoltar()" href="#">
+				                    <i class="icon icon-back">
+				                    </i>
+				                </a>
+				            </div>
 
-						<div class="title text-color-white">Definar Senha</div>
-						<div class="right">
-							<a class="link color-white" id="sairLogin" onclick="setPwdOut()" href="#">Sair</a>
+							<div class="title text-color-white">Definir Senha</div>
+							<div class="right">
+								<a class="link color-white" id="sairLogin" onclick="setPwdOut()" href="#">Sair</a>
+							</div>
+						</div>
+					</div>
+					<div class="sheet-modal-inner list no-hairlines-md list_no_margin">
+						<div class="block">
+							<ul>
+							    <li class="item-content item-input">
+							      	<div class="item-inner">
+							      		<div class="item-title item-floating-label">Digite a senha</div>
+								        <div class="item-input-wrap">
+								          <input type="password" name="defineSenha" id="inputDefineSenha" validate required="true" placeholder="Definir Senha" style="border: none;">
+								          <span class="input-clear-button"></span>
+								        </div>
+							      	</div>
+							    </li>
+
+							    <li class="item-content item-input">
+								    <div class="item-inner">
+								    	<div class="item-title item-floating-label">Repita a senha</div>
+								        <div class="item-input-wrap">
+								          <input type="password" name="defineSenhaRepita" id="inputDefineSenhaRepita" validate required="true" placeholder="Repetir Senha" style="border: none;">
+								          <span class="input-clear-button"></span>
+								        </div>
+							      	</div>
+							    </li>
+
+							    <li class="item-content">
+							      	<div class="item-inner col-100">
+				                      	<button class="button button-raised button-fill button-large color-blue" onclick="salvarSenha()" id="btnSaveSenha" name="entrar"> Entrar </button>
+							      	</div>
+							    </li>
+								
+							</ul>
 						</div>
 					</div>
 				</div>
-				<div class="list no-hairlines-md list_no_margin">
-					<ul>
-					    <li class="item-content item-input">
-					      	<div class="item-inner">
-					      		<div class="item-title item-floating-label">Digite a senha</div>
-						        <div class="item-input-wrap">
-						          <input type="password" name="defineSenha" id="inputDefineSenha" validate required="true" placeholder="Definir Senha" style="border: none;">
-						          <span class="input-clear-button"></span>
-						        </div>
-					      	</div>
-					    </li>
 
-					    <li class="item-content item-input">
-						    <div class="item-inner">
-						    	<div class="item-title item-floating-label">Repita a senha</div>
-						        <div class="item-input-wrap">
-						          <input type="password" name="defineSenhaRepita" id="inputDefineSenhaRepita" validate required="true" placeholder="Repetir Senha" style="border: none;">
-						          <span class="input-clear-button"></span>
-						        </div>
-					      	</div>
-					    </li>
-
-					    <li class="item-content">
-					      	<div class="item-inner col-100">
-		                      	<button class="button button-raised button-fill button-large color-blue" onClick="salvarSenha();" id="" name="entrar"> Entrar </button>
-					      	</div>
-					    </li>
-						
-					</ul>
-				</div>
-				<!-- <div class="item-content">
-			    	<div class="" style="position: relative;top: 10px;">
-						<a class="btn btn-block btn-default btn-no-border color-gray" style="position: relative;left: 46%;" onclick="btnSairTelaDefineSenha()">sair</a>
-					</div>
-				</div> -->
 			</div>
-
 		</div>
 	</div>
 </div>

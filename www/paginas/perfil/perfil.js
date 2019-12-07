@@ -27,12 +27,13 @@ carregaInfoProfile = () => {
 }
 
 carrega_dados_and_info = (id_condominio) => {
+	var urlDominio = localStorage.getItem('IP_LOCAL')+'/controlcondo/v2/';
 	var families = {};
 	let dados
 	let id_unidade = localStorage.getItem('ID_UNIDADE');
 	$.ajax({
 		type: 'POST',
-		url: localStorage.getItem('DOMINIO')+'appweb/morador_get.php',
+		url: urlDominio+'appweb/morador_get.php',
 		crossDomain: true,
         data       : { id_condominio : id_condominio, id_unidade_morador: id_unidade, getType: "parentes" },
         dataType   : 'json',
@@ -97,15 +98,21 @@ carrega_dados_and_info = (id_condominio) => {
 }
 
 carrega_morador_dados = (id_morador) => {
+
+	var urlDominio = localStorage.getItem('IP_LOCAL')+'/controlcondo/v2/';
 	$.ajax({
 		type: 'POST',
-		url: localStorage.getItem('DOMINIO')+'appweb/morador_get.php',
+		url: urlDominio+'appweb/morador_get.php',
 		crossDomain: true,
 		beforeSend : function() { $("#wait").css("display", "block"); },
 		complete   : function() { $("#wait").css("display", "none"); },
         data       : { id_condominio : localStorage.getItem("ID_CONDOMINIO"), id_morador : id_morador },
         dataType   : 'json',
 		success: function(retorno){
+
+			console.log(retorno);
+			console.log("deu certo....");
+			// return false;
 
             let gernero = retorno[0]['masculino']==1? "Masculino" : "Feminino";
             let statusVisita = retorno[0]['perfil_statusVisita']==1? "Ativo" : "Inativo";

@@ -1,76 +1,97 @@
 <div class="pages">
-	<div data-page="home" class="page">
+    <div class="page" data-name="PgLiberacao" data-page="">
         <div class="toolbar toolbar-bottom tema-azul">
-          <div class="toolbar-inner">
+            <div class="toolbar-inner">
             <a class="link" onClick="carregar_todos_selects()" href="/lib_1/">Nova Liberação</a>
-            <a class="link" href="/lib_acessos/">Últimos Acessos</a>
-          </div>
+                    Nova Liberação
+                </a>
+                <a class="link" href="/lib_acessos/">
+                    Últimos Acessos
+                </a>
+            </div>
         </div>
         <div class="page-content hide-toolbar-on-scroll">
-			<div class="navbar navbar-large" style="--f7-navbar-large-collapse-progress: 1 ;" >
-      			<div class="navbar-bg tema-azul" style="background-color: #007aff" ></div>
-      			<div class="navbar-inner">
-					<div class="left">
-						<a href="#" class="back link">
-                			<i class="icon icon-back"></i>
-            			</a>
-					</div>
-					<div class="title">
-						<div class="title-text" style="color: white">Liberação</div>
-					</div>
-      			</div>
-    		</div>	
-            <div class="content-block"  style="margin-top: 5%" >
-			<div class="list media-list no-safe-areas" id="retorno_liberacao"> 
-				
-				</div>
-	
-			</div>
-  <div class="sheet-modal my-sheet" style="height: 90%">
-    <div class="toolbar" style="margin-bottom: 10%">
-      <div class="toolbar-inner tema-azul">
-        <div class="left"></div>
-        <div class="right"><a class="link sheet-close f7-icons" href="#">chevron_down</a></div>
-      </div>
-    </div>
-    <div class="sheet-modal-inner ">
-			<div id="printscr_qrcode" class="printscr_qrcode" style="background-color: white; padding: 10%;">
-				<div id="qrcodeCanvas" class="qrcodeCanvas centralizar" style=""></div>
-				<p id="qr_dados" class="size-10" style="padding: 15px"></p>
-			</div>
-			<div id="resultado_qr" ></div>
-			<input type="hidden" id="url_qr">
-	  	<a	id="enviar_qrrcode" class="button button-fill color-theme-green centralizar"  onClick="preview(); $('#enviar_qrrcode').hide();" style="color: white"> 
-			<i class="f7-icons">qrcode</i>Enviar
-		</a>	
-		
-		
-		
-		<div class="row">
-
-		<a class="col button  color-theme-black size-10" id="download" onclick="download_qrcode();" style="padding-top: -2%;background-color: black;color: white;display: none"> 
-			<div class="row">
-				<div class="col" style="margin-top: 3%"><i class="f7-icons">cloud_download</i> </div>
-				<div class="col" style="font-size: 10px">Download</div>
-				<div class="col"></div>
-				<div class="col"></div>
-			</div>
-
-		</a>	
-		<a class="col button  color-theme-green size-10" id="whatsp" onclick="whatsapp_qrcode();" style="padding-top: -2%;background-color: green;color: white;display: none"> 
-			<div class="row">
-				<div class="col" style="background-image: url(img/whatsapp.png); background-position: center center; background-size: 60%; background-repeat: no-repeat; height: 20px; width: 40px;margin-top: 5%"></div>
-				<div class="col">WhatsApp</div>
-				<div class="col"></div>
-				<div class="col"></div>
-			</div>
-		
-		
-		
-		</a>
-		</div>
-		
-<!--		<div id="resultado_qr"></div>
+            <div class="navbar navbar-large" style="--f7-navbar-large-collapse-progress: 1 ;">
+                <div class="navbar-bg tema-azul" style="background-color: #007aff">
+                </div>
+                <div class="navbar-inner">
+                    <div class="left">
+                        <a class="" onclick="goBack()" href="#">
+                            <i class="icon icon-back">
+                            </i>
+                        </a>
+                    </div>
+                    <div class="title">
+                        <div class="title-text" style="color: white">
+                            Liberação
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content-block" style="margin-top: 5%">
+                <div class="list media-list no-safe-areas" id="retorno_liberacao">
+                </div>
+            </div>
+            <div class="sheet-modal my-sheet" style="height: 90%">
+                <div class="toolbar" style="margin-bottom: 10%">
+                    <div class="toolbar-inner tema-azul">
+                        <div class="left">
+                        </div>
+                        <div class="right">
+                            <a class="link sheet-close f7-icons" href="#">
+                                chevron_down
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="sheet-modal-inner ">
+                    <div class="printscr_qrcode" id="printscr_qrcode" style="background-color: white; padding: 10%;">
+                        <div class="qrcodeCanvas centralizar" id="qrcodeCanvas" style="">
+                        </div>
+                        <p class="size-10" id="qr_dados" style="padding: 15px">
+                        </p>
+                    </div>
+                    <div id="resultado_qr">
+                    </div>
+                    <input id="url_qr" type="hidden">
+                        <a class="button button-fill color-theme-green centralizar" id="enviar_qrrcode" onclick="preview(); $('#enviar_qrrcode').hide();" style="color: white">
+                            <i class="f7-icons">
+                                qrcode
+                            </i>
+                            Enviar
+                        </a>
+                        <div class="row">
+                            <a class="col button color-theme-black size-10" id="download" onclick="download_qrcode();" style="padding-top: -2%;background-color: black;color: white;display: none">
+                                <div class="row">
+                                    <div class="col" style="margin-top: 3%">
+                                        <i class="f7-icons">
+                                            cloud_download
+                                        </i>
+                                    </div>
+                                    <div class="col" style="font-size: 10px">
+                                        Download
+                                    </div>
+                                    <div class="col">
+                                    </div>
+                                    <div class="col">
+                                    </div>
+                                </div>
+                            </a>
+                            <a class="col button color-theme-green size-10" id="whatsp" onclick="whatsapp_qrcode();" style="padding-top: -2%;background-color: green;color: white;display: none">
+                                <div class="row">
+                                    <div class="col" style="background-image: url(img/whatsapp.png); background-position: center center; background-size: 60%; background-repeat: no-repeat; height: 20px; width: 40px;margin-top: 5%">
+                                    </div>
+                                    <div class="col">
+                                        WhatsApp
+                                    </div>
+                                    <div class="col">
+                                    </div>
+                                    <div class="col">
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <!--		<div id="resultado_qr"></div>
       <div class="block centralizar" id="qr_visita"  style="overflow: auto">
 		  
 		  <p class="size-10" id="conde_nome" ></p>
@@ -88,11 +109,9 @@
 			<i class=" fa fa-whatsapp"></i>&nbsp;tes </a> 
 			   
 		</div>-->
-   	  
-    </div>
-  </div>
+                    </input>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-
-

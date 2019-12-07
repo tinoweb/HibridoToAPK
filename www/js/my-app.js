@@ -166,7 +166,7 @@ var mainView = app.views.create('.view-main');
   // var viewSheetModal = app.views.create('.view-sheet-modal');
   // console.log(viewSheetModal);
 
-const SERVIDOR_CAMINHO = 'https://old.controlcondo.com.br/controlcondo/v2/'; // teste
+const SERVIDOR_CAMINHO = 'https://www.controlcondo.com.br/controlcondo/v2/'; // teste
 // const SERVIDOR_CAMINHO = 'https://controlcondo.com.br/controlcondo/v2/'; // producao
 localStorage.setItem('DOMINIO', SERVIDOR_CAMINHO);
 

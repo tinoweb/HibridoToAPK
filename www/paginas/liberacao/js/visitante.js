@@ -1,3 +1,23 @@
+
+ function avancar2()
+{
+	$('#botao_avancar').removeClass('tema-azul');
+	$("#link_tab").attr('onClick','avancar3()');
+	$("#link_tab").attr('href','#tab-4');
+	//$("#botao_avancar").attr('class','tema-azul');
+}
+function avancar3()
+{ 
+	
+//$("#link_tab #text_btn").html('Salvar');
+$("#link_tab").attr('href','#tab-4');
+ $('#botao_avancar').removeClass('tema-azul');
+
+}
+ 
+
+
+
 //FUNCAO CARREGA TODOS VISITAMTES
 var temp;
 function carrega_visitantes(valor_busca,tipo){
@@ -14,7 +34,7 @@ function carrega_visitantes(valor_busca,tipo){
 
 	if(contador == 1){
     if(valor_busca != ''){
-        if(valor_busca.length > 4 && tipo == 1 || tipo == 0 ){
+        if(valor_busca.length >= 5 && tipo == 1 ||valor_busca.length >= 3 && tipo == 0 ){
         $.ajax({
             type: 'POST',
             url: localStorage.getItem('DOMINIO')+'appweb/visitante_get.php',
@@ -24,7 +44,7 @@ function carrega_visitantes(valor_busca,tipo){
             data       : {id_condominio : id_condominio, tipo : tipo, sql : valor_busca},
             dataType   : 'json',
             success: function(retorno){
-			//	alert(retorno);
+				
 				var dados = '';
                 for (x in retorno) {
 					cont++;
@@ -35,20 +55,20 @@ function carrega_visitantes(valor_busca,tipo){
 						var dadof = '<div class="item-media"> <i class="f7-icons" style="font-size: 44px;">User</i></div>';
 					}
 					var dados = dados+'<li class="item-content">'+
-						'<a href="#" class="item-link item-content" onClick="hidden_btn();escolhe_visita(\''+retorno[x]['id']+'\',\''+retorno[x]['nome']+'\',\''+retorno[x]['rg']+'\')">'+
+						'<a  class="item-link item-content link tab-link" href="#tab-2" style="width:100%" onClick="hidden_btn();escolhe_visita(\''+retorno[x]['id']+'\',\''+retorno[x]['nome']+'\',\''+retorno[x]['rua']+'\',\''+retorno[x]['numero']+'\',\''+retorno[x]['cidade']+'\',\''+retorno[x]['bairro']+'\',\''+retorno[x]['observacao']+'\',\''+retorno[x]['estado']+'\',\''+retorno[x]['tel']+'\',\''+retorno[x]['cel']+'\',\''+retorno[x]['cep']+'\',\''+retorno[x]['email']+'\',\''+retorno[x]['bloqueado']+'\',\''+retorno[x]['rg']+'\')">'+
 							'<div class="item-media">'+dadof+'</div>'+
 							'<div class="item-inner" >'+
 								'<div class="item-title-row"  style="width:100%">'+
 									'<div class="item-title">'+retorno[x]['nome']+'</div>'+
 								'</div>'+
-								'<div class="item-subtitle">'+retorno[x]['rg']+'</div>'+
+								'<div class="item-subtitle" style="font-size:15px !important">'+retorno[x]['rg']+'</div>'+
 							'</div>'+
 						'</a>'+
 					'</li>';	
                 }
-                dados = dados + '<div class="" style="background-color: #f86464;color: white;height: 50px;padding-top: -10px;" onClick="novo_visitante()"><strong><i class="fa fa-user"></i> Novo Visitante</strong></div>';
+                dados = dados + '<button class="col button button-fill color-theme-red" onClick="novo_visitante()"><i class="f7-icons size-20" style="padding-top:10px;">person_badge_plus</i> Novo Cadastro</button>';
                 $( "#visitantes" ).html(dados);
-                
+        
             },
             error      : function(error) {
                 //console.log(error);
@@ -58,7 +78,7 @@ function carrega_visitantes(valor_busca,tipo){
         });
         }
     }else{
-        $( "#retorno_visita" ).html('');
+        $( "#visitantes" ).html('');
     }
 	if(cont === 0){
 		var sem_reg = "<div align='center' style='margin-top: 50%; width:100%'><h4>Ops! Nenhum registro encontrado aqui :(</h4><br>";
@@ -75,16 +95,37 @@ function carrega_visitantes(valor_busca,tipo){
 
 
 //FUNCAO SELECIONA UM VISITANTE
-function escolhe_visita(id,nome,rg){
+function escolhe_visita(id,nome,rua,numero,cidade,bairro,observacao,estado,tel,cel,cep,email,bloqueado,rg){
 
-	$( "#add_liberacao #nome" ).val(nome);
-	$( "#add_liberacao #rg" ).val(rg);
-	$( "#add_liberacao #visita" ).val(id);
-	$( "#add_liberacao #visita" ).val(id);
-	afed('#liberacao2','#visitantes','','',3,'liberacao_add');
-	$( "#add_liberacao #savarLib").html('<span class="fa fa-check"></span> Salvar');
-	$("#liberacao_placa").val("");
-	$("#cad_veiculo").hide();
+
+	
+	if(rua == 'null'){rua = "Não Informado"}	
+	if(numero == 'null'){numero = "Não Informado"}	
+	if(cidade == 'null'){cidade = "Não Informado"}	
+	if(bairro == 'null'){bairro = "Não Informado"}	
+	if(observacao == 'null'){observacao = "Não Informado"}	
+	if(estado == 'null'){estado = "Não Informado"}	
+	if(tel == 'null'){tel = "Não Informado"}	
+	if(cel == 'null'){cel = "Não Informado"}	
+	if(cep == 'null'){cep = "Não Informado"}	
+	if(email == 'null'){email = "Não Informado"}	
+		
+	$( "#nome_vis" ).val(nome);
+	$( "#rg_vis" ).val(rg);
+	$( "#visitante_id").val(id);
+	$( "#end_visit").val(rua);
+	$( "#num_casav").val(numero);
+	$( "#cidade_vs").val(cidade);
+	$( "#bairro_visit").val(bairro);
+	$( "#obs_vst").val(observacao);
+	$( "#std_visi").val(estado);
+	$( "#tel_visi").val(tel);
+	$( "#cel_visi").val(cel);
+	$( "#cep_vst").val(cep);
+	$( "#email_visit").val(email);
+	$( "#botao_avancar").attr('style','display:block;background: #919191;');
+	
+//alert(bloqueado);
 	
 	
 
@@ -199,11 +240,11 @@ function hidden_btn(){
 }
 
 function get_veiculo(placa){
-	
+	//alert(placa);
 	let tamanho    = placa.length;
 	let parametro1 = "";
 	let parametro2 = "";
-	
+	var id_condominio = localStorage.getItem('ID_CONDOMINIO');
 	if(tamanho==8){
 		sessionStorage.setItem("completo","true");
 		$("#l_placa_carro").val(placa);	    
@@ -213,9 +254,65 @@ function get_veiculo(placa){
 				crossDomain: true,
 				beforeSend : function() { $("#wait").css("display", "block"); },
 				complete   : function() { $("#wait").css("display", "none"); },
-				data       : 'placa='+placa+'&id_condominio='+$( "#DADOS #ID_CONDOMINIO" ).val(),
+				data       : {placa:placa,id_condominio: id_condominio},
 				dataType   : 'json',
 				success: function(retorno){
+					
+				
+					if(retorno.id == null)
+						{
+							alerta('Veículo não Cadastrado!');
+							$("#buscar_placa").html('<i class="f7-icons size-15">car_fill</i> Cadastrar');
+							$("#buscar_placa").attr('style','background-color:green;margin-top: -10px');
+							$("#buscar_placa").attr('onClick','atualiza_veiculo_visitante()');
+								$("#carro_marca .item-after").html('');
+								$("#carro_modelo .item-after").html('');
+								$("#carro_cor .item-after").html('');
+								
+						}else{
+								$("#carro_marca .item-after").html(retorno.marca);
+								$("#carro_modelo .item-after").html(retorno.modelo);
+								$("#carro_cor .item-after").html(retorno.cor);
+								$("#id_carro_visitante").val(retorno.id);
+								$("#liberacao_placa").attr('onKeyUp','botao_bs()');
+								$("#buscar_placa").attr('onClick','');
+								$("#buscar_placa").html('<i class="f7-icons size-15">checkmark_alt</i> Veículo Encontrado');
+								$("#buscar_placa").attr('style','background-color:green;margin-top: -10px;font-size:10px');
+								$("#botao_avancar").addClass('tema-azul');		
+								$("#link_tab").attr('onClick','avancar4()');
+								$("#link_tab").attr('href','#tab-4');
+							
+								$( "#inicio_rs").mask('00/00/0000 00:00:00');
+								$( "#nome_rs" ).val($( "#nome_vis" ).val());
+								$( "#rg_rs" ).val($( "#rg_vis" ).val());
+								$( "#id_visitante_rs").val($( "#visitante_id").val());
+							
+								$( "#inicio_rs").val($( "#data_inici_vl").val());
+								$( "#fim_rs").val($( "#data_fim_vl").val());
+							
+								$( "#credito_rs").val($( "#qtd_credito_qr").val());
+								$( "#placa_visitante_rs").val($( "#liberacao_placa").val());
+							
+								$( "#motivo_rs").val($("#motivo_selec_aft .item-after").html());
+							
+								$("#marca_cvisitante_rs").val($("#carro_marca .item-after").html());
+							
+								$( "#modelo_visitante_rs").val($("#carro_modelo .item-after").html());
+								$( "#cor_visitante_rs").val($("#carro_cor .item-after").html());
+							
+			
+						}
+					 
+					
+					 
+					
+				
+					
+					
+					
+					
+					
+					
 					
 					if(retorno.marca == null){
 				        parametro1 = "Não informado"; 
@@ -242,31 +339,20 @@ function get_veiculo(placa){
 						$('#l_cor_carro').html(cor_dados);
 					}
 					
-					console.log(retorno);
-					if(retorno.id == null ){
- 						$("#cad_veiculo").fadeIn();
-						$("#cad_veiculo_ok").hide();
-						app2.dialog.confirm('Para continuar e necessário cadastrar esse veiculo. Deseja cadastrar agora?','Cadastro', function () {
-							$("#cad_veiculo").click();
-						});
-					 }else{
-						$("#liberacao2 #id_veiculo").val(retorno.id);
-						$("#cad_veiculo_ok").fadeIn();
-						$("#cad_veiculo").hide();
-						$("#libMarca").html("Marca: "+parametro1).fadeIn();
-						$("#libModelo").html("Modelo: "+retorno.modelo.toLowerCase()).fadeIn();
-						$("#libCor").html("Cor: "+retorno.cor.toLowerCase()).fadeIn();
-					}
+
 				}
 		   });
 	   }else{
-		   $("#cad_veiculo").hide();
-		   $("#cad_veiculo_ok").hide();
-		   $("#libMarca").hide();
-	       $("#libModelo").hide();
-		   $("#libCor").hide();
+		   	alerta('Placa faltando digitos');
 		   
 	  }
   };
 
-
+function botao_bs()
+{
+$("#buscar_placa").attr('onClick','get_veiculo($("#liberacao_placa").val())');
+			$("#buscar_placa").html('<i class="f7-icons size-15">car_fill</i> Buscar').addClass('button button-fill color-theme-red');
+			$("#buscar_placa").attr('style','background-color:red;margin-top: -10px;font-size:10px');	
+	
+	
+}

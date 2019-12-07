@@ -1,8 +1,13 @@
 <div class="pages">
 	<div data-page="home" class="page">
-
+		
+		<div class="toolbar toolbar-bottom sem_shadownmenu" id="botao_avancar" style="display: none;background: #919191 !important;">
+			 <a class="link tab-link" id="link_tab" onClick="validadecredito()" href="#tab-2">
+        	 <label  class="centralizar size-15" style="width: 100%"><b id="text_btn">Proximo</b> </label>
+			</a>
+        </div>
         <div class="navbar">
-            <div class="navbar-bg" style="background-color: #007aff" ></div>
+            <div class="navbar-bg tema-azul" style="background-color: #007aff" ></div>
             <div class="navbar-inner sliding">
                 <div class="left">
                     <a href="#" class="back link">
@@ -17,22 +22,27 @@
         <div class="page-content">
 	       <div class="tabs-animated-wrap" >
             <div class="tabs" >	 
-		     <div id="tab-1" data-swipe="false" class="page-content tab tab-active" style=" margin-top: -20%;height: auto; overflow-x: hidden  !important" >			
+		     <div id="tab-1" data-swipe="false" class="page-content tab tab-active" style=" margin-top: -15%;height: auto; overflow-x: hidden  !important" >			
 			
 			
 			
             <div class="content-block">
-				<div>
+				<div style="margin-top: %">
 					<p style="padding: 0 20px;">
 						<span data-progress="33" class="progressbar color-blue" id="demo-inline-progressbar">
 							<span style="transform: translate3d(-90%, 0px, 0px);"></span>
 						</span>
 					</p>
-					<p style="padding: 0 10px;">Informe o Nome/RG do Visitante</p>
+					<p style="padding: 0 10px;"></p>
 				</div>
+				
+				  <div class="card" style="background-color: #f5f5f5; width: 96%; margin-bottom: 5%">
+				     <div class="card-content card-content-padding" >
+						 <p style="background-color: #f5f5f5">Informe o Nome/RG do Visitante</p>	
+				     </div>
+				   </div>
 				<form class="list accordion-list custom-accordion" id="my-form">
-				  <ul>
-					<li>
+				 
 					  <div class="item-content item-input" >
 						<div class="item-inner">
 						  <div class="item-title item-label">Nome</div>
@@ -42,80 +52,171 @@
 						  </div>
 						</div>
 					  </div>
+					
+					  <div class="item-content item-input">
+						<div class="item-inner">
+						  <div class="item-title item-label">RG</div>
+						  <div class="item-input-wrap">
+							<input type="text" name="rg" placeholder="Somente numeros " onKeyUp="carrega_visitantes(this.value,1)">
+						  </div>
+						</div>
+					  </div>
+					
+					
+				</form>
+				
+			</div>
+		 
+				 <div class="card-content" style="margin-top: -2%">
+				<div class="list media-list no-ios-edges">
+				<ul id="visitantes">
+
+
+				</ul>
+				</div>
+				</div>
+				 
+	
+				</div>	
+				
+				 <div id="tab-2" class="page-content tab" data-swipe="false" style=" margin-top: -15%;height: auto; overflow-x: hidden  !important">
+            <div class="content-block">
+				<div>
+					<p style="padding: 0 20px;">
+						<span data-progress="66" class="progressbar color-blue" id="demo-inline-progressbar">
+							<span style="transform: translate3d(-90%, 0px, 0px);"></span>
+						</span>
+					</p>
+				</div>
+				  <div class="card" style="background-color: #f5f5f5; width: 96%; margin-bottom: 5%">
+				     <div class="card-content card-content-padding" >
+						 <p style="background-color: #f5f5f5">Informe o Motivo da Visita e a validade da permição</p>	
+	
+				     </div>
+				   </div>
+				<form class="list accordion-list custom-accordion" id="form_valide" onChange="validadecredito()">
+					<input type="hidden" id="visitante_id">
+				  <ul>
+					<li>
+					  <div class="item-content item-input">
+						<div class="item-inner">
+						  <div class="item-title item-label">Nome</div>
+						  <div class="item-input-wrap">
+							<input type="text" id="nome_vis" name="nome" value="Visitante Nome" disabled>
+						  </div>
+						</div>
+					  </div>
 					</li>
 					<li>
 					  <div class="item-content item-input">
 						<div class="item-inner">
 						  <div class="item-title item-label">RG</div>
 						  <div class="item-input-wrap">
-							<input type="text" name="rg" placeholder="Somente numeros ">
+							<input type="text" id="rg_vis" name="rg" value="999999999" disabled>
 						  </div>
 						</div>
 					  </div>
 					</li>
-					<li class="accordion-item" style="display: none">
+					<li> <input type="hidden" id="motivo_vst">
+					<li> <input type="hidden" id="motivo_vst_slc">
+					  <a class="item-link smart-select smart-select-init">
+						<select name="fruits" id="motivos_de_visita" onChange="selecionar_motivo()">
+						
+						</select>
+						<div class="item-content" id="label_visit" value="">
+						  <div class="item-inner" id="motivo_selec_aft">
+							<div class="item-title">Motivo</div>
+						  </div>
+						</div>
+					  </a>
+					</li>
+					<li>
+					  <div class="item-content item-input" id="label_inicio">
+						<div class="item-inner">
+						  <div class="item-title item-label">De</div>
+						  <div class="item-input-wrap">
+							<input type="datetime-local" id="data_inici_vl" placeholder="Please choose...">
+						  </div>
+						</div>
+					  </div>
+					</li>
+					<li>
+					  <div class="item-content item-input" id="label_fim">
+						<div class="item-inner">
+						  <div class="item-title item-label">Até</div>
+						  <div class="item-input-wrap">
+							<input type="datetime-local" id="data_fim_vl" placeholder="Please choose...">
+						  </div>
+						</div>
+					  </div>
+					</li>
+					<li id="label_credito">
+						  <input type="hidden" id="qtd_credito_qr" value="">
+					  <a class="item-link smart-select smart-select-init" >
+						<select name="credist" onChange="selecionar_credito();" id="qtd_credito_slc">
+					
+						</select>
+						
+						<div class="item-content">
+						  <div class="item-inner">
+							<div class="item-title">Créditos</div>
+						  </div>
+						</div>
+					  </a>
+					</li>
+					<li class="accordion-item" >
 						<a href="#" class="item-content item-link">
 							<div class="item-inner">
 							  <div class="item-title">Mais Informações</div>
 							</div>
 						</a>
 						<ul>
-							<li class="accordion-item-content">
-							  <div class="item-content item-input">
-								<div class="item-inner">
-								  <div class="item-title item-label">CPF</div>
-								  <div class="item-input-wrap">
-									<input type="text" name="cpf" placeholder="Somente numeros">
-								  </div>
-								</div>
-							  </div>
-							</li>
-							<li class="accordion-item-content">
+							<div class="accordion-item-content">
 							  <div class="item-content item-input">
 								<div class="item-inner">
 								  <div class="item-title item-label">Endereço</div>
 								  <div class="item-input-wrap">
-									<input type="text" name="end" placeholder="Endereço">
+									<input id="end_visit" type="text" name="end" disabled placeholder="Endereço">
 								  </div>
 								</div>
 							  </div>
-							</li>
-							<li class="accordion-item-content">
+							</div>
+							<div class="accordion-item-content">
 							  <div class="item-content item-input">
 								<div class="item-inner">
 								  <div class="item-title item-label">Número</div>
 								  <div class="item-input-wrap">
-									<input type="text" name="num" placeholder="99999">
+									<input type="text" name="num" id="num_casav" disabled placeholder="99999">
 								  </div>
 								</div>
 							  </div>
-							</li>
-							<li class="accordion-item-content">
+							</div>
+							<div class="accordion-item-content">
 							  <div class="item-content item-input">
 								<div class="item-inner">
 								  <div class="item-title item-label">Bairro</div>
 								  <div class="item-input-wrap">
-									<input type="text" name="bairro" placeholder="Bairro">
+									<input type="text" name="bairro" id="bairro_visit" disabled placeholder="Bairro">
 								  </div>
 								</div>
 							  </div>
-							</li>
-							<li class="accordion-item-content">
+							</div>
+							<div class="accordion-item-content">
 							  <div class="item-content item-input">
 								<div class="item-inner">
 								  <div class="item-title item-label">Cidade</div>
 								  <div class="item-input-wrap">
-									<input type="text" name="cidade" placeholder="Cidade">
+									<input type="text" name="cidade" id="cidade_vs" disabled placeholder="Cidade">
 								  </div>
 								</div>
 							  </div>
-							</li>
+							</div>
 							<li class="accordion-item-content">
 							  <div class="item-content item-input">
 								<div class="item-inner">
 								  <div class="item-title item-label">UF</div>
 								  <div class="item-input-wrap">
-									<input type="text" name="uf" placeholder="Ex. SP">
+									<input type="text" id="std_visi" name="uf" disabled placeholder="Ex. SP">
 								  </div>
 								</div>
 							  </div>
@@ -125,7 +226,7 @@
 								<div class="item-inner">
 								  <div class="item-title item-label">CEP</div>
 								  <div class="item-input-wrap">
-									<input type="text" name="cep" placeholder="Ex: 99.999-999">
+									<input type="text" id="cep_vst" name="cep" disabled placeholder="Ex: 99.999-999">
 								  </div>
 								</div>
 							  </div>
@@ -135,7 +236,7 @@
 								<div class="item-inner">
 								  <div class="item-title item-label">Celular</div>
 								  <div class="item-input-wrap">
-									<input type="text" name="cel" placeholder="Ex: (99) 99999-9999">
+									<input type="text" id="cel_visi" name="cel" disabled placeholder="Ex: (99) 99999-9999">
 								  </div>
 								</div>
 							  </div>
@@ -145,7 +246,7 @@
 								<div class="item-inner">
 								  <div class="item-title item-label">Telefone</div>
 								  <div class="item-input-wrap">
-									<input type="text" name="fone" placeholder="Ex: (99) 9999-9999">
+									<input type="text" id="tel_visi" name="fone" disabled placeholder="Ex: (99) 9999-9999">
 								  </div>
 								</div>
 							  </div>
@@ -155,7 +256,7 @@
 								<div class="item-inner">
 								  <div class="item-title item-label">Email</div>
 								  <div class="item-input-wrap">
-									<input type="email" name="email" placeholder="Email">
+									<input type="email" id="email_visit" name="email" disabled placeholder="Email">
 								  </div>
 								</div>
 							  </div>
@@ -165,139 +266,23 @@
 								<div class="item-inner">
 								  <div class="item-title item-label">Observação</div>
 								  <div class="item-input-wrap">
-									<textarea name="obs" placeholder="Observação"></textarea>
+									<textarea name="obs"  id="obs_vst"disabled placeholder="Observação"></textarea>
 								  </div>
 								</div>
 							  </div>
 							</li>
 						</ul>
 					</li>
+				  </ul>  
 				  </ul>
 				</form>
-				
-			</div>
-			<div class="block">
-			 <div id="visitantes"></div>	 
-				 <div class="card-content">
-<div class="list media-list no-ios-edges">
-<ul>
-
-
-</ul>
-</div>
-</div>
-			</div>	 
-		<div class="toolbar toolbar-bottom" style="background-color: #007aff;margin-top: 100%;position: fixed">
-			 <a class="link tab-link" href="#tab-2">
-        	 <label class="centralizar size-15" style="width: 100%"><b>Proximo</b> </label>
-			</a>
-        </div>
-				</div>	
-				
-				 <div id="tab-2" class="page-content tab" data-swipe="false" style=" margin-top: -20%;height: auto; overflow-x: hidden  !important">
-            <div class="content-block">
-				<div>
-					<p style="padding: 0 20px;">
-						<span data-progress="66" class="progressbar color-blue" id="demo-inline-progressbar">
-							<span style="transform: translate3d(-90%, 0px, 0px);"></span>
-						</span>
-					</p>
-				</div>
-				<form class="list accordion-list custom-accordion" id="my-form">
-				  <ul>
-					<li>
-					  <div class="item-content item-input">
-						<div class="item-inner">
-						  <div class="item-title item-label">Nome</div>
-						  <div class="item-input-wrap">
-							<input type="text" name="nome" value="Visitante Nome" disabled>
-						  </div>
-						</div>
-					  </div>
-					</li>
-					<li>
-					  <div class="item-content item-input">
-						<div class="item-inner">
-						  <div class="item-title item-label">RG</div>
-						  <div class="item-input-wrap">
-							<input type="text" name="rg" value="999999999" disabled>
-						  </div>
-						</div>
-					  </div>
-					</li>
-					<li>
-					  <a class="item-link smart-select smart-select-init">
-						<select name="fruits">
-						  <option value="apple" selected>Apple</option>
-						  <option value="pineapple">Pineapple</option>
-						  <option value="pear">Pear</option>
-						  <option value="orange">Orange</option>
-						  <option value="melon">Melon</option>
-						  <option value="peach">Peach</option>
-						  <option value="banana">Banana</option>
-						</select>
-						<div class="item-content">
-						  <div class="item-inner">
-							<div class="item-title">Motivo</div>
-						  </div>
-						</div>
-					  </a>
-					</li>
-					<li>
-					  <div class="item-content item-input">
-						<div class="item-inner">
-						  <div class="item-title item-label">De</div>
-						  <div class="item-input-wrap">
-							<input type="datetime-local" placeholder="Please choose...">
-						  </div>
-						</div>
-					  </div>
-					</li>
-					<li>
-					  <div class="item-content item-input">
-						<div class="item-inner">
-						  <div class="item-title item-label">Até</div>
-						  <div class="item-input-wrap">
-							<input type="datetime-local" placeholder="Please choose...">
-						  </div>
-						</div>
-					  </div>
-					</li>
-					<li>
-					  <a class="item-link smart-select smart-select-init">
-						<select name="fruits">
-						  <option value="apple" selected>1</option>
-						  <option value="pineapple">2</option>
-						  <option value="pear">3</option>
-						  <option value="orange">4</option>
-						  <option value="melon">5</option>
-						  <option value="peach">6</option>
-						  <option value="banana">7</option>
-						  <option value="banana">8</option>
-						  <option value="banana">9</option>
-						  <option value="banana">Ilimitados</option>
-						</select>
-						<div class="item-content">
-						  <div class="item-inner">
-							<div class="item-title">Créditos</div>
-						  </div>
-						</div>
-					  </a>
-					</li>
-				  </ul>
-				</form>
-				<div class="toolbar toolbar-bottom" style="background-color: #007aff; position: absolute;margin-top: 100%">
-					 <a class="link tab-link" href="#tab-3">
-					 <label class="centralizar size-15" style="width: 100%"><b>Proximo</b> </label>
-					</a>
-				</div>
+		
 			</div>
 				
-				
-				
+	
 				
 				</div>
-				 <div id="tab-3" class="page-content tab" data-swipe="false" style=" margin-top: -20%;height: auto; overflow-x: hidden  !important">
+				 <div id="tab-3" class="page-content tab" data-swipe="false" style=" margin-top: -15%;height: auto; overflow-x: hidden  !important">
 				
      		<div class="content-block">
 				<div>
@@ -307,30 +292,48 @@
 						</span>
 					</p>
 				</div>
-				<form class="list accordion-list custom-accordion" id="my-form">
+				<div class="block block-strong row">
+					<div class="col" onClick="$('#pedestr').prop( 'checked', true );tipo_acesso()">
+					  <label class="radio">
+						<input type="radio" id="pedestr" name="demo-radio-inline">
+						<i class="icon-radio" ></i>
+				      </label><i class="material-icons"> directions_walk</i> Pedestre 
+					</div>
+					<div class="col" onClick="$('#veicl').prop( 'checked', true );tipo_acesso()">
+						
+					  <label class="radio"  >
+						<input type="radio" id="veicl" name="demo-radio-inline">
+						<i class="icon-radio"></i>
+					  </label> <i class="f7-icons"> car_fill </i>Veículo
+					
+					</div>
+					
+					
+				</div>
+				
+				<form class="list accordion-list custom-accordion" style="display: none" id="tipo_acesso">
 				  <ul>
 					<li>
 					  <div class="item-content item-input">
 						<div class="item-inner">
 						  <div class="item-title item-label">Placa</div>
-						  <div class="item-input-wrap">
-							<input type="text" name="nome" value="AAA-1111" >
+						  <div class="item-input-wrap row">
+							  <div  class="col"><input type="text" name="nome" style="text-transform: uppercase;" id="liberacao_placa" placeholder="AAA-1111" maxlength="8" ></div>
+							  <div  class="col"> <button type="button" id="buscar_placa"  style="margin-top: -10px" class="button button-fill color-theme-red"  onClick="get_veiculo($('#liberacao_placa').val())"><i class="f7-icons size-15">car_fill</i> Buscar</button></div>
+							
+							
 						  </div>
 						</div>
 					  </div>
 					</li>
 					<li>
+						<input type="hidden" id="id_carro_visitante">
+						<input type="hidden" id="marca_cv">
 					  <a class="item-link smart-select smart-select-init">
-						<select name="fruits">
-						  <option value="apple" selected>Apple</option>
-						  <option value="pineapple">Pineapple</option>
-						  <option value="pear">Pear</option>
-						  <option value="orange">Orange</option>
-						  <option value="melon">Melon</option>
-						  <option value="peach">Peach</option>
-						  <option value="banana">Banana</option>
+						<select name="marca" onchange="atualiza_veiculo(0,2,$(this).val())" id="marca_carro_visitant">
+			
 						</select>
-						<div class="item-content">
+						<div class="item-content" id="carro_marca">
 						  <div class="item-inner">
 							<div class="item-title">Marca</div>
 						  </div>
@@ -338,17 +341,12 @@
 					  </a>
 					</li>
 					<li>
+						<input type="hidden" id="modelo_cv">
 					  <a class="item-link smart-select smart-select-init">
-						<select name="fruits">
-						  <option value="apple" selected>Apple</option>
-						  <option value="pineapple">Pineapple</option>
-						  <option value="pear">Pear</option>
-						  <option value="orange">Orange</option>
-						  <option value="melon">Melon</option>
-						  <option value="peach">Peach</option>
-						  <option value="banana">Banana</option>
+						<select name="modelo_carro" onChange="seleciona_modelo()" id="modelo_carro_visitante">
+				
 						</select>
-						<div class="item-content">
+						<div class="item-content" id="carro_modelo">
 						  <div class="item-inner">
 							<div class="item-title">Modelo</div>
 						  </div>
@@ -356,17 +354,12 @@
 					  </a>
 					</li>
 					<li>
+						<input type="hidden" id="cor_cv">
 					  <a class="item-link smart-select smart-select-init">
-						<select name="fruits">
-						  <option value="apple" selected>Apple</option>
-						  <option value="pineapple">Pineapple</option>
-						  <option value="pear">Pear</option>
-						  <option value="orange">Orange</option>
-						  <option value="melon">Melon</option>
-						  <option value="peach">Peach</option>
-						  <option value="banana">Banana</option>
+						<select name="cor_veiculo" onChange="seleciona_cor()" id="cor_veicolo_visitante">
+				
 						</select>
-						<div class="item-content">
+						<div class="item-content" id="carro_cor">
 						  <div class="item-inner">
 							<div class="item-title">Cor</div>
 						  </div>
@@ -375,14 +368,48 @@
 					</li>
 				  </ul>
 				</form>
-			<div class="toolbar toolbar-bottom" style="background-color: #007aff; position: absolute;margin-top: 100%">
-			 <a class="link tab-link" href="/liberacao/">
-        	 <label class="centralizar size-15" style="width: 100%"><b>Salvar</b> </label>
-			</a>
-			</div>
+	
         </div>
 			</div>	
-				
+				 <div id="tab-4" class="page-content tab" data-swipe="false" style=" margin-top: -15%;height: auto; overflow-x: hidden  !important">
+					 <div class="card row" style="margin-top: 5%; padding: 2%"  >
+						 	<input type="hidden" id="id_visitante_rs">
+						 	<input type="hidden" id="id_morador_rs">
+						 	<input type="hidden" id="id_carro_rs">
+						 
+						 <div class="col" style="background-color: #e7e7e7f9">
+							 <label style="color: gray"><b>Nome</b>  </label>
+							 <input style="color: gray" type="text" id="nome_rs">
+							 <label style="color: gray"> <b>RG</b> </label>
+							 <input style="color: gray" type="text" id="rg_rs">
+							 <label style="color: gray"> <b>Motivo da Visita</b> </label>
+							 <input style="color: gray" type="text" id="motivo_rs">
+							 <label style="color: gray"> <b>Quantidade de crédito</b> </label>
+							 <input style="color: gray" type="text" id="credito_rs">
+							 <label style="color: gray"> <b>Ínicio da Validade</b> </label>
+							 <input style="color: gray" type="text" id="inicio_rs">
+						 </div>
+						 <div class="col" style="background-color: #e7e7e7f9">
+							 <label style="color: gray"> <b>Placa do veículo</b> </label>
+						 	     <input style="color: gray" type="text" id="placa_visitante_rs">
+							 <label style="color: gray"> <b>Marca do veículo</b> </label>
+						 	     <input style="color: gray" type="text" id="marca_cvisitante_rs">
+							 <label style="color: gray"> <b>Modelo do veículo</b> </label>
+							     <input style="color: gray"  type="text" id="modelo_visitante_rs">
+							 <label style="color: gray"><b>Cor do veículo </b> </label>
+					 		     <input  style="color: gray" type="text" id="cor_visitante_rs">
+							 <label style="color: gray"> <b>Fim da Validade</b> </label>
+						 		 <input style="color: gray" type="text" id="fim_rs">
+						 
+						 </div>
+ 
+					 </div> 
+					 <div class="block centralizar">
+					<button class="col button button-fill color-green" style="width: 90%"><i class="f7-icons size-20"> shift_fill</i>Confirmar</button> 
+					 </div>	 		
+					 
+					 
+			   </div>
 				</div>	 
 				</div>	 
         </div>

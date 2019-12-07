@@ -1,35 +1,67 @@
 // DONE BY TINO 22/10/2019
 
-// let loginEl = $("#login").val();
-// let senhaEl = $("#senha").val();
+var sheetDefineSenhaApp=null;
+var sheetloginApp=null;
+var sheetMultiUser=null;
+var smartSelect=null;
 
-// if ($$("#login").val().length>0 && $$("#senha").val().length>0) {
-// 	$$("#btnLoginEntrar").removeAttr('disabled');
-// }
 
 swich_tela_login = () => {
 	app.views.main.router.navigate("/login/", {animate:true, transition: 'f7-dive'});
 	$$(document).on('page:init', '.page[data-name="pgLogin"]', function (e) {
-		app.sheet.create({
+		sheetloginApp = app.sheet.create({
 		  el: '.loginApp',
 		  closeByOutsideClick: false,
 		  closeByBackdropClick: false,
 		  closeOnEscape: false
 		});
-		app.actions.open('.loginApp', true);
+		app.sheet.open('.loginApp', true);
 	})
 }
 
+swich_tela_login_recuperaSenha = (email_recupera) => {
+	console.log("entrou na tela sim...");
+	console.log(email_recupera);
+
+	app.views.main.router.navigate("/login/", {animate:true, transition: 'f7-dive'});
+	$$(document).on('page:init', '.page[data-name="pgLogin"]', function (e) {
+		sheetloginApp = app.sheet.create({
+		  el: '.loginApp',
+		  closeByOutsideClick: false,
+		  closeByBackdropClick: false,
+		  closeOnEscape: false
+		});
+		app.sheet.open('.loginApp', true);
+		app.sheet.close('.loginApp', true);
+
+		app.sheet.create({
+		  el: '.recuperaSenha',
+		  closeByOutsideClick: false,
+		  closeByBackdropClick: false,
+		  closeOnEscape: false
+		});
+		app.sheet.open('.recuperaSenha', true);
+		$$('#email_recupera').val(email_recupera);
+		// $$(".inputRecuperaSenha").focus();
+	})
+}
+
+
 loginOut = () => {
 	goToIndexPage();
-	$$(document).on('page:init', function (e) {
+	$$(document).on('page:init', '.page[data-name="pgIndex"]', function (e) {
 		app.actions.close('.loginApp', true);
 	})
 }
 
 setPwdOut = () => {
 	app.actions.close('.defineSenhaApp', true);
-	goToIndexPage();
+	app.views.main.router.navigate("/index/", {
+		animate:true,
+		transition: 'f7-dive',
+		reloadAll:true
+	});
+	
 	$$(document).on('page:init', '.page[data-name="pgIndex"]', function (e) {
 		app.actions.close('.defineSenhaApp', true);
 	})
@@ -58,19 +90,27 @@ esqueciMinhaSenha = () => {
 	  	closeByBackdropClick: false,
 	  	closeOnEscape: false
 	});
-	app.actions.open('.recuperaSenha', true);
+	app.sheet.open('.recuperaSenha', true);
 }
 
 goToIndexPage = () => {
 	return app.views.main.router.navigate("/index/", {animate:true});
 }
 
+goToIndexPageNoCache = () => {
+	return app.views.main.router.navigate("/index/", {
+		animate:true,
+		transition: 'f7-dive',
+		reloadAll:true
+	});
+}
+
 primeiroAcessoBtnVoltar = () => {
-	goToIndexPage();
+	goToIndexPageNoCache()
 }
 
 swich_tela_primeiroAcesso = () => {
-	app.views.main.router.navigate("/activationcode/", {animate:true, transition: 'f7-cover'});
+	app.views.main.router.navigate("/activationcode/", {animate:true});
 }
 
 voltaraoPrimeiroAcesso = () => {
@@ -83,7 +123,7 @@ swich_to_primeiroAcesso = () => {
 
 cancelarTermo = () => {	
 	localStorage.removeItem('idUsuarioAtivacao');	// remover o id_usuairo do storage... não aceitou o termo
-	goToIndexPage();
+	goToIndexPageNoCache();
 }
 
 myFunction = () => {
@@ -108,14 +148,18 @@ myFunction = () => {
 # Actions Function login Email e senha #
 ########################################
 */
-login_user = (e) => {
+login_user = (e, logarDaValidacao=null) => {
 	e.preventDefault();
 	if(navigator.connection.type != 'none'){
-		var dados = $("#form_login").serialize();
-		
-		if(dados.indexOf('=&') > -1 || dados.substr(dados.length - 1) == '='){
-		   alerta("Falha ao Logar","Necessário email e senha para continuar");
-		   return false;
+		if (logarDaValidacao == null) {
+			var dados = $("#form_login").serialize();
+
+			if(dados.indexOf('=&') > -1 || dados.substr(dados.length - 1) == '='){
+			   alerta("Falha ao Logar","Necessário email e senha para continuar");
+			   return false;
+			}
+		}else{
+			dados = `email=${localStorage.getItem('emailDefinidoOk')}&senha=${localStorage.getItem('senhaDefinidoOk')}`;
 		}
 
         if(device.uuid == null){
@@ -123,15 +167,18 @@ login_user = (e) => {
         }else{
             var UUID = device.uuid;
         }
+
 		$.ajax({
 			type: 'POST',
-			url: localStorage.getItem('DOMINIO')+'appweb/login.php',
+			url: localStorage.getItem('DOMINIO_LOGIN')+'appweb/login.php',
 			crossDomain: true,
 			beforeSend : function() { $("#wait").css("display", "block"); },
 			complete   : function() { $("#wait").css("display", "none"); },
             dataType   : 'json',
 			data: dados+'&nome='+device.model+'&sistema='+device.platform+'&uuid='+UUID+'&versao='+device.version+'&id_notificacao='+localStorage.getItem('registrationId'), //APP
 			success: function(retorno){
+				console.log(retorno);
+
 				if(retorno[0]['error'] == 1){
 					alerta("Falha ao Entrar", "Usuário ou senha inválida", );
 				}else{
@@ -139,6 +186,7 @@ login_user = (e) => {
 				}
 			},
             error: function(error){
+            	console.log(error);
                 alerta('Aviso','Erro de conexão com o servidor');
             }
 		});
@@ -152,7 +200,7 @@ login_user = (e) => {
 # Actions Function Device by uuid      #
 ########################################
 */
-login_user_device = () => {
+login_user_device = (autoInit=null) => {
 	localStorage.setItem('VERSAO','1.2.5');
     if(navigator.connection.type != 'none'){
         if(device.uuid == null){
@@ -162,19 +210,27 @@ login_user_device = () => {
         }
         $.ajax({
             type       : "POST",
-            url        : localStorage.getItem('DOMINIO')+"appweb/login.php",
+            url        : localStorage.getItem('DOMINIO_LOGIN')+"/appweb/login.php",
 			crossDomain: true,
 			beforeSend : function() { $("#wait").css("display", "block"); },
 			complete   : function() { $("#wait").css("display", "none"); },
             data       : {uuid : UUID, id_notificacao : localStorage.getItem('registrationId')}, //APP
             dataType   : 'json',
             success    : function(retorno) {
+				console.log("retorno do login.....===>>>");
 				console.log(retorno);
+				// return false;
+
 				if(retorno[0]['error'] == 0){
 					if(retorno[0]['VERSAO'] == localStorage.getItem('VERSAO')){
 						if(retorno[0]['perfil'] > 1){
+							console.log("vai carregar perfil.........");
 							// multprofile user....
-							carrega_user_perfil(retorno[0]['id_usuario']);
+							if (autoInit != null) {
+								carrega_user_perfil(retorno[0]['id_usuario'], autoInit);
+							}else{
+								carrega_user_perfil(retorno[0]['id_usuario']);
+							}
 
 							localStorage.setItem('ID_USER_L',retorno[0]['id_usuario']);
 						}else{  
@@ -343,10 +399,15 @@ login_user_device = () => {
 									tipo_user_ = '';	
 								}
 
-								app.views.main.router.navigate("/home/", {animate:true});
+								app.sheet.close('.loginApp', true);
+								app.views.main.router.navigate("/home/", {reloadAll:true});
 
 								$$(document).on('page:init', '.page[data-name="pgHome"]', function (e) {
-									app.actions.close('.loginApp', true);
+									app.sheet.destroy(sheetloginApp);
+									app.sheet.destroy(sheetDefineSenhaApp);
+
+									localStorage.removeItem('emailDefinidoOk');
+									localStorage.removeItem('senhaDefinidoOk');
 								}); 
 
 								setTimeout(function(){
@@ -378,9 +439,9 @@ login_user_device = () => {
 
 								if(localStorage.getItem("MLUNICA") == 1){ 
 									if(localStorage.getItem('AUTORIZA') == 1){
-										afed('#menu_liberacao,#libt1,#libt2,#libt3','#liberacao_desativada','','',3);
+										// afed('#menu_liberacao,#libt1,#libt2,#libt3','#liberacao_desativada','','',3);
 									}else{
-										afed('#liberacao_desativada','#menu_liberacao,#libt1,#libt2,#libt3','','',3);
+										// afed('#liberacao_desativada','#menu_liberacao,#libt1,#libt2,#libt3','','',3);
 									}
 								}else{
 									// descomentar e rever corretamente ======>>>
@@ -520,7 +581,7 @@ select_user = (id_usuario_condominio=0) => {
         }
 		$.ajax({
 			type: 'POST',
-			url: localStorage.getItem('DOMINIO')+'appweb/login.php',
+			url: localStorage.getItem('DOMINIO_LOGIN')+'appweb/login.php',
 			data: dados,
 			crossDomain: true,
 			beforeSend : function() { $("#wait").css("display", "block"); },
@@ -528,21 +589,22 @@ select_user = (id_usuario_condominio=0) => {
 			success: function(retorno){
 
                 if(retorno[0]['usar_control_condo'] == 1){
+					localStorage.setItem('IP_LOCAL',retorno[0]['ip_local']);
                     localStorage.setItem('ID_USER',retorno[0]['id_usuario_condominio']);
 					localStorage.setItem('ID_USER_L',retorno[0]['id_usuario']);
 					localStorage.setItem('ID_MORADOR',retorno[0]['id_referencia']);
 					localStorage.setItem('ID_UNIDADE',retorno[0]['id_unidade']);
 
-					setTimeout(function(){
-						$.ajax({
-							type       : "POST",
-							url        : localStorage.getItem('DOMINIO')+"appweb/notificacao_correspondencia.php",
-							data       : {id_condominio : $("#DADOS #ID_CONDOMINIO").val(),id_unidade : $("#DADOS #ID_UNIDADE").val()}, //APP
-							success    : function(retornos) {
-								localStorage.setItem('ID_MORADORES_UNIDADE',retornos);
-						    }
-						});	
-					},3);		
+					// setTimeout(function(){
+					// 	$.ajax({
+					// 		type       : "POST",
+					// 		url        : localStorage.getItem('DOMINIO')+"appweb/notificacao_correspondencia.php",
+					// 		data       : {id_condominio : $("#DADOS #ID_CONDOMINIO").val(),id_unidade : $("#DADOS #ID_UNIDADE").val()}, //APP
+					// 		success    : function(retornos) {
+					// 			localStorage.setItem('ID_MORADORES_UNIDADE',retornos);
+					// 	    }
+					// 	});	
+					// },3);		
                     
 					localStorage.setItem('CONDOMINIO',retorno[0]['nome_condominio']);
 					localStorage.setItem('QTD_CREDITO',retorno[0]['qtd_credito_liberacao']);
@@ -655,6 +717,7 @@ select_user = (id_usuario_condominio=0) => {
                     localStorage.setItem('ROTULO_LOTE' ,retorno[0]['rlote']);
                     localStorage.setItem('ROTULO_QUADRA',retorno[0]['rotulo_quadra']);
 					localStorage.setItem('OCORRENCIA_PUBLICA',retorno[0]['TIPO_OCORRENCIA']);
+					localStorage.setItem('FOTO',retorno[0]['FOTO']);
 					
 					if(retorno[0]['foto']==""){
 						// descomentar e rever corretamente ======>>>
@@ -714,6 +777,10 @@ select_user = (id_usuario_condominio=0) => {
                     app.views.main.router.navigate("/home/", {animate:true});
                     $$(document).on('page:init', '.page[data-name="pgHome"]', function (e) {
 						app.actions.close('#multiProfileUser', true);
+						app.actions.close('.defineSenhaApp', true);
+						
+						app.sheet.destroy('#multiProfileUser');
+						app.sheet.destroy('.defineSenhaApp');
 					}); 
 
                  	setTimeout(function(){
@@ -867,13 +934,14 @@ logout = () => {
 	// inicia2(0); // descomenta se for necessário
 	$.ajax({
 		type: 'POST',
-		url: localStorage.getItem('DOMINIO')+'appweb/logout.php',
+		url: localStorage.getItem('DOMINIO_LOGIN')+'appweb/logout.php',
 		data: 'id='+localStorage.getItem('ID_USER_L'),
 		crossDomain: true,
-		beforeSend : function() { $("#wait").css("display", "block"); },
-		complete   : function() { $("#wait").css("display", "none"); },
+		// beforeSend : function() { $("#wait").css("display", "block"); },
+		// complete   : function() { $("#wait").css("display", "none"); },
 		success: function(retorno){
-			console.log(retorno);
+			localStorage.removeItem('loginSocialMidia');
+			console.log(`Deslogado o usuario id ${retorno}`);
 			setPwdOut();
 		}
 	});
@@ -890,70 +958,257 @@ limita_txt = (titulo,qtd) => {
 	return titulo;
 }
 
+
+socialAutologinMultiUser = () => {
+	
+}
+
+
 // FUNCAO CARREGA PERFIL
-function carrega_user_perfil(id) {
+function carrega_user_perfil(id, autoInit=null) {
+	console.log("entrou na funcao carrega_user_perfil");
     var dados = '';
 	if(navigator.connection.type != 'none'){
 		$.ajax({
 			type: 'POST',
-			url: localStorage.getItem('DOMINIO')+'appweb/login.php',
+			url: localStorage.getItem('DOMINIO_LOGIN')+'appweb/login.php',
 			crossDomain: true,
 			beforeSend : function() { $("#wait").css("display", "block"); },
 			complete   : function() { $("#wait").css("display", "none"); },
             data       : {id_usuario : id},
             dataType   : 'json',
 			success: function(retorno){
-				
-				app.sheet.create({
-				 	el: '#multiProfileUser',
-					closeByOutsideClick: false,
-				  	closeByBackdropClick: false,
-				  	closeOnEscape: false
-				});
-				app.actions.close('.loginApp', true);
-				app.actions.open('#multiProfileUser', true);
-				$$('#multiProfileUser').on('sheet:opened', function (e) {
-				  	console.log('my-sheet opened');
-					$(".selectCondo")[0].click();
-				});
-				
-				var viewSheetModal = app.views.create('.view-sheet-modal');
-				smartSelect = app.smartSelect.create({
-					el:'.selectCondo',
-					on: {
-					    opened: function () {
-					      	// console.log('Smart select opened');
-					      	// console.log($(".page-content")[1]);
+				console.log("carrega user perfil .....");
+				console.log(autoInit);
 
-					      	let elemento = $(".page-content")[1];
-							let esseElemento = elemento.firstElementChild;
-							esseElemento.style.position="relative";
-							esseElemento.style.top="26px";
-							$(".icon-back").attr('style', 'color: #037aff !important');
-					    },
-					}
-				});
+				if (localStorage.getItem('loginSocialMidia') == "loginsocialmidiaFG") {
+					console.log('carrega perfil loginSocialMidia');
+					app.views.main.router.navigate("/select_profile/", {animate:true, transition: 'f7-dive'});
+					$$(document).on('page:init', '.page[data-name="pgMultiprofile"]', function (e) {
+						$$(".loginApp").hide();
+						sheetMultiUser = app.sheet.create({
+						 	el: '.multiProfileUser',
+							closeByOutsideClick: false,
+						  	closeByBackdropClick: false,
+						  	closeOnEscape: false
+						}).open(true);
+						
+						$$('.multiProfileUser').on('sheet:opened', function (e) {
+						  	console.log('my-sheet opened');
+							$(".selectCondo")[0].click();
+						});
+						// Declarando a smart-select como view para poder funcionar...
+						app.views.create('.multiprofileSheet');
 
-				// console.log(smartSelect);
+						smartSelect = app.smartSelect.create({
+							el:'.selectCondo',
+							on: {
+							    opened: function () {
+							      	let elemento = $(".page-content")[1];
+									let esseElemento = elemento.firstElementChild;
+									esseElemento.style.position="relative";
+									esseElemento.style.top="26px";
+									$(".icon-back").attr('style', 'color: #037aff !important');
+							    },
+							}
+						});
+						
+						var primeiro = '<option value="" selected="">Selecione o seu Condominio</option>';
+				        for (x in retorno) {
+				            dado = '<option onclick="select_user('+retorno[x]['id_usuario_condominio']+')" value="'+retorno[x]['id_usuario_condominio']+'">'+retorno[x]['nome_condominio']+'</option>';
+				            dados = dados + dado;
+				        }
+				        dados = primeiro + dados;
+
+				        setTimeout(function() {
+				            $('.perfil_loginClass').html(dados);
+				        }, 200);
+				    });
+					console.log('carrega condominios do perfil');
+					// localStorage.removeItem('loginSocialMidia');
+				}else if (autoInit == "inicializaAutomatico" && localStorage.getItem('loginSocialMidia') == "loginsocialmidiaFG") {
+					app.views.main.router.navigate("/select_profile/", {animate:true, transition: 'f7-dive'});
+					$$(document).on('page:init', '.page[data-name="pgMultiprofile"]', function (e) {
+						$$(".loginApp").hide();
+						sheetMultiUser = app.sheet.create({
+						 	el: '.multiProfileUser',
+							closeByOutsideClick: false,
+						  	closeByBackdropClick: false,
+						  	closeOnEscape: false
+						}).open(true);
+						
+						$$('.multiProfileUser').on('sheet:opened', function (e) {
+						  	console.log('my-sheet opened');
+							$(".selectCondo")[0].click();
+						});
+						// Declarando a smart-select como view para poder funcionar...
+						app.views.create('.multiprofileSheet');
+
+						smartSelect = app.smartSelect.create({
+							el:'.selectCondo',
+							on: {
+							    opened: function () {
+							      	let elemento = $(".page-content")[1];
+									let esseElemento = elemento.firstElementChild;
+									esseElemento.style.position="relative";
+									esseElemento.style.top="26px";
+									$(".icon-back").attr('style', 'color: #037aff !important');
+							    },
+							}
+						});
+						
+						var primeiro = '<option value="" selected="">Selecione o seu Condominio</option>';
+				        for (x in retorno) {
+				            dado = '<option onclick="select_user('+retorno[x]['id_usuario_condominio']+')" value="'+retorno[x]['id_usuario_condominio']+'">'+retorno[x]['nome_condominio']+'</option>';
+				            dados = dados + dado;
+				        }
+				        dados = primeiro + dados;
+
+				        setTimeout(function() {
+				            $('.perfil_loginClass').html(dados);
+				        }, 200);
+				    });
+				}else if (localStorage.getItem('logarDaValidacao') == 'true') {
+					console.log("login multiuser com usuario e senha logarDaValidacao....");
+					app.views.main.router.navigate("/select_profile/", {animate:true, transition: 'f7-dive'});
+					$$(document).on('page:init', '.page[data-name="pgMultiprofile"]', function (e) {
+						$$(".loginApp").hide();
+						sheetMultiUser = app.sheet.create({
+						 	el: '.multiProfileUser',
+							closeByOutsideClick: false,
+						  	closeByBackdropClick: false,
+						  	closeOnEscape: false
+						}).open(true);
+						
+						$$('.multiProfileUser').on('sheet:opened', function (e) {
+						  	console.log('my-sheet opened');
+							$(".selectCondo")[0].click();
+						});
+						// Declarando a smart-select como view para poder funcionar...
+						app.views.create('.multiprofileSheet');
+
+						smartSelect = app.smartSelect.create({
+							el:'.selectCondo',
+							on: {
+							    opened: function () {
+							    	console.log('atribui props para multiprofile');
+							      	let elemento = $(".page-content")[1];
+									let esseElemento = elemento.firstElementChild;
+									esseElemento.style.position="relative";
+									esseElemento.style.top="26px";
+									$(".icon-back").attr('style', 'color: #037aff !important');
+							    },
+							}
+						});
+						
+						var primeiro = '<option value="" selected="">Selecione o seu Condominio</option>';
+				        for (x in retorno) {
+				            dado = '<option onclick="select_user('+retorno[x]['id_usuario_condominio']+')" value="'+retorno[x]['id_usuario_condominio']+'">'+retorno[x]['nome_condominio']+'</option>';
+				            dados = dados + dado;
+				        }
+				        dados = primeiro + dados;
+
+				        setTimeout(function() {
+				            $('.perfil_loginClass').html(dados);
+				        }, 200);
+				    });
+				    localStorage.removeItem('logarDaValidacao');
+				}else if (autoInit == "inicializaAutomatico") {
+					console.log("login automatico multiuser com usuario e senha ....");
+					app.views.main.router.navigate("/select_profile/", {animate:true, transition: 'f7-dive'});
+					$$(document).on('page:init', '.page[data-name="pgMultiprofile"]', function (e) {
+						$$(".loginApp").hide();
+						sheetMultiUser = app.sheet.create({
+						 	el: '.multiProfileUser',
+							closeByOutsideClick: false,
+						  	closeByBackdropClick: false,
+						  	closeOnEscape: false
+						}).open(true);
+						
+						$$('.multiProfileUser').on('sheet:opened', function (e) {
+						  	console.log('my-sheet opened');
+							$(".selectCondo")[0].click();
+						});
+						// Declarando a smart-select como view para poder funcionar...
+						app.views.create('.multiprofileSheet');
+
+						smartSelect = app.smartSelect.create({
+							el:'.selectCondo',
+							on: {
+							    opened: function () {
+							    	console.log('atribui props para multiprofile');
+							      	let elemento = $(".page-content")[1];
+									let esseElemento = elemento.firstElementChild;
+									esseElemento.style.position="relative";
+									esseElemento.style.top="26px";
+									$(".icon-back").attr('style', 'color: #037aff !important');
+							    },
+							}
+						});
+						
+						var primeiro = '<option value="" selected="">Selecione o seu Condominio</option>';
+				        for (x in retorno) {
+				            dado = '<option onclick="select_user('+retorno[x]['id_usuario_condominio']+')" value="'+retorno[x]['id_usuario_condominio']+'">'+retorno[x]['nome_condominio']+'</option>';
+				            dados = dados + dado;
+				        }
+				        dados = primeiro + dados;
+
+				        setTimeout(function() {
+				            $('.perfil_loginClass').html(dados);
+				        }, 200);
+				    });
+				}else{
+					console.log("login multiuser com usuario e senha....");
+					app.sheet.create({
+					 	el: '#multiProfileUser',
+						closeByOutsideClick: false,
+					  	closeByBackdropClick: false,
+					  	closeOnEscape: false
+					});
+
+					app.actions.close('.loginApp', true);
+					app.actions.open('#multiProfileUser', true);
+					$$('#multiProfileUser').on('sheet:opened', function (e) {
+					  	console.log('my-sheet opened');
+						$(".selectCondo")[0].click();
+					});
+					
+					// Declarando a smart-select como view para poder funcionar...
+					var viewSheetModal = app.views.create('.view-sheet-modal');
+					
+					smartSelect = app.smartSelect.create({
+						el:'.selectCondo',
+						on: {
+						    opened: function () {
+						      	let elemento = $(".page-content")[1];
+								let esseElemento = elemento.firstElementChild;
+								esseElemento.style.position="relative";
+								esseElemento.style.top="26px";
+								$(".icon-back").attr('style', 'color: #037aff !important');
+						    },
+						}
+					});
+										
+					var primeiro = '<option value="" selected="">Selecione o seu Condominio</option>';
+	                for (x in retorno) {
+	                    dado = '<option onclick="select_user('+retorno[x]['id_usuario_condominio']+')" value="'+retorno[x]['id_usuario_condominio']+'">'+retorno[x]['nome_condominio']+'</option>';
+	                    dados = dados + dado;
+	                }
+	                dados = primeiro + dados;
+
+	                $('#perfil_login').html(dados);
+				}
 				
-				var primeiro = '<option value="" selected="">Selecione o seu Condominio</option>';
-                for (x in retorno) {
-                    dado = '<option onclick="select_user('+retorno[x]['id_usuario_condominio']+')" value="'+retorno[x]['id_usuario_condominio']+'">'+retorno[x]['nome_condominio']+'</option>';
-                    dados = dados + dado;
-                }
-                dados = primeiro + dados;
-
-                $('#perfil_login').html(dados);
 			}
 		});
 	}else{
 		notifica('Internet/Sem conex\u00e3o com a Internet/Fechar',2000,0);
 	}
 }
-
 // ====>>>>>>>>>>>>>>>>>>>>>
 
-alerta = (title,msg, afterClose=null) => {
+
+alerta = (title, msg, afterClose=null) => {
 	app.dialog.create({
 		title: title,
 		text: msg,
@@ -966,361 +1221,324 @@ alerta = (title,msg, afterClose=null) => {
 		    	$("#senha").val("");
 
 		    	if (afterClose == "primeiroAcesso") {
-					$("#inputReceveEmailToGetCode").val("");
-
-					// $("#telaVerificaCodigo").css('display', 'block');
-					// $("#primeiroAcesso").css('display', 'none');
-					// $("#initApp").css('display', 'none');
-
+					app.views.main.router.navigate("/receveAtivationCode/", {animate:true});
 				}else if(afterClose == "defineSenha"){
-					switchTelaDefineSenhaToLogin();
-				}else if (afterClose == "logaNoApp") {
-
-				}else if(afterClose == "logaDoFace"){
-					login_user_device();
-				}else if(afterClose == "logaDoGoogle"){
-					login_user_device();
+					console.log("Logar no sistema automaticamente.....");
+				}else if (afterClose == "voltaInicio") {
+					goToIndexPageNoCache();
 				}else if (afterClose == "termoUso") {
-
-					// $("#initApp").hide();
-					// $("#login_ini").hide();
-
-					$("#telaAceitaTermo").show(); // a função coorespondente está no index logo abaixo do elemento button aceita termo
+					app.views.main.router.navigate("/termo_de_uso/", {animate:true, transition: 'f7-dive'});
 				}
 		    }
 		},
 	}).open();
 	
-	if (afterClose == "logaDoFace") {
-		setTimeout(function () {
-			app.dialog.close();
-		}, 1000);
-	}else{
+	if (afterClose == "logaDoFace" || afterClose == "logaDoGoogle" || afterClose == "termoUso") {
 		setTimeout(function () {
 			app.dialog.close();
 		}, 4000);
+	}else{
+		setTimeout(function () {
+			app.dialog.close();
+		}, 5000);
 	}
 
 }
 // levar essa função para arquivo geral;.....
 
-
-function emailNotRecognizedBySystemAlert(type, messenge, afterClose=null){
-	Swal.fire({
-	  	type: type,
-	  	text: messenge,
-		timer: 4000,
-		onBeforeOpen: () => {
-			Swal.showLoading()
-			timerInterval = setInterval(() => {}, 100)
-		},
-		onClose: () => {
-			if (afterClose == "primeiroAcesso") {
-				$("#inputReceveEmailToGetCode").val("");
-				$("#telaVerificaCodigo").css('display', 'block');
-				$("#primeiroAcesso").css('display', 'none');
-				$("#initApp").css('display', 'none');
-			}else if(afterClose == "defineSenha"){
-				switchTelaDefineSenhaToLogin();
-			}else if (afterClose == "logaNoApp") {
-
-			}else if(afterClose == "logaDoFace"){
-				login_user_device();
-			}else if(afterClose == "logaDoGoogle"){
-				login_user_device();
-			}else if (afterClose == "termoUso") {
-				$("#initApp").hide();
-				$("#login_ini").hide();
-				$("#telaAceitaTermo").show(); // a função coorespondente está no index logo abaixo do elemento button aceita termo
-			}
-		}
-	}).then((result) => {
-		if (result.dismiss === Swal.DismissReason.timer) {
-			// console.log('I was closed by the timer');
-		}
+elementoDefineSenha = () => {
+	sheetDefineSenhaApp = 
+	app.sheet.create({
+		el: '.defineSenhaApp',
+	 	closeByOutsideClick: false,
+	  	closeByBackdropClick: false,
+	  	closeOnEscape: false
 	});
+	return sheetDefineSenhaApp;
 }
 
 
 aceiteiTermo = (prossigaOutroCaminho=null) => {
-	if (prossigaOutroCaminho == null) {
-		console.log("entrou aki");
-		app.views.main.router.navigate("/define_senha/", {animate:true});
-		$$(document).on('page:init', function (e) {
-			app.sheet.create({
-			  el: '.defineSenhaApp',
-			  closeByOutsideClick: false,
-			  closeByBackdropClick: false,
-			  closeOnEscape: false
-			});
-			app.actions.open('.defineSenhaApp', true);
-		})
+	var liberar = localStorage.getItem('data-liberarSemSenha');
 
-		// $("#inputDefineSenha").blur(function() {
-		// 	$("#btnSaveSenha").attr('disabled', false);
-		// 	if ($("#inputDefineSenha").val().length === 0 ) {
-		// 		$("#btnSaveSenha").attr('disabled', true);
-		// 	}
-		// });
-		
+	if (liberar == null) {
+		app.views.main.router.navigate("/define_senha/", {animate:true});
+		$$(document).on('page:init', '.page[data-name="pgDefineSenha"]', function (e) {
+			elementoDefineSenha();
+			app.sheet.open('.defineSenhaApp', true);
+		})
 	}else{
-		console.log("posso continuar agora...");
+		console.log("else do aceitei o termo...");
+		localStorage.removeItem('data-liberarSemSenha');
 		enviarSenhaEliberarAcesso();
 	}
 }
 
-// function alertShowPosibilityToResetPassword(email){
-// 	Swal.fire({
-// 	  	text: "Esse email se encontra ativo! Deseja recuperar a sua senha",
-// 	  	type: 'warning',
-// 	  	showCancelButton: true,
-// 	  	confirmButtonColor: '#3085d6',
-// 	  	cancelButtonColor: '#d33',
-// 	  	confirmButtonText: 'Sim recuperar senha!'
-// 	}).then((result) => {
-// 	  	if (result.value) {
-// 	  		Swal.close();
-// 	  		primeiroAcessoBtnVoltar();
-// 	  		swich_tela_login();
-// 	  		esqueciMinhaSenha();
-// 	  		$("#email_recupera").val(email);
-// 	  	}
-// 	});
-// }
+recuperaEmail = (email) => {
+    if(email.length>0){
+        var dados = 'email='+email+'&origin=mobileApp&type=appNovo';
+        var url = "https://aut.controlcondo.com.br/login/appweb/recupera_senha.php";
+        $.ajax({
+            type: 'POST',
+            data: dados,
+            url: url,
+            crossDomain: true,
+            dataType   : 'json',
+            beforeSend : function() { $("#wait").css("display", "block"); },
+            complete   : function() { $("#wait").css("display", "none"); },
+            success: function(retorno){
+                console.log(retorno);
+                if (retorno.statuscode == 200 && retorno.status == "successoEmailEnviado") {
+                    app.sheet.close('.recuperaSenha', true);
+                    alerta('Sucesso', 'Dados para recuperação de senha enviado por email Verifique seu email!', 'voltaInicio');
+                    $("#email_recupera").val("");
+                }else if (retorno.statuscode == 204 && retorno.status == "emailNaoEnviadoErro"){
+                    app.sheet.close('.recuperaSenha', true);
+                    alerta('Erro', 'não foi possivel processar o pedido, tente mais tarde!');
+                    $("#email_recupera").val("");
+                }else{
+                    app.sheet.close('.recuperaSenha', true);
+                    alerta('Erro', 'Não foi possivel solicitar a recuperacao da senha! Entre em contato com a administração!');
+                    $("#email_recupera").val("");
+                }
+                
+            },
+            error: function(){
+            }
+        })
+    }else{
+    	alerta('Erro',"É necessário o email para continuar... ");
+    }
+}
 
 function choosedMail(){
 	let campoEmail = $("#inputReceveEmailToGetCode").val();
+	console.log(campoEmail);
 	if (campoEmail.length !== 0) {
-
-		app.sheet.close('.recebEmail', true); // tirar depois
-
-		// let chama = () => {
-		// 	console.log("certo");
-		// }
-		// app.dialog.alert("Testo do Dialog", "title", chama());
-		
-		app.views.main.router.navigate("/receveAtivationCode/", {animate:true});
-
-		// console.log(localStorage.getItem('DOMINIO')+'appweb/ativacao_post.php');
-		// $.ajax({
-		// 	type: 'POST',
-		// 	url: localStorage.getItem('DOMINIO')+'appweb/ativacao_post.php',
-		// 	crossDomain: true,
-		// 	beforeSend : function() { $("#wait").css("display", "block"); },
-		// 	complete   : function() { $("#wait").css("display", "none"); },
-	 //        data       : { email : campoEmail, typeFunction : 'enviarEmailParaAtivacao' },
-	 //        dataType   : 'json',
-		// 	success: function(retorno){
-		// 		if (retorno.status == "emailNaoReconhecidoPeloSistema") {
-		// 			app2.sheet.close('.recebEmail', true);
-		// 			emailNotRecognizedBySystemAlert('error','Email não reconhecido pelo sistema, Insira seu email cadastrado');
-		// 			$("#inputReceveEmailToGetCode").val("");
-		// 		}else if(retorno.status == "naoPossuiNenhumPerfilAtivo"){
-		// 			app2.sheet.close('.recebEmail', true);
-		// 			emailNotRecognizedBySystemAlert('error','Esse email não possui perfil Ativo no sistema');
-		// 			$("#inputReceveEmailToGetCode").val("");
-		// 		}else if (retorno.status == "codigoEnviadoParaEmailComSucesso" && retorno.statuscode == 200) {
-		// 			app2.sheet.close('.recebEmail', true);
-		// 			emailNotRecognizedBySystemAlert('success', "Código de Ativação enviado para o email com Sucesso", "primeiroAcesso");
-		// 		}else if (retorno.status == "proporRecuperacaoSenhaUsuarioAtivo" && retorno.statuscode == 200) {
-		// 			app2.sheet.close('.recebEmail', true);
-		// 			alertShowPosibilityToResetPassword(campoEmail);
-		// 			$("#inputReceveEmailToGetCode").val("");
-		// 		}
-	 //        },
-	 //        error: function(error) {
-	 //        	console.log("tem informacoes com erro");
-		// 		console.log(error);
-	 //        }
-		// });	
+		$.ajax({
+			url: localStorage.getItem('DOMINIO_LOGIN')+'appweb/ativacao_post.php',
+			type: 'POST',
+	 	    data: {
+	 	    	email : campoEmail, 
+	 	    	typeFunction : 'enviarEmailParaAtivacao' 
+	 	    },
+	 	    dataType: 'json',
+			crossDomain: true,
+			success: function(retorno){
+				if (retorno.status == "emailNaoReconhecidoPeloSistema") {
+					app.sheet.close('.recebEmail', true);
+					alerta('Erro','Email não reconhecido pelo sistema, Insira seu email cadastrado');
+					$("#inputReceveEmailToGetCode").val("");
+				}else if(retorno.status == "naoPossuiNenhumPerfilAtivo"){
+					app.sheet.close('.recebEmail', true);
+					alerta('Error','Esse email não possui perfil Ativo no sistema');
+					$("#inputReceveEmailToGetCode").val("");
+				}else if (retorno.status == "codigoEnviadoParaEmailComSucesso" && retorno.statuscode == 200) {
+					app.sheet.close('.recebEmail', true);
+					alerta('Ativação do Cadastro', "Código de Ativação enviado para o email. Clica no link no seu email, ou copia o codigo para continuar a validação", "primeiroAcesso");
+				}else if (retorno.status == "proporRecuperacaoSenhaUsuarioAtivo" && retorno.statuscode == 200) {
+				  	app.dialog.confirm('Esse email se encontra ativo! Deseja recuperar a sua senha', 'Ativação do Cadastro', 
+					  	function () {
+							app.sheet.close('.recebEmail', true);
+							app.sheet.destroy('.recebEmail');
+					  		app.dialog.close();
+					  		primeiroAcessoBtnVoltar();
+					  		setTimeout(function() {
+					    		swich_tela_login_recuperaSenha(campoEmail);
+					    		setTimeout(function() {
+					    			$$('#itemInput').addClass('item-input-focused');
+					    			$$('#email_recupera').addClass('input-focused');
+					    		}, 100);
+					  		}, 500);
+					  	}, 
+					  	function () {
+					  		app.sheet.close('.recebEmail', true);
+					  		primeiroAcessoBtnVoltar();
+					  	}
+				 	);
+					$("#inputReceveEmailToGetCode").val("");
+				}
+	        },
+	        error: function(error) {
+	        	console.log("tem informacoes com erro");
+				console.log(error);
+	        }
+		});	
 	}else{
 		alerta("","Insira seu email para continuar", 3000);	
 	}
 }
 
-// function choosedSms(){
-// 	$("#primeiroAcesso").hide();
-// 	$("#initApp").hide();
-// 	$("#telaVerificaCodigo").css('display', 'block');
-// }
 
+enviarCodigoAtivacao = (codigoAtivacao) => {
+	console.log(codigoAtivacao);
+	console.log(localStorage.getItem('DOMINIO')+'appweb/ativacao_post.php');
 
-enviarCodigoAtivacao = () => {
-	console.log("send code ativacao...");
-	app.views.main.router.navigate("/termo_de_uso/", {animate:true});
-
-
-// 	let codigoAtivacao = $("#codigoAtivacao").val();
-// 	console.log(localStorage.getItem('DOMINIO')+'appweb/ativacao_post.php');
-// 	if (codigoAtivacao.length !== 0) {
-// 		$.ajax({
-// 			type: 'POST',
-// 			url: localStorage.getItem('DOMINIO')+'appweb/ativacao_post.php',
-// 			crossDomain: true,
-// 			beforeSend : function() { $("#wait").css("display", "block"); },
-// 			complete   : function() { $("#wait").css("display", "none"); },
-// 	        data       : { codigo : codigoAtivacao, typeFunction : 'enviarCodigoAtivacao' },
-// 	        dataType   : 'json',
-// 			success: function(retorno){
-// 				console.log(retorno);    
-// 				if (retorno.statuscode == 200 && retorno.status == "codigoOk") {
-// 					localStorage.setItem("idUsuarioAtivacao", retorno.idUsuario); // Id do usuario recebido atraves do codigo de ativacao
-// 					$("#btnCancelarConta").hide();
-// 					$("#btnAtivarConta").hide();
-// 					$("#telaVerificaCodigo").hide();
-// 					$("#telaAceitaTermo").show();
-// 					$(".aceitaTermoClass").css('display', 'block');
-// 					$("#concordaComTermo").hide();
-// 				}else if (retorno.statuscode == 204 && retorno.status == "usuarioNaoEncontradoParaCodigo") {
-// 					emailNotRecognizedBySystemAlert('error', "Código de Ativação Inválido, Confira o codigo enviado no seu email");
-// 					$("#codigoAtivacao").val("");
-// 				}
-// 	        },
-// 	        error: function(error) {
-// 				console.log(error);
-// 	        }
-// 		});	
-// 	}else{
-// 		app2.input.validate("#codigoAtivacao");
-// 	}
+	if (codigoAtivacao.length !== 0) {
+		$.ajax({
+			type: 'POST',
+			url: localStorage.getItem('DOMINIO')+'appweb/ativacao_post.php',
+	        data       : { codigo : codigoAtivacao, typeFunction : 'enviarCodigoAtivacao' },
+	        dataType   : 'json',
+			complete   : function() { $("#wait").css("display", "none"); },
+			beforeSend : function() { $("#wait").css("display", "block"); },
+			crossDomain: true,
+			success: function(retorno){
+				console.log(retorno);   
+				// return false;
+				if (retorno.statuscode == 200 && retorno.status == "codigoOk") {
+					localStorage.setItem("idUsuarioAtivacao", retorno.idUsuario); // Id do usuario recebido atraves do codigo de ativacao
+					app.views.main.router.navigate("/termo_de_uso/", {animate:true});
+				}else if (retorno.statuscode == 204 && retorno.status == "usuarioNaoEncontradoParaCodigo") {
+					alerta('Erro Validação', "Código de Ativação Inválido, Confira o codigo enviado no seu email", afterClose="voltaInicio");
+					$("#codigoAtivacao").val("");
+				}
+	        },
+	        error: function(error) {
+				console.log(error);
+	        }
+		});	
+	}else{
+		app2.input.validate("#codigoAtivacao");
+	}
 }
 
-// let enviarSenhaEliberarAcesso = () => {
-// 	let email = localStorage.getItem('emailSocialMidia');
-// 			    localStorage.removeItem('emailSocialMidia');
-// 	$.ajax({
-// 		type: 'POST',
-// 		url: localStorage.getItem('DOMINIO')+'appweb/ativacao_post.php',
-// 		crossDomain: true,
-// 		beforeSend : function() { $("#wait").css("display", "block"); },
-// 		complete   : function() { $("#wait").css("display", "none"); },
-//         data: { 
-// 			uuid: device.uuid,
-// 			nome: device.model,
-// 			versao: device.version,
-// 			sistema: device.platform,
-// 			typeFunction : "setPassworLiberaUsuario",
-// 			emailGmail : email, 
-// 			id_notificacao: localStorage.getItem('registrationId')
-// 		},
-//         dataType   : 'json',
-// 		success: function(retorno){
-// 			console.log(retorno);
+let enviarSenhaEliberarAcesso = () => {
+	app.dialog.preloader("Direcionando para App", 'blue');
+	let email = localStorage.getItem('emailSocialMidia');
+			    localStorage.removeItem('emailSocialMidia');
+	$.ajax({
+		type: 'POST',
+		url: localStorage.getItem('DOMINIO')+'appweb/ativacao_post.php',
+		crossDomain: true,
+		beforeSend : function() { $("#wait").css("display", "block"); },
+		complete   : function() { $("#wait").css("display", "none"); },
+        data: { 
+			uuid: device.uuid,
+			nome: device.model,
+			versao: device.version,
+			sistema: device.platform,
+			typeFunction : "setPassworLiberaUsuario",
+			emailGmail : email, 
+			id_notificacao: localStorage.getItem('registrationId')
+		},
+        dataType   : 'json',
+		success: function(retorno){
+			console.log(retorno);
+			if (retorno.status == "usuarioValidoToLogin" && retorno.statuscode == 200) {
+				app.dialog.close();
+				login_user_device();
+			}else{
+				app.dialog.close();
+				alerta("Tentativa login", 'O ' +email+ ' não está liberado para acessar o condominio tente outra forma de autenticar..', afterClose=null)
+			}
+        },
+        error: function(error) {
+			console.log(error);
+			// alert('não foi possivel continuar...');
+        }
+	});
+}
+
+function salvarSenha(){
+	if ($("#inputDefineSenha").val().length !== 0 ) {
+		$("#btnSaveSenha").attr('disabled', false);
+		if ($("#inputDefineSenha").val() != $("#inputDefineSenhaRepita").val()) {
+			$$("#inputDefineSenha").val('');
+			$$("#inputDefineSenhaRepita").val('');
+			alerta("Erro na Senha", "As senhas não combinam. Elas devem ser iguais!");
+		}else{
+
+			let senha = $("#inputDefineSenha").val();
+			idUsuario = null;	
+			idUsuario = localStorage.getItem('idUsuarioAtivacao');
+
+			$.ajax({
+				type: 'POST',
+				url: localStorage.getItem('DOMINIO_LOGIN')+'appweb/ativacao_post.php',
+		        data: { 
+    				idUsuario : idUsuario, 
+    				senha : senha,
+    				typeFunction : "definirSenha"
+		    	},
+		        dataType   : 'json',
+				complete   : function() { $("#wait").css("display", "none"); },
+				beforeSend : function() { $("#wait").css("display", "block"); },
+				crossDomain: true,
+				success: function(retorno){
+
+					console.log(retorno);
+
+					if (retorno.statuscode == 200 && retorno.status == "senhaDefinidoOk") {
+						$('#formSendDefineSenha').trigger("reset");
+
+						localStorage.setItem('emailDefinidoOk', retorno.emailUsuario);
+						localStorage.setItem('senhaDefinidoOk', senha);
+
+						localStorage.removeItem('idUsuarioAtivacao');
+						
+						app.sheet.close('.defineSenhaApp', true);
+						app.sheet.destroy(sheetDefineSenhaApp);
+
+						app.dialog.preloader("Direcionando para App", 'blue');
+						setTimeout(function () {
+							event = new CustomEvent('click');
+							localStorage.setItem('logarDaValidacao', true);							
+							login_user(event, 'logarDaValidacao');
+							app.dialog.close();
+						}, 1000);
+
+						// alerta('Define Senha', "Senha definida com sucesso", 'defineSenha');
+					}
+		        },
+		        error: function(error) {
+					console.log(error);
+					alerta('Erro', 'Não foi possivel executar a ação pretendida, entre em contato com seu administrador');
+		        }
+			});	
+		}
+	}else{
+		alerta("Erro","Senha não definida");
+	}
+}
+
+confirmaCodeResetPassword = (recoveryCode) => {
+	alert("codigo recebido "+recoveryCode);
+	$.ajax({
+		type: 'POST',
+		url: localStorage.getItem('DOMINIO_LOGIN')+'appweb/ativacao_post.php',
+		// url: "https://aut.controlcondo.com.br/login/appweb/ativacao_post_multi.php",
+		crossDomain: true,
+        data: { 
+			recoveryCode : recoveryCode, 
+			typeFunction : "validaCodigo"
+		},
+        dataType   : 'json',
+		success: function(retorno){
 			
-// 			if (retorno.status == "usuarioValidoToLogin" && retorno.statuscode == 200) {
-// 				emailNotRecognizedBySystemAlert('success', "direcionando para App", afterClose="logaDoFace");
-// 			}else{
-// 				emailNotRecognizedBySystemAlert("error", 'O ' +email+ ' não está liberado para acessar o condominio tente outra forma de autenticar..', afterClose=null)
-// 			}
-//         },
-//         error: function(error) {
-// 			console.log(error);
-// 			// alert('não foi possivel continuar...');
-//         }
-// 	});
-// }
+			console.log("chegou agora....");
+			console.log(retorno);
 
-
-
-
-// function definesenha(){
-// 	afed('#defineSenha','#initApp','','',1);	
-// }
-
-// function btnSairTelaDefineSenha(){
-// 	afed('#initApp','#defineSenha','','',1);
-// }
-
-// function switchTelaDefineSenhaToLogin(){
-// 	afed('#login_ini','#defineSenha','','');
-// 	app2.sheet.create({
-// 	  el: '.loginApp',
-// 	  closeByOutsideClick: false,
-// 	  closeByBackdropClick: false,
-// 	  closeOnEscape: false
-// 	});
-// 	app2.actions.open('.loginApp', true);
-// }
-
-// function salvarSenha(){
-// 	if ($("#inputDefineSenha").val().length !== 0 ) {
-// 		$("#btnSaveSenha").attr('disabled', false);
-// 		if ($("#inputDefineSenha").val() != $("#inputDefineSenhaRepita").val()) {
-// 			alerta("", "As senhas não combinam. Elas devem ser iguais!", 4000);
-// 		}else{
-
-// 			let senha = $("#inputDefineSenha").val();
-
-// 			idUsuario = null;	
-// 			idUsuario = localStorage.getItem('idUsuarioAtivacao');
-// 			alert("usuariio ===>>" + idUsuario);
-
-// 			$.ajax({
-// 				type: 'POST',
-// 				url: localStorage.getItem('DOMINIO')+'appweb/ativacao_post.php',
-// 				crossDomain: true,
-// 				beforeSend : function() { $("#wait").css("display", "block"); },
-// 				complete   : function() { $("#wait").css("display", "none"); },
-// 		        data: { 
-// 	    				idUsuario : idUsuario, 
-// 	    				senha : senha,
-// 	    				typeFunction : "definirSenha"
-// 		    		},
-// 		        dataType   : 'json',
-// 				success: function(retorno){
-// 					if (retorno.statuscode == 200 && retorno.status == "senhaDefinidoOk") {
-// 						$('#formSendDefineSenha').trigger("reset");
-// 						emailNotRecognizedBySystemAlert('success', "Senha definida com sucesso", "defineSenha");
-// 					}
-// 		        },
-// 		        error: function(error) {
-// 					console.log(error);
-// 					alert('Não foi possivel executar a ação pretendida, entre em contato com seu administrador');
-// 		        }
-// 			});	
-// 		}
-// 	}else{
-// 		alerta("","Defina uma senha para continuar", 3000);
-// 	}
-// }
-
-// não ta sendo usado essa função..............
-// confirmaCodeResetPassword = (recoveryCode) => {
-// 	alert("codigo recebido "+recoveryCode);
-// 	$.ajax({
-// 		type: 'POST',
-// 		url: localStorage.getItem('DOMINIO')+'appweb/ativacao_post.php',
-// 		crossDomain: true,
-// 		beforeSend : function() { $("#wait").css("display", "block"); },
-// 		complete   : function() { $("#wait").css("display", "none"); },
-//         data: { 
-// 				recoveryCode : recoveryCode, 
-// 				typeFunction : "validaCodigo"
-//     		},
-//         dataType   : 'json',
-// 		success: function(retorno){
-// 			console.log(retorno);
-
-// 			if (retorno.status == "codigoConfere" && retorno.statuscode == 200) {
+			if (retorno.status == "codigoConfere" && retorno.statuscode == 200) {
+				app.views.main.router.navigate("/define_senha/", {animate:true});
+				$$(document).on('page:init', '.page[data-name="pgDefineSenha"]', function (e) {
+					elementoDefineSenha();
+					app.sheet.open('.defineSenhaApp', true);
+				})
 				
-// 				console.log("definir senha");
-// 				alert("definir senha");
-// 				alert("codigo confirmado");
-
-// 				localStorage.removeItem('idUsuarioAtivacao');
-// 				localStorage.setItem("idUsuarioAtivacao", retorno.id_usuario);
-// 				definesenha();
-// 			}else{
-// 				emailNotRecognizedBySystemAlert("error", "Não foi possivel continuar o processo...", afterClose=null)
-// 			}
-//         },
-//         error: function(error) {
-// 			console.log(error);
-// 			alert('Não foi possivel executar a ação pretendida, entre em contato com seu administrador');
-//         }
-// 	});	
-// }
-// não ta sendo usado essa função..............
+				localStorage.removeItem('idUsuarioAtivacao');
+				localStorage.setItem("idUsuarioAtivacao", retorno.idUsuario);
+				
+			}else{
+				alerta("error", "Não foi possivel continuar o processo...", afterClose=null)
+			}
+        },
+        error: function(error) {
+			console.log(error);
+			alert('Não foi possivel executar a ação pretendida, entre em contato com seu administrador');
+        }
+	});	
+}
 
   /*
   ########################################
@@ -1328,42 +1546,57 @@ enviarCodigoAtivacao = () => {
   ########################################
   */
 
-function loginFB() {
-	// console.log("chama funcao login FB");
-	// facebookConnectPlugin.logout(
-	// function(successo){
-	// 	// alert(JSON.stringify(successo));
-	//     facebookConnectPlugin.login(['public_profile', 'email'], function(result){
-	//     	// alert(JSON.stringify(result));
-	//         facebookConnectPlugin.api("/me?fields=id,name,email", ["email"], function(userData){
-	//         	// alert(JSON.stringify(userData));
-	//             let name = userData.name;
-	//             let email = userData.email;
-	//     		localStorage.setItem('emailSocialMidia', email);
-	//     		alert("vai para a checkUsuarioFacebookToLogin()");
-	            
-	            // email = "tino@firstcontrol.com.br";
-	            // checkUsuarioFacebookToLogin(email);
+let loginFB = () => {
+	app.dialog.preloader("carregando", 'blue');
+	facebookConnectPlugin.logout(
+		function(successo){
+		    facebookConnectPlugin.login(['public_profile', 'email'], function(result){
+		        facebookConnectPlugin.api("/me?fields=id,name,email", ["email"], function(userData){
+		            let name = userData.name;
+		            let email = userData.email;
+		    		localStorage.setItem('emailSocialMidia', email);
+		            checkUsuarioFacebookToLogin(email);
+		        },function(error){
+		            alerta("Login com FB", "Falha ao tentar logar com facebook");
+		        });
+		    },function(error){
+		        alerta("Login com FB", "Falha ao tentar logar com facebook");
+		    })
+		},
+		function(erroror){
+			facebookConnectPlugin.login(['public_profile', 'email'], function(result){
+		        facebookConnectPlugin.api("/me?fields=id,name,email", ["email"], function(userData){
+		            let name = userData.name;
+		            let email = userData.email;
+		    		localStorage.setItem('emailSocialMidia', email);
+		            checkUsuarioFacebookToLogin(email);
+		        },function(error){
+		            alerta("Login com FB", "Falha ao tentar logar com facebook");
+		        });
+		    },function(error){
+		        alerta("Login com FB", "Falha ao tentar logar com facebook");
+		    });
+		}
+	);
+}
 
-	//         },function(error){
-	//             alert("erro no query do api...");
-	//         });
-	//     },function(error){
-	//         alert(JSON.stringify(error));
-	//         alert("erro no metodo login...");
-	//     })
-	// },
-	// function(erroror){
-	// 	alert(JSON.stringify(erroror));
-	// });
-
-
+logoutFacebookOnError = () => {
+	facebookConnectPlugin.logout(
+		function sucesso(succes){
+			alert(succes);
+	      	alert(JSON.stringify(succes)); 
+		}, 
+		function erro(error){
+			alert(error);
+	      	alert(JSON.stringify(error)); 
+		}
+	);
 }
 
 checkUsuarioFacebookToLogin = (email) => {
 	$.ajax({
 		type: 'POST',
-		url: localStorage.getItem('DOMINIO')+'appweb/ativacao_post.php',
+		url: localStorage.getItem('DOMINIO_LOGIN')+'appweb/ativacao_post.php',
 		crossDomain: true,
 		beforeSend : function() { $("#wait").css("display", "block"); },
 		complete   : function() { $("#wait").css("display", "none"); },
@@ -1378,22 +1611,25 @@ checkUsuarioFacebookToLogin = (email) => {
 		},
         dataType   : 'json',
 		success: function(retorno){
-			
 			console.log(retorno);
-			return false;
-
-			// alert(JSON.stringify(retorno));
-			
+			// return false;
 			if (retorno.status == "usuarioValidoToLoginFacebook" && retorno.statuscode == 200) {
-				alerta('Login', "Direcionando para App", afterClose="logaDoFace");
+				app.dialog.preloader("Direcionando para App", 'blue');
+				localStorage.setItem("loginSocialMidia", "loginsocialmidiaFG");
+				app.dialog.close();
+				setTimeout(function () {
+					app.dialog.close();
+					login_user_device();
+				}, 1000);
+				app.dialog.close();
 			}else 
 			if (retorno.status == "perfilAtivoSemSenha" && retorno.statuscode == 200) {
-				$("#btnAtivarConta").attr('data-liberarSemSenha', 'liberarSemSenha');
-				alerta('Login', "direcionando para termo de uso", afterClose="termoUso");
+				localStorage.setItem('data-liberarSemSenha','liberarSemSenha');
+				app.views.main.router.navigate("/termo_de_uso/", {animate:true, transition: 'f7-dive'});
 			}else{
-				let msg = "Não está liberado para acessar o condominio tente outra forma de autenticar ou entre em contato com a sua adminstradora..";
-				alerta("Tentativa de login",msg, afterClose=null)
-				// emailNotRecognizedBySystemAlert("error", 'O ' +email+ ' ', afterClose=null)
+				let msg = `O  ${email} Não está liberado para acessar o condominio tente outra forma de autenticar ou entre em contato com a sua adminstradora..`;
+				alerta("Tentativa de login",msg, afterClose=null);
+				logoutFacebookOnError();
 			}
         },
         error: function(error) {
@@ -1410,26 +1646,42 @@ checkUsuarioFacebookToLogin = (email) => {
   */
 
 let loginGoogle = () =>{
-	console.log("chama funcao login");
+	app.dialog.preloader("carregando", 'blue');
 	window.plugins.googleplus.login({},
 	    function(obj) {
+			app.dialog.close();
 	      	let email = obj.email;
 	      	let nome = obj.displayName;
+			// email = 'tino477@gmail.com';
 			localStorage.setItem('emailSocialMidia', email);
-
-			alert("vai para a checkUsuarioGoogleToLogin()");
-		    // checkUsuarioGoogleToLogin(email);
+			app.dialog.close();
+		    checkUsuarioGoogleToLogin(email);
 	    },
 	    function(msg) {
-	      console.log('error: ' + msg);
+	    	app.dialog.close();
+	      	console.log('error: ' + msg);
 	    }
 	);
+}
+
+logoutGoogleOnError = () => {
+	window.plugins.googleplus.disconnect(
+	    function (msg) {
+	      	alert(msg);
+	      	alert(JSON.stringify(msg)); 
+	    },
+	    function (args) {
+	    	alert(args);
+	    	alert(JSON.stringify(args));
+	    }	
+	);
+	// console.log("eexecuta a funcao...");
 }
 
 checkUsuarioGoogleToLogin = (email) => {
 	$.ajax({
 		type: 'POST',
-		url: localStorage.getItem('DOMINIO')+'appweb/ativacao_post.php',
+		url: localStorage.getItem('DOMINIO_LOGIN')+'appweb/ativacao_post.php',
 		crossDomain: true,
 		beforeSend : function() { $("#wait").css("display", "block"); },
 		complete   : function() { $("#wait").css("display", "none"); },
@@ -1444,18 +1696,20 @@ checkUsuarioGoogleToLogin = (email) => {
 		},
         dataType   : 'json',
 		success: function(retorno){
-			if (retorno.status == "usuarioValidoToLogin" && retorno.statuscode == 200) {
-				emailNotRecognizedBySystemAlert('success', "direcionando para App", afterClose="logaDoFace");
-			}else 
+
 			if (retorno.status == "perfilAtivoSemSenha" && retorno.statuscode == 200) {
-				$("#btnAtivarConta").data('liberarSemSenha', 'liberarSemSenha');
-				emailNotRecognizedBySystemAlert('success', "direcionando para termo de uso", afterClose="termoUso");
+				localStorage.setItem('data-liberarSemSenha','liberarSemSenha');
+				alerta('Login Google', "direcionando para termo de uso", afterClose="termoUso");
 			}else 
 			if (retorno.status == "usuarioValidoToLoginGoogle" && retorno.statuscode == 200){
-				emailNotRecognizedBySystemAlert('success', "direcionando para App", afterClose="logaDoGoogle");
+				localStorage.setItem("loginSocialMidia", "loginsocialmidiaFG");
+				app.dialog.close();
+				login_user_device();
 			}
 			else{
-				emailNotRecognizedBySystemAlert("error", 'O ' +email+ ' não está liberado para acessar o condominio tente outra forma de autenticar ou entre em contato com a sua adminstradora..', afterClose=null)
+				let msg = `O  ${email} Não está liberado para acessar o condominio tente outra forma de autenticar ou entre em contato com a sua adminstradora..`;
+				alerta("Tentativa de login",msg, afterClose=null);
+				logoutGoogleOnError();
 			}
         },
         error: function(error) {

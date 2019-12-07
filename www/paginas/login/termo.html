@@ -2,12 +2,12 @@
 	<div id="telaTermo" data-name="pgTermo" class="page">
 		<div id="telaAceitaTermo" class="page aceitaTermoClass">
 			<div class="navbar">
-		        <div class="navbar-bg">
+		        <div class="navbar-bg bg-color-blue">
 		        </div>
-		        <div class="navbar-inner sliding">
+		        <div class="navbar-inner bg-color-blue sliding">
 		            <div class="navbar-inner sliding">
 		            	<div class="left"></div>
-		            	<div class="title left-10 text-color-gray">Termos de Uso</div>
+		            	<div class="title left-10 text-color-white">Termos de Uso</div>
 		            	<div class="right"></div>
 		            </div>
 		        </div>
@@ -120,7 +120,7 @@
 					      	<span>Li e concordo com os termos</span>
 						</div>
 						<button id="btnCancelarConta" class="col-50 left-6 button button-raised color-gray button-fill" onclick="cancelarTermo()">Cancelar</button>
-						<button id="btnAtivarConta" onclick="aceiteiTermo($(this).data('liberarsemsenha'))" class="col-50 rigth-6 button button-raised color-green button-fill">Ativar conta</button>
+						<button id="btnAtivarConta" onclick="aceiteiTermo(localStorage.getItem('data-liberarSemSenha'))" class="col-50 rigth-6 button button-raised color-green button-fill">Ativar conta</button>
 				      </div>
 				    </div>
 		        </div>

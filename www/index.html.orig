@@ -71,8 +71,12 @@
     <script type="text/javascript" src="js/html2canvas.js"></script>
     <script type="text/javascript" src="js/jquery.classyqr.js"></script>
 	  <script src="js/jquery.qrcode.js"></script>
-	  <script src="js/qrcode.js"></script>
+<<<<<<< HEAD
+	<script src="js/qrcode.js"></script>
 	<script src="js/jquery.mask.min.js"></script>
+=======
+	  <script src="js/qrcode.js"></script>
+>>>>>>> 7c6a994eb08bbcab06154c8a9b3d5093343a1b9d
 	  
   	<script type="text/javascript">
   		document.addEventListener("deviceready",onDeviceReady,false);

@@ -23,7 +23,7 @@
                                 </div>
                             </div>
                             <div style="position: fixed;margin-left: 81%; margin-top: -18%;color:white">
-                                <a class="link panel-close goToProfile" onclick="goToProfile($(this)[0])" href="#" style="color: white">
+                                <a class="link panel-close goToProfile" onclick="goToProfile()" href="#" style="color: white">
                                     <i class="f7-icons">
                                         bars
                                     </i>
@@ -107,7 +107,7 @@
                                     </div>
                                 </li>
                                 <li>
-                                    <a class="panel-close" href="/entregas/">
+                                    <a class="panel-close" onclick="switchToEntrega()" href="#">
                                         <div class="item-content list-button">
                                             <div class="item-media">
                                                 <i class="f7-icons " style="font-size: 20px">
@@ -147,7 +147,7 @@
                                     </div>
                                 </li>
                                 <li>
-                                    <a class="panel-close" href="/liberacao/" onClick="carrega_liberacao()">
+                                    <a class="panel-close" href="#" onclick="goToLiberacao()">
                                         <div class="item-content list-button">
                                             <div class="item-media">
                                                 <i class="f7-icons " style="font-size: 20px">
@@ -297,7 +297,7 @@
                         </span>
                     </br>
                 </a>
-                <a class="link" href="/liberacao/" onClick="carrega_liberacao()">
+                <a class="link" href="#" onclick="goToLiberacao()">
                     <i class="f7-icons">
                         rectangle_stack_person_crop
                     </i>
@@ -309,8 +309,7 @@
                         </span>
                     </br>
                 </a>
-                <a class="link goToProfile" href="#" id="gotoprofile" onclick="goToProfile($(this)[0])">
-                    <!-- onclick="goToProfile()" -->
+                <a class="link goToProfile" href="#" id="gotoprofile" onclick="goToProfile()">
                     <i class="f7-icons">
                         person_crop_circle
                     </i>

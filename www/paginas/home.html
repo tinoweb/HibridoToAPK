@@ -1,143 +1,329 @@
 <div class="pages">
-    <div data-page="home" class="page" data-name="pgHome">
-	
-	<!--Menu Lateral Esquerdo-->	
-	<!-- data-swipe="false" SERVE PARA DESAILITAAR A AÇÃO DE AO PASSAR O DEDO ABRE O MENU-->	
-	<div class="panel panel-left panel-cover theme-dark panel-init " data-swipe="false">
-		<div class="view">
-			<div class="page">
-				<div class="navbar">
-					<div class="navbar-bg"></div>
-					<div class="navbar-inner">
-						<div class="title perfil_condominio"></div> 
-					</div>
-					<div style="position: fixed;margin-top: 21%; background-color: black;width: 100%"> 
-						<div class="chip" >
-							<div class="chip-media">
-								<img src="https://blog.mensmarket.com.br/wp-content/uploads/2018/12/corte-de-cabelo-masculino-para-cada-tipo-de-rosto-1-1-486x600.jpg" class="user_foto">
-							</div>
-							<div  class="chip-label perfil_nome">Juliano Silveira</div>
-						</div>
-						<div style="position: fixed;margin-left: 81%; margin-top: -18%;color:white">
-							<a class="link panel-close" style="color: white" href="/perfil/"><i class="f7-icons"> bars</i></a>
-						</div>
-					</div>		
-				</div>
-				<div class="page-content">
-					<div class="list">
-					  <ul>
-						<li>
-						  <a class="panel-close" href="/areacomum/" onClick="carrega_areas()">
-							  <div class="item-content list-button">
-								<div class="item-media"><i class="f7-icons " style="font-size: 20px">calendar_badge_plus</i></div>
-								<div class="item-inner">
-								  <div class="item-title">Área Comun</div>
-								</div>
-							  </div>
-						  </a>
-						</li>
-						<li>
-						 <a class="panel-close" href="/comunicado/">
-						  <div class="item-content list-button">
-							<div class="item-media"><i class="icons material-icons" style="font-size: 20px">dvr</i> </div>
-							<div class="item-inner">
-							  <div class="item-title">Comunicado</div>
-							  <div class="item-after"> <span class="badge">5</span></div>
-							</div>
-						  </div>
-						 </a> 
-						</li>
-						<li>
-                                    <a class="panel-close" href="/documentos/" onClick="carrega_documentos()">
-						  <div class="item-content list-button">
-							<div class="item-media"><i class="f7-icons "  style="font-size: 20px">doc_text_fil</i></div>
-							<div class="item-inner">
-							  <div class="item-title">Documentos </div>
-								<div class="item-after"><span class="badge">5</span></div>
-							</div>
-							 
-						  </div>
-						   </a>
-						</li>
-						<li>
-						  <div class="item-content list-button">
-							<div class="item-media"><i class="f7-icons "  style="font-size: 20px">videocam_fill</i></div>
-							<div class="item-inner">
-							  <div class="item-title">Camera </div>
-								
-							</div>
-						  </div>
-						</li>
-						<li>
-						   <a class="panel-close" href="/entregas/">
-						  <div class="item-content list-button">
-							<div class="item-media"><i class="f7-icons "  style="font-size: 20px">envelope_open_fill</i></div>
-							<div class="item-inner">
-							  <div class="item-title">Entregas</div>
-								<div class="item-after"><span class="badge">5</span></div>
-							</div>
-						  </div>
-							</a>
-						</li>
-						<li>
-						  <div class="item-content list-button">
-							<div class="item-media"><i class="f7-icons "  style="font-size: 20px">chart_pie_fill</i></div>
-							<div class="item-inner">
-							  <div class="item-title">Enquetes</div>
-								<div class="item-after"><span class="badge">5</span></div>
-							</div>
-						  </div>
-						</li>
-						<li>
+    <div class="page" data-name="pgHome" data-page="home">
+        <!--Menu Lateral Esquerdo-->
+        <!-- data-swipe="false" SERVE PARA DESAILITAAR A AÇÃO DE AO PASSAR O DEDO ABRE O MENU-->
+        <div class="panel panel-left panel-cover theme-dark panel-init " data-swipe="false">
+            <div class="view">
+                <div class="page">
+                    <div class="navbar">
+                        <div class="navbar-bg">
+                        </div>
+                        <div class="navbar-inner">
+                            <div class="title perfil_condominio">
+                            </div>
+                        </div>
+                        <div style="position: fixed;margin-top: 21%; background-color: black;width: 100%">
+                            <div class="chip">
+                                <div class="chip-media">
+                                    <img class="user_foto Perfil_user_foto" src="https://blog.mensmarket.com.br/wp-content/uploads/2018/12/corte-de-cabelo-masculino-para-cada-tipo-de-rosto-1-1-486x600.jpg">
+                                    </img>
+                                </div>
+                                <div class="chip-label perfil_nome" id="nomeMorardorMenu">
+                                    Nome do usuario logado
+                                </div>
+                            </div>
+                            <div style="position: fixed;margin-left: 81%; margin-top: -18%;color:white">
+                                <a class="link panel-close goToProfile" onclick="goToProfile()" href="#" style="color: white">
+                                    <i class="f7-icons">
+                                        bars
+                                    </i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="page-content">
+                        <div class="list">
+                            <ul>
+                                <li>
+                                    <a class="panel-close" href="/areacomum/">
+                                        <div class="item-content list-button">
+                                            <div class="item-media">
+                                                <i class="f7-icons " style="font-size: 20px">
+                                                    calendar_badge_plus
+                                                </i>
+                                            </div>
+                                            <div class="item-inner">
+                                                <div class="item-title">
+                                                    Área Comun
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="panel-close" href="/comunicado/">
+                                        <div class="item-content list-button">
+                                            <div class="item-media">
+                                                <i class="icons material-icons" style="font-size: 20px">
+                                                    dvr
+                                                </i>
+                                            </div>
+                                            <div class="item-inner">
+                                                <div class="item-title">
+                                                    Comunicado
+                                                </div>
+                                                <div class="item-after">
+                                                    <span class="badge">
+                                                        5
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="panel-close" href="/documentos/">
+                                        <div class="item-content list-button">
+                                            <div class="item-media">
+                                                <i class="f7-icons " style="font-size: 20px">
+                                                    doc_text_fil
+                                                </i>
+                                            </div>
+                                            <div class="item-inner">
+                                                <div class="item-title">
+                                                    Documentos
+                                                </div>
+                                                <div class="item-after">
+                                                    <span class="badge">
+                                                        5
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <div class="item-content list-button">
+                                        <div class="item-media">
+                                            <i class="f7-icons " style="font-size: 20px">
+                                                videocam_fill
+                                            </i>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title">
+                                                Camera
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <a class="panel-close" onclick="switchToEntrega()" href="#">
+                                        <div class="item-content list-button">
+                                            <div class="item-media">
+                                                <i class="f7-icons " style="font-size: 20px">
+                                                    envelope_open_fill
+                                                </i>
+                                            </div>
+                                            <div class="item-inner">
+                                                <div class="item-title">
+                                                    Entregas
+                                                </div>
+                                                <div class="item-after">
+                                                    <span class="badge">
+                                                        5
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <div class="item-content list-button">
+                                        <div class="item-media">
+                                            <i class="f7-icons " style="font-size: 20px">
+                                                chart_pie_fill
+                                            </i>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title">
+                                                Enquetes
+                                            </div>
+                                            <div class="item-after">
+                                                <span class="badge">
+                                                    5
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
                                     <a class="panel-close" href="/liberacao/" onClick="carrega_liberacao()">
-						  <div class="item-content list-button" >
-							<div class="item-media">
-								<i class="f7-icons "  style="font-size: 20px">rectangle_stack_person_crop</i></div>
-							<div class="item-inner">
-							  <div class="item-title">Liberação</div>
-							</div>
-						  </div></a>
-						</li>
-						<li>
-						  <div class="item-content list-button">
-							<div class="item-media"><i class="icons material-icons" style="font-size: 20px">local_shipping</i> </div>
-							<div class="item-inner">
-							  <div class="item-title">Mudança</div>
-								<div class="item-after"><span class="badge">5</span></div>
-							</div>
-						  </div>
-						</li>
-						<li>
-						  <div class="item-content list-button">
-							<div class="item-media"><i class="f7-icons "  style="font-size: 20px">calendar_today</i></div>
-							<div class="item-inner">
-							  <div class="item-title">Minha Agenda</div>
-								<div class="item-after"><span class="badge">5</span></div>
-							</div>
-						  </div>
-						</li>
-   					    <li>
-						 <a class="panel-close" href="/pet/">
-						  <div class="item-content list-button">
-							<div class="item-media"><i class="f7-icons " style="font-size: 20px">dog</i></div>
-							<div class="item-inner">
-							  <div class="item-title">Pet's</div>
-							</div>
-						  </div>
-						 </a>
-						</li> 
-						<li>
-						 <a class="panel-close" href="/ocorrencia/">
-						  <div class="item-content list-button">
-							<div class="item-media"><i class="f7-icons " style="font-size: 20px">exclamationmark_triangle</i></div>
-							<div class="item-inner">
-							  <div class="item-title">Ocorrência</div>
-							  <div class="item-after"> <span class="badge">5</span></div>
-							</div>
-						  </div>
-						 </a>
-						</li>
+                                        <div class="item-content list-button">
+                                            <div class="item-media">
+                                                <i class="f7-icons " style="font-size: 20px">
+                                                    rectangle_stack_person_crop
+                                                </i>
+                                            </div>
+                                            <div class="item-inner">
+                                                <div class="item-title">
+                                                    Liberação
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <div class="item-content list-button">
+                                        <div class="item-media">
+                                            <i class="icons material-icons" style="font-size: 20px">
+                                                local_shipping
+                                            </i>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title">
+                                                Mudança
+                                            </div>
+                                            <div class="item-after">
+                                                <span class="badge">
+                                                    5
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="item-content list-button">
+                                        <div class="item-media">
+                                            <i class="f7-icons " style="font-size: 20px">
+                                                calendar_today
+                                            </i>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title">
+                                                Minha Agenda
+                                            </div>
+                                            <div class="item-after">
+                                                <span class="badge">
+                                                    5
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <a class="panel-close" href="/pet/">
+                                        <div class="item-content list-button">
+                                            <div class="item-media">
+                                                <i class="f7-icons " style="font-size: 20px">
+                                                    dog
+                                                </i>
+                                            </div>
+                                            <div class="item-inner">
+                                                <div class="item-title">
+                                                    Pet's
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="panel-close" href="/ocorrencia/">
+                                        <div class="item-content list-button">
+                                            <div class="item-media">
+                                                <i class="f7-icons " style="font-size: 20px">
+                                                    exclamationmark_triangle
+                                                </i>
+                                            </div>
+                                            <div class="item-inner">
+                                                <div class="item-title">
+                                                    Ocorrência
+                                                </div>
+                                                <div class="item-after">
+                                                    <span class="badge">
+                                                        5
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="panel-close" href="#" onclick="logout()">
+                                        <div class="item-content list-button">
+                                            <div class="item-media">
+                                                <i class="f7-icons " style="font-size: 20px">
+                                                    arrow_left_square
+                                                </i>
+                                            </div>
+                                            <div class="item-inner">
+                                                <div class="item-title">
+                                                    Sair
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--FIM Menu Lateral Esquerdo-->
+        
+
+        <!-- Menu TOP-->
+        <div class="navbar">
+            <div class="navbar-bg tema-azul">
+            </div>
+            <div class="navbar-inner">
+                <div class="left">
+                    <a class="link icon-only panel-open" onclick="carregaInfoProfile()" data-panel="left" href="#">
+                        <i class="f7-icons ">
+                            =
+                        </i>
+                    </a>
+                </div>
+                <div class="title" style="margin-left: 15%">
+                    <div class="title-text" style="color: white;">
+                        ControlCondo
+                    </div>
+                </div>
+                <div class="right">
+                    <div style="background-image: url(img/logo_blue.png); background-size: 50%; background-repeat: no-repeat;background-position: center center;width: 60px;height: 60px">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--FIM Menu TOP-->
+        <!--MENU BOTTON-->
+        <div class="toolbar toolbar-bottom tema-azul">
+            <div class="toolbar-inner">
+                <a class="link" href="/chat/">
+                    <i class="f7-icons">
+                        chat_bubble_2
+                    </i>
+                    <br>
+                        <span class="tabbar-label">
+                            Chat
+                        </span>
+                    </br>
+                </a>
                 <a class="link" href="/liberacao/" onClick="carrega_liberacao()">
+                    <i class="f7-icons">
+                        rectangle_stack_person_crop
+                    </i>
+                    <br>
+                        <span class="tabbar-label">
+                            <p>
+                                Liberação
+                            </p>
+                        </span>
+                    </br>
+                </a>
+                <a class="link goToProfile" href="#" id="gotoprofile" onclick="goToProfile()">
+                    <i class="f7-icons">
+                        person_crop_circle
+                    </i>
+                    <br>
+                        <span class="tabbar-label">
+                            Perfil
+                        </span>
+                    </br>
+                </a>
+            </div>
+        </div>
 
         <div class="page-content hide-toolbar-on-scroll">
             <div class="block-title" style="font-family:Rubik">

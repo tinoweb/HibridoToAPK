@@ -588,7 +588,8 @@ select_user = (id_usuario_condominio=0) => {
 			beforeSend : function() { $("#wait").css("display", "block"); },
 			complete   : function() { $("#wait").css("display", "none"); },
 			success: function(retorno){
-				//alert(retorno[0]['qtd_credito_liberacao']);
+				console.log(retorno);
+
                 if(retorno[0]['usar_control_condo'] == 1){
 					localStorage.setItem('IP_LOCAL',retorno[0]['ip_local']);
                     localStorage.setItem('ID_USER',retorno[0]['id_usuario_condominio']);
@@ -938,12 +939,15 @@ logout = () => {
 		url: localStorage.getItem('DOMINIO_LOGIN')+'appweb/logout.php',
 		data: 'id='+localStorage.getItem('ID_USER_L'),
 		crossDomain: true,
-		// beforeSend : function() { $("#wait").css("display", "block"); },
-		// complete   : function() { $("#wait").css("display", "none"); },
 		success: function(retorno){
 			localStorage.removeItem('loginSocialMidia');
+			localStorage.removeItem('emailDefinidoOk');
+			localStorage.removeItem('senhaDefinidoOk');
+
+
 			console.log(`Deslogado o usuario id ${retorno}`);
 			setPwdOut();
+			clearProfileData();
 		}
 	});
 }

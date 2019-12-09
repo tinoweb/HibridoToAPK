@@ -1,18 +1,5 @@
 //FUNCAO CARREGA LIBERACOES TODAS
 
-goToLiberacao = () => {
-	console.log("pagina liberacao");
-	app.views.main.router.navigate("/liberacao/", {animate:true});
-	$$(document).on('page:init', '.page[data-name="PgLiberacao"]', function (e) {
-		carrega_liberacao();
-	}); 
-}
-
-goBack = () => {
-	console.log("sair da pagina validacao");
-	app.views.main.router.navigate("/home/", {animate:true});
-}
-
 function define_hora(valor){
 	
 	var formata_h  = valor.substr(0,2);
@@ -61,7 +48,8 @@ function carregar_todos_selects()
 	})
 	
 setTimeout(function(){
-		var crdito = localStorage.getItem('QTD_CREDITO');
+	var crdito = localStorage.getItem('QTD_CREDITO');
+	alert(crdito);
 	var qtd_cred = "";
 	
 	if(crdito == 0)
@@ -120,8 +108,9 @@ function selecionar_motivo()
 }
 
 function carrega_liberacao(){
-	$("#retorno_liberacao").html('');
+		$("#retorno_liberacao").html('');
 	var id_condominio = localStorage.getItem('ID_CONDOMINIO');
+	
 	var id_morador = localStorage.getItem('ID_MORADOR');
 
 	var cont =0;
@@ -130,12 +119,12 @@ function carrega_liberacao(){
 		type: 'POST',
 		url: localStorage.getItem('DOMINIO')+'appweb/liberacao_get.php',
         data       : {id_condominio : id_condominio ,id_morador : id_morador,op:1},
-       // dataType   : 'json',
+       dataType   : 'json',
 		crossDomain: true,
 		//beforeSend : function() { $("#wait").css("display", "block"); },
 		//complete   : function() { $("#wait").css("display", "none"); },
 		success: function(retorno){ 
-			//alert('retorno');
+			//alert(retorno);
 			  for (x in retorno) {
 				cont++;
                 var credito = '';
@@ -212,7 +201,11 @@ function carrega_liberacao(){
 			
         }
 	});
+    
 }
+
+
+
 
 function carrega_liberacao2(tipo,id_visita=0){
     //alert('teste');

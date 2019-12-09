@@ -295,6 +295,7 @@ setProfileData = (retorno, gernero, statusCondo, statusVisita) => {
 	localStorage.setItem('profile_parentesco', retorno[0]['descricao']);
 	localStorage.setItem('profile_statusCondo', statusCondo);
 	localStorage.setItem('profile_statusVisita', statusVisita);
+	localStorage.setItem('arrayVeiculo', JSON.stringify(retorno[0]['veiculos']));
 }
 
 getProfileData = () => {
@@ -326,12 +327,92 @@ goToEditarPerfil = () => {
 	app.views.main.router.navigate("/perfil_editar/", {animate:true});
 	$$(document).on('page:init', '.page[data-name="pgEditarPerfilPasso1"]', function (e) {
 		console.log("debntro da editar perfil....");
-
 		$("#editarPerfil_rg").val(localStorage.getItem('profile_rg'));
 		$("#editarPerfil_cpf").val(localStorage.getItem('profile_cpf'));
-		$("#editarPerfil_sexo").val(localStorage.getItem('profile_gernero'));
 		$("#editarPerfil_nome").val(localStorage.getItem('MORADOR_NOME'));
-		// $("#editarPerfil_dataNascimento").val(localStorage.getItem('profile_rg'))
+		$("#editarPerfil_sexo").val(localStorage.getItem('profile_gernero'));
+		$("#editarPerfil_dataNascimento").val(localStorage.getItem('profile_nascimento'));
 
+	});
+
+	app.views.main.router.navigate("/perfil_editar2/", {animate:true});
+	$$(document).on('page:init', '.page[data-name="pgEditarPerfilPasso2"]', function (e) {
+		console.log("dentro da editar perfil passo 2....");
+		let arrayVeiculo = localStorage.getItem('arrayVeiculo');
+		arrayVeiculo = JSON.parse(arrayVeiculo);
+		console.log(arrayVeiculo);
+		var veicuArr = null;
+		if (arrayVeiculo.length > 0) {
+			$.each(arrayVeiculo, function(index, val) {
+				$$("#editarPerfilPasso2_veiculos").append(
+				`<ul>
+						<li class="accordion-item">
+							<a href="#" class="item-content item-link">
+								<div class="item-media">
+									<div class="item-media">
+										<i class="f7-icons" width="40">car_fill</i>
+									</div>
+								</div>
+								
+								<div class="item-inner">
+								   <div class="item-title">Os meus veiculos</div>
+								</div>
+							</a>
+							
+							<div class="accordion-item-content">
+								<div class="block" style="margin-bottom: 5%">
+								  	<div class="list inline-labels no-hairlines-md">
+									  	<ul>
+											<li class="item-content item-input">
+											  	<div class="item-inner">
+													<div class="item-title item-label">Placa</div>
+													<div class="item-input-wrap">
+													  	<input type="text" placeholder="">
+													  	<span class="input-clear-button"></span>
+													</div>
+											  	</div>
+											</li>
+											<li class="item-content item-input">
+											  	<div class="item-inner">
+													<div class="item-title item-label">Marca</div>
+													<div class="item-input-wrap input-dropdown-wrap">
+													  	<select placeholder="Please choose...">
+															<option value="none"></option>
+													  	</select>
+													</div>
+											  	</div>
+											</li>
+											<li class="item-content item-input">
+											  	<div class="item-inner">
+													<div class="item-title item-label">Modelo</div>
+													<div class="item-input-wrap input-dropdown-wrap">
+													  	<select placeholder="Please choose...">
+															<option value="none"></option>
+													  	</select>
+													</div>
+											  	</div>
+											</li>
+											<li class="item-content item-input">
+											  <div class="item-inner">
+												<div class="item-title item-label">Cor</div>
+													<div class="item-input-wrap input-dropdown-wrap">
+													  	<select placeholder="Please choose...">
+															<option value="none"></option>
+													  	</select>
+													</div>
+											  </div>
+											</li>
+									  	</ul>
+									</div>
+								</div>
+							</div>
+						</li>
+					</ul>`);
+			});
+
+			
+		}else{
+			console.log("não possui ");
+		}
 	});
 }

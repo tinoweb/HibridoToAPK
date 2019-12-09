@@ -16,9 +16,13 @@ carregaInfoProfile = () => {
 	nomeMorador = nomeMorador.charAt(0).toUpperCase() + nomeMorador.slice(1);
  	blocoMorador = blocoMorador.charAt(0).toUpperCase() + blocoMorador.slice(1);
 	nomeCondominio = nomeCondominio.charAt(0).toUpperCase() + nomeCondominio.slice(1);
-
+	
+	nomeMorador_ = nomeMorador.substr(0, 20);
+	nomeMorador_ = nomeMorador_+'...';
+	
 	setTimeout(function() {
-		$("#moradorName, #nomeMorardorMenu").html(nomeMorador);
+		$("#moradorName").html(nomeMorador);
+		$("#nomeMorardorMenu").html(nomeMorador_);
 		$("#moradorBloco").html(blocoMorador);
 		$("#moradorApt").html(loteMorador);
 		$('.Perfil_user_foto').attr("src", img);
@@ -38,6 +42,7 @@ carrega_dados_and_info = (id_condominio) => {
         data       : { id_condominio : id_condominio, id_unidade_morador: id_unidade, getType: "parentes" },
         dataType   : 'json',
 		success: function(retorno){
+			console.log("dados info morador...");
 			$.each(retorno, function(index, el) {
 				$$("#familiares_morador").append( `<li class="accordion-item">
 					    <a class="item-content item-link" href="#">
@@ -98,7 +103,6 @@ carrega_dados_and_info = (id_condominio) => {
 }
 
 carrega_morador_dados = (id_morador) => {
-
 	var urlDominio = localStorage.getItem('IP_LOCAL')+'/controlcondo/v2/';
 	$.ajax({
 		type: 'POST',
@@ -109,10 +113,8 @@ carrega_morador_dados = (id_morador) => {
         data       : { id_condominio : localStorage.getItem("ID_CONDOMINIO"), id_morador : id_morador },
         dataType   : 'json',
 		success: function(retorno){
-
 			console.log(retorno);
-			console.log("deu certo....");
-			// return false;
+			console.log("carregando dados do morador....");
 
             let gernero = retorno[0]['masculino']==1? "Masculino" : "Feminino";
             let statusVisita = retorno[0]['perfil_statusVisita']==1? "Ativo" : "Inativo";
@@ -128,12 +130,11 @@ carrega_morador_dados = (id_morador) => {
 			$("#perfil_email").html(retorno[0]['email']);
 
 			console.log(retorno);
-			return false;
-			// alert(JSON.stringify(retorno));
-			// localStorage.getItem('ID_CONDOMINIO');
+			setProfileData(retorno, gernero, statusCondo, statusVisita);
+
 
 			if (retorno[0]['parentesco'] == 1) {
-				carrega_dados_and_info(retorno[0][id_condominio]);
+				carrega_dados_and_info(retorno[0]['id_condominio']);
 			}else{
 				$$(".hasFamilia").hide();
 			}
@@ -277,16 +278,60 @@ carrega_morador_dados = (id_morador) => {
 			// 	$("#voltar_morador").attr("onclick","afed('#moradores','#morador','','',2,'moradores');");
 			// 	afed('#morador','#moradores','','',2,'morador');
 			// }
-            
-        
         },
-        error: function() {
-            alerta(4);
-
+        error: function(error) {
+            // alerta(4);
+            alerta(JSON.stringify(error));
         }
 	});
-	// $('#bt_mor_atu').removeAttr('disabled');
+}
+
+setProfileData = (retorno, gernero, statusCondo, statusVisita) => {
+	localStorage.setItem('profile_rg', retorno[0]['rg']);
+	localStorage.setItem('profile_email', retorno[0]['email']);
+	localStorage.setItem('profile_gernero', gernero);
+	localStorage.setItem('profile_telefone', retorno[0]['telefone']);
+	localStorage.setItem('profile_nascimento', retorno[0]['nascimento']);
+	localStorage.setItem('profile_parentesco', retorno[0]['descricao']);
+	localStorage.setItem('profile_statusCondo', statusCondo);
+	localStorage.setItem('profile_statusVisita', statusVisita);
+}
+
+getProfileData = () => {
+	$("#perfil_rg").html(localStorage.getItem('profile_rg'));
+	$("#perfil_email").html(localStorage.getItem('profile_email'));
+	$("#perfil_gernero").html(localStorage.getItem('profile_gernero'));
+	$("#perfil_telefone").html(localStorage.getItem('profile_telefone'));
+	$("#perfil_nascimento").html(localStorage.getItem('profile_nascimento'));
+	$("#perfil_parentesco").html(localStorage.getItem('profile_parentesco'));
+	$("#perfil_statusCondo").html(localStorage.getItem('profile_statusCondo'));
+	$("#perfil_statusVisita").html(localStorage.getItem('profile_statusVisita'));
+}
+
+clearProfileData = () => {
+	localStorage.removeItem('profile_rg');
+	localStorage.removeItem('profile_email');
+	localStorage.removeItem('profile_gernero');
+	localStorage.removeItem('profile_telefone');
+	localStorage.removeItem('profile_nascimento');
+	localStorage.removeItem('profile_parentesco');
+	localStorage.removeItem('profile_statusCondo');
+	localStorage.removeItem('profile_statusVisita');	
 }
 
 
+///////////////////////////////////////////EDITAR PERFIL/////////////////////////////////////
 
+goToEditarPerfil = () => {
+	app.views.main.router.navigate("/perfil_editar/", {animate:true});
+	$$(document).on('page:init', '.page[data-name="pgEditarPerfilPasso1"]', function (e) {
+		console.log("debntro da editar perfil....");
+
+		$("#editarPerfil_rg").val(localStorage.getItem('profile_rg'));
+		$("#editarPerfil_cpf").val(localStorage.getItem('profile_cpf'));
+		$("#editarPerfil_sexo").val(localStorage.getItem('profile_gernero'));
+		$("#editarPerfil_nome").val(localStorage.getItem('MORADOR_NOME'));
+		// $("#editarPerfil_dataNascimento").val(localStorage.getItem('profile_rg'))
+
+	});
+}

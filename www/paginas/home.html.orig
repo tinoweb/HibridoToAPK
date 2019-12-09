@@ -1,4 +1,5 @@
 <div class="pages">
+<<<<<<< HEAD
     <div class="page" data-name="pgHome" data-page="home">
         <!--Menu Lateral Esquerdo-->
         <!-- data-swipe="false" SERVE PARA DESAILITAAR A AÇÃO DE AO PASSAR O DEDO ABRE O MENU-->
@@ -31,7 +32,6 @@
                             </div>
                         </div>
                     </div>
-                    
                     <div class="page-content">
                         <div class="list">
                             <ul>
@@ -73,7 +73,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="panel-close" href="/documentos/">
+                                    <a class="panel-close" href="/documentos/" onClick="carrega_documentos()">
                                         <div class="item-content list-button">
                                             <div class="item-media">
                                                 <i class="f7-icons " style="font-size: 20px">
@@ -261,8 +261,6 @@
             </div>
         </div>
         <!--FIM Menu Lateral Esquerdo-->
-        
-
         <!-- Menu TOP-->
         <div class="navbar">
             <div class="navbar-bg tema-azul">
@@ -324,6 +322,146 @@
                 </a>
             </div>
         </div>
+=======
+    <div data-page="home" class="page" data-name="pgHome">
+	
+	<!--Menu Lateral Esquerdo-->	
+	<!-- data-swipe="false" SERVE PARA DESAILITAAR A AÇÃO DE AO PASSAR O DEDO ABRE O MENU-->	
+	<div class="panel panel-left panel-cover theme-dark panel-init " data-swipe="false">
+		<div class="view">
+			<div class="page">
+				<div class="navbar">
+					<div class="navbar-bg"></div>
+					<div class="navbar-inner">
+						<div class="title perfil_condominio"></div> 
+					</div>
+					<div style="position: fixed;margin-top: 21%; background-color: black;width: 100%"> 
+						<div class="chip" >
+							<div class="chip-media">
+								<img src="https://blog.mensmarket.com.br/wp-content/uploads/2018/12/corte-de-cabelo-masculino-para-cada-tipo-de-rosto-1-1-486x600.jpg" class="user_foto">
+							</div>
+							<div  class="chip-label perfil_nome">Juliano Silveira</div>
+						</div>
+						<div style="position: fixed;margin-left: 81%; margin-top: -18%;color:white">
+							<a class="link panel-close" style="color: white" href="/perfil/"><i class="f7-icons"> bars</i></a>
+						</div>
+					</div>		
+				</div>
+				<div class="page-content">
+					<div class="list">
+					  <ul>
+						<li>
+						  <a class="panel-close" href="/areacomum/" onClick="carrega_areas()">
+							  <div class="item-content list-button">
+								<div class="item-media"><i class="f7-icons " style="font-size: 20px">calendar_badge_plus</i></div>
+								<div class="item-inner">
+								  <div class="item-title">Área Comun</div>
+								</div>
+							  </div>
+						  </a>
+						</li>
+						<li>
+						 <a class="panel-close" href="/comunicado/">
+						  <div class="item-content list-button">
+							<div class="item-media"><i class="icons material-icons" style="font-size: 20px">dvr</i> </div>
+							<div class="item-inner">
+							  <div class="item-title">Comunicado</div>
+							  <div class="item-after"> <span class="badge">5</span></div>
+							</div>
+						  </div>
+						 </a> 
+						</li>
+						<li>
+							<a class="panel-close" href="/documentos/">
+						  <div class="item-content list-button">
+							<div class="item-media"><i class="f7-icons "  style="font-size: 20px">doc_text_fil</i></div>
+							<div class="item-inner">
+							  <div class="item-title">Documentos </div>
+								<div class="item-after"><span class="badge">5</span></div>
+							</div>
+							 
+						  </div>
+						   </a>
+						</li>
+						<li>
+						  <div class="item-content list-button">
+							<div class="item-media"><i class="f7-icons "  style="font-size: 20px">videocam_fill</i></div>
+							<div class="item-inner">
+							  <div class="item-title">Camera </div>
+								
+							</div>
+						  </div>
+						</li>
+						<li>
+						   <a class="panel-close" href="/entregas/">
+						  <div class="item-content list-button">
+							<div class="item-media"><i class="f7-icons "  style="font-size: 20px">envelope_open_fill</i></div>
+							<div class="item-inner">
+							  <div class="item-title">Entregas</div>
+								<div class="item-after"><span class="badge">5</span></div>
+							</div>
+						  </div>
+							</a>
+						</li>
+						<li>
+						  <div class="item-content list-button">
+							<div class="item-media"><i class="f7-icons "  style="font-size: 20px">chart_pie_fill</i></div>
+							<div class="item-inner">
+							  <div class="item-title">Enquetes</div>
+								<div class="item-after"><span class="badge">5</span></div>
+							</div>
+						  </div>
+						</li>
+						<li>
+							<a class="panel-close" href="/liberacao/">
+						  <div class="item-content list-button" >
+							<div class="item-media">
+								<i class="f7-icons "  style="font-size: 20px">rectangle_stack_person_crop</i></div>
+							<div class="item-inner">
+							  <div class="item-title">Liberação</div>
+							</div>
+						  </div></a>
+						</li>
+						<li>
+						  <div class="item-content list-button">
+							<div class="item-media"><i class="icons material-icons" style="font-size: 20px">local_shipping</i> </div>
+							<div class="item-inner">
+							  <div class="item-title">Mudança</div>
+								<div class="item-after"><span class="badge">5</span></div>
+							</div>
+						  </div>
+						</li>
+						<li>
+						  <div class="item-content list-button">
+							<div class="item-media"><i class="f7-icons "  style="font-size: 20px">calendar_today</i></div>
+							<div class="item-inner">
+							  <div class="item-title">Minha Agenda</div>
+								<div class="item-after"><span class="badge">5</span></div>
+							</div>
+						  </div>
+						</li>
+   					    <li>
+						 <a class="panel-close" href="/pet/">
+						  <div class="item-content list-button">
+							<div class="item-media"><i class="f7-icons " style="font-size: 20px">dog</i></div>
+							<div class="item-inner">
+							  <div class="item-title">Pet's</div>
+							</div>
+						  </div>
+						 </a>
+						</li> 
+						<li>
+						 <a class="panel-close" href="/ocorrencia/">
+						  <div class="item-content list-button">
+							<div class="item-media"><i class="f7-icons " style="font-size: 20px">exclamationmark_triangle</i></div>
+							<div class="item-inner">
+							  <div class="item-title">Ocorrência</div>
+							  <div class="item-after"> <span class="badge">5</span></div>
+							</div>
+						  </div>
+						 </a>
+						</li>
+>>>>>>> c3768e3927c96a668adc4be2ab1fd016176c1b37
 
         <div class="page-content hide-toolbar-on-scroll">
             <div class="block-title" style="font-family:Rubik">

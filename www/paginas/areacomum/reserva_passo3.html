@@ -1,0 +1,98 @@
+<div class="pages">
+	<div data-page="home" class="page">
+        <div class="toolbar toolbar-bottom" style="background-color: #007aff">
+          <div class="toolbar-inner">
+            <a class="link"></a>
+            <a class="link" href="/minha_reserva/" onClick="salva_reserva();">Salvar</a>
+            <a class="link"></a>
+          </div>
+        </div>
+        <div class="navbar">
+            <div class="navbar-bg" style="background-color: #007aff" ></div>
+            <div class="navbar-inner sliding">
+                <div class="left">
+                    <a href="#" class="back link">
+                        <i class="icon icon-back"></i>
+                    </a>
+                </div>
+                <div class="title">
+                    <div class="title-text" style="color: white;">Confirma e Salva</div>
+                </div>
+            </div>
+        </div>	
+        <div class="page-content">
+            <div class="content-block" style="margin-top: -30px;">
+				<form class="list" id="add_reserva">
+				  <input type="hidden" name="tipo" id="add_reserva_tipo">
+				  <input type="hidden" name="id" id="add_reserva_id">
+				  <input type="hidden" name="data" id="add_reserva_dt">
+				  <ul>
+					<li>
+					  <div class="item-content item-input">
+						<div class="item-inner">
+						  <div class="item-title item-label">Data</div>
+						  <div class="item-input-wrap" id="add_reserva_data">
+							00/00/0000
+						  </div>
+						</div>
+					  </div>
+					</li>
+					<li>
+					  <div class="item-content item-input">
+						<div class="item-inner">
+						  <div class="item-title item-label">Hora Inicio</div>
+						  <div class="item-input-wrap">
+							<input type="time" name="inicio" id="add_reserva_hora_inicio" placeholder="Hora Inicio">
+						  </div>
+						</div>
+					  </div>
+					</li>
+					<li>
+					  <div class="item-content item-input">
+						<div class="item-inner">
+						  <div class="item-title item-label">Hora Fim</div>
+						  <div class="item-input-wrap">
+							<input type="time" name="fim" id="add_reserva_hora_fim" placeholder="Hora Fim">
+						  </div>
+						</div>
+					  </div>
+					</li>
+					<li>
+					  <div class="item-content item-input">
+						<div class="item-inner">
+						  <div class="item-title item-label">Valor</div>
+						  <div class="item-input-wrap" id="add_reserva_valor">
+						  </div>
+						</div>
+					  </div>
+					</li>
+					<li>
+					  <div class="item-content item-input">
+						<div class="item-inner">
+						  <div class="item-title item-label">Termo de Utilização</div>
+						  <div class="item-input-wrap">
+							<span style="width:100%;  overflow:auto;" id="add_reserva_termo"></span>
+						  </div>
+						</div>
+					  </div>
+					</li>
+					<li>
+					  <div class="item-content">
+						<div class="item-inner">
+						  <div class="item-title">Aceito os termos de utilização</div>
+						  <div class="item-after">
+							<label class="toggle toggle-init">
+							  <input type="checkbox" name="concordo" value="yes" id="concordo"><i class="toggle-icon"></i>
+							</label>
+						  </div>
+						</div>
+					  </div>
+					</li>
+				  </ul>
+				</form>			
+			</div>
+        </div>
+    </div>
+</div>
+
+

@@ -589,6 +589,7 @@ select_user = (id_usuario_condominio=0) => {
 			complete   : function() { $("#wait").css("display", "none"); },
 			success: function(retorno){
 				console.log(retorno);
+				console.log("vai para pagina home....");
 
                 if(retorno[0]['usar_control_condo'] == 1){
 					localStorage.setItem('IP_LOCAL',retorno[0]['ip_local']);
@@ -778,6 +779,9 @@ select_user = (id_usuario_condominio=0) => {
 			
                     app.views.main.router.navigate("/home/", {animate:true});
                     $$(document).on('page:init', '.page[data-name="pgHome"]', function (e) {
+                    	
+                    	console.log("negavar para pagina home....");
+						
 						app.actions.close('#multiProfileUser', true);
 						app.actions.close('.defineSenhaApp', true);
 						

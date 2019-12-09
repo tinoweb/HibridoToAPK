@@ -30,13 +30,15 @@ function carrega_documentos(){
 				
 			
 			var titulo = retorno[x]['titulo'];
+			var id_doc = retorno[x]['id_documento'];
 			titulo = limita_txt(titulo,20);				
 				
 		var tipo_arc =	retorno[x]['tipo2'];
 		var tipo =	tipo_arc.substr(tipo_arc.length - 3);
 		var tipo_dw =	tipo_arc.substr(6);
+				
 		var download_doc = localStorage.getItem('DOMINIO')+tipo_dw;
-	
+	//alert(localStorage.getItem('DOMINIO'));
 			if(tipo == 'pdf')
 			{
 				tipo = '<img src="img/pdf.png" width="44">';
@@ -64,7 +66,7 @@ function carrega_documentos(){
 				
 	//alert('\' '+localStorage.getItem('DOMINIO')+caminho[1]+fmt_lin(tipo_)+'\',\''+fmt_lin(tipo_)+'\',\''+retorno[x]['titulo']+'\' ');	
 				
-				dado = ' <li class="item-content" onclick="download_arquivos(1)" >'
+				dado = ' <li class="item-content" onclick="download_arquivos(\''+download_doc+'\',\''+id_doc+'\');" value="" >'
 				+'<div class="item-media">'+tipo+'</div>'
 				+' <div class="item-inner">'
 				+	'<div class="item-title-row">'
@@ -74,9 +76,13 @@ function carrega_documentos(){
 				
 				+	 '<label style="font-size: 10px;">Categoria : '+retorno[x]['descricao']+'</label>'
 				 +   ' <label style="font-size: 10px;margin-left: 10%">data: '+retorno[x]['data_criacao']+'</label> '
+					+'<div style="display: none" id="'+id_doc+'">'
+				+'	<label class="size-10">Baixando ...</label>'
+				+'	<span class="progressbar-infinite color-multi" ></span>'
+				+'</div>'
 				
 				+' </div>'
-				
+			
 			 +'</li>';
                 dados = dados + dado;
 			}
@@ -92,9 +98,9 @@ function carrega_documentos(){
         }
 	});	
 }
-function download_arquivos(path){
+function download_arquivos(path,id){
 	
-	//$('#downloadProgress').css({"display":"block"});
+	$('#'+id).css({"display":"block"});
   	//app2.progressbar.set('#status', "0");
 	alert(path);
     var fileTransfer = new FileTransfer();
@@ -102,19 +108,12 @@ function download_arquivos(path){
 	var statusDom    = document.querySelector('#status');
 	var filePath     = cordova.file.externalApplicationStorageDirectory+'Download/'+uri;
    
-	fileTransfer.onprogress = function(progressEvent) {
-		if (progressEvent.lengthComputable) {
-			var perc = Math.floor(progressEvent.loaded / progressEvent.total * 100);
-			statusDom.innerHTML = perc + "%...";
-			app2.progressbar.set('#status', perc);
-		}
-	};
-		
+
     fileTransfer.download(
         uri,
         filePath,
         function(entry) {
-			$('#downloadProgress').css({"display":"none"});
+			$('#'+id).css({"display":"none"});
             var ref = cordova.InAppBrowser.open(uri, '_system', 'location=yes');
 			//var ref = cordova.InAppBrowser.open(uri, '_blank', 'location=yes');
 			

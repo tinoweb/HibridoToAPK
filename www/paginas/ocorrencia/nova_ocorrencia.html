@@ -1,0 +1,334 @@
+<div class="pages">
+    <div data-page="chat" class="page">
+	 <div class="page">
+		  <!-- MENU -->
+		<div class="navbar" >
+			<div class="navbar-bg"></div>
+			<div class="navbar-inner sliding" style="background: linear-gradient(#0064c0, #007aff);">
+			  <div class="left">
+		
+			  </div>
+			  <div class="title" style="color: white">Nova Ocorrencia</div>
+			</div>
+		 </div>
+    	 <div class="page-content">
+	       <div class="tabs-animated-wrap" >
+            <div class="tabs" >	 
+		     <div id="tab-1" data-swipe="false" class="page-content tab tab-active" style=" margin-top: -20%;height: auto; overflow-x: hidden  !important" >			
+		      <div class="block">
+				<div class="navbar">
+					  <div class="navbar-inner">
+						<div class="left">
+						  <a class="link " href="/ocorrencia/">
+							<i class="f7-icons" style="color: #2b2b2b !important;" >arrow_left</i>
+						  </a>
+						</div>
+						<p class="size-15"> Passo 1/5</p>
+						<div class="right"></div>
+					  </div>
+			      </div>
+				<p style="padding: 0 20px;">
+				 <span data-progress="0" class="progressbar color-blue" id="demo-inline-progressbar">
+					 <span style="transform: translate3d(-90%, 0px, 0px);"></span>
+				 </span>
+			    </p>
+				<div class="card" style="background-color: #f5f5f5; width: 96%; margin-bottom: 5%">
+			 	  <div class="card-content card-content-padding" >
+				 	<p style="background-color: #f5f5f5">Descreva um título para sua nova ocorrência</p>	
+				  </div>
+				</div>
+				<div style="width: 100%">
+				  <div class="item-content item-input"style="width: 100%" >
+					 <div class="item-inner">
+						<div class="item-title item-label size-15"><b>Título</b></div>
+						 <div class="item-input-wrap"style="width: 100%"  >
+							 <input type="text" id="titulo_ocorrencia" onKeyUp="botao_proximo1()" name="name" style="width: 100%" placeholder="">
+						 </div>
+					 </div>
+				  </div>
+				</div>
+		      </div> 
+			  <div class="toolbar toolbar-bottom sem_shadownmenu" id="barra_proximo1" style="background: #919191; position: absolute;margin-top: 100%" >
+				  <a class="link tab-link" id="link1_ocr" data-transition="f7-push">
+					<div class="toolbar-inner">
+					   <label class="centralizar size-15" style="width: 100%"><b>Proximo</b> </label>
+					</div>
+				  </a>
+			  </div> 
+		     </div>
+		     <div id="tab-2" class="page-content tab" data-swipe="false" style=" margin-top: -20%;height: auto; overflow-x: hidden  !important">
+			 <div class="block">
+			  	 <div class="navbar">
+					<div class="navbar-inner">
+					   <div class="left">
+						  <a class="link tab-link" href="#tab-1">
+							<i class="f7-icons" style="color: #2b2b2b !important;" >arrow_left</i>
+						  </a>
+					   </div>
+					   <p class="size-15"> Passo 2/5</p>
+					   <div class="right"></div>
+					</div>
+			  	 </div>
+			     <p style="padding: 0 20px;">
+				   <span data-progress="25" class="progressbar color-blue" id="demo-inline-progressbar">
+					   <span style="transform: translate3d(-90%, 0px, 0px);"></span>
+				   </span>
+				   <div class="card" style="background-color: #f5f5f5; width: 96%; margin-bottom: 5%">
+				     <div class="card-content card-content-padding" >
+						 <p style="background-color: #f5f5f5">Selecione a categoria da sua ocorrência!</p>	
+				     </div>
+				   </div>
+			     </p>			   
+				 <div class="block block-strong">
+				   <div class="chip chip-outline" id="categoria1" onClick="selecionar_categoria(this.id)">
+					  <div class="chip-label" id="op_catg1">Regras</div>
+					 <input type="hidden" value="1">
+				   </div>
+				   <div class="chip chip-outline" id="categoria2" onClick="selecionar_categoria(this.id)">
+					  <div class="chip-label" id="op_catg2">Manutenção</div>
+					  <input type="hidden" value="2">
+				   </div>
+				   <div class="chip chip-outline" id="categoria3" onClick="selecionar_categoria(this.id)">
+					  <div class="chip-label" id="op_catg3">Sugestão</div>
+					  <input type="hidden" value="3">
+				   </div>
+				   <div class="chip chip-outline" id="categoria4" onClick="selecionar_categoria(this.id)">
+					  <div class="chip-label" id="op_catg4">Segurança</div>
+					  <input type="hidden" value="4">
+				   </div>
+				   <div class="chip chip-outline" id="categoria5" onClick="selecionar_categoria(this.id)">
+					  <div class="chip-label" id="op_catg5"> condulta de Visitante</div>
+					  <input type="hidden" value="5">
+				   </div>
+				   <div class="chip chip-outline" id="categoria6" onClick="selecionar_categoria(this.id)">
+					  <div class="chip-label" id="op_catg6"> Condulta de Prestador</div>
+					  <input type="hidden" value="6">
+				   </div>
+				   <div class="chip chip-outline" id="categoria7" onClick="selecionar_categoria(this.id)">
+					  <div class="chip-label" id="op_catg7">Barulho</div>
+					  <input type="hidden" value="7">
+				   </div>
+				   <div class="chip chip-outline" id="categoria8" onClick="selecionar_categoria(this.id)">
+					  <div class="chip-label" id="op_catg8">Limpeza</div>
+					  <input type="hidden" value="8">
+				   </div>
+				   <div class="chip chip-outline" id="categoria9" onClick="selecionar_categoria(this.id)">
+					  <div class="chip-label" id="op_catg9">Limite de Velocidade</div>
+					  <input type="hidden" value="9">
+				   </div>
+				   <div class="chip chip-outline" id="categoria10" onClick="selecionar_categoria(this.id)">
+					  <div class="chip-label" id="op_catg10">Jardinagem e Paisagismo</div>
+					  <input type="hidden" value="10">
+				   </div>
+				   <div class="chip chip-outline" id="categoria11" onClick="selecionar_categoria(this.id)">
+					   <div class="chip-label" id="op_catg11">Vandalismo</div>
+					   <input type="hidden" value="11">
+				   </div>
+				   <div class="chip chip-outline" id="categoria12" onClick="selecionar_categoria(this.id)">
+					   <div class="chip-label" id="op_catg12">Outros</div>
+					   <input type="hidden" value="12">
+				   </div>	
+					 <input type="hidden" id="cat_ocor_selec">
+				 </div>
+				</div>
+			     <div class="toolbar toolbar-bottom sem_shadownmenu " id="barra_proximo2" style="background: #919191; position: absolute;margin-top: 100%" >
+				  <a class="link tab-link" id="link2_ocr" data-transition="f7-push">
+					<div class="toolbar-inner">
+					    <label class="centralizar size-15" style="width: 100%"><b>Proximo</b> </label>
+					</div>
+				  </a>
+			     </div>			   
+		     </div>
+		     <div id="tab-3" class="page-content tab" style=" margin-top: -20%;height: auto; overflow-x: hidden !important">
+					<div class="block">
+			       <div class="navbar">
+					  <div class="navbar-inner">
+						<div class="left">
+						  <a class="link tab-link" href="#tab-2">
+							<i class="f7-icons" style="color: #2b2b2b !important;" >arrow_left</i>
+						  </a>
+						</div>
+						 <p class="size-15"> Passo 3/5</p>
+						<div class="right"></div>
+					  </div>
+			       </div>
+			      <p style="padding: 0 20px;">
+					 <span data-progress="50" class="progressbar color-blue" id="demo-inline-progressbar">
+						 <span style="transform: translate3d(-90%, 0px, 0px);"></span>
+					 </span>
+				     <div class="card" style="background-color: #f5f5f5; width: 96%; margin-bottom: 5%">
+				  	  <div class="card-content card-content-padding" >
+							 <p style="background-color: #f5f5f5">conte-nos um pouco mais sobre a sua ocorrência!</p>
+					  </div>
+					 </div>
+			      </p>			   
+				
+				  
+					
+					<div class="item-content item-input">
+					
+						<div class="item-inner"  style="width: 100%">
+						<div class="item-title item-label size-15"><b>Descrição</b></div>
+						<div class="item-input-wrap"  style="width: 100%">
+						<textarea rows="4" id="descricao_ocorrencia" onKeyUp="botao_proximo3()" style="width: 100%"></textarea>
+						</div>
+						</div>
+						</div>	
+				
+				
+			   </div>
+			   <div class="toolbar toolbar-bottom sem_shadownmenu " id="barra_proximo3" style="background: #919191; position: absolute;margin-top: auto" >
+				  <a class="link tab-link" id="link3_ocr" data-transition="f7-push">
+					<div class="toolbar-inner">
+					    <label class="centralizar size-15" style="width: 100%"><b>Proximo</b> </label>
+					</div>
+				  </a>
+			   </div>			   
+		     </div> 
+		     <div id="tab-4" class="page-content tab" style=" margin-top: -20%;height: auto; overflow-x: hidden !important">
+	  			  <div class="block">
+			      <div class="navbar">
+					  <div class="navbar-inner">
+						<div class="left">
+						  <a class="link tab-link" href="#tab-3">
+							<i class="f7-icons" style="color: #2b2b2b !important;" >arrow_left</i>
+						  </a>
+						</div>
+						<p class="size-15"> Passo 4/5</p>
+						<div class="right"></div>
+					  </div>
+			      </div>
+			   <p style="padding: 0 20px;">
+				 <span data-progress="75" class="progressbar color-blue" id="demo-inline-progressbar">
+					 <span style="transform: translate3d(-90%, 0px, 0px);"></span>
+				 </span>
+			   </p>
+			   <div class="card" style="background-color: #f5f5f5; width: 96%; margin-bottom: 5%">
+			  	  <div class="card-content card-content-padding" >
+				   
+				   <p >Adicione até 3 fotos para complementar sua ocorrência</p>
+				   <p >Caso não necessite de fotos nesta ocorrência  maque a opção <b>Sem imagens</b></p>
+				  </div>
+			   </div>
+				<div class="row" style="margin-bottom: 5%">
+				 <div class="col" style="height: 80px; background-color:#f5f5f5 " ><i class="f7-icons" style=" padding-top: 22%; padding-left: 37%;">camera</i></div>
+				 <div class="col" style="height: 80px; background-color:#f5f5f5"><i class="f7-icons" style=" padding-top: 22%; padding-left: 37%;">camera</i></div>
+				 <div class="col" style="height: 80px; background-color:#f5f5f5"><i class="f7-icons" style=" padding-top: 22%; padding-left: 37%;">camera</i></div>
+				</div>
+			  <div class="list media-list"  onClick="botao_proximo4();$('#check_img').click();">
+			  <ul>
+			  <li>
+				<div class="item-content">
+				 
+				 <div class="item-inner">
+				   <div class="item-after">
+					<label class="toggle toggle-init" onclick="botao_proximo4();$('#check_img').click();">
+					 <input type="checkbox" id="check_img" onclick="botao_proximo4(); $('#check_img').click();">
+					 <span class="toggle-icon"></span>
+					</label>
+					  <p class="size-15" style="margin-left: 2%" >Sem Imagens</p>  
+				   </div>
+				 
+				 </div>
+				
+				</div>    
+			  </li>
+			  </ul>
+			  </div>
+				 </div>
+			   <div class="toolbar toolbar-bottom sem_shadownmenu" id="barra_proximo5" style="background: #919191; position: absolute;margin-top: 100%" >
+				  <a class="link tab-link" id="link5_ocr" data-transition="f7-push">
+					<div class="toolbar-inner">
+					    <label class="centralizar size-15" style="width: 100%"><b>Proximo</b> </label>
+					</div>
+				  </a>
+			   </div>			  
+		     </div> 
+			 <div id="tab-5" class="page-content tab" style=" margin-top: -20%;height: auto; overflow-x: hidden !important">
+			   	  	<div class="block">		  
+			      <div class="navbar">
+					  <div class="navbar-inner">
+						<div class="left">
+						  <a class="link tab-link" href="#tab-4">
+							<i class="f7-icons" style="color: #2b2b2b !important;" >arrow_left</i>
+						  </a>
+						</div>
+						<p class="size-15"> Passo 5/5</p>
+						<div class="right"></div>
+					  </div>
+			      </div>
+			   <p style="padding: 0 20px;">
+				 <span data-progress="100" class="progressbar color-blue" id="demo-inline-progressbar">
+					 <span style="transform: translate3d(-90%, 0px, 0px);"></span>
+				 </span>
+			   </p>
+			   <div class="card" style="background-color: #f5f5f5; width: 96%; margin-bottom: 5%">
+			  	  <div class="card-content card-content-padding" >
+				   <p >Ultima etapa!</p>
+				   <p >Verifique se tudo que foi preenchido está de acordo.</p>
+				   
+				  </div>
+			   </div>
+				 
+				 <div class="block block-strong" >
+					 <label style="color: gray"><b>Título</b></label><br>
+					 <p style="color: gray" id="resultado_titulo"></p>
+
+
+					 <label  style="color: gray"  class="color-theme-gray"><b>Categoria</b></label><br>
+					 <p  style="color: gray" class="color-gray" id="resultado_categoria"></p>
+
+
+					<label  style="color: gray"  class="size-15"><b>Descrição</b></label><br> 
+					 <p style="color: gray" id="resultado_descricao"></p>
+				 </div>
+					 
+				 
+				 
+				 
+				 <div data-pagination='{"el": ".swiper-pagination"}' data-space-between="20" data-slides-per-view="2" class="swiper-container swiper-init demo-swiper">
+				  <div class="swiper-pagination"></div>
+				  <div class="swiper-wrapper">
+						<div class="swiper-slide" style="height: 170px;width: 50px; background-image: url(https://cdn.pixabay.com/photo/2015/08/08/22/40/water-pipe-880975_960_720.jpg);background-size: 90%;background-repeat: no-repeat;background-position: center center"></div>
+						<div class="swiper-slide" style="height: 170px;width: 50px; background-image: url(https://cdnstatic8.com/encanador.srv.br///wp-content/uploads/2019/06/conserto-vazamento-de-agua.jpg);background-size: 90%;background-repeat: no-repeat;background-position: center center"></div>
+						<div class="swiper-slide" style="height: 170px;width: 50px; background-image: url(https://cdn.pixabay.com/photo/2015/08/08/22/40/water-pipe-880975_960_720.jpg);background-size: 90%;background-repeat: no-repeat;background-position: center center"></div>
+
+		       </div>
+				</div>
+			  <div class="list media-list">
+			  <ul>
+			  <li onClick="liberar_salvar(); $('#check_resumo').click();">
+				<div class="item-content">
+				 
+				 <div class="item-inner">
+				   <div class="item-after"  >
+					<label class="toggle toggle-init" onClick="liberar_salvar(); $('#check_resumo').click();">
+					 <input type="checkbox" id="check_resumo" onClick="liberar_salvar(); $('#check_resumo').click();">
+					 <span class="toggle-icon"></span>
+					</label>
+					  <p class="size-15" style="margin-left: 2%" >Estou de acordo</p>  
+				   </div>
+				 
+				 </div>
+				
+				</div>    
+			  </li>
+			  </ul>
+			  </div>						
+						
+						
+				 </div>
+			   <div class="toolbar toolbar-bottom sem_shadownmenu" id="salvar_btn" style="background: #919191; " >
+				  <a class="link" id="salvar_ocr_link" data-transition="f7-push">
+					<div class="toolbar-inner">
+					    <label class="centralizar size-15" style="width: 100%"><b>Salvar</b> </label>
+					</div>
+				  </a>
+			   </div>			  
+		     </div> 
+            </div>
+	       </div>
+    	 </div>	
+	 </div>	
+    </div>	
+</div>	

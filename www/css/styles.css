@@ -19,7 +19,12 @@
 }
 .tema-azul
 {
-background: linear-gradient(#0064c0, #007aff);	
+background: linear-gradient(#0064c0, #007aff) !important;	
+}
+.sem_shadownmenu
+{
+--f7-toolbar-bottom-shadow-image: white !important;	
+--f7-toolbar-top-shadow-image: white !important;	
 }
 .list input[type=datetime-local]{max-width:100% !important}
 /*FONT SIZE*/
@@ -183,6 +188,18 @@ background: linear-gradient(#0064c0, #007aff);
 .left-10{
   position: relative;
   left: 10px !important;
+}
+.moradorBloco{
+  text-transform: capitalize;
+}
+.customFechar{
+    border: solid 1px #2196f3;
+    border-radius: 50px;
+    font-weight: bold;
+    background-color: #00000030;
+    margin-right: 14px;
+    height: 27px !important;
+    width: 27px !important;
 }
 
 /*************************** Area Comum *****************************************/

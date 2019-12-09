@@ -9,16 +9,30 @@
     <link rel="stylesheet" href="lib/framework7/css/framework7.bundle.min.css">
     <link rel="stylesheet" href="lib/framework7/css/framework7-icons.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	  <link rel="stylesheet"href="https://fonts.googleapis.com/css?family=Tangerine">
     <link rel="stylesheet" href="css/styles.css">
 	 
-	<script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
-	<script type="text/javascript" src="cordova.js"></script>	  
-	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	  
+	  <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
+	  <script type="text/javascript" src="cordova.js"></script>	  
+	  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	  
 	  <!--JS DE PET-->
 	  <script type="text/javascript" src="paginas/pet/js/pet.js"></script>
-	  
+	  <!--JS DE OCORRENCIA-->
+	  <script type="text/javascript" src="paginas/ocorrencia/js/ocorrencia.js"></script>
+	   <!--JS DE LIBERAÇÃO E VISITANTE-->
+	  <script type="text/javascript" src="paginas/liberacao/js/liberacao_visita.js"></script>
+	  <script type="text/javascript" src="paginas/liberacao/js/visitante.js"></script>
+	   <!--JS DE PERFIL -->
+	  <script type="text/javascript" src="paginas/perfil/perfil.js"></script>
+	  <!--JS DE LOGIN-->
+    <script type="text/javascript" src="paginas/login/loginAtivation.js"></script>
+    <!--JS DE ENTREGAS-->
+    <script type="text/javascript" src="paginas/entregas/entregas.js"></script>
+ 	  <!--JS DE HOME-->
+    <script type="text/javascript" src="paginas/home.js"></script>
+
+
   </head>
 
   <body>
@@ -33,7 +47,7 @@
                 <div id="formInit" class="form-signin" style="top: 64px;position: relative;padding: 15px 14px;"> 
                   <div class="row" style="position: relative; padding: 12px;">
                     <div class="col-100">
-                      <button class="col button button-raised button-fill color-white button-outline button-large text-color-gray" onclick="swich_tela_login();">Entrar com e-mail</button>
+                      <button class="col button button-raised button-fill color-white button-outline button-large text-color-gray" onclick="swich_tela_login()">Entrar com e-mail</button>
                     </div>
                     <div class="col-50" style="position: relative;top: 14px;">
                       <button class="col button button-raised button-fill color-blue button-large" onclick="loginFB()" name="entrar"> <img class="socialMidiaIcon" src="img/icons/face_white.png" width="18" height="18" alt=""> Facebook</button>
@@ -53,19 +67,36 @@
     </div>
     
     <script type="text/javascript" src="lib/framework7/js/framework7.bundle.min.js"></script>
-    <script type="text/javascript" src="paginas/login/loginAtivation.js"></script>
     <script type="text/javascript" src="js/my-app.js"></script>
     <script type="text/javascript" src="js/geral.js"></script>
     <script type="text/javascript" src="paginas/areacomum/js/area_comum.js"></script>
     <script type="text/javascript" src="js/login/loginAtivation.js"></script>
     <script type="text/javascript" src="paginas/perfil/perfil.js"></script>
-    
+    <script type="text/javascript" src="js/html2canvas.js"></script>
+    <script type="text/javascript" src="js/jquery.classyqr.js"></script>
+	  <script src="js/jquery.qrcode.js"></script>
+	  <script src="js/qrcode.js"></script>
+	<script src="js/jquery.mask.min.js"></script>
+	  
   	<script type="text/javascript">
   		document.addEventListener("deviceready",onDeviceReady,false);
-  		function onDeviceReady() {
+  		
+      function onDeviceReady() {
   			app2.initialize();
+
+
+        
   		}
+
   	</script>
   </body>
 </html>
 
+<!-- // alert("entrou na condição do codigo recebido apos cadastro...." + resultado[1]); -->
+<!-- // console.log(resultado);
+// console.log(resultado[0]);
+// console.log(resultado[1]); -->
+<!-- // alert("Codigo de Recuperacao de senha => " +resultado[1]);
+// alert("passou da funcao confirmaCodeResetPassword");
+// console.log("enviar esses codigo para validação e se valido envhaminhar para setar nova senha");
+// alert("Entrou no else nehuma condicao acima certo..."); -->

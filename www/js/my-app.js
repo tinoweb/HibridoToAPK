@@ -1,6 +1,13 @@
 var $$ = Dom7;
 
 // Initialize app
+
+//localStorage.setItem('ID_CONDOMINIO','26');
+//localStorage.setItem('ID_MORADOR','134');
+//localStorage.setItem('ID_UNIDADE','142');
+
+//localStorage.setItem('DOMINIO','https://www.controlcondo.com.br/controlcondo/v2/')
+
 var app = new Framework7({
   root: '#app', 
   name: 'My App',
@@ -56,6 +63,18 @@ var app = new Framework7({
     {
       path: '/minha_reserva/',
       url: 'paginas/areacomum/minha_reserva.html',
+    },
+    {
+      path: '/reserva_1/',
+      url: 'paginas/areacomum/reserva_passo1.html',
+    },
+    {
+      path: '/reserva_2/',
+      url: 'paginas/areacomum/reserva_passo2.html',
+    },
+    {
+      path: '/reserva_3/',
+      url: 'paginas/areacomum/reserva_passo3.html', 
     },
     {
       path: '/documentos/',

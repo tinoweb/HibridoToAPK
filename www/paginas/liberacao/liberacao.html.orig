@@ -1,14 +1,21 @@
 <div class="pages">
     <div class="page" data-name="PgLiberacao" data-page="">
         <div class="toolbar toolbar-bottom tema-azul">
-            <div class="toolbar-inner">
+<<<<<<< HEAD
+          <div class="toolbar-inner">
             <a class="link" onClick="carregar_todos_selects()" href="/lib_1/">Nova Liberação</a>
-                   
+            <a class="link" href="/lib_acessos/">Últimos Acessos</a>
+          </div>
+=======
+            <div class="toolbar-inner">
+                <a class="link" href="/lib_1/">
+                    Nova Liberação
                 </a>
                 <a class="link" href="/lib_acessos/">
                     Últimos Acessos
                 </a>
             </div>
+>>>>>>> 7c6a994eb08bbcab06154c8a9b3d5093343a1b9d
         </div>
         <div class="page-content hide-toolbar-on-scroll">
             <div class="navbar navbar-large" style="--f7-navbar-large-collapse-progress: 1 ;">
@@ -16,7 +23,7 @@
                 </div>
                 <div class="navbar-inner">
                     <div class="left">
-                        <a href="/home/" class=""  href="#">
+                        <a class="" onclick="goBack()" href="#">
                             <i class="icon icon-back">
                             </i>
                         </a>

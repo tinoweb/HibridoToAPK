@@ -28,9 +28,7 @@
 	  <!--JS DE LOGIN-->
     <script type="text/javascript" src="paginas/login/loginAtivation.js"></script>
     <!--JS DE ENTREGAS-->
-    <script type="text/javascript" src="paginas/entregas/entregas.js"></script> 
-	 <!--JS DE DOCUMENTOS-->
-    <script type="text/javascript" src="paginas/documentos/js/documentos.js"></script>
+    <script type="text/javascript" src="paginas/entregas/entregas.js"></script>
  	  <!--JS DE HOME-->
     <script type="text/javascript" src="paginas/home.js"></script>
 
@@ -70,24 +68,42 @@
     
     <script type="text/javascript" src="lib/framework7/js/framework7.bundle.min.js"></script>
     <script type="text/javascript" src="js/my-app.js"></script>
-    <script type="text/javascript" src="js/geral.js"></script>
-    <script type="text/javascript" src="paginas/areacomum/js/area_comum.js"></script>
-    <script type="text/javascript" src="js/login/loginAtivation.js"></script>
-    <script type="text/javascript" src="paginas/perfil/perfil.js"></script>
     <script type="text/javascript" src="js/html2canvas.js"></script>
     <script type="text/javascript" src="js/jquery.classyqr.js"></script>
 	  <script src="js/jquery.qrcode.js"></script>
-	  <script src="js/qrcode.js"></script>
+<<<<<<< HEAD
+	<script src="js/qrcode.js"></script>
 	<script src="js/jquery.mask.min.js"></script>
+=======
+	  <script src="js/qrcode.js"></script>
+>>>>>>> 7c6a994eb08bbcab06154c8a9b3d5093343a1b9d
 	  
   	<script type="text/javascript">
   		document.addEventListener("deviceready",onDeviceReady,false);
   		
       function onDeviceReady() {
   			app2.initialize();
-
-
         
+        let url = "mycoolapp://auth?recoveryPassword=a5e2526ace5653430da7567e21fab765";
+        // handleOpenURL(url);
+
+        function handleOpenURL(url) {
+          setTimeout(function() {
+            resultado = url.split("=");
+
+            if (resultado[0] == "mycoolapp://auth?codigo") {
+              localStorage.setItem("ativacaoCode", resultado[1]);
+              app.views.main.router.navigate("/receveAtivationCode/", '.page[data-name="pgAtivationCode"]', {animate:true, transition: 'f7-dive'});
+              $$(document).on('page:init', '.page[data-name="pgAtivationCode"]', function (e) {
+                $("#codigoAtivacao").val(resultado[1]);
+              });
+            }
+            else if(resultado[0] == "mycoolapp://auth?recoveryPassword"){
+              let recoveryCode = resultado[1];
+              confirmaCodeResetPassword(recoveryCode);
+            }
+          }, 1000);
+        }
   		}
 
   	</script>

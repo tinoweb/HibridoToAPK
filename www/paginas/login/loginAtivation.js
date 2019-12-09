@@ -32,7 +32,7 @@ swich_tela_login_recuperaSenha = (email_recupera) => {
 		  closeOnEscape: false
 		});
 		app.sheet.open('.loginApp', true);
-		app.sheet.close('.loginApp', true);
+		app.sheet.close('.loginApp', true);a
 
 		app.sheet.create({
 		  el: '.recuperaSenha',
@@ -174,11 +174,11 @@ login_user = (e, logarDaValidacao=null) => {
 			crossDomain: true,
 			beforeSend : function() { $("#wait").css("display", "block"); },
 			complete   : function() { $("#wait").css("display", "none"); },
-            dataType   : 'json',
+           // dataType   : 'json',
 			data: dados+'&nome='+device.model+'&sistema='+device.platform+'&uuid='+UUID+'&versao='+device.version+'&id_notificacao='+localStorage.getItem('registrationId'), //APP
 			success: function(retorno){
-				console.log(retorno);
-
+				//console.log(retorno);
+					//alert(retorno);
 				if(retorno[0]['error'] == 1){
 					alerta("Falha ao Entrar", "Usuário ou senha inválida", );
 				}else{
@@ -215,12 +215,13 @@ login_user_device = (autoInit=null) => {
 			beforeSend : function() { $("#wait").css("display", "block"); },
 			complete   : function() { $("#wait").css("display", "none"); },
             data       : {uuid : UUID, id_notificacao : localStorage.getItem('registrationId')}, //APP
-            dataType   : 'json',
+           // dataType   : 'json',
             success    : function(retorno) {
-				console.log("retorno do login.....===>>>");
-				console.log(retorno);
+				//console.log("retorno do login.....===>>>");
+				//console.log(retorno);
 				// return false;
-
+					
+				
 				if(retorno[0]['error'] == 0){
 					if(retorno[0]['VERSAO'] == localStorage.getItem('VERSAO')){
 						if(retorno[0]['perfil'] > 1){
@@ -614,7 +615,7 @@ select_user = (id_usuario_condominio=0) => {
                     localStorage.setItem('ID_CONDOMINIO',retorno[0]['id_condominio']);
 					localStorage.setItem('QTD_CONTROL_CONDO',retorno[0]['qtd_control_condo']);
                     localStorage.setItem('TIPO_BUSCA_VISITANTE',retorno[0]['tipo_busca_visitante']);
-
+						
                     if(retorno[0]['tipo_busca_visitante'] == 0){
                     	// descomentar e rever corretamente ======>>>
                         // afed('#btipo_nome','#btipo_rg','','',3,'home');

@@ -9,6 +9,44 @@ function form_data(val){
     return val2;
 }
 
+function alerta(tipo,valor="",time=2000){
+	
+	let icon = "";
+	let msg  = "";
+	
+	if(tipo==1){
+		icon = '<i class="fa fa-check-square"></i>';
+		msg  = "Salvo com sucesso";
+    }else
+	if(tipo==2){
+	    icon = '<i class="fa fa-check"></i>';
+		msg  = "Alterado com sucesso";
+	}else
+	if(tipo==3){
+		icon = '<i class="fa fa-close"></i>';
+		msg  = "Excluido com sucesso";
+	}else
+	if(tipo==4){
+		icon = '<i class="fa fa-exclamation-triangle"></i>';
+		msg  = "Erro, tente novamente";
+	}else{
+		
+		icon = '<i class="fa fa-info"></i>';
+		msg  = valor;
+	}
+		
+	/* Estancia objeto e chama o metodo para exibir mensagem */
+	var toastIcon = app.toast.create({
+	  icon: icon,
+	  text: msg,
+	  position: 'center',
+	  closeTimeout: time,
+	});
+
+    toastIcon.open();
+	
+}
+
 //function aguarde(status){
 //	if(status == 1){
 //		$( "#wait" ).css("display","block");
@@ -201,43 +239,6 @@ function form_data(val){
 //	/*$("#visitante #rg").mask("99.999.999-9");*/
 //},3000);
 //
-//function alerta(tipo,valor="",time=2000){
-//	
-//	let icon = "";
-//	let msg  = "";
-//	
-//	if(tipo==1){
-//		icon = '<i class="fa fa-check-square"></i>';
-//		msg  = "Salvo com sucesso";
-//    }else
-//	if(tipo==2){
-//	    icon = '<i class="fa fa-check"></i>';
-//		msg  = "Alterado com sucesso";
-//	}else
-//	if(tipo==3){
-//		icon = '<i class="fa fa-close"></i>';
-//		msg  = "Excluido com sucesso";
-//	}else
-//	if(tipo==4){
-//		icon = '<i class="fa fa-exclamation-triangle"></i>';
-//		msg  = "Erro, tente novamente";
-//	}else{
-//		
-//		icon = '<i class="fa fa-info"></i>';
-//		msg  = valor;
-//	}
-//		
-//	/* Estancia objeto e chama o metodo para exibir mensagem */
-//	var toastIcon = app2.toast.create({
-//	  icon: icon,
-//	  text: msg,
-//	  position: 'center',
-//	  closeTimeout: time,
-//	});
-//
-//    toastIcon.open();
-//	
-//}
 //function alerta_callback(tipo,valor="",time=2000){
 //	
 //	let icon = "";

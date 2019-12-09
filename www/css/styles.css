@@ -240,5 +240,20 @@ background: linear-gradient(#0064c0, #007aff);
   color: #81848b;
 }
 
+.hora{
+	width:100%;
+	height:22px;
+	float:left;
+	margin:0;
+	/*border:1px solid #666;
+	border-left: 4px solid;*/
+	text-align:center;
+	font-size:13px;
+	background-color:#ee5569;
+	color: black;
+	padding-top: 4px;
+    border-radius: 15px;
+	margin-bottom: 1px;
+}
 /*********************************************************/
 

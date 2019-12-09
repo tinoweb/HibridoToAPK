@@ -16,156 +16,375 @@
 		</div>
 	  </div>
 	  <!-- MENU --> 
-		 
-	 
-		  <div class="fab fab-right-bottom fab-morph" data-morph-to=".demo-fab-sheet.fab-morph-target" style="opacity: 1;">
-			<a href="#" class="">
-			<i class="icon material-icons md-only">add</i>
-			</a>
-		 </div>		 
-<div class="list links-list demo-fab-sheet fab-morph-target" style="margin-bottom: -25%;margin-top: 15%;z-index: 999999">
-
-	<div class="block" style="background-color: white">
-					  <div class="item-content item-input" >
-						<div class="item-inner">
-						  <div class="item-title item-label">Título</div>
-						  <div class="item-input-wrap">
-							<input type="text" name="nome" placeholder="Buscar por Título">
-						  </div>
-						</div>
-					  </div>
-					<li class="item-content item-input item-input-with-value">
-					  <div class="item-inner">
-						<div class="item-title item-label">Categoria</div>
-						<div class="item-input-wrap input-dropdown-wrap">
-						  <select name="gender" placeholder="Please choose..." class="input-with-value">
-						    <option value="Male">Ata</option>
-						    <option value="Female">Construção</option>
-						    <option value="Female">Contratos</option>
-						    <option value="Female">Regras</option>
-						  </select>
-						</div>
-					  </div>
-					</li>
-					  <div class="item-content item-input">
-						<div class="item-inner">
-						  <div class="item-title item-label">De</div>
-						  <div class="item-input-wrap">
-							<input type="datetime-local" style="width: 100%" placeholder="Please choose...">
-						  </div>
-						</div>
-					  </div>
-
-					  <div class="item-content item-input">
-						<div class="item-inner">
-						  <div class="item-title item-label">Até</div>
-						  <div class="item-input-wrap"  style="width: 100%">
-							<input type="datetime-local" placeholder="Please choose...">
-						  </div>
-						</div>
-					  </div>
-
-		
-		
-		<button type="button" class="col button button-fill color-green fab-close"><i class="f7-icons">doc_text_search</i> Buscar</button>
-	</div>
-</div>			 
-		 
+	  <div class="fab fab-right-bottom color-blue">
+		<a href="#" class="">
+		    <i class="material-icons" id="botao_ocorrencia_mais">add</i>
+		    <i class="material-icons">close</i>
+		</a>
+		<div class="fab-buttons fab-buttons-top">
+		  <a id="link-ocorr" class="fab-label-button fab-buttons-left tab-link" onClick="abas_ocorr()" href="#tab-2" style="margin-left: 100%;margin-top: 0%;">
+		     <input type="hidden" id="valor_tab" value="1">
+		     <span class="f7-icons" >exclamationmark_octagon</span>
+		     <span class="fab-label">Minhas Ocorrência</span>
+		  </a>	
+		  <a  class="fab-label-button fab-buttons-bottom tab-link"   href="/nova_ocorrencia/">
+		     <span class="f7-icons"  >plus</span>
+		     <span class="fab-label">Cadastrar</span>
+		  </a>
+		  <div class="fab fab-top fab-morph" data-morph-to=".demo-fab-sheet.fab-morph-target" style="opacity: 1;position: absolute;margin-top: -55px;">
+		     <a class="fab-label-button" href="#">
+		     <span class="f7-icons">search</span>
+		     <span class="fab-label">Filtro</span>
+		     </a>
+		  </div>			   
+		</div>
+	  </div>	 
+	  <div class="list links-list demo-fab-sheet fab-morph-target" style="margin-bottom: -25%;margin-top: 15%;z-index: 999999">
+		<div class="block" style="background-color: white">
+			<div class="item-content item-input" >
+			   <div class="item-inner">
+			     <div class="item-title item-label">Título</div>
+			     <div class="item-input-wrap">
+			        <input type="text" name="nome" placeholder="Buscar por Título">
+			     </div>
+			   </div>
+			</div>
+			<li class="item-content item-input item-input-with-value">
+			   <div class="item-inner">
+			     <div class="item-title item-label">Categoria</div>
+			     <div class="item-input-wrap input-dropdown-wrap">
+			       <select name="gender" placeholder="Please choose..." class="input-with-value">
+						<option value="Male">Ata</option>
+						<option value="Female">Construção</option>
+						<option value="Female">Contratos</option>
+						<option value="Female">Regras</option>
+				   </select>
+			     </div>
+			   </div>
+			</li>
+			<div class="item-content item-input">
+			   <div class="item-inner">
+			     <div class="item-title item-label">De</div>
+			     <div class="item-input-wrap">
+					<input type="datetime-local" style="width: 100%" placeholder="Please choose...">
+			     </div>
+			   </div>
+			</div>
+			<div class="item-content item-input">
+			   <div class="item-inner">
+			     <div class="item-title item-label">Até</div>
+			     <div class="item-input-wrap"  style="width: 100%">
+			        <input type="datetime-local" placeholder="Please choose...">
+			     </div>
+			   </div>
+			</div>
+			<button type="button" class="col button button-fill color-green fab-close" onClick="buscar_ocorrencia()"><i class="f7-icons">doc_text_search</i> Buscar</button>
+		</div>
+	  </div>			 
 	  <div class="page-content">
-		<div class="card demo-facebook-card">
-		  <div class="card-header">
-			<div class="list accordion-list" style="width: 100%">
-			  <ul>
-				<li class="accordion-item">
-				 <a href="#" class="item-content item-link">
-					  <div class="item-media">
+		<div class="tabs-animated-wrap" >
+          <div class="tabs" data-swipe="false">	 
+		   <div id="tab-01" class="page-content tab tab-active" style=" margin-top: -20%;height: auto;" >  
+		    <div class="card demo-facebook-card">
+		  	  <div class="card-header">
+				<div class="list accordion-list" style="width: 100%">
+				  <ul>
+					<li class="accordion-item">
+					 <a href="#" class="item-content item-link">
+					   <div class="item-media">
 						 <div class="item-media">
 							<img src="https://c.pxhere.com/photos/e8/60/smile_profile_face_male_portrait_young_person_glasses-451653.jpg!d" width="40">
-						  </div>
-					  </div>
-					  <div class="item-inner">
-						 <div class="item-title"> João da Silva Nascimento
-							<p class="size-10">Sindico</p>
 						 </div>
-					  </div>
-					</a>
-					<div class="accordion-item-content">
-							<div class="block" style="margin-bottom: 5%">
-								<div class="navbar">
-									<div class="navbar-inner">
-										<div class="left">
-											<a class="link color-theme-green size-10 "  data-transition="f7-circle"  href="/chat1/"> <i class="f7-icons" style="color:green" >chat_bubble_text</i>  Conversar  </a>
-										</div>
-										<div class="right">
-											<a class="link color-theme-blue size-10" href="/perfil/"> <i class="f7-icons" style="color:blue" >person_crop_circle_badge_exclam </i>  Perfil  </a>
-										</div>
- 
-									</div>
-								</div>
-							</div>
-				    </div>
-				</li>
-			  </ul>
-			</div>
-		  </div>
-		  <div class="card-content card-content-padding">
-
-            <div style="text-align: -webkit-center;">
-               <div class="chip color-green" >
-                  <div class="chip-label">Falta de água</div>
-               </div>
-            </div>
-            <p class="date">Postado em 21 de Fevereiro 2019</p>
-            <div class="list accordion-list">
-			   <ul>
-			     <li class="accordion-item">
-				   <a href="#" class="item-content item-link">
-				     <div class="item-inner">
-					    <div class="item-title"><p class="size-10">Semana que vem n...</p> </div>
-						 <i class="size-15  f7-icons" style="color: darkgreen">checkmark_alt_circle</i>
-				     </div>
-				   </a>
-				   <div class="accordion-item-content">
-					 <div class="block">
-					    <p>Semana que vem estaremos realizando uma manutenção na rede de abastecimento de água e por este motivo, informamos que podera ocorrer de alguns blocos ficarem sem água durante o dia, com o retorno as 18 horas.
-								Pedimos a compreenção de todos, pois estamos buscando sempre o melhor para a vivencia no condomínio.<br>
-								Qualquer duvida, deixe um comentario ou entre contato com a administração através do chat ou ligue no (19)99999-4444	
-					    </p>
+					   </div>
+					   <div class="item-inner">
+					     <div class="item-title"> João da Silva Nascimento
+							<p class="size-10">Sindico</p>
+					     </div>
+					   </div>
+					 </a>
+					 <div class="accordion-item-content">
+					   <div class="block" style="margin-bottom: 5%">
+					      <div class="navbar">
+					        <div class="navbar-inner">
+					           <div class="left">
+									<a class="link color-theme-green size-10 "  data-transition="f7-circle"  href="/chat1/"> 
+									  <i class="f7-icons" style="color:green" >chat_bubble_text</i>  Conversar
+								    </a>
+					           </div>
+					           <div class="right">
+					              <a class="link color-theme-blue size-10" href="/perfil/"> 
+								     <i class="f7-icons" style="color:blue" >person_crop_circle_badge_exclam </i>  Perfil 
+								  </a>
+					           </div>
+					        </div>
+					      </div>
+					   </div>
 					 </div>
+					</li>
+				  </ul>
+				</div>
+		  	  </div>
+		  	  <div class="card-content card-content-padding">
+				<label class="size-10">N° 2090</label>
+				<div style="text-align: -webkit-center;">
+				   <div class="chip color-orange" >
+					  <div class="chip-label">Falta de água</div>
 				   </div>
-			     </li>
-			   </ul>
-            </div>
-			<div class="block " style="margin-bottom: 5%">
-			<div class="list links-list">
-				<ul>
-				<li><a href="#">
-					  <div class="item-media">
+				</div>
+				<p class="date">Postado em 21 de Fevereiro 2019</p>
+				<div class="list accordion-list">
+				  <ul>
+				    <li class="accordion-item">
+					   <a href="#" class="item-content item-link">
+					     <div class="item-inner">
+					       <div class="item-title"><p class="size-15">Semana que vem estaremos realiza..</p> </div>
+						   <i class="size-15  f7-icons" style="color: darkgreen">checkmark_alt_circle</i>
+					     </div>
+					   </a>
+					   <div class="accordion-item-content">
+					     <div class="block">
+					       <p>Semana que vem estaremos realizando uma manutenção na rede de abastecimento de água e por este motivo, informamos que podera ocorrer    de alguns blocos ficarem sem água durante o dia, com o retorno as 18 horas.
+							  Pedimos a compreenção de todos, pois estamos buscando sempre o melhor para a vivencia no condomínio.
+							  Qualquer duvida, deixe um comentario ou entre contato com a administração através do chat ou ligue no (19)99999-4444	
+					       </p>
+					     </div>
+					   </div>
+				    </li>
+				  </ul>
+				</div>
+				<div class="block " style="margin-bottom: 5%">
+				  <div class="list links-list">
+				    <ul>
+				      <li>
+						 <a href="/ticket/" style="background-color: #f6f6f6;">
+						   <div class="item-media">
+						     <div class="item-media">
+								<i class="f7-icons">tickets</i>
+							 </div>
+						   </div>
+						   <div class="item-inner">
+							 <div class="item-title"> Tickets </div>
+							 <div class="item-after"> <span class="badge color-theme-orange">25</span></div>	  
+						   </div>
+						 </a>
+				      </li>
+				    </ul>
+				  </div>
+				</div>
+				<div class="card-footer" >
+				  <a class="link" href="#" >
+					<i class="f7-icons size-20 "  style="color: #FF7600;">exclamationmark</i>
+					<span class="tabbar-label size-10" style="color: #FF7600;">Em Andamento</span>
+				  </a>
+				  <a class="something" href="#" >
+					<i class="f7-icons size-20 "  style="color: #113AAA;">paperclip</i>
+					<span class="tabbar-label size-10" style="color: #113AAA;">3 Anexos</span>
+				  </a>	 
+				</div>
+		  	  </div>   
+		    </div>
+		    <div class="card demo-facebook-card">
+		  	  <div class="card-header">
+				<div class="list accordion-list" style="width: 100%">
+				  <ul>
+					<li class="accordion-item">
+					 <a href="#" class="item-content item-link">
+					   <div class="item-media">
 						 <div class="item-media">
-							<i class="f7-icons">tickets</i>
-						  </div>
-					  </div>
-					  <div class="item-inner">
-						 <div class="item-title"> Tickets
+							<img src="https://c.pxhere.com/photos/e8/60/smile_profile_face_male_portrait_young_person_glasses-451653.jpg!d" width="40">
+						 </div>
+					   </div>
+					   <div class="item-inner">
+					     <div class="item-title"> João da Silva Nascimento
+							<p class="size-10">Sindico</p>
+					     </div>
+					   </div>
+					 </a>
+					 <div class="accordion-item-content">
+					   <div class="block" style="margin-bottom: 5%">
+					      <div class="navbar">
+					        <div class="navbar-inner">
+					           <div class="left">
+									<a class="link color-theme-green size-10 "  data-transition="f7-circle"  href="/chat1/"> 
+									  <i class="f7-icons" style="color:green" >chat_bubble_text</i>  Conversar
+								    </a>
+					           </div>
+					           <div class="right">
+					              <a class="link color-theme-blue size-10" href="/perfil/"> 
+								     <i class="f7-icons" style="color:blue" >person_crop_circle_badge_exclam </i>  Perfil 
+								  </a>
+					           </div>
+					        </div>
+					      </div>
+					   </div>
 					 </div>
-					  </div>
-					</a>
-				</li>
-				</ul>
-			</div>
-			  </div>
-		  <div class="card-footer" >
-
-			  <a class="link" href="#" >
-				<i class="f7-icons size-20 "  style="color: #FF7600;">exclamationmark</i>
-				<span class="tabbar-label size-10" style="color: #FF7600;">Em Andamento</span>
-			  </a>	 
-		  </div>
-		</div> 
-	
-		  
-		  
-	  </div>	 		 
+					</li>
+				  </ul>
+				</div>
+		  	  </div>
+		  	  <div class="card-content card-content-padding">
+				<label class="size-10">N° 2090</label>
+				<div style="text-align: -webkit-center;">
+				   <div class="chip color-green" >
+					  <div class="chip-label">Falta de água</div>
+				   </div>
+				</div>
+				<p class="date">Postado em 21 de Fevereiro 2019</p>
+				<div class="list accordion-list">
+				  <ul>
+				    <li class="accordion-item">
+					   <a href="#" class="item-content item-link">
+					     <div class="item-inner">
+					       <div class="item-title"><p class="size-15">Semana que vem estaremos realiza..</p> </div>
+						   <i class="size-15  f7-icons" style="color: darkgreen">checkmark_alt_circle</i>
+					     </div>
+					   </a>
+					   <div class="accordion-item-content">
+					     <div class="block">
+					       <p>Semana que vem estaremos realizando uma manutenção na rede de abastecimento de água e por este motivo, informamos que podera ocorrer    de alguns blocos ficarem sem água durante o dia, com o retorno as 18 horas.
+							  Pedimos a compreenção de todos, pois estamos buscando sempre o melhor para a vivencia no condomínio.
+							  Qualquer duvida, deixe um comentario ou entre contato com a administração através do chat ou ligue no (19)99999-4444	
+					       </p>
+					     </div>
+					   </div>
+				    </li>
+				  </ul>
+				</div>
+				<div class="block " style="margin-bottom: 5%">
+				  <div class="list links-list">
+				    <ul>
+				      <li>
+						 <a href="/ticket/" style="background-color: #f6f6f6;">
+						   <div class="item-media">
+						     <div class="item-media">
+								<i class="f7-icons">tickets</i>
+							 </div>
+						   </div>
+						   <div class="item-inner">
+							 <div class="item-title"> Tickets </div>
+							 <div class="item-after"> <span class="badge color-theme-orange">25</span></div>	  
+						   </div>
+						 </a>
+				      </li>
+				    </ul>
+				  </div>
+				</div>
+				<div class="card-footer" >
+				  <a class="link" href="#" >
+					<i class="f7-icons size-20 "  style="color: #FF7600;">exclamationmark</i>
+					<span class="tabbar-label size-10" style="color: #FF7600;">Em Andamento</span>
+				  </a>
+				  <a class="something" href="#" >
+					<i class="f7-icons size-20 "  style="color: #113AAA;">paperclip</i>
+					<span class="tabbar-label size-10" style="color: #113AAA;">3 Anexos</span>
+				  </a>	 
+				</div>
+		  	  </div>   
+		    </div>
+		   </div>
+		   <div id="tab-02" class="page-content tab" style=" margin-top: -20%;height: auto;">
+		    <div class="card demo-facebook-card">
+		  	  <div class="card-header">
+				<div class="list accordion-list" style="width: 100%">
+				  <ul>
+					<li class="accordion-item">
+					 <a href="#" class="item-content item-link">
+					   <div class="item-media">
+						 <div class="item-media">
+							<img src="https://c.pxhere.com/photos/e8/60/smile_profile_face_male_portrait_young_person_glasses-451653.jpg!d" width="40">
+						 </div>
+					   </div>
+					   <div class="item-inner">
+					     <div class="item-title"> João da Silva Nascimento
+							<p class="size-10">Sindico</p>
+					     </div>
+					   </div>
+					 </a>
+					 <div class="accordion-item-content">
+					   <div class="block" style="margin-bottom: 5%">
+					      <div class="navbar">
+					        <div class="navbar-inner">
+					           <div class="left">
+									<a class="link color-theme-green size-10 "  data-transition="f7-circle"  href="/chat1/"> 
+									  <i class="f7-icons" style="color:green" >chat_bubble_text</i>  Conversar
+								    </a>
+					           </div>
+					           <div class="right">
+					              <a class="link color-theme-blue size-10" href="/perfil/"> 
+								     <i class="f7-icons" style="color:blue" >person_crop_circle_badge_exclam </i>  Perfil 
+								  </a>
+					           </div>
+					        </div>
+					      </div>
+					   </div>
+					 </div>
+					</li>
+				  </ul>
+				</div>
+		  	  </div>
+		  	  <div class="card-content card-content-padding">
+				<label class="size-10">N° 2090</label>
+				<div style="text-align: -webkit-center;">
+				   <div class="chip color-green" >
+					  <div class="chip-label">Falta de água</div>
+				   </div>
+				</div>
+				<p class="date">Postado em 21 de Fevereiro 2019</p>
+				<div class="list accordion-list">
+				  <ul>
+				    <li class="accordion-item">
+					   <a href="#" class="item-content item-link">
+					     <div class="item-inner">
+					       <div class="item-title"><p class="size-15">Semana que vem estaremos realiza..</p> </div>
+						   <i class="size-15  f7-icons" style="color: darkgreen">checkmark_alt_circle</i>
+					     </div>
+					   </a>
+					   <div class="accordion-item-content">
+					     <div class="block">
+					       <p>Semana que vem estaremos realizando uma manutenção na rede de abastecimento de água e por este motivo, informamos que podera ocorrer    de alguns blocos ficarem sem água durante o dia, com o retorno as 18 horas.
+							  Pedimos a compreenção de todos, pois estamos buscando sempre o melhor para a vivencia no condomínio.
+							  Qualquer duvida, deixe um comentario ou entre contato com a administração através do chat ou ligue no (19)99999-4444	
+					       </p>
+					     </div>
+					   </div>
+				    </li>
+				  </ul>
+				</div>
+				<div class="block " style="margin-bottom: 5%">
+				  <div class="list links-list">
+				    <ul>
+				      <li>
+						 <a href="/ticket/" style="background-color: #f6f6f6;">
+						   <div class="item-media">
+						     <div class="item-media">
+								<i class="f7-icons">tickets</i>
+							 </div>
+						   </div>
+						   <div class="item-inner">
+							 <div class="item-title"> Tickets </div>
+							 <div class="item-after"> <span class="badge color-theme-orange">25</span></div>	  
+						   </div>
+						 </a>
+				      </li>
+				    </ul>
+				  </div>
+				</div>
+				<div class="card-footer" >
+				  <a class="link" href="#" >
+					<i class="f7-icons size-20 "  style="color: #FF7600;">exclamationmark</i>
+					<span class="tabbar-label size-10" style="color: #FF7600;">Em Andamento</span>
+				  </a>
+				  <a class="something" href="#" >
+					<i class="f7-icons size-20 "  style="color: #113AAA;">paperclip</i>
+					<span class="tabbar-label size-10" style="color: #113AAA;">3 Anexos</span>
+				  </a>	 
+				</div>
+		  	  </div>   
+		    </div>  
+		   </div>  
+          </div>
+		</div>
+	  </div>
 	 </div>
     </div>
 </div>

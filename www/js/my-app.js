@@ -5,7 +5,6 @@ var $$ = Dom7;
 //localStorage.setItem('ID_CONDOMINIO','26');
 //localStorage.setItem('ID_MORADOR','134');
 //localStorage.setItem('ID_UNIDADE','142');
-
 //localStorage.setItem('DOMINIO','https://www.controlcondo.com.br/controlcondo/v2/')
 
 var app = new Framework7({
@@ -123,17 +122,22 @@ var app = new Framework7({
       path: '/perfil/',
       url: 'paginas/perfil/perfil.html',
     },
-	  {
-      path: '/perfil_editar/',
-      url: 'paginas/perfil/editar_perfil.html',
-    },
-	  {
-      path: '/perfil_editar2/',
-      url: 'paginas/perfil/editar_perfil2.html',
-    },
-	  {
-      path: '/perfil_editar3/',
-      url: 'paginas/perfil/editar_perfil3.html',
+	  // {
+   //    path: '/perfil_editar/',
+   //    url: 'paginas/perfil/editar_perfil.html',
+   //  },
+	  // {
+   //    path: '/perfil_editar2/',
+   //    url: 'paginas/perfil/editar_perfil2.html',
+   //  },
+	  // {
+   //    path: '/perfil_editar3/',
+   //    url: 'paginas/perfil/editar_perfil3.html',
+   //  },
+
+    {
+      path: '/editar_profile/',
+      url: 'paginas/perfil/editar_profile.html',
     },
     {
       path: '/lib_1/',
@@ -191,8 +195,6 @@ var app2 = {
 	
 	escondeTeclado: function(){
 		Keyboard.hide();
-		
-		
 	},
     // Application Constructor
     initialize: function() {
@@ -215,13 +217,9 @@ var app2 = {
     console.log('APP RECEIVED ID: '+id+ '-------------');
     app2.setupPush();
     
-    // if (localStorage.getItem('loginSocialMidia') == "loginsocialmidiaFG") {
-      var autoInit = "inicializaAutomatico";
-      console.log(autoInit);
-      login_user_device(autoInit);
-    // }else{
-    //   login_user_device();
-    // }
+    var autoInit = "inicializaAutomatico";
+    console.log(autoInit);
+    login_user_device(autoInit);
   },
 	
     setupPush: function() {

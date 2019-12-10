@@ -324,15 +324,14 @@ clearProfileData = () => {
 ///////////////////////////////////////////EDITAR PERFIL/////////////////////////////////////
 
 goToEditarPerfil = () => {
-	app.views.main.router.navigate("/perfil_editar/", {animate:true});
-	$$(document).on('page:init', '.page[data-name="pgEditarPerfilPasso1"]', function (e) {
+	app.views.main.router.navigate("/editar_profile/", {animate:true});
+	$$(document).on('page:init', '.page[data-name="pgEditarProfile"]', function (e) {
 		console.log("debntro da editar perfil....");
 		$("#editarPerfil_rg").val(localStorage.getItem('profile_rg'));
 		$("#editarPerfil_cpf").val(localStorage.getItem('profile_cpf'));
 		$("#editarPerfil_nome").val(localStorage.getItem('MORADOR_NOME'));
 		$("#editarPerfil_sexo").val(localStorage.getItem('profile_gernero'));
 		$("#editarPerfil_dataNascimento").val(localStorage.getItem('profile_nascimento'));
-
 	});
 
 	app.views.main.router.navigate("/perfil_editar2/", {animate:true});
@@ -340,7 +339,6 @@ goToEditarPerfil = () => {
 		console.log("dentro da editar perfil passo 2....");
 		let arrayVeiculo = localStorage.getItem('arrayVeiculo');
 		arrayVeiculo = JSON.parse(arrayVeiculo);
-		console.log(arrayVeiculo);
 		var veicuArr = null;
 		if (arrayVeiculo.length > 0) {
 			$.each(arrayVeiculo, function(index, val) {
@@ -355,7 +353,7 @@ goToEditarPerfil = () => {
 								</div>
 								
 								<div class="item-inner">
-								   <div class="item-title">Os meus veiculos</div>
+								   <div class="item-title">${val.marca}</div>
 								</div>
 							</a>
 							
@@ -367,7 +365,7 @@ goToEditarPerfil = () => {
 											  	<div class="item-inner">
 													<div class="item-title item-label">Placa</div>
 													<div class="item-input-wrap">
-													  	<input type="text" placeholder="">
+													  	<input type="text" value="${val.placa}" placeholder="">
 													  	<span class="input-clear-button"></span>
 													</div>
 											  	</div>
@@ -376,9 +374,8 @@ goToEditarPerfil = () => {
 											  	<div class="item-inner">
 													<div class="item-title item-label">Marca</div>
 													<div class="item-input-wrap input-dropdown-wrap">
-													  	<select placeholder="Please choose...">
-															<option value="none"></option>
-													  	</select>
+													  	<input type="text" value="${val.marca_desc}" placeholder="">
+													  	<span class="input-clear-button"></span>
 													</div>
 											  	</div>
 											</li>
@@ -386,9 +383,8 @@ goToEditarPerfil = () => {
 											  	<div class="item-inner">
 													<div class="item-title item-label">Modelo</div>
 													<div class="item-input-wrap input-dropdown-wrap">
-													  	<select placeholder="Please choose...">
-															<option value="none"></option>
-													  	</select>
+													  	<input type="text" value="${val.modelo_desc}" placeholder="">
+													  	<span class="input-clear-button"></span>
 													</div>
 											  	</div>
 											</li>
@@ -396,9 +392,8 @@ goToEditarPerfil = () => {
 											  <div class="item-inner">
 												<div class="item-title item-label">Cor</div>
 													<div class="item-input-wrap input-dropdown-wrap">
-													  	<select placeholder="Please choose...">
-															<option value="none"></option>
-													  	</select>
+													  	<input type="text" value="${val.modelo_desc}" placeholder="">
+													  	<span class="input-clear-button"></span>
 													</div>
 											  </div>
 											</li>

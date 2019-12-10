@@ -122,19 +122,6 @@ var app = new Framework7({
       path: '/perfil/',
       url: 'paginas/perfil/perfil.html',
     },
-	  // {
-   //    path: '/perfil_editar/',
-   //    url: 'paginas/perfil/editar_perfil.html',
-   //  },
-	  // {
-   //    path: '/perfil_editar2/',
-   //    url: 'paginas/perfil/editar_perfil2.html',
-   //  },
-	  // {
-   //    path: '/perfil_editar3/',
-   //    url: 'paginas/perfil/editar_perfil3.html',
-   //  },
-
     {
       path: '/editar_profile/',
       url: 'paginas/perfil/editar_profile.html',

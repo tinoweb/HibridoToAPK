@@ -321,28 +321,35 @@ clearProfileData = () => {
 }
 
 
-///////////////////////////////////////////EDITAR PERFIL/////////////////////////////////////
+//////////////////////////////EDITAR PERFIL/////////////////////////////
 
 goToEditarPerfil = () => {
+	console.log("goToEditarPerfil function....");
 	app.views.main.router.navigate("/editar_profile/", {animate:true});
-	$$(document).on('page:init', '.page[data-name="pgEditarProfile"]', function (e) {
-		console.log("debntro da editar perfil....");
+
+
+	$(document).on('page:init', '.page[data-name="pgEditarProfile"]', function (e) {
+		console.log("dentro da editar perfil....");
 		$("#editarPerfil_rg").val(localStorage.getItem('profile_rg'));
+		$("#editarPerfil_telefone").val(localStorage.getItem('profile_telefone'));
 		$("#editarPerfil_cpf").val(localStorage.getItem('profile_cpf'));
 		$("#editarPerfil_nome").val(localStorage.getItem('MORADOR_NOME'));
 		$("#editarPerfil_sexo").val(localStorage.getItem('profile_gernero'));
 		$("#editarPerfil_dataNascimento").val(localStorage.getItem('profile_nascimento'));
 	});
 
-	app.views.main.router.navigate("/perfil_editar2/", {animate:true});
-	$$(document).on('page:init', '.page[data-name="pgEditarPerfilPasso2"]', function (e) {
+
+	$(document).one('click', '.tabDadosVeiculos', function (e) {
 		console.log("dentro da editar perfil passo 2....");
 		let arrayVeiculo = localStorage.getItem('arrayVeiculo');
 		arrayVeiculo = JSON.parse(arrayVeiculo);
 		var veicuArr = null;
+		
+		console.log(arrayVeiculo);
+
 		if (arrayVeiculo.length > 0) {
 			$.each(arrayVeiculo, function(index, val) {
-				$$("#editarPerfilPasso2_veiculos").append(
+				$("#editarPerfilPasso2_veiculos").append(
 				`<ul>
 						<li class="accordion-item">
 							<a href="#" class="item-content item-link">
@@ -353,61 +360,110 @@ goToEditarPerfil = () => {
 								</div>
 								
 								<div class="item-inner">
-								   <div class="item-title">${val.marca}</div>
+								   <div class="item-title">${val.marca_desc}</div>
 								</div>
 							</a>
 							
 							<div class="accordion-item-content">
 								<div class="block" style="margin-bottom: 5%">
 								  	<div class="list inline-labels no-hairlines-md">
-									  	<ul>
-											<li class="item-content item-input">
-											  	<div class="item-inner">
-													<div class="item-title item-label">Placa</div>
-													<div class="item-input-wrap">
-													  	<input type="text" value="${val.placa}" placeholder="">
-													  	<span class="input-clear-button"></span>
-													</div>
-											  	</div>
-											</li>
-											<li class="item-content item-input">
-											  	<div class="item-inner">
-													<div class="item-title item-label">Marca</div>
-													<div class="item-input-wrap input-dropdown-wrap">
-													  	<input type="text" value="${val.marca_desc}" placeholder="">
-													  	<span class="input-clear-button"></span>
-													</div>
-											  	</div>
-											</li>
-											<li class="item-content item-input">
-											  	<div class="item-inner">
-													<div class="item-title item-label">Modelo</div>
-													<div class="item-input-wrap input-dropdown-wrap">
-													  	<input type="text" value="${val.modelo_desc}" placeholder="">
-													  	<span class="input-clear-button"></span>
-													</div>
-											  	</div>
-											</li>
-											<li class="item-content item-input">
-											  <div class="item-inner">
-												<div class="item-title item-label">Cor</div>
-													<div class="item-input-wrap input-dropdown-wrap">
-													  	<input type="text" value="${val.modelo_desc}" placeholder="">
-													  	<span class="input-clear-button"></span>
-													</div>
-											  </div>
-											</li>
-									  	</ul>
+								  		<form action="#" id="id_${val.id}">
+										  	<ul data-idveiculo="${val.id}">
+												<li class="item-content item-input">
+												  	<div class="item-inner">
+														<div class="item-title item-label">Placa</div>
+														<div class="item-input-wrap">
+														  	<input name="placa" type="text" value="${val.placa}" placeholder="">
+														  	<span class="input-clear-button"></span>
+														</div>
+												  	</div>
+												</li>
+												<li class="item-content item-input">
+												  	<div class="item-inner">
+														<div class="item-title item-label">Marca</div>
+														<div class="item-input-wrap">
+														  	<input name="marca" type="text" data-marca="${val.marca}" value="${val.marca_desc}" placeholder="">
+														  	<span class="input-clear-button"></span>
+														</div>
+												  	</div>
+												</li>
+												<li class="item-content item-input">
+												  	<div class="item-inner">
+														<div class="item-title item-label">Modelo</div>
+														<div class="item-input-wrap">
+														  	<input name="modelo" type="text" data-modelo="${val.modelo}" value="${val.modelo_desc}" placeholder="">
+														  	<span class="input-clear-button"></span>
+														</div>
+												  	</div>
+												</li>
+												<li class="item-content item-input">
+												  <div class="item-inner">
+													<div class="item-title item-label">Cor</div>
+														<div class="item-input-wrap">
+														  	<input name="cor" type="text" data-cor="${val.cor}" value="${val.cor_desc}" placeholder="">
+														  	<span class="input-clear-button"></span>
+														</div>
+												  </div>
+												</li>
+
+												<li class="item-content" style="position: relative;top: 10px;">
+				                                    <button id="btnSaveDadosContato" onclick="salvarVeiculo(event, id_${val.id})" class="col-50 rigth-6 button button-raised color-green button-fill">Salvar</button>
+				                                </li>
+										  	</ul>
+									  	</form>
 									</div>
 								</div>
 							</div>
 						</li>
 					</ul>`);
 			});
-
-			
 		}else{
 			console.log("não possui ");
 		}
+	});
+
+}
+
+
+salvarVeiculo = (e, id_form, idVeiculo) => {
+	e.preventDefault();
+	console.log(id_form);
+	console.log(idVeiculo);
+	console.log($(id_form).serialize());
+
+
+	return false;
+
+
+}
+
+
+salvarDadosContato = (event) => {
+	event.preventDefault();
+	let moradorData = $("#personalInfo").serialize();
+	console.log(moradorData);
+	// return false;
+
+	var urlDominio = localStorage.getItem('IP_LOCAL')+'/controlcondo/v2/';
+	$.ajax({
+		type: 'POST',
+		url: urlDominio+'appweb/morador_update.php',
+        data : { 
+        	id_condominio : localStorage.getItem("ID_CONDOMINIO"), 
+        	dataMorador : moradorData,
+        	id_morador : localStorage.getItem("ID_MORADOR"),
+        	typeOperation: 'updateMorador'
+        },
+        dataType   : 'json',
+		crossDomain: true,
+		success: function(retorno){
+			console.log("reorno do morador atualizado");
+			console.log(retorno);
+			return false;
+
+        },
+        error: function(error) {
+            alerta(JSON.stringify(error));
+        }
 	});
 }

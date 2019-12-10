@@ -5,8 +5,8 @@ function carrega_documentos(){
 	var busca_doc = '';//$('#busca_documento').val();
 	var id_condominio = localStorage.getItem('ID_CONDOMINIO');
 	var id_usuario_condominio = localStorage.getItem('ID_USER');
-	///alert(id_condominio);
-	///alert(id_usuario_condominio);
+	//alert(id_condominio);
+	//alert(id_usuario_condominio);
 	
     var dados     = '';
 	var dado      = '';
@@ -22,8 +22,9 @@ function carrega_documentos(){
 		beforeSend : function() { $("#wait").css("display", "block"); },
 		complete   : function() { $("#wait").css("display", "none"); },
         data       : { id_condominio :id_condominio, id_usuario_condominio :id_usuario_condominio, pg : 1, busca_doc : ''},
-        dataType   : 'json',
+       dataType   : 'json',
 		success: function(retorno){
+			
 			var cont = 0;
 			for (x in retorno) {
 				cont++;
@@ -38,7 +39,7 @@ function carrega_documentos(){
 		var tipo_dw =	tipo_arc.substr(6);
 				
 		var download_doc = localStorage.getItem('DOMINIO')+tipo_dw;
-	//alert(localStorage.getItem('DOMINIO'));
+	
 			if(tipo == 'pdf')
 			{
 				tipo = '<img src="img/pdf.png" width="44">';
@@ -64,7 +65,7 @@ function carrega_documentos(){
 			}
 
 				
-	//alert('\' '+localStorage.getItem('DOMINIO')+caminho[1]+fmt_lin(tipo_)+'\',\''+fmt_lin(tipo_)+'\',\''+retorno[x]['titulo']+'\' ');	
+	
 				
 				dado = ' <li class="item-content" onclick="download_arquivos(\''+download_doc+'\',\''+id_doc+'\');" value="" >'
 				+'<div class="item-media">'+tipo+'</div>'
@@ -76,7 +77,7 @@ function carrega_documentos(){
 				
 				+	 '<label style="font-size: 10px;">Categoria : '+retorno[x]['descricao']+'</label>'
 				 +   ' <label style="font-size: 10px;margin-left: 10%">data: '+retorno[x]['data_criacao']+'</label> '
-					+'<div style="display: none" id="'+id_doc+'">'
+					+'<div style="display: none" id="doc'+id_doc+'">'
 				+'	<label class="size-10">Baixando ...</label>'
 				+'	<span class="progressbar-infinite color-multi" ></span>'
 				+'</div>'
@@ -92,15 +93,15 @@ function carrega_documentos(){
           		
 	
 		},
-        error : function() {
-            //alert('Erro ao carregar');
+        error : function(retonro) {
+            alert(retonro);
 
         }
 	});	
 }
 function download_arquivos(path,id){
 	
-	$('#'+id).css({"display":"block"});
+	$('#doc'+id).css({"display":"block"});
   	//app2.progressbar.set('#status', "0");
 	alert(path);
     var fileTransfer = new FileTransfer();
@@ -113,14 +114,14 @@ function download_arquivos(path,id){
         uri,
         filePath,
         function(entry) {
-			$('#'+id).css({"display":"none"});
+			$('#doc'+id).css({"display":"none"});
             var ref = cordova.InAppBrowser.open(uri, '_system', 'location=yes');
 			//var ref = cordova.InAppBrowser.open(uri, '_blank', 'location=yes');
 			
 		 },
         function(error) {
-			$('#downloadProgress').css({"display":"none"});
-			alert('erro');
+			$('#doc'+id).css({"display":"none"});
+			alerta('Erro ao Biaxar este arquivo, tente novamente mais tarde !');
             console.log("download error source " + error.source);
             console.log("download error target " + error.target);
 			alert(error.code);

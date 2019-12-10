@@ -1,43 +1,140 @@
 <div class="page">
-  <div class="navbar">
-    <div class="navbar-bg"></div>
-    <div class="navbar-inner sliding">
-      <div class="left">
-        <a href="#" class="link back">
-          <i class="icon icon-back"></i>
-          <span class="if-not-md">Back</span>
-        </a>
-      </div>
-      <div class="title">Animated Tabs</div>
-    </div>
-  </div>
-  <div class="toolbar tabbar toolbar-bottom">
-    <div class="toolbar-inner">
-      <a href="#tab-1" class="tab-link tab-link-active">Tab 1</a>
-      <a href="#tab-2" class="tab-link">Tab 2</a>
-      <a href="#tab-3" class="tab-link">Tab 3</a>
-    </div>
-  </div>
-  <div class="tabs-animated-wrap">
-    <div class="tabs">
-      <div id="tab-1" class="page-content tab tab-active">
-        <div class="block">
-          <p>Tab 1 content</p>
-          ...
+    <div class="page" data-name="pgEditarProfile" data-page="editProfile">
+        <div class="navbar">
+            <div class="navbar-bg">
+            </div>
+            <div class="navbar-inner sliding" style="background: linear-gradient(#0064c0, #007aff);">
+                <div class="left">
+                    <a class="link goToProfile" href="#" onclick="goToProfile($(this)[0])">
+                        <i class="icon icon-back">
+                        </i>
+                        <span class="if-not-md">
+                            Back
+                        </span>
+                    </a>
+                </div>
+                <div class="title" style="color: white">
+                    Editar Perfil agora
+                </div>
+            </div>
         </div>
-      </div>
-      <div id="tab-2" class="page-content tab">
-        <div class="block">
-          <p>Tab 2 content</p>
-          ...
+        <div class="toolbar tabbar toolbar-top">
+            <div class="toolbar-inner">
+                <a class="tab-link tab-link-active" href="#tab-1">
+                    Info Cadastro
+                </a>
+                <a class="tab-link" href="#tab-2">
+                    Veículos
+                </a>
+                <a class="tab-link" href="#tab-3">
+                    Contatos
+                </a>
+            </div>
         </div>
-      </div>
-      <div id="tab-3" class="page-content tab">
-        <div class="block">
-          <p>Tab 3 content</p>
-          ...
+        <div class="tabs-animated-wrap">
+            <div class="tabs tabs-top">
+                <div class="page-content tab tab-active" id="tab-1">
+                    <div class="block">
+                        <div class="block">
+                            <div class="block-title">
+                                Editar informações de Cadastro
+                            </div>
+                            <div class="list inline-labels no-hairlines-md">
+                                <ul>
+                                    <li class="item-content item-input">
+                                        <div class="item-inner">
+                                            <div class="item-title item-label">
+                                                Nome
+                                            </div>
+                                            <div class="item-input-wrap">
+                                                <input placeholder="" id="editarPerfil_nome" type="text">
+                                                    <span class="input-clear-button">
+                                                    </span>
+                                                </input>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    
+                                    <li class="item-content item-input">
+                                        <div class="item-inner">
+                                            <div class="item-title item-label">
+                                                Rg
+                                            </div>
+                                            <div class="item-input-wrap">
+                                                <input placeholder="" id="editarPerfil_rg" type="tel">
+                                                    <span class="input-clear-button">
+                                                    </span>
+                                                </input>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    
+                                    <li class="item-content item-input">
+                                        <div class="item-inner">
+                                            <div class="item-title item-label">
+                                                Sexo
+                                            </div>
+                                            <div class="item-input-wrap input-dropdown-wrap">
+                                                <select placeholder="Please choose..." id="editarPerfil_sexo">
+                                                    <option value="Feminino">
+                                                        Feminino
+                                                    </option>
+                                                    <option value="Masculino">
+                                                        Masculino
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    
+                                    <li class="item-content item-input">
+                                        <div class="item-inner">
+                                            <div class="item-title item-label">
+                                                Nascimento
+                                            </div>
+                                            <div class="item-input-wrap">
+                                                <input placeholder="Por favor escolha..." id="editarPerfil_dataNascimento" type="date" value="">
+                                                </input>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    
+                                    <li>
+                                        <a class="item-link item-content" href="#">
+                                            <div class="item-media">
+                                                <i class="f7-icons">
+                                                    camera
+                                                </i>
+                                            </div>
+                                            <div class="item-inner">
+                                                <div class="item-title">
+                                                    Editar Foto
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="page-content tab" id="tab-2">
+                    <div class="block">
+                        <p>
+                            Tab 2 content
+                        </p>
+                        ...
+                    </div>
+                </div>
+                <div class="page-content tab" id="tab-3">
+                    <div class="block">
+                        <p>
+                            Tab 3 content
+                        </p>
+                        ...
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>

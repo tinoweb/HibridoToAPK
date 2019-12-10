@@ -590,7 +590,7 @@ select_user = (id_usuario_condominio=0) => {
 			success: function(retorno){
 				console.log(retorno);
 				console.log("vai para pagina home....");
-				localStorage.setItem('DOMINIO',retorno[0]['ip_local']);
+				localStorage.setItem('DOMINIO',retorno[0]['ip_local']+"/controlcondo/v2/");
 				
                 if(retorno[0]['usar_control_condo'] == 1){
 					localStorage.setItem('IP_LOCAL',retorno[0]['ip_local']);

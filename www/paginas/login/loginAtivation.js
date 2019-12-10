@@ -590,7 +590,8 @@ select_user = (id_usuario_condominio=0) => {
 			success: function(retorno){
 				console.log(retorno);
 				console.log("vai para pagina home....");
-
+				localStorage.setItem('DOMINIO',retorno[0]['ip_local']);
+				
                 if(retorno[0]['usar_control_condo'] == 1){
 					localStorage.setItem('IP_LOCAL',retorno[0]['ip_local']);
                     localStorage.setItem('ID_USER',retorno[0]['id_usuario_condominio']);
@@ -988,7 +989,10 @@ function carrega_user_perfil(id, autoInit=null) {
             dataType   : 'json',
 			success: function(retorno){
 				console.log("carrega user perfil .....");
-				console.log(autoInit);
+				console.log(retorno);
+
+				// setar no localStorage o dominio especifico de cada condominio
+				
 
 				if (localStorage.getItem('loginSocialMidia') == "loginsocialmidiaFG") {
 					console.log('carrega perfil loginSocialMidia');
@@ -1381,12 +1385,12 @@ function choosedMail(){
 
 enviarCodigoAtivacao = (codigoAtivacao) => {
 	console.log(codigoAtivacao);
-	console.log(localStorage.getItem('DOMINIO')+'appweb/ativacao_post.php');
+	console.log(localStorage.getItem('DOMINIO')+'appweb/ativacao_post.php'); // rever o dominio certo
 
 	if (codigoAtivacao.length !== 0) {
 		$.ajax({
 			type: 'POST',
-			url: localStorage.getItem('DOMINIO')+'appweb/ativacao_post.php',
+			url: localStorage.getItem('DOMINIO')+'appweb/ativacao_post.php', // rever o dominio certo (agora ela é dinamica)
 	        data       : { codigo : codigoAtivacao, typeFunction : 'enviarCodigoAtivacao' },
 	        dataType   : 'json',
 			complete   : function() { $("#wait").css("display", "none"); },

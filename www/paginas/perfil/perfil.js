@@ -19,9 +19,11 @@ carregaInfoProfile = () => {
 	
 	nomeMorador_ = nomeMorador.substr(0, 20);
 	nomeMorador_ = nomeMorador_+'...';
+
+	// console.log(localStorage.getItem("MORADOR_NOME"));
 	
 	setTimeout(function() {
-		$("#moradorName").html(nomeMorador);
+		// $("#moradorName").append(nomeMorador);
 		$("#nomeMorardorMenu").html(nomeMorador_);
 		$("#moradorBloco").html(blocoMorador);
 		$("#moradorApt").html(loteMorador);
@@ -114,6 +116,11 @@ carrega_morador_dados = (id_morador) => {
         dataType   : 'json',
 		success: function(retorno){
 			console.log(retorno);
+
+			localStorage.setItem("MORADOR_NOME", retorno[0]['nome']);
+			localStorage.setItem("NOME_MORADOR", retorno[0]['nome']);
+
+			$("#moradorName").append(retorno[0]['nome']);
 			console.log("carregando dados do morador....");
 
             let gernero = retorno[0]['masculino']==1? "Masculino" : "Feminino";
@@ -129,158 +136,15 @@ carrega_morador_dados = (id_morador) => {
 			$("#perfil_statusVisita").html(statusVisita);
 			$("#perfil_email").html(retorno[0]['email']);
 
-			console.log(retorno);
 			setProfileData(retorno, gernero, statusCondo, statusVisita);
-
 
 			if (retorno[0]['parentesco'] == 1) {
 				carrega_dados_and_info(retorno[0]['id_condominio']);
 			}else{
 				$$(".hasFamilia").hide();
 			}
-			// if(retorno[0]['foto'] == ''){
-			//    var foto_morador = 'img/user2.png';
-			// }else{
-			//    var foto_morador = 'data:image/jpeg;base64,'+retorno[0]['foto']+'';
-			// }
-
-			// $( '#foto_morador_edit' ).css("background-image", "url("+foto_morador+")");
-            
-            // $( "#mor_id_morador" ).val(id_morador);
-            // $( "#mor_veiculo_id_morador" ).val(id_morador);
-            // $( "#mor_contato_id_morador" ).val(id_morador);
-
-			// $( "#mor_nome" ).val(retorno[0]['nome']);
-			// $( "#mor_rg" ).val(retorno[0]['rg']);
-			// $( "#mor_cpf" ).val(retorno[0]['telefone']);
-			// $( "#mor_nascimento" ).val(retorno[0]['nascimento']);
-			// $( "#mor_unidade" ).val(retorno[0]['unidade']);
-
-			// if(id_morador == 0){
-	  		//		$( "#mor_unidade" ).val($( "#DADOS #ID_UNIDADE" ).val());
-			// 	$("#tab_add_morador_veiculo,#tab_add_morador_contato").addClass("disabled");
-			// }else{
-			// 	$("#tab_add_morador_veiculo,#tab_add_morador_contato").removeClass("disabled");
-			// }
-
-			// var paretesco_dados = '<option value="0">Selecione</option>';
-			// for (x in retorno[0]['parentescos']) {
-			// 	if(localStorage.getItem('TEM_TITULAR') == 1 && retorno[0]['parentescos'][x]['id'] == 1){
-			// 		paretesco_dados = paretesco_dados + '<option disabled value="'+retorno[0]['parentescos'][x]['id']+'">'+retorno[0]['parentescos'][x]['descricao']+'</option>';
-
-			// 	}else{
-			// 		paretesco_dados = paretesco_dados + '<option value="'+retorno[0]['parentescos'][x]['id']+'">'+retorno[0]['parentescos'][x]['descricao']+'</option>';
-			// 	}
-			// }
-			// $( "#mor_parentesco" ).html(paretesco_dados);
-			// $( "#mor_parentesco" ).val(retorno[0]['parentesco']);
-			// $( "#mor_parentesco_hidden" ).val(retorno[0]['parentesco']);
-			// if(retorno[0]['parentesco'] == 1){
-			// 	$("#mor_parentesco").addClass("disabled");
-			// }else{
-			// 	$("#mor_parentesco").removeClass("disabled");
-			// }
-			// $( "#mor_email" ).val(retorno[0]['email']);
-			// if(retorno[0]['masculino'] == 1){
-   			//              document.getElementById("mor_homem").checked = true;
-			// }else{
-   			//              document.getElementById("mor_mulher").checked = true;
-			// }
-			// if(retorno[0]['autoriza'] == 1){
-   			//              document.getElementById("mor_autoriza").checked = true;
-			// }else{
-   			//              document.getElementById("mor_autoriza").checked = false;
-			// }
-			// if(retorno[0]['usar_control_condo'] == 1){
-   			//              document.getElementById("mor_controlcondo").checked = true;
-			// }else{
-   			//              document.getElementById("mor_controlcondo").checked = false;
-			// }
-			// $( "#mor_msg" ).val(retorno[0]['observacao']);
-			
-			// if(localStorage.getItem('MMORADOR') != 1){
-			// 	afed('','#bt_mor_atu,#bt_mor_del','','',2,'');
-			// 	$("#form_moradores input,#form_moradores textarea,#form_moradores select").prop("disabled", true);
-			// }else{
-			// 	afed('#bt_mor_atu,#bt_mor_del','','','',2,'');
-			// 	$("#form_moradores input,#form_moradores textarea,#form_moradores select").prop("disabled", false);
-			// }
-			
-			// if(localStorage.getItem('MFPERFIL') != 1){
-			// 	afed('#bt_mor_ftn','#bt_mor_ft1,#bt_mor_ft2','','',2,'');
-			// }else{
-			// 	afed('#bt_mor_ft1,#bt_mor_ft2','#bt_mor_ftn','','',2,'');
-			// }
-			//alert(localStorage.getItem('MMORADOR')+localStorage.getItem('MVEICULOS')+localStorage.getItem('MCONTATOS')+localStorage.getItem('MFPERFIL'));
-			
-			
-			
-			// var veiculos_dados = '';
-			// for (x in retorno[0]['veiculos']) {
-				
-			// 	if(retorno[0]['veiculos'][x]['foto'] == ""){
-			// 		var fotov = '<i class="icon material-icons" style="margin: 0px 0 0 8px;  ">directions_car</i>';
-			// 	}else{
-			// 		var fotov = '<img style="width:40px;height:40px; background-image:url(data:image/jpeg;base64,'+retorno[0]['veiculos'][x]['foto']+'); background-size: 52px; background-position: center center; border-radius: 20px;" />';
-			// 	}
-				
-			// 	veiculos_dados = veiculos_dados + 
-			// 		'<li>'+
-			// 		'<a href="#" class="item-link item-content sheet-open" data-sheet=".veiculo-morador" onClick="veiculo_marca_modelo_cor('+retorno[0]['veiculos'][x]['id']+',1)">'+
-			// 		'<div class="item-media" style="width: 44px; height: 44px; margin-top:15px; border-radius: 22px; border: 2px solid #8e8e93;">'+fotov+'</div>'+
-			// 		'<div class="item-inner">'+
-			// 		'<div class="item-title-row">'+
-			// 		'<div class="item-title">'+retorno[0]['veiculos'][x]['marca_desc']+' - '+retorno[0]['veiculos'][x]['modelo_desc']+' - '+retorno[0]['veiculos'][x]['cor_desc']+'</div>'+
-			// 		'</div>'+
-			// 		'<div class="item-subtitle">'+retorno[0]['veiculos'][x]['placa']+'</div>'+
-			// 		'</div>'+
-			// 		'</a>'+
-			// 		'</li>';
-			// }
-			// $( "#retorno_veiculo_morador" ).html(veiculos_dados);
-			// if(localStorage.getItem('MVEICULOS') != 1){
-			// 	afed('','#bt_mv_atu,#bt_mv_del,#bt_mv_add,#bt_mv_ft1,#bt_mv_ft2','','',2,'');
-			// 	$("#form_morador_veiculo input,#form_morador_veiculo textarea,#form_morador_veiculo select").prop("disabled", true);
-			// }else{
-			// 	afed('#bt_mv_atu,#bt_mv_del,#bt_mv_add,#bt_mv_ft1,#bt_mv_ft2','','','',2,'');
-			// 	$("#form_morador_veiculo input,#form_morador_veiculo textarea,#form_morador_veiculo select").prop("disabled", false);
-			// }
-
-			
-			// var contatos_dados = '';
-			// for (x in retorno[0]['contatos']) {
-			// 	contatos_dados = contatos_dados + 
-			// 		'<li>'+
-			// 		'<a href="#" class="item-link item-content sheet-open" data-sheet=".contato-morador" onClick="contatos('+retorno[0]['contatos'][x]['id_contato']+',1)" >'+
-			// 		'<div class="item-inner">'+
-			// 		'<div class="item-title">'+
-			// 		'<div class="item-header">'+retorno[0]['contatos'][x]['descricao']+'</div>'+
-			// 		''+retorno[0]['contatos'][x]['contato']+''+
-			// 		'</div>'+
-			// 		'<div class="item-after"></div>'+
-			// 		'</div>'+
-			// 		'</a>'+
-			// 		'</li>';
-			// }
-			// $( "#retorno_contato_morador" ).html(contatos_dados);
-			// if(localStorage.getItem('MCONTATOS') != 1){
-			// 	afed('','#bt_mc_atu,#bt_mc_del,#bt_mc_add','','',2,'');
-			// 	$("#form_morador_contato input,#form_morador_contato textarea,#form_morador_contato select").prop("disabled", true);
-			// }else{
-			// 	afed('#bt_mc_atu,#bt_mc_del,#bt_mc_add','','','',2,'');
-			// 	$("#form_morador_contato input,#form_morador_contato textarea,#form_morador_contato select").prop("disabled", false);
-			// }
-
-			
-			// if(localStorage.getItem('TELA_ATUAL') == 'morador_perfil'){
-			// 	$("#voltar_morador").attr("onclick","afed('#home','#morador','','',2,'home');");
-			// }else{
-			// 	$("#voltar_morador").attr("onclick","afed('#moradores','#morador','','',2,'moradores');");
-			// 	afed('#morador','#moradores','','',2,'morador');
-			// }
         },
         error: function(error) {
-            // alerta(4);
             alerta(JSON.stringify(error));
         }
 	});
@@ -327,7 +191,6 @@ goToEditarPerfil = () => {
 	console.log("goToEditarPerfil function....");
 	app.views.main.router.navigate("/editar_profile/", {animate:true});
 
-
 	$(document).on('page:init', '.page[data-name="pgEditarProfile"]', function (e) {
 		console.log("dentro da editar perfil....");
 		$("#editarPerfil_rg").val(localStorage.getItem('profile_rg'));
@@ -338,14 +201,11 @@ goToEditarPerfil = () => {
 		$("#editarPerfil_dataNascimento").val(localStorage.getItem('profile_nascimento'));
 	});
 
-
 	$(document).one('click', '.tabDadosVeiculos', function (e) {
 		console.log("dentro da editar perfil passo 2....");
 		let arrayVeiculo = localStorage.getItem('arrayVeiculo');
 		arrayVeiculo = JSON.parse(arrayVeiculo);
 		var veicuArr = null;
-		
-		console.log(arrayVeiculo);
 
 		if (arrayVeiculo.length > 0) {
 			$.each(arrayVeiculo, function(index, val) {
@@ -415,13 +275,12 @@ goToEditarPerfil = () => {
 								</div>
 							</div>
 						</li>
-					</ul>`);
+				</ul>`);
 			});
 		}else{
 			console.log("não possui ");
 		}
 	});
-
 }
 
 
@@ -431,20 +290,15 @@ salvarVeiculo = (e, id_form, idVeiculo) => {
 	console.log(idVeiculo);
 	console.log($(id_form).serialize());
 
-
 	return false;
-
-
 }
 
 
 salvarDadosContato = (event) => {
 	event.preventDefault();
 	let moradorData = $("#personalInfo").serialize();
-	console.log(moradorData);
-	// return false;
-
 	var urlDominio = localStorage.getItem('IP_LOCAL')+'/controlcondo/v2/';
+
 	$.ajax({
 		type: 'POST',
 		url: urlDominio+'appweb/morador_update.php',
@@ -457,10 +311,10 @@ salvarDadosContato = (event) => {
         dataType   : 'json',
 		crossDomain: true,
 		success: function(retorno){
-			console.log("reorno do morador atualizado");
 			console.log(retorno);
-			return false;
-
+			if (retorno.status == 'sucess' && retorno.statuscode == 200) {
+				alertaDialog("Sucesso", "Dados atualizado com sucesso", afterClose=null)
+			}
         },
         error: function(error) {
             alerta(JSON.stringify(error));

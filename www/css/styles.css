@@ -205,6 +205,10 @@ background: linear-gradient(#0064c0, #007aff) !important;
     width: 27px !important;
 }
 
+.iconSize10{
+  font-size: 16px !important;
+}
+
 /*************************** Area Comum *****************************************/
 .facebook-card-area .card-header {
   display: block;

@@ -131,7 +131,7 @@
                                     </li>
 
                                     <li class="item-content" style="position: relative;top: 48px;">
-                                        <button id="btnSaveDadosContato" onclick="salvarDadosContato(event)" class="col-50 rigth-6 button button-raised color-green button-fill">Salvar</button>
+                                        <button id="btnSaveDadosContato" onclick="atualizarDadosContato(event)" class="col-50 rigth-6 button button-raised color-green button-fill">Salvar</button>
                                     </li>
                                 </form>
                             </ul>
@@ -142,10 +142,72 @@
                 <div class="page-content tab" id="tab-2">
                     <div class="block">
                         <div class="block-title">
-                            Editar informações de Cadastro
+                            Editar informações de Veículos
+                        </div>
+
+                        <div class="list links-list demo-fab-sheet fab-morph-target" style="z-index: 999999">
+                            <div class="list inline-labels no-hairlines-md">
+                                <form action="#" id="id_addVeiculo">
+                                    <input type="hidden" name="id_veiculo" id="id_carro">
+                                    <ul data-idveiculo="">
+                                        <li class="item-content item-input">
+                                            <div class="item-inner">
+                                                <div class="item-title item-label">Placa</div>
+                                                <div class="item-input-wrap" id="">
+                                                    <input name="placa" type="text" value="" placeholder="">
+                                                    <span class="input-clear-button"></span>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="item-content item-input">
+                                            <div class="item-inner">
+                                                <div class="item-title item-label">Marca</div>
+                                                <div class="item-input-wrap input-dropdown-wrap">
+                                                    <select placeholder="Please choose..." id="marca_carro" onchange="veiculo_marca_modelo_cor(0, 2, $(this).val())">
+                                                    
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="item-content item-input">
+                                            <div class="item-inner">
+                                                <div class="item-title item-label">Modelo</div>
+                                                <div class="item-input-wrap input-dropdown-wrap" id="">
+                                                    <select placeholder="Please choose..." id="modelo_carro">
+                                                    
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="item-content item-input">
+                                          <div class="item-inner">
+                                            <div class="item-title item-label">Cor</div>
+                                                <div class="item-input-wrap input-dropdown-wrap" id="">
+                                                    <select placeholder="Please choose..." id="cor_carro">
+                                                    
+                                                    </select>
+                                                </div>
+                                          </div>
+                                        </li>
+
+                                        <li class="item-content" style="position: relative;top: 10px;">
+                                            <button id="btnSaveDadosContato" onclick="salvarVeiculo(event, 'id_addVeiculo')" class="col-50 rigth-6 button button-raised color-green button-fill fab-close">Salvar</button>
+                                        </li>
+                                    </ul>
+                                </form>
+                            </div>
                         </div>
                         
+                        <!-- os veiculos são populados aki -->
                         <div class="list accordion-list" id="editarPerfilPasso2_veiculos">
+                        </div>
+
+                        <div class="addVeicles" style="position: relative;top: 47px;left: 21px;">
+                            <div class="fab fab-right-bottom fab-morph" onclick="veiculo_marca_modelo_cor(0,1)" data-morph-to=".demo-fab-sheet.fab-morph-target" style="opacity: 1;">
+                                <a href="#" class="">
+                                <i class="icon material-icons md-only">add</i>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>

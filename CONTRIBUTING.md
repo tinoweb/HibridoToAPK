@@ -26,5 +26,13 @@ All contributions (feature or bug fix) should start with an issue first.
 - morador_update
 - morador_get
 
+	----------------------
+	db/conexao.class.php
+	db/morador.php
+	db/usuario.php
+	db/veiculo.php
+	appweb/morador_update.php
+	appweb/veiculo_get.php
+
 
 

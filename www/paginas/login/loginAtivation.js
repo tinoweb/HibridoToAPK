@@ -207,9 +207,10 @@ login_user_device = (autoInit=null) => {
         }else{
             var UUID = device.uuid;
         }
+
         $.ajax({
             type       : "POST",
-            url        : localStorage.getItem('DOMINIO_LOGIN')+"/appweb/login.php",
+            url        : localStorage.getItem('DOMINIO_LOGIN')+"appweb/login.php",
 			crossDomain: true,
 			beforeSend : function() { $("#wait").css("display", "block"); },
 			complete   : function() { $("#wait").css("display", "none"); },
@@ -233,6 +234,10 @@ login_user_device = (autoInit=null) => {
 
 							localStorage.setItem('ID_USER_L',retorno[0]['id_usuario']);
 						}else{  
+
+							// console.log(JSON.stringify(retorno));
+							// return false;
+
 							if(retorno[0]['usar_control_condo'] == 1){
 								console.log("PERMITIDO CONTROLCONDO....");
 
@@ -400,6 +405,15 @@ login_user_device = (autoInit=null) => {
 
 								app.sheet.close('.loginApp', true);
 								app.views.main.router.navigate("/home/", {reloadAll:true});
+
+								console.log('IP_LOCAL ============>>>>> ');
+								console.log(retorno[0]['ip_local']);
+								localStorage.removeItem('DOMINIO');
+								localStorage.setItem('DOMINIO',retorno[0]['ip_local']+"/controlcondo/v2/");
+
+								console.log('IP_LOCAL ============>>>>> fixado===========>>>>');
+								console.log(localStorage.getItem("DOMINIO"));
+								// return false;
 
 								$$(document).on('page:init', '.page[data-name="pgHome"]', function (e) {
 									app.sheet.destroy(sheetloginApp);
@@ -587,6 +601,8 @@ select_user = (id_usuario_condominio=0) => {
 			success: function(retorno){
 				console.log(retorno);
 				console.log("vai para pagina home....");
+				console.log(retorno[0]['ip_local']);
+
 				localStorage.setItem('DOMINIO',retorno[0]['ip_local']+"/controlcondo/v2/");
 				
                 if(retorno[0]['usar_control_condo'] == 1){
@@ -1234,8 +1250,10 @@ alertaDialog = (title, msg, afterClose=null) => {
 					app.views.main.router.navigate("/receveAtivationCode/", {animate:true});
 				}else if(afterClose == "defineSenha"){
 					console.log("Logar no sistema automaticamente.....");
-				}else if (afterClose == "voltaInicio") {
+				}else if(afterClose == "voltaInicio") {
 					goToIndexPageNoCache();
+				}else if(afterClose == 'gotoprofile'){
+					goToProfile();
 				}else if (afterClose == "termoUso") {
 					app.views.main.router.navigate("/termo_de_uso/", {animate:true, transition: 'f7-dive'});
 				}

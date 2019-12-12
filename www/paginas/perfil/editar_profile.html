@@ -148,22 +148,12 @@
                         <div class="list links-list demo-fab-sheet fab-morph-target" style="z-index: 999999">
                             <div class="list inline-labels no-hairlines-md">
                                 <form action="#" id="id_addVeiculo">
-                                    <input type="hidden" name="id_veiculo" id="id_carro">
                                     <ul data-idveiculo="">
-                                        <li class="item-content item-input">
-                                            <div class="item-inner">
-                                                <div class="item-title item-label">Placa</div>
-                                                <div class="item-input-wrap" id="">
-                                                    <input name="placa" type="text" value="" placeholder="">
-                                                    <span class="input-clear-button"></span>
-                                                </div>
-                                            </div>
-                                        </li>
                                         <li class="item-content item-input">
                                             <div class="item-inner">
                                                 <div class="item-title item-label">Marca</div>
                                                 <div class="item-input-wrap input-dropdown-wrap">
-                                                    <select placeholder="Please choose..." id="marca_carro" onchange="veiculo_marca_modelo_cor(0, 2, $(this).val())">
+                                                    <select name="marca" placeholder="Please choose..." id="marca_carro" onchange="veiculo_marca_modelo_cor(0, 2, $(this).val())">
                                                     
                                                     </select>
                                                 </div>
@@ -173,7 +163,7 @@
                                             <div class="item-inner">
                                                 <div class="item-title item-label">Modelo</div>
                                                 <div class="item-input-wrap input-dropdown-wrap" id="">
-                                                    <select placeholder="Please choose..." id="modelo_carro">
+                                                    <select name="modelo" placeholder="Please choose..." id="modelo_carro">
                                                     
                                                     </select>
                                                 </div>
@@ -183,18 +173,31 @@
                                           <div class="item-inner">
                                             <div class="item-title item-label">Cor</div>
                                                 <div class="item-input-wrap input-dropdown-wrap" id="">
-                                                    <select placeholder="Please choose..." id="cor_carro">
+                                                    <select name="cor" placeholder="Please choose..." id="cor_carro">
                                                     
                                                     </select>
                                                 </div>
                                           </div>
                                         </li>
 
-                                        <li class="item-content" style="position: relative;top: 10px;">
-                                            <button id="btnSaveDadosContato" onclick="salvarVeiculo(event, 'id_addVeiculo')" class="col-50 rigth-6 button button-raised color-green button-fill fab-close">Salvar</button>
+                                        <li class="item-content item-input">
+                                            <div class="item-inner">
+                                                <div class="item-title item-label">Placa</div>
+                                                <div class="item-input-wrap" id="">
+                                                    <input name="placa" type="text" value="" placeholder="">
+                                                    <span class="input-clear-button"></span>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                    </form>
+                                        <li class="item-content row" style="position: relative;top: 10px;">
+                                            <button class="col-30 rigth-4 button button-raised color-gray button-fill fab-close"><i class="f7-icons" width="40" style="position: relative;top: 4px;">arrow_left</i></button>
+                                            
+                                            <input type="hidden" name="id_morador" id="mor_veiculo_id_morador">
+                                            <button id="btnSaveDadosContato" onclick="salvarVeiculo(event)" class="col-70 rigth-6 button button-raised color-green button-fill">Salvar</button>
                                         </li>
                                     </ul>
-                                </form>
                             </div>
                         </div>
                         

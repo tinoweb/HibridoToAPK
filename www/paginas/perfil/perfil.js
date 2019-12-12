@@ -105,7 +105,15 @@ carrega_dados_and_info = (id_condominio) => {
 }
 
 carrega_morador_dados = (id_morador) => {
+	
 	var urlDominio = localStorage.getItem('IP_LOCAL')+'/controlcondo/v2/';
+	console.log('====>>>'+urlDominio);
+	console.log("parametros");
+	console.log(localStorage.getItem("ID_CONDOMINIO"));
+	console.log(id_morador);
+	// return false;
+
+
 	$.ajax({
 		type: 'POST',
 		url: urlDominio+'appweb/morador_get.php',
@@ -184,8 +192,41 @@ clearProfileData = () => {
 	localStorage.removeItem('profile_statusVisita');	
 }
 
-
 //////////////////////////////EDITAR PERFIL/////////////////////////////
+
+foto_perfil = () => {
+    navigator.camera.getPicture(onSuccess, onFail, { 
+        quality: 50,
+		correctOrientation: true,
+        destinationType: Camera.DestinationType.DATA_URL,
+        saveToPhotoAlbum: true
+    });
+
+    function onSuccess(imageURI) {
+        console.log(imageURI);
+        return false;
+        $( '.Perfil_user_foto' ).css("background-image", "url(data:image/jpeg;base64,"+imageURI+")");
+        $.ajax({ 
+            type: 'POST', 
+            url        : localStorage.getItem('DOMINIO')+"appweb/foto/foto_insert.php", 
+			crossDomain: true,
+			beforeSend : function() { $("#wait").css("display", "block"); },
+			complete   : function() { $("#wait").css("display", "none"); },
+            data       : { id_condominio: $( "#DADOS #ID_CONDOMINIO" ).val(), id_morador: $( "#DADOS #ID_MORADOR" ).val(), foto: imageURI }, 
+            success: function(retorno){ 
+                //$("#erro_box").html(retorno); 
+                //afed('#erro_box','#home','','',3); 
+            }, 
+            error      : function() { 
+                //alert('Erro'); 
+            } 
+        }); 
+    }
+    function onFail(message) {
+        alert('Camera Indisponivel');
+    }    
+}
+
 
 goToEditarPerfil = () => {
 	console.log("goToEditarPerfil function....");
@@ -202,75 +243,125 @@ goToEditarPerfil = () => {
 	});
 
 	$(document).one('click', '.tabDadosVeiculos', function (e) {
+		$("#mor_veiculo_id_morador").val(localStorage.getItem('ID_MORADOR'));
+		$("#mor_veiculo_id_morador_editar").val(localStorage.getItem('ID_MORADOR'));
+
 		console.log("dentro da editar perfil passo 2....");
+
 		let arrayVeiculo = localStorage.getItem('arrayVeiculo');
 		arrayVeiculo = JSON.parse(arrayVeiculo);
 		var veicuArr = null;
 
+		console.log(arrayVeiculo);
+
+		var urlDominio = localStorage.getItem('IP_LOCAL')+'/controlcondo/v2/';
+		var url = urlDominio+'appweb/veiculo_get.php';
+		
+		$.ajax({
+			type: 'POST',
+			url: url,
+			crossDomain: true,
+			beforeSend : function() { $("#wait").css("display", "block"); },
+			complete   : function() { $("#wait").css("display", "none"); },
+	        data : { 
+	        	id_condominio : localStorage.getItem("ID_CONDOMINIO"), 
+	        	id_veiculo : 0, 
+	        	tipo_busca : 1
+	        },
+	        dataType: 'json',
+			success: function(retorno){
+				console.log(retorno);
+				$.each(retorno[0]['marcas'], function(index, val) {
+					$(".marcaCAR").append(`<option value="${val.id}">${val.marca}</option>`);
+				});
+
+				$.each(retorno[0]['cor'], function(index, val) {
+					$(".corCAR").append(`<option value="${val.id}">${val.cor}</option>`);
+				});
+	        },
+	        error: function() {
+	            alert('Erro ao carregar');
+	        }
+		});	
+		
 		if (arrayVeiculo != undefined && arrayVeiculo.length > 0) {
 			$.each(arrayVeiculo, function(index, val) {
 				$("#editarPerfilPasso2_veiculos").append(
 				`<ul>
-						<li class="accordion-item">
-							<a href="#" class="item-content item-link">
-								<div class="item-media">
+						<li class="accordion-item swipeout deletarVeiculo">
+							<div class="swipeout-content">
+								<a href="#" class="item-content item-link">
 									<div class="item-media">
-										<i class="f7-icons" width="40">car_fill</i>
+										<div class="item-media">
+											<i class="f7-icons" width="40">car_fill</i>
+										</div>
 									</div>
-								</div>
+									
+									<div class="item-inner">
+									   <div class="item-title">${val.marca_desc}</div>
+									</div>
+								</a>
 								
-								<div class="item-inner">
-								   <div class="item-title">${val.marca_desc}</div>
-								</div>
-							</a>
-							
-							<div class="accordion-item-content">
-								<div class="block" style="margin-bottom: 5%">
-								  	<div class="list inline-labels no-hairlines-md">
-								  		<form action="#" id="id_${val.id}">
-										  	<ul data-idveiculo="${val.id}">
-												<li class="item-content item-input">
-												  	<div class="item-inner">
-														<div class="item-title item-label">Placa</div>
-														<div class="item-input-wrap">
-														  	<input name="placa" type="text" value="${val.placa}" placeholder="">
-														  	<span class="input-clear-button"></span>
-														</div>
-												  	</div>
-												</li>
-												<li class="item-content item-input">
-												  	<div class="item-inner">
-														<div class="item-title item-label">Marca</div>
-														<div class="item-input-wrap">
-														  	<input name="marca" type="text" data-marca="${val.marca}" value="${val.marca_desc}" placeholder="">
-														  	<span class="input-clear-button"></span>
-														</div>
-												  	</div>
-												</li>
-												<li class="item-content item-input">
-												  	<div class="item-inner">
-														<div class="item-title item-label">Modelo</div>
-														<div class="item-input-wrap">
-														  	<input name="modelo" type="text" data-modelo="${val.modelo}" value="${val.modelo_desc}" placeholder="">
-														  	<span class="input-clear-button"></span>
-														</div>
-												  	</div>
-												</li>
-												<li class="item-content item-input">
-												  <div class="item-inner">
-													<div class="item-title item-label">Cor</div>
-														<div class="item-input-wrap">
-														  	<input name="cor" type="text" data-cor="${val.cor}" value="${val.cor_desc}" placeholder="">
-														  	<span class="input-clear-button"></span>
-														</div>
-												  </div>
-												</li>
 
-												<li class="item-content" style="position: relative;top: 10px;">
-				                                    <button id="btnSaveDadosContato" onclick="atualizarVeiculo(event, id_${val.id})" class="col-50 rigth-6 button button-raised color-green button-fill">Salvar</button>
-				                                </li>
-										  	</ul>
-									  	</form>
+								<div class="swipeout-actions-right">
+							    	<a href="#" data-confirm="tem certeza que deseja deletar esse veículo?" class="swipeout-delete">Deletar</a>
+							    </div>
+								
+								<div class="accordion-item-content">
+									<div class="block" style="margin-bottom: 5%">
+									  	<div class="list inline-labels no-hairlines-md">
+									  		<form action="#" id="id_${val.id}">
+											  	<ul data-idveiculo="${val.id}">
+													
+													<li class="item-content item-input">
+													  	<div class="item-inner">
+															<div class="item-title item-label">Marca</div>
+															<div class="item-input-wrap">
+															  	<select class="marcaCAR" name="marca" placeholder="" id="marca_carro_${val.id}" onchange="trazOsVeiculosParaEditar(${val.id}, 2, $(this).val(),  ${val.id})">
+	                                                    			<option value="${val.marca}">${val.marca_desc}</option>
+	                                                    			
+	                                                    		</select>
+															</div>
+													  	</div>
+													</li>
+													<li class="item-content item-input">
+													  	<div class="item-inner">
+															<div class="item-title item-label">Modelo</div>
+															<div class="item-input-wrap">
+															  	<select class="" name="modelo" placeholder="" id="modelo_carro${val.id}" onchange="">
+	                                                    			<option value="${val.modelo}">${val.modelo_desc}</option>
+	                                                    		</select>
+															</div>
+													  	</div>
+													</li>
+													<li class="item-content item-input">
+													  <div class="item-inner">
+														<div class="item-title item-label">Cor</div>
+															<div class="item-input-wrap">
+																<select class="corCAR" name="cor" placeholder="" id="cor_carro${val.id}" onchange="">
+	                                                    			<option value="${val.cor}">${val.cor_desc}</option>
+	                                                    		</select>
+															</div>
+													  </div>
+													</li>
+
+													<li class="item-content item-input">
+													  	<div class="item-inner">
+															<div class="item-title item-label">Placa</div>
+															<div class="item-input-wrap">
+															  	<input name="placa" type="text" value="${val.placa}" placeholder="">
+															  	<span class="input-clear-button"></span>
+															</div>
+													  	</div>
+													</li>
+												</form>
+													<li class="item-content row" style="position: relative;top: 10px;">
+														<input type="hidden" name="id_morador" id="mor_veiculo_id_morador_editar">
+					                                    <button id="btnSaveDadosContato" onclick="atualizarVeiculo(event, id_${val.id}, ${val.id})" class="col-100 rigth-6 button button-raised color-green button-fill">
+					                                    Salvar Edição</button>
+					                                </li>
+											  	</ul>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -285,15 +376,11 @@ goToEditarPerfil = () => {
 }
 
 
-atualizarVeiculo = (e, id_form, idVeiculo) => {
-	e.preventDefault();
-	console.log(id_form);
-	console.log(idVeiculo);
-	console.log($(id_form).serialize());
+// $$(".deletarVeiculo").on('swipeout:deleted', function (){
 
-	return false;
-}
+// }
 
+///////// atualizar dados pessoais do morador///////////
 atualizarDadosContato = (event) => {
 	event.preventDefault();
 	let moradorData = $("#personalInfo").serialize();
@@ -322,7 +409,41 @@ atualizarDadosContato = (event) => {
 	});
 }
 
-/////carregar veiculo ////////////////////
+//////// popular os campos de marca e modelo da edicao de cada veiculo ///////
+trazOsVeiculosParaEditar = (id_veiculo,tipo,marca='', idquemchama=null) => {
+	var urlDominio = localStorage.getItem('IP_LOCAL')+'/controlcondo/v2/';
+	var url = urlDominio+'appweb/veiculo_get.php';
+
+	$.ajax({
+		type: 'POST',
+		url: url,
+		crossDomain: true,
+		beforeSend : function() { $("#wait").css("display", "block"); },
+		complete   : function() { $("#wait").css("display", "none"); },
+        data : { 
+        	id_condominio : localStorage.getItem("ID_CONDOMINIO"), 
+        	id_veiculo : id_veiculo, 
+        	tipo_busca : tipo,
+        	marca : marca 
+        },
+        dataType   : 'json',
+		success: function(retorno){
+			
+			if(tipo == 2) {
+				var modelo_dados="";
+				for (x in retorno[0]['modelo']) {
+					modelo_dados += '<option value="'+retorno[0]['modelo'][x]['id']+'">'+retorno[0]['modelo'][x]['modelo']+'</option>';
+				}
+				$("#modelo_carro"+idquemchama).append(modelo_dados);
+			}
+        },
+        error      : function() {
+            alert('Erro ao carregar');
+        }
+	});	
+}
+
+/////Carregar veiculo //////////////////
 veiculo_marca_modelo_cor = (id_veiculo,tipo,marca='') => {
 	
 	var urlDominio = localStorage.getItem('IP_LOCAL')+'/controlcondo/v2/';
@@ -344,7 +465,6 @@ veiculo_marca_modelo_cor = (id_veiculo,tipo,marca='') => {
 		success: function(retorno){
 
 			console.log(retorno);
-
 			if(tipo == 1){
 				var marca_dados = '<option value="0">Seleciona</option>';
 				for (x in retorno[0]['marcas']) {
@@ -363,7 +483,7 @@ veiculo_marca_modelo_cor = (id_veiculo,tipo,marca='') => {
 					cor_dados = cor_dados + '<option value="'+retorno[0]['cor'][x]['id']+'">'+retorno[0]['cor'][x]['cor']+'</option>';
 				}
 			}
-			
+
 			if(tipo == 1){
 				$( "#id_carro" ).val(retorno[0]['veiculo'][0]['id']);
 				$( "#marca_carro" ).html(marca_dados);
@@ -375,10 +495,6 @@ veiculo_marca_modelo_cor = (id_veiculo,tipo,marca='') => {
 				$( "#id_carro" ).val(id_veiculo);
 				$( "#placa_carro" ).val(retorno[0]['veiculo'][0]['placa']);
 				$( '#foto_morador_veiculo' ).css("background-image", "url(data:image/jpeg;base64,"+retorno[0]['veiculo'][0]['foto']+")");
-				
-				// if(retorno[0]['veiculo'][0]['foto'] == ''){
-				//    $( '#foto_morador_veiculo' ).html('<i class="icon material-icons" style="margin: -30px 0 0 14px; font-size: 50px; ">directions_car</i>');
-				// }
 
 				// if(retorno[0]['veiculo'][0]['id'] == 0){
 				// 	$( '#foto_veiculo_img' ).val('');
@@ -397,28 +513,28 @@ veiculo_marca_modelo_cor = (id_veiculo,tipo,marca='') => {
 	});	
 }
 
-
-
-
+/////Salvar veiculo ////////////////////
 salvarVeiculo = (event) => {
 	event.preventDefault();
-
+	var dados = $("#id_addVeiculo").serialize();
 	var urlDominio = localStorage.getItem('IP_LOCAL')+'/controlcondo/v2/';
+
+	console.log(dados);
+
 	$.ajax({
 		type: 'POST',
-		url: urlDominio+'appweb/morador_update.php',
-        data : { 
-        	id_condominio : localStorage.getItem("ID_CONDOMINIO"), 
-        	dataMorador : moradorData,
-        	id_morador : localStorage.getItem("ID_MORADOR"),
-        	typeOperation: 'updateMorador'
-        },
-        dataType   : 'json',
+		url: urlDominio+'appweb/veiculo_update.php',
+        data : dados+'&id_condominio='+localStorage.getItem("ID_CONDOMINIO"),
 		crossDomain: true,
 		success: function(retorno){
 			console.log(retorno);
-			if (retorno.status == 'sucess' && retorno.statuscode == 200) {
-				alertaDialog("Sucesso", "Dados atualizado com sucesso", afterClose=null)
+
+			if(retorno == 'A'){
+				alertaDialog("Sucesso", "Veiculo atualizado com sucesso", afterClose=null)
+				console.log("atualizado condominio");
+			}else{
+				console.log("inseriu condominio..");
+				alertaDialog("Sucesso", "Veiculo adicionado com sucesso", "gotoprofile")
 			}
         },
         error: function(error) {
@@ -427,3 +543,34 @@ salvarVeiculo = (event) => {
 	});
 
 }
+
+////////atualizar Veiculo///////////////
+atualizarVeiculo = (e, dadosVei, idVeiculo) => {
+	e.preventDefault();
+	let dados =$(dadosVei).serialize();
+	var urlDominio = localStorage.getItem('IP_LOCAL')+'/controlcondo/v2/';
+	console.log(dados+'&id_condominio='+localStorage.getItem("ID_CONDOMINIO")+'&id_veiculo='+idVeiculo);
+
+	$.ajax({
+		type: 'POST',
+		url: urlDominio+'appweb/veiculo_update.php',
+        data : dados+'&id_condominio='+localStorage.getItem("ID_CONDOMINIO")+'&id_veiculo='+idVeiculo,
+		crossDomain: true,
+		success: function(retorno){
+			console.log(retorno);
+
+			if(retorno == 'A'){
+				console.log("atualizado condominio");
+				alertaDialog("Sucesso", "Veiculo atualizado com sucesso", 'gotoprofile');
+			}else{
+				console.log("inseriu condominio..");
+				alertaDialog("Sucesso", "Veiculo adicionado com sucesso", "gotoprofile");
+			}
+        },
+        error: function(error) {
+            alerta(JSON.stringify(error));
+        }
+	});
+}
+
+

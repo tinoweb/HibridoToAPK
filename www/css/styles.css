@@ -209,6 +209,22 @@ background: linear-gradient(#0064c0, #007aff) !important;
   font-size: 16px !important;
 }
 
+.elementoChangeFoto{
+  border: solid 1px #4662360a;
+  width: 89%;
+  height: 47px;
+  position: absolute;
+  top: 75px;
+  border-radius: 0px 0px 100px 100px;
+  left: 5px;
+  z-index: 99;
+  
+}
+
+.elementoChangeFoto:hover{
+  background-color: #24323259;
+}
+
 /*************************** Area Comum *****************************************/
 .facebook-card-area .card-header {
   display: block;

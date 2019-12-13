@@ -6,7 +6,7 @@
 		<div class="navbar-bg"></div>
 		<div class="navbar-inner sliding tema-azul">
 		  <div class="left">
-			<a class="link back">
+			<a class="link " href="/home/">
 			  <i class="icon icon-back"></i>
 			  <span class="if-not-md">Back</span>
 			</a>
@@ -23,7 +23,7 @@
 			</a>
 		 </div>
 		 <div class="fab fab-right-bottom color-blue">
-			   <a href="#" class="">
+			   <a href="#" class="" onClick="adicionar_pet()">
 				   <i class="material-icons" id="botao_pet_mais">add</i>
 				   <i class="material-icons">close</i>
 			   </a>
@@ -33,13 +33,13 @@
 					   <span class="f7-icons" >cat</span>
 					   <span class="fab-label">Meus Pet's</span>
 				   </a>	
-				   <a id="link-pet" class="fab-label-button fab-buttons-bottom tab-link"  href="/pet_cadastro/">
+				   <a id="link-pet" class="fab-label-button fab-buttons-bottom tab-link" onClick="especies_pet()" href="/pet_cadastro/">
 					   <input type="hidden" id="valor_tab" value="1">
 					   <span class="f7-icons" >plus</span>
 					   <span class="fab-label">Cadastrar</span>
 				   </a>
 				   <div class="fab fab-top fab-morph" data-morph-to=".demo-fab-sheet.fab-morph-target" style="opacity: 1;position: absolute;margin-top: -55px;">
-				   	   <a class="fab-label-button" href="#">
+				   	   <a class="fab-label-button" onClick="especies_pet()" href="#">
 					   <span class="f7-icons">search</span>
 					   <span class="fab-label">Filtro</span>
 					   </a>
@@ -55,7 +55,7 @@
 						<div class="item-inner">
 						  <div class="item-title item-label">Nome</div>
 						  <div class="item-input-wrap">
-							<input type="text" name="nome" placeholder="Nome">
+							<input type="text" id="pets_nome_busca" name="nome" placeholder="Nome">
 						  </div>
 						</div>
 					  </div>
@@ -63,7 +63,7 @@
 						<div class="item-inner">
 						  <div class="item-title item-label">Raça</div>
 						  <div class="item-input-wrap">
-							<input type="text" name="nome" placeholder="">
+							<input type="text" id="pets_raca_busca" name="nome" placeholder="">
 						  </div>
 						</div>
 					  </div>
@@ -71,91 +71,38 @@
 						<div class="item-inner">
 						  <div class="item-title item-label">Cor</div>
 						  <div class="item-input-wrap">
-							<input type="text" name="nome" placeholder="">
+							<input type="text" id="pets_cor_busca" name="nome" placeholder="">
 						  </div>
 						</div>
 					  </div>
 					<li class="item-content item-input item-input-with-value">
 					  <div class="item-inner">
-						<div class="item-title item-label">Sexo</div>
+						<div class="item-title item-label">Espécie</div>
 						<div class="item-input-wrap input-dropdown-wrap">
-						  <select name="gender" placeholder="Please choose..." class="input-with-value">
-						    <option value="Male">Macho</option>
-						    <option value="Female">Femia</option>
+						  <select name="gender" id="pets_especie_busca" placeholder="Please choose..." class="input-with-value">
+
 						  </select>
+						 <input type="hidden" id="all_esp" value="">	
 						</div>
 					  </div>
 					</li>
 
-		<button type="button" class="col button button-fill color-green fab-close" onClick="buscar_pet()"><i class="f7-icons">doc_text_search</i> Buscar</button>
+		<button type="button" class="col button button-fill color-green fab-close" onclick="get_filtro_pet()"><i class="f7-icons">doc_text_search</i> Buscar</button>
 	</div>
 </div>
 <div class="page-content">		 
-<div class="tabs-swipeable-wrap">
+<div class="tabs-animated-wrap">
     <div class="tabs">	 
 		 
-	   <div id="tab-1" class="page-content tab tab-active" style=" margin-top: -20%;height: auto;" >
+	   <div id="tab-1" class="page-content tab tab-active" data-swipe="false" style="overflow-x: hidden  !important; margin-top: -20%;height: auto;" >
 		<div class="block">
 		
 			<div class="list links-list no-ios-edges">
-			<ul>
-
-			<li class="item-content">
-			 <a href="/perfil_pet/"  data-transition="f7-push" class=""  style="width: 100%">
-				<div class="item-media"><img src="http://www.jornaloeste.com.br/imgsite/noticias/amp-006-CACHORRO.jpg"  width="44"></div>
-				<div class="item-inner">
-					<div class="item-title" style="margin-top: 5%">  Rex
-					 <p class="size-10"> Bloco 1  Apt: 23</p>
-					</div>
-				</div>
-			 </a>
-			</li>
-			<li class="item-content">
-			 <a href="/perfil_pet/"  data-transition="f7-push" class="" style="width: 100%">
-				<div class="item-media"><img src="https://image.cachorrogato.com.br/textimages/nomes-para-gatos.jpg" width="44"></div>
-				<div class="item-inner">
-					<div class="item-title" style="margin-top: 5%">  Mia
-					 <p class="size-10"> Bloco 1  Apt: 257</p>
-					</div>
-				</div>
-			 </a>
-			</li>	
-			<li class="item-content">
-			 <a href="/perfil_pet/" class=""  data-transition="f7-push" style="width: 100%">
-				<div class="item-media"><img src="http://portalmelhoresamigos.com.br/wp-content/uploads/2016/05/beijo_lambida_cachorro.png" width="44"></div>
-				<div class="item-inner">
-					<div class="item-title" style="margin-top: 5%">  Bobe
-					 <p class="size-10"> Bloco 1  Apt: 2</p>
-					</div>
-				</div>
-			 </a>
-			</li>
-			<li class="item-content">
-			 <a href="/perfil_pet/"  data-transition="f7-push" class="" style="width: 100%">
-				<div class="item-media"><img src="https://www.elliberal.com.ar/fotos/cache/notas/2019/09/30/937x553_505845_20190930101506.jpg" width="44"></div>
-				<div class="item-inner">
-					<div class="item-title" style="margin-top: 5%">  Mantega
-					 <p class="size-10"> Bloco 1  Apt: 23</p>
-					</div>
-				</div>
-			 </a>
-			</li>
-			</ul>
-				
-			</div>
-
-		</div>
-
-	   </div>
-	   <div id="tab-2" class="page-content tab" style=" margin-top: -20%;height: auto;">
-		<div class="block">
-		
-			<div class="list links-list no-ios-edges">
-			<ul>
-
-			<li class="item-content">
-			 <a href="/perfil_pet/"  data-transition="f7-push" class=""  style="width: 100%">
-				<div class="item-media"><img src="http://www.jornaloeste.com.br/imgsite/noticias/amp-006-CACHORRO.jpg"  width="44"></div>
+			<ul id="main_pet">
+				<div id="sktlp" style="display: block">
+			<li class="item-content skeleton-text skeleton-effect-pulse">
+			 <a href="#"  data-transition="f7-push" class=""  style="width: 100%">
+				<div class="item-media"><div class="skeleton-block" style="height: 60px;width: 44px;" ></div></div>
 				<div class="item-inner">
 					<div class="item-title" style="margin-top: 5%">  Rexaaaaaa
 					 <p class="size-10"> Bloco 1  Apt: 23</p>
@@ -163,36 +110,311 @@
 				</div>
 			 </a>
 			</li>
-			<li class="item-content">
-			 <a href="/perfil_pet/"  data-transition="f7-push" class="" style="width: 100%">
-				<div class="item-media"><img src="https://image.cachorrogato.com.br/textimages/nomes-para-gatos.jpg" width="44"></div>
+            <li class="item-content skeleton-text skeleton-effect-pulse">
+			 <a href="#"  data-transition="f7-push" class=""  style="width: 100%">
+				<div class="item-media"><div class="skeleton-block" style="height: 60px;width: 44px;" ></div></div>
 				<div class="item-inner">
-					<div class="item-title" style="margin-top: 5%">  Mia
-					 <p class="size-10"> Bloco 1  Apt: 257</p>
-					</div>
-				</div>
-			 </a>
-			</li>	
-			<li class="item-content">
-			 <a href="/perfil_pet/" class=""  data-transition="f7-push" style="width: 100%">
-				<div class="item-media"><img src="http://portalmelhoresamigos.com.br/wp-content/uploads/2016/05/beijo_lambida_cachorro.png" width="44"></div>
-				<div class="item-inner">
-					<div class="item-title" style="margin-top: 5%">  Bobe
-					 <p class="size-10"> Bloco 1  Apt: 2</p>
-					</div>
-				</div>
-			 </a>
-			</li>
-			<li class="item-content">
-			 <a href="/perfil_pet/"  data-transition="f7-push" class="" style="width: 100%">
-				<div class="item-media"><img src="https://www.elliberal.com.ar/fotos/cache/notas/2019/09/30/937x553_505845_20190930101506.jpg" width="44"></div>
-				<div class="item-inner">
-					<div class="item-title" style="margin-top: 5%">  Mantega
+					<div class="item-title" style="margin-top: 5%">  Rexaaaaaa
 					 <p class="size-10"> Bloco 1  Apt: 23</p>
 					</div>
 				</div>
 			 </a>
-			</li>	
+			</li>
+            <li class="item-content skeleton-text skeleton-effect-pulse">
+			 <a href="#"  data-transition="f7-push" class=""  style="width: 100%">
+				<div class="item-media"><div class="skeleton-block" style="height: 60px;width: 44px;" ></div></div>
+				<div class="item-inner">
+					<div class="item-title" style="margin-top: 5%">  Rexaaaaaa
+					 <p class="size-10"> Bloco 1  Apt: 23</p>
+					</div>
+				</div>
+			 </a>
+			</li>
+            <li class="item-content skeleton-text skeleton-effect-pulse">
+			 <a href="#"  data-transition="f7-push" class=""  style="width: 100%">
+				<div class="item-media"><div class="skeleton-block" style="height: 60px;width: 44px;" ></div></div>
+				<div class="item-inner">
+					<div class="item-title" style="margin-top: 5%">  Rexaaaaaa
+					 <p class="size-10"> Bloco 1  Apt: 23</p>
+					</div>
+				</div>
+			 </a>
+			</li>
+            <li class="item-content skeleton-text skeleton-effect-pulse">
+			 <a href="#"  data-transition="f7-push" class=""  style="width: 100%">
+				<div class="item-media"><div class="skeleton-block" style="height: 60px;width: 44px;" ></div></div>
+				<div class="item-inner">
+					<div class="item-title" style="margin-top: 5%">  Rexaaaaaa
+					 <p class="size-10"> Bloco 1  Apt: 23</p>
+					</div>
+				</div>
+			 </a>
+			</li>
+            <li class="item-content skeleton-text skeleton-effect-pulse">
+			 <a href="#"  data-transition="f7-push" class=""  style="width: 100%">
+				<div class="item-media"><div class="skeleton-block" style="height: 60px;width: 44px;" ></div></div>
+				<div class="item-inner">
+					<div class="item-title" style="margin-top: 5%">  Rexaaaaaa
+					 <p class="size-10"> Bloco 1  Apt: 23</p>
+					</div>
+				</div>
+			 </a>
+			</li>
+            <li class="item-content skeleton-text skeleton-effect-pulse">
+			 <a href="#"  data-transition="f7-push" class=""  style="width: 100%">
+				<div class="item-media"><div class="skeleton-block" style="height: 60px;width: 44px;" ></div></div>
+				<div class="item-inner">
+					<div class="item-title" style="margin-top: 5%">  Rexaaaaaa
+					 <p class="size-10"> Bloco 1  Apt: 23</p>
+					</div>
+				</div>
+			 </a>
+			</li>
+            <li class="item-content skeleton-text skeleton-effect-pulse">
+			 <a href="#"  data-transition="f7-push" class=""  style="width: 100%">
+				<div class="item-media"><div class="skeleton-block" style="height: 60px;width: 44px;" ></div></div>
+				<div class="item-inner">
+					<div class="item-title" style="margin-top: 5%">  Rexaaaaaa
+					 <p class="size-10"> Bloco 1  Apt: 23</p>
+					</div>
+				</div>
+			 </a>
+			</li>
+            <li class="item-content skeleton-text skeleton-effect-pulse">
+			 <a href="#"  data-transition="f7-push" class=""  style="width: 100%">
+				<div class="item-media"><div class="skeleton-block" style="height: 60px;width: 44px;" ></div></div>
+				<div class="item-inner">
+					<div class="item-title" style="margin-top: 5%">  Rexaaaaaa
+					 <p class="size-10"> Bloco 1  Apt: 23</p>
+					</div>
+				</div>
+			 </a>
+			</li>
+            <li class="item-content skeleton-text skeleton-effect-pulse">
+			 <a href="#"  data-transition="f7-push" class=""  style="width: 100%">
+				<div class="item-media"><div class="skeleton-block" style="height: 60px;width: 44px;" ></div></div>
+				<div class="item-inner">
+					<div class="item-title" style="margin-top: 5%">  Rexaaaaaa
+					 <p class="size-10"> Bloco 1  Apt: 23</p>
+					</div>
+				</div>
+			 </a>
+            <li class="item-content skeleton-text skeleton-effect-pulse">
+			 <a href="#"  data-transition="f7-push" class=""  style="width: 100%">
+				<div class="item-media"><div class="skeleton-block" style="height: 60px;width: 44px;" ></div></div>
+				<div class="item-inner">
+					<div class="item-title" style="margin-top: 5%">  Rexaaaaaa
+					 <p class="size-10"> Bloco 1  Apt: 23</p>
+					</div>
+				</div>
+			 </a>
+			</li>
+            <li class="item-content skeleton-text skeleton-effect-pulse">
+			 <a href="#"  data-transition="f7-push" class=""  style="width: 100%">
+				<div class="item-media"><div class="skeleton-block" style="height: 60px;width: 44px;" ></div></div>
+				<div class="item-inner">
+					<div class="item-title" style="margin-top: 5%">  Rexaaaaaa
+					 <p class="size-10"> Bloco 1  Apt: 23</p>
+					</div>
+				</div>
+			 </a>
+			</li>
+            <li class="item-content skeleton-text skeleton-effect-pulse">
+			 <a href="#"  data-transition="f7-push" class=""  style="width: 100%">
+				<div class="item-media"><div class="skeleton-block" style="height: 60px;width: 44px;" ></div></div>
+				<div class="item-inner">
+					<div class="item-title" style="margin-top: 5%">  Rexaaaaaa
+					 <p class="size-10"> Bloco 1  Apt: 23</p>
+					</div>
+				</div>
+			 </a>
+			</li>
+            <li class="item-content skeleton-text skeleton-effect-pulse">
+			 <a href="#"  data-transition="f7-push" class=""  style="width: 100%">
+				<div class="item-media"><div class="skeleton-block" style="height: 60px;width: 44px;" ></div></div>
+				<div class="item-inner">
+					<div class="item-title" style="margin-top: 5%">  Rexaaaaaa
+					 <p class="size-10"> Bloco 1  Apt: 23</p>
+					</div>
+				</div>
+			 </a>
+			</li>
+            <li class="item-content skeleton-text skeleton-effect-pulse">
+			 <a href="#"  data-transition="f7-push" class=""  style="width: 100%">
+				<div class="item-media"><div class="skeleton-block" style="height: 60px;width: 44px;" ></div></div>
+				<div class="item-inner">
+					<div class="item-title" style="margin-top: 5%">  Rexaaaaaa
+					 <p class="size-10"> Bloco 1  Apt: 23</p>
+					</div>
+				</div>
+			 </a>
+			</li>
+            
+				</div>	
+			</ul>
+				
+			</div>
+
+		</div>
+
+	   </div>
+	   <div id="tab-2" class="page-content tab" data-swipe="false" style="overflow-x: hidden  !important; margin-top: -20%;height: auto;">
+		<div class="block">
+		
+			<div class="list links-list no-ios-edges">
+			<ul id="meus_pets">
+				<div id="sktlp2" style="display: block">
+			<li class="item-content skeleton-text skeleton-effect-pulse">
+			 <a href="#"  data-transition="f7-push" class=""  style="width: 100%">
+				<div class="item-media"><div class="skeleton-block" style="height: 60px;width: 44px;" ></div></div>
+				<div class="item-inner">
+					<div class="item-title" style="margin-top: 5%">  Rexaaaaaa
+					 <p class="size-10"> Bloco 1  Apt: 23</p>
+					</div>
+				</div>
+			 </a>
+			</li>
+            <li class="item-content skeleton-text skeleton-effect-pulse">
+			 <a href="#"  data-transition="f7-push" class=""  style="width: 100%">
+				<div class="item-media"><div class="skeleton-block" style="height: 60px;width: 44px;" ></div></div>
+				<div class="item-inner">
+					<div class="item-title" style="margin-top: 5%">  Rexaaaaaa
+					 <p class="size-10"> Bloco 1  Apt: 23</p>
+					</div>
+				</div>
+			 </a>
+			</li>
+            <li class="item-content skeleton-text skeleton-effect-pulse">
+			 <a href="#"  data-transition="f7-push" class=""  style="width: 100%">
+				<div class="item-media"><div class="skeleton-block" style="height: 60px;width: 44px;" ></div></div>
+				<div class="item-inner">
+					<div class="item-title" style="margin-top: 5%">  Rexaaaaaa
+					 <p class="size-10"> Bloco 1  Apt: 23</p>
+					</div>
+				</div>
+			 </a>
+			</li>
+            <li class="item-content skeleton-text skeleton-effect-pulse">
+			 <a href="#"  data-transition="f7-push" class=""  style="width: 100%">
+				<div class="item-media"><div class="skeleton-block" style="height: 60px;width: 44px;" ></div></div>
+				<div class="item-inner">
+					<div class="item-title" style="margin-top: 5%">  Rexaaaaaa
+					 <p class="size-10"> Bloco 1  Apt: 23</p>
+					</div>
+				</div>
+			 </a>
+			</li>
+            <li class="item-content skeleton-text skeleton-effect-pulse">
+			 <a href="#"  data-transition="f7-push" class=""  style="width: 100%">
+				<div class="item-media"><div class="skeleton-block" style="height: 60px;width: 44px;" ></div></div>
+				<div class="item-inner">
+					<div class="item-title" style="margin-top: 5%">  Rexaaaaaa
+					 <p class="size-10"> Bloco 1  Apt: 23</p>
+					</div>
+				</div>
+			 </a>
+			</li>
+            <li class="item-content skeleton-text skeleton-effect-pulse">
+			 <a href="#"  data-transition="f7-push" class=""  style="width: 100%">
+				<div class="item-media"><div class="skeleton-block" style="height: 60px;width: 44px;" ></div></div>
+				<div class="item-inner">
+					<div class="item-title" style="margin-top: 5%">  Rexaaaaaa
+					 <p class="size-10"> Bloco 1  Apt: 23</p>
+					</div>
+				</div>
+			 </a>
+			</li>
+            <li class="item-content skeleton-text skeleton-effect-pulse">
+			 <a href="#"  data-transition="f7-push" class=""  style="width: 100%">
+				<div class="item-media"><div class="skeleton-block" style="height: 60px;width: 44px;" ></div></div>
+				<div class="item-inner">
+					<div class="item-title" style="margin-top: 5%">  Rexaaaaaa
+					 <p class="size-10"> Bloco 1  Apt: 23</p>
+					</div>
+				</div>
+			 </a>
+			</li>
+            <li class="item-content skeleton-text skeleton-effect-pulse">
+			 <a href="#"  data-transition="f7-push" class=""  style="width: 100%">
+				<div class="item-media"><div class="skeleton-block" style="height: 60px;width: 44px;" ></div></div>
+				<div class="item-inner">
+					<div class="item-title" style="margin-top: 5%">  Rexaaaaaa
+					 <p class="size-10"> Bloco 1  Apt: 23</p>
+					</div>
+				</div>
+			 </a>
+			</li>
+            <li class="item-content skeleton-text skeleton-effect-pulse">
+			 <a href="#"  data-transition="f7-push" class=""  style="width: 100%">
+				<div class="item-media"><div class="skeleton-block" style="height: 60px;width: 44px;" ></div></div>
+				<div class="item-inner">
+					<div class="item-title" style="margin-top: 5%">  Rexaaaaaa
+					 <p class="size-10"> Bloco 1  Apt: 23</p>
+					</div>
+				</div>
+			 </a>
+			</li>
+            <li class="item-content skeleton-text skeleton-effect-pulse">
+			 <a href="#"  data-transition="f7-push" class=""  style="width: 100%">
+				<div class="item-media"><div class="skeleton-block" style="height: 60px;width: 44px;" ></div></div>
+				<div class="item-inner">
+					<div class="item-title" style="margin-top: 5%">  Rexaaaaaa
+					 <p class="size-10"> Bloco 1  Apt: 23</p>
+					</div>
+				</div>
+			 </a>
+            <li class="item-content skeleton-text skeleton-effect-pulse">
+			 <a href="#"  data-transition="f7-push" class=""  style="width: 100%">
+				<div class="item-media"><div class="skeleton-block" style="height: 60px;width: 44px;" ></div></div>
+				<div class="item-inner">
+					<div class="item-title" style="margin-top: 5%">  Rexaaaaaa
+					 <p class="size-10"> Bloco 1  Apt: 23</p>
+					</div>
+				</div>
+			 </a>
+			</li>
+            <li class="item-content skeleton-text skeleton-effect-pulse">
+			 <a href="#"  data-transition="f7-push" class=""  style="width: 100%">
+				<div class="item-media"><div class="skeleton-block" style="height: 60px;width: 44px;" ></div></div>
+				<div class="item-inner">
+					<div class="item-title" style="margin-top: 5%">  Rexaaaaaa
+					 <p class="size-10"> Bloco 1  Apt: 23</p>
+					</div>
+				</div>
+			 </a>
+			</li>
+            <li class="item-content skeleton-text skeleton-effect-pulse">
+			 <a href="#"  data-transition="f7-push" class=""  style="width: 100%">
+				<div class="item-media"><div class="skeleton-block" style="height: 60px;width: 44px;" ></div></div>
+				<div class="item-inner">
+					<div class="item-title" style="margin-top: 5%">  Rexaaaaaa
+					 <p class="size-10"> Bloco 1  Apt: 23</p>
+					</div>
+				</div>
+			 </a>
+			</li>
+            <li class="item-content skeleton-text skeleton-effect-pulse">
+			 <a href="#"  data-transition="f7-push" class=""  style="width: 100%">
+				<div class="item-media"><div class="skeleton-block" style="height: 60px;width: 44px;" ></div></div>
+				<div class="item-inner">
+					<div class="item-title" style="margin-top: 5%">  Rexaaaaaa
+					 <p class="size-10"> Bloco 1  Apt: 23</p>
+					</div>
+				</div>
+			 </a>
+			</li>
+            <li class="item-content skeleton-text skeleton-effect-pulse">
+			 <a href="#"  data-transition="f7-push" class=""  style="width: 100%">
+				<div class="item-media"><div class="skeleton-block" style="height: 60px;width: 44px;" ></div></div>
+				<div class="item-inner">
+					<div class="item-title" style="margin-top: 5%">  Rexaaaaaa
+					 <p class="size-10"> Bloco 1  Apt: 23</p>
+					</div>
+				</div>
+			 </a>
+			</li>
+            
+				</div>	
 			</ul>
 				
 			</div>

@@ -1,12 +1,12 @@
 <div class="pages">
-    <div data-page="documentos" class="page">
+    <div data-page="documentos" id="documentos">
 	 <div class="page">
 	  <!-- MENU -->
 	  <div class="navbar" >
 		<div class="navbar-bg"></div>
 		<div class="navbar-inner sliding tema-azul">
 		  <div class="left">
-			<a class="link back">
+			<a class="link" href="/home/">
 			  <i class="icon icon-back"></i>
 			  <span class="if-not-md">Back</span>
 			</a>
@@ -17,9 +17,9 @@
 	  <!-- MENU --> 
 
 	 
-		  <div class="fab fab-right-bottom fab-morph" data-morph-to=".demo-fab-sheet.fab-morph-target" style="opacity: 1;">
+		  <div  onClick=" carregar_categoria_doc()" class="fab fab-right-bottom fab-morph" data-morph-to=".demo-fab-sheet.fab-morph-target" style="opacity: 1;">
 			<a href="#" class="">
-			<i class="icon material-icons md-only">add</i>
+			<i class="f7-icons">search</i>
 			</a>
 		 </div>
 <div class="list links-list demo-fab-sheet fab-morph-target" style="margin-bottom: -25%;margin-top: 15%;z-index: 999999">
@@ -29,7 +29,7 @@
 						<div class="item-inner">
 						  <div class="item-title item-label">Título</div>
 						  <div class="item-input-wrap">
-							<input type="text" id="busc_titl" name="nome" placeholder="Buscar por Título">
+							<input type="text" id="busca_documento" name="nome" placeholder="Buscar por Título">
 						  </div>
 						</div>
 					  </div>
@@ -37,20 +37,18 @@
 					  <div class="item-inner">
 						<div class="item-title item-label">Categoria</div>
 						<div class="item-input-wrap input-dropdown-wrap">
-						  <select name="gender" placeholder="Please choose..." class="input-with-value">
-						    <option value="Male">Ata</option>
-						    <option value="Female">Construção</option>
-						    <option value="Female">Contratos</option>
-						    <option value="Female">Regras</option>
+						  <select name="gender" id="select_categoria_doc" placeholder="Please choose..." class="input-with-value">
+							<option value="">Selecione...</option>
 						  </select>
 						</div>
 					  </div>
+						<input type="hidden" id="categoria_id" value="">
 					</li>
 					  <div class="item-content item-input">
 						<div class="item-inner">
 						  <div class="item-title item-label">De</div>
 						  <div class="item-input-wrap">
-							<input type="datetime-local" placeholder="Please choose...">
+							<input type="datetime-local" id="data_inicio_doc" value="" placeholder="Please choose...">
 						  </div>
 						</div>
 					  </div>
@@ -59,23 +57,109 @@
 						<div class="item-inner">
 						  <div class="item-title item-label">Até</div>
 						  <div class="item-input-wrap">
-							<input type="datetime-local" placeholder="Please choose...">
+							<input type="datetime-local" id="data_fim_doc" value="" placeholder="Please choose...">
 						  </div>
 						</div>
 					  </div>
-		<button type="button" class="col button button-fill color-green fab-close"><i class="f7-icons">doc_text_search</i> Buscar</button>
+		<button type="button" class="col button button-fill color-green fab-close" onClick="carrega_documentos(4)"><i class="f7-icons">doc_text_search</i> Buscar</button>
 	</div>
 </div>		  
-	  <div class="page-content">
-		<div class="block">
+	  
+		<div class="box" id="boxUp_documentos"></div>
+		<div class="page-content ptr-content pull-documentos" data-ptr-distance="55" id="pull-documentos" >	
+		 <div class="ptr-preloader" >
+    <div class="preloader"></div>
+    <div class="ptr-arrow"></div>
+  </div>
 		<div class="list media-list no-ios-edges" >
 	
-		  <ul id="main_documento">
+		  <ul id="main_documento" >
+			 
+			<div id="sktl" style="display: none">
+ 			<li class="item-content skeleton-text skeleton-effect-pulse item-content">
+				<div class="item-media"><div class="skeleton-block" style="height: 60px;width: 44px;" ></div></div>
+				 <div class="item-inner">
+					 
+					<div class="item-title-row skeleton-block">
+					   <div class="item-title">Contratro Nova empresa DE SEGURANÇA ELETROICA</div>
+						
+					</div>
+				
+					 <label class="skeleton-block" style="font-size: 10px;">CategoriaContratos</label>
+				     <p style="font-size: 10px;" >hdksfhkdjshfkdhfkdshfkdshfkds</p>
+				
+				 </div>
+			 </li>
+			  <li class="item-content skeleton-text skeleton-effect-pulse item-content">
+				<div class="item-media"><div class="skeleton-block" style="height: 60px;width: 44px;" ></div></div>
+				 <div class="item-inner">
+					 
+					<div class="item-title-row skeleton-block">
+					   <div class="item-title">Contratro Nova empresa DE SEGURANÇA ELETROICA</div>
+						
+					</div>
+				
+					 <label class="skeleton-block" style="font-size: 10px;">CategoriaContratos</label>
+				     <p style="font-size: 10px;" >hdksfhkdjshfkdhfkdshfkdshfkds</p>
+				
+				 </div>
+			 </li>
+			  <li class="item-content skeleton-text skeleton-effect-pulse item-content">
+				<div class="item-media"><div class="skeleton-block" style="height: 60px;width: 44px;" ></div></div>
+				 <div class="item-inner">
+					 
+					<div class="item-title-row skeleton-block">
+					   <div class="item-title">Contratro Nova empresa DE SEGURANÇA ELETROICA</div>
+						
+					</div>
+				
+					 <label class="skeleton-block" style="font-size: 10px;">CategoriaContratos</label>
+				     <p style="font-size: 10px;" >hdksfhkdjshfkdhfkdshfkdshfkds</p>
+				
+				 </div>
+			 </li>
+			  <li class="item-content skeleton-text skeleton-effect-pulse item-content">
+				<div class="item-media"><div class="skeleton-block" style="height: 60px;width: 44px;" ></div></div>
+				 <div class="item-inner">
+					 
+					<div class="item-title-row skeleton-block">
+					   <div class="item-title">Contratro Nova empresa DE SEGURANÇA ELETROICA</div>
+						
+					</div>
+				
+					 <label class="skeleton-block" style="font-size: 10px;">CategoriaContratos</label>
+				     <p style="font-size: 10px;" >hdksfhkdjshfkdhfkdshfkdshfkds</p>
+				
+				 </div>
+			 </li>
+			  <li class="item-content skeleton-text skeleton-effect-pulse item-content">
+				<div class="item-media"><div class="skeleton-block" style="height: 60px;width: 44px;" ></div></div>
+				 <div class="item-inner">
+					 
+					<div class="item-title-row skeleton-block">
+					   <div class="item-title">Contratro Nova empresa DE SEGURANÇA ELETROICA</div>
+						
+					</div>
+				
+					 <label class="skeleton-block" style="font-size: 10px;">CategoriaContratos</label>
+				     <p style="font-size: 10px;" >hdksfhkdjshfkdhfkdshfkdshfkds</p>
+				
+				 </div>
+			 </li>		
 
+
+
+		</div> 
+			  
+			
 		  </ul>
+			
 		</div>
+			
 		</div>
-	  </div>
+			
+		
+	
 		
 	 </div>	
 		

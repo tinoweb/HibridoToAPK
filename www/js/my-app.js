@@ -1,5 +1,7 @@
 var $$ = Dom7;
 
+// Pull to refresh content
+
 // Initialize app
 
 //localStorage.setItem('ID_CONDOMINIO','26');
@@ -183,7 +185,11 @@ var app = new Framework7({
 
   ],
   // ... other parameters
+
+	
 });
+
+
 
 
 var mainView = app.views.create('.view-main');
@@ -531,3 +537,27 @@ var app2 = {
       }, 4000);
     }, 1000);
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

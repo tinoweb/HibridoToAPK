@@ -11,12 +11,12 @@
 			  <span class="if-not-md">Back</span>
 			</a>
 		  </div>
-		  <div class="title" style="color: white">Cadastro de Pet</div>
+		  <div class="title" style="color: white" id="titulo_pg">Cadastro de Pet</div>
 		</div>
 	  </div>
 	  <!-- MENU --> 
-	  <div class="toolbar toolbar-bottom tema-azul" >
-		   <a class="link" href="/pet/" data-transition="f7-circle">
+	  <div class="toolbar toolbar-bottom tema-azul" > 
+		   <a class="link" id="salvar_dados" data-transition="f7-circle">
 			<div class="toolbar-inner">
 			   <label class="centralizar" style="width: 100%">Salvar </label>
 			</div>
@@ -25,7 +25,7 @@
 		 
 	  <div class="page-content">
 		 			<div class="block">
-
+				<input type="hidden" id="id_pet">
 			 <div class="block-title">Editar informações de Cadastro</div>
 				<div class="list inline-labels no-hairlines-md">
 				  <ul>
@@ -33,7 +33,7 @@
 					  <div class="item-inner">
 						<div class="item-title item-label">Nome</div>
 						<div class="item-input-wrap">
-						  <input type="text" placeholder="">
+						  <input type="text" id="nome_cdr" placeholder="">
 						  <span class="input-clear-button"></span>
 						</div>
 					  </div>
@@ -42,9 +42,8 @@
 					  <div class="item-inner">
 						<div class="item-title item-label">Espécie</div>
 						<div class="item-input-wrap input-dropdown-wrap">
-						  <select placeholder="Please choose...">
-							<option value="Male">Cachorro</option>
-							<option value="Female">Gato</option>
+						  <select id="pets_especie_cdr">
+						
 						  </select>
 						</div>
 					  </div>
@@ -53,7 +52,7 @@
 					  <div class="item-inner">
 						<div class="item-title item-label">Raça</div>
 						<div class="item-input-wrap">
-						  <input type="text" placeholder="">
+						  <input type="text" id="raca_cdr" placeholder="">
 						  <span class="input-clear-button"></span>
 						</div>
 					  </div>
@@ -62,27 +61,18 @@
 					  <div class="item-inner">
 						<div class="item-title item-label">Cor</div>
 						<div class="item-input-wrap">
-						  <input type="text" placeholder="">
+						  <input type="text" id="cor_cdr" placeholder="">
 						  <span class="input-clear-button"></span>
 						</div>
 					  </div>
-					</li>
-					<li class="item-content item-input">
-					  <div class="item-inner">
-						<div class="item-title item-label">Telefone</div>
-						<div class="item-input-wrap">
-						  <input type="text" placeholder="">
-						  <span class="input-clear-button"></span>
-						</div>
-					  </div>
-					</li> 					  
+					</li>				  
 					<li class="item-content item-input">
 					  <div class="item-inner">
 						<div class="item-title item-label">Sexo</div>
 						<div class="item-input-wrap input-dropdown-wrap">
-						  <select placeholder="Please choose...">
-							<option value="Male">Masculino</option>
-							<option value="Female">Feminino</option>
+						  <select id="sexo_cdr" placeholder="Please choose...">
+							<option value="0">Macho</option>
+							<option value="1">Fêmea</option>
 						  </select>
 						</div>
 					  </div>
@@ -91,7 +81,7 @@
 					  <div class="item-inner">
 						<div class="item-title item-label">Nascimento</div>
 						<div class="item-input-wrap">
-						  <input type="date" value="1900-01-01" placeholder="Please choose...">
+						  <input type="date" id="nacimento_cdr" value="" placeholder="Please choose...">
 						</div>
 					  </div>
 					</li>
@@ -99,13 +89,13 @@
 					  <div class="item-inner">
 					    <div class="item-title item-label">Observação</div>
 					    <div class="item-input-wrap">
-					      <textarea placeholder="" class=""></textarea>
+					      <textarea id="obs_cdr" placeholder="" class=""></textarea>
 					    </div>
 					  </div>
 					</li>  
 					<li>
 					  <a href="#" class="item-link item-content">
-						<div class="item-media"><i class="f7-icons">camera</i></div>
+						<div class="item-media" id="foto_cdr"><i class="f7-icons">camera</i></div>
 						  <div class="item-inner">
 							<div class="item-title">Editar Foto</div>
 						  </div>

@@ -1,4 +1,4 @@
-<div class="page">
+<div class="pages">
     <div class="page" data-name="pgEditarProfile" data-page="editProfile">
         <div class="navbar">
             <div class="navbar-bg">
@@ -14,68 +14,81 @@
                     </a>
                 </div>
                 <div class="title" style="color: white">
-                    Editar Perfil agora
+                    Editar Perfil
                 </div>
             </div>
         </div>
+       
         <div class="toolbar tabbar toolbar-top">
             <div class="toolbar-inner">
-                <a class="tab-link tab-link-active" href="#tab-1">
+                <a class="tab-link tabDadosPessoais" href="#tab-1">
                     Info Cadastro
                 </a>
-                <a class="tab-link" href="#tab-2">
+                <a class="tab-link tabDadosVeiculos" href="#tab-2">
                     Veículos
                 </a>
-                <a class="tab-link" href="#tab-3">
+                <a class="tab-link tabDadosPessoais" href="#tab-3">
                     Contatos
                 </a>
             </div>
         </div>
+        
         <div class="tabs-animated-wrap">
             <div class="tabs tabs-top">
                 <div class="page-content tab tab-active" id="tab-1">
                     <div class="block">
-                        <div class="block">
-                            <div class="block-title">
-                                Editar informações de Cadastro
-                            </div>
-                            <div class="list inline-labels no-hairlines-md">
-                                <ul>
+                        <div class="block-title">
+                            Editar informações de Cadastro
+                        </div>
+                        <div class="list inline-labels no-hairlines-md">
+                            <ul>
+                                <form action="#" id="personalInfo">
                                     <li class="item-content item-input">
                                         <div class="item-inner">
                                             <div class="item-title item-label">
                                                 Nome
                                             </div>
                                             <div class="item-input-wrap">
-                                                <input placeholder="" id="editarPerfil_nome" type="text">
+                                                <input name="profile_nome" id="editarPerfil_nome" placeholder="" type="text">
                                                     <span class="input-clear-button">
                                                     </span>
                                                 </input>
                                             </div>
                                         </div>
                                     </li>
-                                    
                                     <li class="item-content item-input">
                                         <div class="item-inner">
                                             <div class="item-title item-label">
                                                 Rg
                                             </div>
                                             <div class="item-input-wrap">
-                                                <input placeholder="" id="editarPerfil_rg" type="tel">
+                                                <input name="profile_rg" id="editarPerfil_rg" placeholder="" type="tel">
                                                     <span class="input-clear-button">
                                                     </span>
                                                 </input>
                                             </div>
                                         </div>
                                     </li>
-                                    
+                                    <li class="item-content item-input">
+                                        <div class="item-inner">
+                                            <div class="item-title item-label">
+                                                Telefone
+                                            </div>
+                                            <div class="item-input-wrap">
+                                                <input name="profile_telefone" id="editarPerfil_telefone" placeholder="" type="tel">
+                                                    <span class="input-clear-button">
+                                                    </span>
+                                                </input>
+                                            </div>
+                                        </div>
+                                    </li>
                                     <li class="item-content item-input">
                                         <div class="item-inner">
                                             <div class="item-title item-label">
                                                 Sexo
                                             </div>
                                             <div class="item-input-wrap input-dropdown-wrap">
-                                                <select placeholder="Please choose..." id="editarPerfil_sexo">
+                                                <select name="profile_genero" id="editarPerfil_sexo" placeholder="Please choose...">
                                                     <option value="Feminino">
                                                         Feminino
                                                     </option>
@@ -86,19 +99,17 @@
                                             </div>
                                         </div>
                                     </li>
-                                    
                                     <li class="item-content item-input">
                                         <div class="item-inner">
                                             <div class="item-title item-label">
                                                 Nascimento
                                             </div>
                                             <div class="item-input-wrap">
-                                                <input placeholder="Por favor escolha..." id="editarPerfil_dataNascimento" type="date" value="">
+                                                <input name="profile_nascimento" id="editarPerfil_dataNascimento" placeholder="Por favor escolha..." type="date" value="">
                                                 </input>
                                             </div>
                                         </div>
                                     </li>
-                                    
                                     <li>
                                         <a class="item-link item-content" href="#">
                                             <div class="item-media">
@@ -113,25 +124,316 @@
                                             </div>
                                         </a>
                                     </li>
-                                </ul>
+                                    <li>
+                                        <div class="mostarFoto">
+                                            
+                                        </div>
+                                    </li>
+
+                                    <li class="item-content" style="position: relative;top: 48px;">
+                                        <button id="btnSaveDadosContato" onclick="atualizarDadosContato(event)" class="col-50 rigth-6 button button-raised color-green button-fill">Salvar</button>
+                                    </li>
+                                </form>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="page-content tab" id="tab-2">
+                    <div class="block">
+                        <div class="block-title">
+                            Editar informações de Veículos
+                        </div>
+
+                        <div class="list links-list demo-fab-sheet fab-morph-target" style="z-index: 999999">
+                            <div class="list inline-labels no-hairlines-md">
+                                <form action="#" id="id_addVeiculo">
+                                    <ul data-idveiculo="">
+                                        <li class="item-content item-input">
+                                            <div class="item-inner">
+                                                <div class="item-title item-label">Marca</div>
+                                                <div class="item-input-wrap input-dropdown-wrap">
+                                                    <select name="marca" placeholder="Please choose..." id="marca_carro" onchange="veiculo_marca_modelo_cor(0, 2, $(this).val())">
+                                                    
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="item-content item-input">
+                                            <div class="item-inner">
+                                                <div class="item-title item-label">Modelo</div>
+                                                <div class="item-input-wrap input-dropdown-wrap" id="">
+                                                    <select name="modelo" placeholder="Please choose..." id="modelo_carro">
+                                                    
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="item-content item-input">
+                                          <div class="item-inner">
+                                            <div class="item-title item-label">Cor</div>
+                                                <div class="item-input-wrap input-dropdown-wrap" id="">
+                                                    <select name="cor" placeholder="Please choose..." id="cor_carro">
+                                                    
+                                                    </select>
+                                                </div>
+                                          </div>
+                                        </li>
+
+                                        <li class="item-content item-input">
+                                            <div class="item-inner">
+                                                <div class="item-title item-label">Placa</div>
+                                                <div class="item-input-wrap" id="">
+                                                    <input name="placa" type="text" value="" placeholder="">
+                                                    <span class="input-clear-button"></span>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                    </form>
+                                        <li class="item-content row" style="position: relative;top: 10px;">
+                                            <button class="col-30 rigth-4 button button-raised color-gray button-fill fab-close"><i class="f7-icons" width="40" style="position: relative;top: 4px;">arrow_left</i></button>
+                                            
+                                            <input type="hidden" name="id_morador" id="mor_veiculo_id_morador">
+                                            <button id="btnSaveDadosContato" onclick="salvarVeiculo(event)" class="col-70 rigth-6 button button-raised color-green button-fill">Salvar</button>
+                                        </li>
+                                    </ul>
+                            </div>
+                        </div>
+                        
+                        <!-- os veiculos são populados aki -->
+                        <div class="list accordion-list" id="editarPerfilPasso2_veiculos">
+                        </div>
+
+                        <div class="addVeicles" style="position: relative;top: 47px;left: 21px;">
+                            <div class="fab fab-right-bottom fab-morph" onclick="veiculo_marca_modelo_cor(0,1)" data-morph-to=".demo-fab-sheet.fab-morph-target" style="opacity: 1;">
+                                <a href="#" class="">
+                                <i class="icon material-icons md-only">add</i>
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="page-content tab" id="tab-2">
-                    <div class="block">
-                        <p>
-                            Tab 2 content
-                        </p>
-                        ...
-                    </div>
-                </div>
+
                 <div class="page-content tab" id="tab-3">
                     <div class="block">
-                        <p>
-                            Tab 3 content
-                        </p>
-                        ...
+                        <div class="block-title">
+                            Editar informações de Contatos
+                        </div>
+                        
+                        <div class="list inline-labels no-hairlines-md">
+                            <ul>
+                                <li class="item-content item-input">
+                                    <div class="item-inner">
+                                        <div class="item-title item-label">
+                                            Tipo
+                                        </div>
+                                        <div class="item-input-wrap input-dropdown-wrap">
+                                            <select placeholder="Please choose...">
+                                                <option value="Male">
+                                                    Telefone
+                                                </option>
+                                                <option value="Female">
+                                                    Email
+                                                </option>
+                                                <option value="Female">
+                                                    Skype
+                                                </option>
+                                                <option value="Female">
+                                                    Celular
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="item-content item-input">
+                                    <div class="item-inner">
+                                        <div class="item-input-wrap">
+                                            <input placeholder="" type="text">
+                                                <span class="input-clear-button">
+                                                </span>
+                                            </input>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="list accordion-list">
+                            <ul>
+                                <li class="accordion-item">
+                                    <a class="item-content item-link" href="#">
+                                        <div class="item-media">
+                                            <div class="item-media">
+                                                <i class="f7-icons" width="40">
+                                                    book
+                                                </i>
+                                            </div>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title">
+                                                Adicionar Mais Contatos
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <div class="accordion-item-content">
+                                        <div class="block" style="margin-bottom: 5%">
+                                            <div class="list inline-labels no-hairlines-md">
+                                                <ul>
+                                                    <li class="item-content item-input">
+                                                        <div class="item-inner">
+                                                            <div class="item-title item-label">
+                                                                Tipo
+                                                            </div>
+                                                            <div class="item-input-wrap input-dropdown-wrap">
+                                                                <select placeholder="Please choose...">
+                                                                    <option value="Male">
+                                                                        Telefone
+                                                                    </option>
+                                                                    <option value="Female">
+                                                                        Email
+                                                                    </option>
+                                                                    <option value="Female">
+                                                                        Skype
+                                                                    </option>
+                                                                    <option value="Female">
+                                                                        Celular
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li class="item-content item-input">
+                                                        <div class="item-inner">
+                                                            <div class="item-input-wrap">
+                                                                <input placeholder="" type="text">
+                                                                    <span class="input-clear-button">
+                                                                    </span>
+                                                                </input>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="accordion-item">
+                                    <a class="item-content item-link" href="#">
+                                        <div class="item-media">
+                                            <div class="item-media">
+                                                <i class="f7-icons" width="40">
+                                                    book
+                                                </i>
+                                            </div>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title">
+                                                Adicionar Mais Contatos
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <div class="accordion-item-content">
+                                        <div class="block" style="margin-bottom: 5%">
+                                            <div class="list inline-labels no-hairlines-md">
+                                                <ul>
+                                                    <li class="item-content item-input">
+                                                        <div class="item-inner">
+                                                            <div class="item-title item-label">
+                                                                Tipo
+                                                            </div>
+                                                            <div class="item-input-wrap input-dropdown-wrap">
+                                                                <select placeholder="Please choose...">
+                                                                    <option value="Male">
+                                                                        Telefone
+                                                                    </option>
+                                                                    <option value="Female">
+                                                                        Email
+                                                                    </option>
+                                                                    <option value="Female">
+                                                                        Skype
+                                                                    </option>
+                                                                    <option value="Female">
+                                                                        Celular
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li class="item-content item-input">
+                                                        <div class="item-inner">
+                                                            <div class="item-input-wrap">
+                                                                <input placeholder="" type="text">
+                                                                    <span class="input-clear-button">
+                                                                    </span>
+                                                                </input>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="accordion-item">
+                                    <a class="item-content item-link" href="#">
+                                        <div class="item-media">
+                                            <div class="item-media">
+                                                <i class="f7-icons" width="40">
+                                                    book
+                                                </i>
+                                            </div>
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title">
+                                                Adicionar Mais Contatos
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <div class="accordion-item-content">
+                                        <div class="block" style="margin-bottom: 5%">
+                                            <div class="list inline-labels no-hairlines-md">
+                                                <ul>
+                                                    <li class="item-content item-input">
+                                                        <div class="item-inner">
+                                                            <div class="item-title item-label">
+                                                                Tipo
+                                                            </div>
+                                                            <div class="item-input-wrap input-dropdown-wrap">
+                                                                <select placeholder="Please choose...">
+                                                                    <option value="Male">
+                                                                        Telefone
+                                                                    </option>
+                                                                    <option value="Female">
+                                                                        Email
+                                                                    </option>
+                                                                    <option value="Female">
+                                                                        Skype
+                                                                    </option>
+                                                                    <option value="Female">
+                                                                        Celular
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li class="item-content item-input">
+                                                        <div class="item-inner">
+                                                            <div class="item-input-wrap">
+                                                                <input placeholder="" type="text">
+                                                                    <span class="input-clear-button">
+                                                                    </span>
+                                                                </input>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -20,3 +20,19 @@ All contributions (feature or bug fix) should start with an issue first.
 
 [issue-tracker]: https://github.com/phonegap/phonegap-template-hello-world/issues
 [pull-request]: https://github.com/phonegap/phonegap-template-hello-world/pulls
+
+
+### Informacoes arquivos ppara servidor
+- morador_update
+- morador_get
+
+	----------------------
+	db/conexao.class.php
+	db/morador.php
+	db/usuario.php
+	db/veiculo.php
+	appweb/morador_update.php
+	appweb/veiculo_get.php
+
+
+

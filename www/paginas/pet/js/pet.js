@@ -654,26 +654,24 @@ function pet_insert(){
 }
 // TRAZER AS ESPECIES .. 
 
+    foto_pet_edicao: function() {
+        navigator.camera.getPicture(onSuccess, onFail, { 
+            quality: 50,
+            	correctOrientation: true,
+			destinationType: Camera.DestinationType.DATA_URL,
+            saveToPhotoAlbum: true
+        });
 
-// FUNCAO CARREGA PAGINA CADASTRO DE PET BY DAVID 12/02/2019
-function carrega_pet_novo()
-{	
-	
-	$('#form_pet_add #pet_foto').removeAttr("src");
-	$('#form_pet_add #pet_foto').attr("src", "img/pet_foto_perfil.png");
-	$("#form_pet_add #nome").val('');
-	$( "#form_pet_add #id_especie" ).val('');
-	$( "#form_pet_add #raca" ).val('');
-	$( "#form_pet_add #cor" ).val('');
-	$( "#form_pet_add #sexo:checked" ).val('');
-	$( "#form_pet_add #observacao" ).val('');
-	
-    //$( "#add_pet #nome" ).val('');
-	getEspecie_incluir();
- 	//$("#add_pet").html("");
-    afed('#add_pet','#pet_lista','','','2','add_pet');
-	$("#add_pet #nome").focus();
-}
+        function onSuccess(imageURI) {
+           
+			$( '#form_pet_update #foto_up_pet' ).attr("src", "data:image/jpeg;base64,"+imageURI+" ");
+			$( '#form_pet_update #pet_foto' ).val(imageURI);
+			
 
+        }
+        function onFail(message) {
+            alert('Camera Indisponivel');
+        }    
+    },
 
 	

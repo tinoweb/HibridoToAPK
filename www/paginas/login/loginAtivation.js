@@ -155,7 +155,7 @@ login_user = (e, logarDaValidacao=null) => {
 			var dados = $("#form_login").serialize();
 
 			if(dados.indexOf('=&') > -1 || dados.substr(dados.length - 1) == '='){
-			   alerta("Falha ao Logar","Necessário email e senha para continuar");
+			   alertaDialog("Falha ao Logar","Necessário email e senha para continuar");
 			   return false;
 			}
 		}else{
@@ -174,24 +174,23 @@ login_user = (e, logarDaValidacao=null) => {
 			crossDomain: true,
 			beforeSend : function() { $("#wait").css("display", "block"); },
 			complete   : function() { $("#wait").css("display", "none"); },
-           // dataType   : 'json',
 			data: dados+'&nome='+device.model+'&sistema='+device.platform+'&uuid='+UUID+'&versao='+device.version+'&id_notificacao='+localStorage.getItem('registrationId'), //APP
 			success: function(retorno){
 				//console.log(retorno);
 					//alert(retorno);
 				if(retorno[0]['error'] == 1){
-					alerta("Falha ao Entrar", "Usuário ou senha inválida", );
+					alertaDialog("Falha ao Entrar", "Usuário ou senha inválida", );
 				}else{
 					login_user_device();	
 				}
 			},
             error: function(error){
             	console.log(error);
-                alerta('Aviso','Erro de conexão com o servidor');
+                alertaDialog('Aviso','Erro de conexão com o servidor');
             }
 		});
 	}else{
-		alerta('Internet','Sem conex\u00e3o com a Internet');
+		alertaDialog('Internet','Sem conex\u00e3o com a Internet');
 	}
 }
 
@@ -208,14 +207,14 @@ login_user_device = (autoInit=null) => {
         }else{
             var UUID = device.uuid;
         }
+
         $.ajax({
             type       : "POST",
-            url        : localStorage.getItem('DOMINIO_LOGIN')+"/appweb/login.php",
+            url        : localStorage.getItem('DOMINIO_LOGIN')+"appweb/login.php",
 			crossDomain: true,
 			beforeSend : function() { $("#wait").css("display", "block"); },
 			complete   : function() { $("#wait").css("display", "none"); },
             data       : {uuid : UUID, id_notificacao : localStorage.getItem('registrationId')}, //APP
-           // dataType   : 'json',
             success    : function(retorno) {
 				//console.log("retorno do login.....===>>>");
 				//console.log(retorno);
@@ -235,6 +234,10 @@ login_user_device = (autoInit=null) => {
 
 							localStorage.setItem('ID_USER_L',retorno[0]['id_usuario']);
 						}else{  
+
+							// console.log(JSON.stringify(retorno));
+							// return false;
+
 							if(retorno[0]['usar_control_condo'] == 1){
 								console.log("PERMITIDO CONTROLCONDO....");
 
@@ -403,6 +406,15 @@ login_user_device = (autoInit=null) => {
 								app.sheet.close('.loginApp', true);
 								app.views.main.router.navigate("/home/", {reloadAll:true});
 
+								console.log('IP_LOCAL ============>>>>> ');
+								console.log(retorno[0]['ip_local']);
+								localStorage.removeItem('DOMINIO');
+								localStorage.setItem('DOMINIO',retorno[0]['ip_local']+"/controlcondo/v2/");
+
+								console.log('IP_LOCAL ============>>>>> fixado===========>>>>');
+								console.log(localStorage.getItem("DOMINIO"));
+								// return false;
+
 								$$(document).on('page:init', '.page[data-name="pgHome"]', function (e) {
 									app.sheet.destroy(sheetloginApp);
 									app.sheet.destroy(sheetDefineSenhaApp);
@@ -534,7 +546,7 @@ login_user_device = (autoInit=null) => {
 									// $("#foto_user_mor").attr("onclick","afed('#bg_box3','','','',1);");
 								}else{
 									// descomentar e rever corretamente ======>>>
-									// $("#foto_user_mor").attr("onclick","alerta('','Para alterar a foto, entre em contato com administração');"); 
+									// $("#foto_user_mor").attr("onclick","alertaDialog('','Para alterar a foto, entre em contato com administração');"); 
 								}
 
  									// $('.back').hide();
@@ -549,18 +561,17 @@ login_user_device = (autoInit=null) => {
 									// },500);
 
 							}else{
-								// notifica('Perfil/Perfil usuário inválido/Fechar',0,0);
-								alerta("Perfil","Perfil usuário inválido");
+								alertaDialog("Perfil","Perfil usuário inválido");
 							}
 						}
 					}else{
-						alerta('Atualização','Há uma nova versão do Control Condo. Atualize seu aplicativo para continuar...');
+						alertaDialog('Atualização','Há uma nova versão do Control Condo. Atualize seu aplicativo para continuar...');
 					}
 				}
             
             },
             error : function() {
-                alerta('Aviso','Erro ao logar automático');
+                alertaDialog('Aviso','Erro ao logar automático');
             }
         });
     }
@@ -590,6 +601,8 @@ select_user = (id_usuario_condominio=0) => {
 			success: function(retorno){
 				console.log(retorno);
 				console.log("vai para pagina home....");
+				console.log(retorno[0]['ip_local']);
+
 				localStorage.setItem('DOMINIO',retorno[0]['ip_local']+"/controlcondo/v2/");
 				
                 if(retorno[0]['usar_control_condo'] == 1){
@@ -908,7 +921,7 @@ select_user = (id_usuario_condominio=0) => {
 						// $("#foto_user_mor").attr("onclick","afed('#bg_box3','','','',1);");
 					}else{ 
 						// descomentar e rever corretamente ======>>> 
-						// $("#foto_user_mor").attr("onclick","alerta('','Para alterar a foto, entre em contato com administração');"); 
+						// $("#foto_user_mor").attr("onclick","alertaDialog('','Para alterar a foto, entre em contato com administração');"); 
 					}
               
                     // carrega_chat();
@@ -922,12 +935,12 @@ select_user = (id_usuario_condominio=0) => {
 					// },500);
 
                 }else{
-                    alerta('Perfil','Perfil usuário inválido');
+                    alertaDialog('Perfil','Perfil usuário inválido');
                 }
 			}
 		});
 	}else{
-		alerta('Internet','Sem conex\u00e3o com a Internet');
+		alertaDialog('Internet','Sem conex\u00e3o com a Internet');
 	}
 }
 
@@ -1221,7 +1234,7 @@ function carrega_user_perfil(id, autoInit=null) {
 // ====>>>>>>>>>>>>>>>>>>>>>
 
 
-alerta = (title, msg, afterClose=null) => {
+alertaDialog = (title, msg, afterClose=null) => {
 	app.dialog.create({
 		title: title,
 		text: msg,
@@ -1237,8 +1250,10 @@ alerta = (title, msg, afterClose=null) => {
 					app.views.main.router.navigate("/receveAtivationCode/", {animate:true});
 				}else if(afterClose == "defineSenha"){
 					console.log("Logar no sistema automaticamente.....");
-				}else if (afterClose == "voltaInicio") {
+				}else if(afterClose == "voltaInicio") {
 					goToIndexPageNoCache();
+				}else if(afterClose == 'gotoprofile'){
+					goToProfile();
 				}else if (afterClose == "termoUso") {
 					app.views.main.router.navigate("/termo_de_uso/", {animate:true, transition: 'f7-dive'});
 				}
@@ -1303,15 +1318,15 @@ recuperaEmail = (email) => {
                 console.log(retorno);
                 if (retorno.statuscode == 200 && retorno.status == "successoEmailEnviado") {
                     app.sheet.close('.recuperaSenha', true);
-                    alerta('Sucesso', 'Dados para recuperação de senha enviado por email Verifique seu email!', 'voltaInicio');
+                    alertaDialog('Sucesso', 'Dados para recuperação de senha enviado por email Verifique seu email!', 'voltaInicio');
                     $("#email_recupera").val("");
                 }else if (retorno.statuscode == 204 && retorno.status == "emailNaoEnviadoErro"){
                     app.sheet.close('.recuperaSenha', true);
-                    alerta('Erro', 'não foi possivel processar o pedido, tente mais tarde!');
+                    alertaDialog('Erro', 'não foi possivel processar o pedido, tente mais tarde!');
                     $("#email_recupera").val("");
                 }else{
                     app.sheet.close('.recuperaSenha', true);
-                    alerta('Erro', 'Não foi possivel solicitar a recuperacao da senha! Entre em contato com a administração!');
+                    alertaDialog('Erro', 'Não foi possivel solicitar a recuperacao da senha! Entre em contato com a administração!');
                     $("#email_recupera").val("");
                 }
                 
@@ -1320,7 +1335,7 @@ recuperaEmail = (email) => {
             }
         })
     }else{
-    	alerta('Erro',"É necessário o email para continuar... ");
+    	alertaDialog('Erro',"É necessário o email para continuar... ");
     }
 }
 
@@ -1340,15 +1355,15 @@ function choosedMail(){
 			success: function(retorno){
 				if (retorno.status == "emailNaoReconhecidoPeloSistema") {
 					app.sheet.close('.recebEmail', true);
-					alerta('Erro','Email não reconhecido pelo sistema, Insira seu email cadastrado');
+					alertaDialog('Erro','Email não reconhecido pelo sistema, Insira seu email cadastrado');
 					$("#inputReceveEmailToGetCode").val("");
 				}else if(retorno.status == "naoPossuiNenhumPerfilAtivo"){
 					app.sheet.close('.recebEmail', true);
-					alerta('Error','Esse email não possui perfil Ativo no sistema');
+					alertaDialog('Error','Esse email não possui perfil Ativo no sistema');
 					$("#inputReceveEmailToGetCode").val("");
 				}else if (retorno.status == "codigoEnviadoParaEmailComSucesso" && retorno.statuscode == 200) {
 					app.sheet.close('.recebEmail', true);
-					alerta('Ativação do Cadastro', "Código de Ativação enviado para o email. Clica no link no seu email, ou copia o codigo para continuar a validação", "primeiroAcesso");
+					alertaDialog('Ativação do Cadastro', "Código de Ativação enviado para o email. Clica no link no seu email, ou copia o codigo para continuar a validação", "primeiroAcesso");
 				}else if (retorno.status == "proporRecuperacaoSenhaUsuarioAtivo" && retorno.statuscode == 200) {
 				  	app.dialog.confirm('Esse email se encontra ativo! Deseja recuperar a sua senha', 'Ativação do Cadastro', 
 					  	function () {
@@ -1378,7 +1393,7 @@ function choosedMail(){
 	        }
 		});	
 	}else{
-		alerta("","Insira seu email para continuar", 3000);	
+		alertaDialog("","Insira seu email para continuar", 3000);	
 	}
 }
 
@@ -1403,7 +1418,7 @@ enviarCodigoAtivacao = (codigoAtivacao) => {
 					localStorage.setItem("idUsuarioAtivacao", retorno.idUsuario); // Id do usuario recebido atraves do codigo de ativacao
 					app.views.main.router.navigate("/termo_de_uso/", {animate:true});
 				}else if (retorno.statuscode == 204 && retorno.status == "usuarioNaoEncontradoParaCodigo") {
-					alerta('Erro Validação', "Código de Ativação Inválido, Confira o codigo enviado no seu email", afterClose="voltaInicio");
+					alertaDialog('Erro Validação', "Código de Ativação Inválido, Confira o codigo enviado no seu email", afterClose="voltaInicio");
 					$("#codigoAtivacao").val("");
 				}
 	        },
@@ -1443,7 +1458,7 @@ let enviarSenhaEliberarAcesso = () => {
 				login_user_device();
 			}else{
 				app.dialog.close();
-				alerta("Tentativa login", 'O ' +email+ ' não está liberado para acessar o condominio tente outra forma de autenticar..', afterClose=null)
+				alertaDialog("Tentativa login", 'O ' +email+ ' não está liberado para acessar o condominio tente outra forma de autenticar..', afterClose=null)
 			}
         },
         error: function(error) {
@@ -1459,7 +1474,7 @@ function salvarSenha(){
 		if ($("#inputDefineSenha").val() != $("#inputDefineSenhaRepita").val()) {
 			$$("#inputDefineSenha").val('');
 			$$("#inputDefineSenhaRepita").val('');
-			alerta("Erro na Senha", "As senhas não combinam. Elas devem ser iguais!");
+			alertaDialog("Erro na Senha", "As senhas não combinam. Elas devem ser iguais!");
 		}else{
 
 			let senha = $("#inputDefineSenha").val();
@@ -1501,17 +1516,17 @@ function salvarSenha(){
 							app.dialog.close();
 						}, 1000);
 
-						// alerta('Define Senha', "Senha definida com sucesso", 'defineSenha');
+						// alertaDialog('Define Senha', "Senha definida com sucesso", 'defineSenha');
 					}
 		        },
 		        error: function(error) {
 					console.log(error);
-					alerta('Erro', 'Não foi possivel executar a ação pretendida, entre em contato com seu administrador');
+					alertaDialog('Erro', 'Não foi possivel executar a ação pretendida, entre em contato com seu administrador');
 		        }
 			});	
 		}
 	}else{
-		alerta("Erro","Senha não definida");
+		alertaDialog("Erro","Senha não definida");
 	}
 }
 
@@ -1543,7 +1558,7 @@ confirmaCodeResetPassword = (recoveryCode) => {
 				localStorage.setItem("idUsuarioAtivacao", retorno.idUsuario);
 				
 			}else{
-				alerta("error", "Não foi possivel continuar o processo...", afterClose=null)
+				alertaDialog("error", "Não foi possivel continuar o processo...", afterClose=null)
 			}
         },
         error: function(error) {
@@ -1570,10 +1585,10 @@ let loginFB = () => {
 		    		localStorage.setItem('emailSocialMidia', email);
 		            checkUsuarioFacebookToLogin(email);
 		        },function(error){
-		            alerta("Login com FB", "Falha ao tentar logar com facebook");
+		            alertaDialog("Login com FB", "Falha ao tentar logar com facebook");
 		        });
 		    },function(error){
-		        alerta("Login com FB", "Falha ao tentar logar com facebook");
+		        alertaDialog("Login com FB", "Falha ao tentar logar com facebook");
 		    })
 		},
 		function(erroror){
@@ -1584,10 +1599,10 @@ let loginFB = () => {
 		    		localStorage.setItem('emailSocialMidia', email);
 		            checkUsuarioFacebookToLogin(email);
 		        },function(error){
-		            alerta("Login com FB", "Falha ao tentar logar com facebook");
+		            alertaDialog("Login com FB", "Falha ao tentar logar com facebook");
 		        });
 		    },function(error){
-		        alerta("Login com FB", "Falha ao tentar logar com facebook");
+		        alertaDialog("Login com FB", "Falha ao tentar logar com facebook");
 		    });
 		}
 	);
@@ -1641,7 +1656,7 @@ checkUsuarioFacebookToLogin = (email) => {
 				app.views.main.router.navigate("/termo_de_uso/", {animate:true, transition: 'f7-dive'});
 			}else{
 				let msg = `O  ${email} Não está liberado para acessar o condominio tente outra forma de autenticar ou entre em contato com a sua adminstradora..`;
-				alerta("Tentativa de login",msg, afterClose=null);
+				alertaDialog("Tentativa de login",msg, afterClose=null);
 				logoutFacebookOnError();
 			}
         },
@@ -1712,7 +1727,7 @@ checkUsuarioGoogleToLogin = (email) => {
 
 			if (retorno.status == "perfilAtivoSemSenha" && retorno.statuscode == 200) {
 				localStorage.setItem('data-liberarSemSenha','liberarSemSenha');
-				alerta('Login Google', "direcionando para termo de uso", afterClose="termoUso");
+				alertaDialog('Login Google', "direcionando para termo de uso", afterClose="termoUso");
 			}else 
 			if (retorno.status == "usuarioValidoToLoginGoogle" && retorno.statuscode == 200){
 				localStorage.setItem("loginSocialMidia", "loginsocialmidiaFG");
@@ -1721,7 +1736,7 @@ checkUsuarioGoogleToLogin = (email) => {
 			}
 			else{
 				let msg = `O  ${email} Não está liberado para acessar o condominio tente outra forma de autenticar ou entre em contato com a sua adminstradora..`;
-				alerta("Tentativa de login",msg, afterClose=null);
+				alertaDialog("Tentativa de login",msg, afterClose=null);
 				logoutGoogleOnError();
 			}
         },

@@ -1631,27 +1631,31 @@ let loginFB = () => {
 }
 
 logoutFacebookOnError = () => {
-	// facebookConnectPlugin.logout(
-	// 	function sucesso(succes){
-	// 		alert("deslogado do facebook com sucesso...");
-	//       	alert(JSON.stringify(succes)); 
-	// 	}, 
-	// 	function erro(error){
-	// 		alert("erro ao deslogar do facebook...");
-	//       	alert(JSON.stringify(error)); 
-	// 	}
-	// );
-
-	idUserFb = localStorage.getItem('idUserFacebook');
-
-	facebookConnectPlugin.api('/'+idUserFb,'DELETE',{},
-	  function(response) {
-	  	alert(JSON.stringify(response));
-	  	alert("idUserFacebook===>>>>"+idUserFb);
-	  	alert("user deletado com sucesso");
-		localStorage.removeItem('idUserFacebook');	  	   
-	  }
+	facebookConnectPlugin.logout(
+		function sucesso(succes){
+			alert("deslogado do facebook com sucesso...");
+	      	alert(JSON.stringify(succes)); 
+		}, 
+		function erro(error){
+			alert("erro ao deslogar do facebook...");
+	      	alert(JSON.stringify(error)); 
+		}
 	);
+
+	// idUserFb = localStorage.getItem('idUserFacebook');
+
+	// facebookConnectPlugin.api(idUserFb,'DELETE',
+	//   function(response){
+	//   	console.log(response);
+	//   	alert(JSON.stringify(response));
+	//   },
+	//   function(error) {
+	//   	alert(JSON.stringify(error));
+	//   	alert("idUserFacebook===>>>>"+idUserFb);
+	//   	alert("user deletado com sucesso");
+	// 	localStorage.removeItem('idUserFacebook');	  	   
+	//   }
+	// );
 
 
 }
@@ -1710,21 +1714,21 @@ checkUsuarioFacebookToLogin = (email) => {
 
 let loginGoogle = () =>{
 	app.dialog.preloader("carregando", 'blue');
-	// window.plugins.googleplus.login({},
-	//     function(obj) {
-	// 		app.dialog.close();
-	//       	let email = obj.email;
-	//       	let nome = obj.displayName;
-			email = 'wendy@firstcontrol.com.br';
+	window.plugins.googleplus.login({},
+	    function(obj) {
+			app.dialog.close();
+	      	let email = obj.email;
+	      	let nome = obj.displayName;
+
 			localStorage.setItem('emailSocialMidia', email);
 			app.dialog.close();
 		    checkUsuarioGoogleToLogin(email);
-	//     },
-	//     function(msg) {
-	//     	app.dialog.close();
-	//       	console.log('error: ' + msg);
-	//     }
-	// );
+	    },
+	    function(msg) {
+	    	app.dialog.close();
+	      	console.log('error: ' + msg);
+	    }
+	);
 }
 
 logoutGoogleOnError = () => {

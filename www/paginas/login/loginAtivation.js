@@ -1014,7 +1014,6 @@ function carrega_user_perfil(id, autoInit=null) {
 					$$(document).on('page:init', '.page[data-name="pgMultiprofile"]', function (e) {
 						$$(".loginApp").hide();
 
-						app.views.create('.multiprofileSheet');
 
 						sheetMultiUser = app.sheet.create({
 						 	el: '.multiProfileUser',
@@ -1028,19 +1027,23 @@ function carrega_user_perfil(id, autoInit=null) {
 							$(".selectCondo")[0].click();
 						});
 						// Declarando a smart-select como view para poder funcionar...
+						app.views.create('.multiprofileSheet');
 
-						smartSelect = app.smartSelect.create({
-							el:'.selectCondo',
-							on: {
-							    opened: function () {
-							      	let elemento = $(".page-content")[1];
-									let esseElemento = elemento.firstElementChild;
-									esseElemento.style.position="relative";
-									esseElemento.style.top="26px";
-									$(".icon-back").attr('style', 'color: #037aff !important');
-							    },
-							}
-						});
+						setTimeout(function() {
+							smartSelect = app.smartSelect.create({
+								el:'.selectCondo',
+								on: {
+								    opened: function () {
+								      	let elemento = $(".page-content")[1];
+										let esseElemento = elemento.firstElementChild;
+										esseElemento.style.position="relative";
+										esseElemento.style.top="26px";
+										$(".icon-back").attr('style', 'color: #037aff !important');
+								    },
+								}
+							});
+						}, 200);
+
 						
 						var primeiro = '<option value="" selected="">Selecione o seu Condominio</option>';
 				        for (x in retorno) {

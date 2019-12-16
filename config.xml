@@ -11,7 +11,18 @@
     <preference name="phonegap-version" value="cli-9.0.0" />
     <preference name="DisallowOverscroll" value="true" />
     <preference name="show-splash-screen-spinner" value="true" />
-    <preference name="auto-hide-splash-screen" value="true" />
+    
+    <platform name="browser">
+        <preference name="SplashScreen" value="www/img/loadCondo.gif" /> 
+        <preference name="AutoHideSplashScreen" value="true" />
+        <preference name="SplashScreenDelay" value="3000" /> 
+        <preference name="SplashScreenBackgroundColor" value="green" /> 
+        <preference name="ShowSplashScreen" value="false" />
+        <preference name="SplashScreenWidth" value="600" />
+        <preference name="SplashScreenHeight" value="300" />
+    </platform>
+    
+
     <preference name="orientation" value="portrait" />
     <preference name="fullscreen" value="false" />
     <preference name="target-device" value="handset" />
@@ -20,31 +31,31 @@
     <preference name="KeyboardResizeMode" value="native" />
     <preference name="android-minSdkVersion" value="19" />
     <preference name="android-targetSdkVersion" value="28" />
+
     <platform name="android">
-        <icon density="ldpi" src="www/res/icon/android/drawable-ldpi-icon.png" />
+        <!-- <icon density="ldpi" src="www/res/icon/android/drawable-ldpi-icon.png" />
         <icon density="mdpi" src="www/res/icon/android/drawable-mdpi-icon.png" />
         <icon density="hdpi" src="www/res/icon/android/drawable-hdpi-icon.png" />
         <icon density="xhdpi" src="www/res/icon/android/drawable-xhdpi-icon.png" />
         <icon density="xxhdpi" src="www/res/icon/android/drawable-xxhdpi-icon.png" />
-        <icon density="xxxhdpi" src="www/res/icon/android/drawable-xxxhdpi-icon.png" />
-        <splash density="land-ldpi" src="www/img/screen.png" />
-        <splash density="land-mdpi" src="www/img/screen.png" />
-        <splash density="land-hdpi" src="www/img/screen.png" />
-        <splash density="land-xhdpi" src="www/img/screen.png" />
-        <splash density="land-xxhdpi" src="www/img/screen.png" />
-        <splash density="land-xxxhdpi" src="www/img/screen.png" />
-        <splash density="port-ldpi" src="www/img/screen.png" />
-        <splash density="port-mdpi" src="www/img/screen.png" />
-        <splash density="port-hdpi" src="www/img/screen.png" />
-        <splash density="port-xhdpi" src="www/img/screen.png" />
-        <splash density="port-xxhdpi" src="www/img/screen.png" />
-        <splash density="port-xxxhdpi" src="www/img/screen.png" />
+        <icon density="xxxhdpi" src="www/res/icon/android/drawable-xxxhdpi-icon.png" /> -->
+
+        <preference name="SplashScreen" value="www/img/loadCondo.gif" /> 
+        <preference name="AutoHideSplashScreen" value="true" />
+        <preference name="SplashScreenDelay" value="3000" /> 
+        <preference name="SplashScreenBackgroundColor" value="green" /> 
+        <preference name="ShowSplashScreen" value="false" />
+        <preference name="SplashScreenWidth" value="600" />
+        <preference name="SplashScreenHeight" value="300" />
+
+
         <allow-intent href="market:*" />
         <resource-file src="google-services.json" target="app/google-services.json" />
         <framework src="com.google.android.gms:play-services-location:11.8.0" />
     </platform>
+
     <platform name="ios">
-        <icon height="57" platform="ios" src="www/res/icons/ios/icon.png" width="57" />
+        <!-- <icon height="57" platform="ios" src="www/res/icons/ios/icon.png" width="57" />
         <icon height="40" platform="ios" src="www/res/icons/ios/icon-40.png" width="40" />
         <icon height="80" platform="ios" src="www/res/icons/ios/icon-40@2x.png" width="80" />
         <icon height="50" platform="ios" src="www/res/icons/ios/icon-50.png" width="50" />
@@ -56,7 +67,16 @@
         <icon height="29" platform="ios" src="www/res/icons/ios/icon-small.png" width="29" />
         <icon height="58" platform="ios" src="www/res/icons/ios/icon-small@2x.png" width="58" />
         <icon height="87" platform="ios" src="www/res/icons/ios/icon-small@3x.png" width="87" />
-		<icon height="1024" platform="ios" src="www/res/icon/ios/icon1024.png" width="1024" />
+		<icon height="1024" platform="ios" src="www/res/icon/ios/icon1024.png" width="1024" /> -->
+
+        <preference name="SplashScreen" value="www/img/loadCondo.gif" /> 
+        <preference name="AutoHideSplashScreen" value="true" />
+        <preference name="SplashScreenDelay" value="3000" /> 
+        <preference name="SplashScreenBackgroundColor" value="green" /> 
+        <preference name="ShowSplashScreen" value="false" />
+        <preference name="SplashScreenWidth" value="600" />
+        <preference name="SplashScreenHeight" value="300" />
+
         <splash height="1136" platform="ios" src="www/res/screens/ios/Default-568h@2x~iphone.png" width="640" />
         <splash height="1334" platform="ios" src="www/res/screens/ios/Default-667h.png" width="750" />
         <splash height="2208" platform="ios" src="www/res/screens/ios/Default-736h.png" width="1242" />
@@ -68,6 +88,7 @@
         <allow-intent href="itms-apps:*" />
         <resource-file src="GoogleService-Info.plist" />
     </platform>
+
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />

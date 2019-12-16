@@ -39,7 +39,7 @@
         <icon density="xxhdpi" src="www/res/icon/android/drawable-xxhdpi-icon.png" />
         <icon density="xxxhdpi" src="www/res/icon/android/drawable-xxxhdpi-icon.png" />
 
-        <splash src="res/screen/android/drawable-port-hdpi-screen.png" density="port-hdpi"/>
+        <splash src="www/img/loadCondo.gif" density="port-hdpi"/>
        <!--  <splash src="res/screen/android/splash-port-ldpi.png" density="port-ldpi"/>
         <splash src="res/screen/android/splash-port-mdpi.png" density="port-mdpi"/>
         <splash src="res/screen/android/splash-port-xhdpi.png" density="port-xhdpi"/> -->

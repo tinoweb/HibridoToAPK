@@ -962,10 +962,11 @@ logout = () => {
 			localStorage.removeItem('emailDefinidoOk');
 			localStorage.removeItem('senhaDefinidoOk');
 
-
 			console.log(`Deslogado o usuario id ${retorno}`);
 			setPwdOut();
 			clearProfileData();
+			logoutFacebookOnError();
+			logoutGoogleOnError();
 		}
 	});
 }

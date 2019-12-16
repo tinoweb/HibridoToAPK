@@ -1581,12 +1581,15 @@ let loginFB = () => {
 		    facebookConnectPlugin.login(['public_profile', 'email'], function(result){
 		    	alert(JSON.stringify(result));
 
-		        facebookConnectPlugin.api("/me?fields=id,name,email", ["email"], function(userData){
+		        facebookConnectPlugin.api("v5.0/me?fields=id,name,email", ["email"], function(userData){
 		        	alert(JSON.stringify(userData));
-
-		            let name = userData.name;
-		            let email = userData.email;
-		    		localStorage.setItem('emailSocialMidia', email);
+		        	if (userData.email!=null) {
+			            let name = userData.name;
+			            let email = userData.email;
+		    			localStorage.setItem('emailSocialMidia', email);
+		        	}else{
+		        		alertaDialog("Login com FB", "Email não identificado do facebook");
+		        	}
 		            checkUsuarioFacebookToLogin(email);
 		        },function(error){
 		            alertaDialog("Login com FB", "Falha ao tentar logar com facebook");

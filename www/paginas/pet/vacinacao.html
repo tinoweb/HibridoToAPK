@@ -1,0 +1,160 @@
+<div class="pages">
+    <div data-page="pet" class="page">
+	 <div class="page">
+	  <!-- MENU -->
+	  <div class="navbar" >
+		<div class="navbar-bg"></div>
+		<div class="navbar-inner sliding tema-azul">
+		  <div class="left">
+			<a class="link " href="/perfil_pet/" id="link_back_vacina" >
+			  <i class="icon icon-back" id="back_perfil" ></i>
+			  <span class="if-not-md">Back</span>
+			</a>
+		  </div>
+		  <div class="title" style="color: white" id="titulo_pg">Cadastro Vacinas</div>
+		</div>
+	  </div>
+	  <!-- MENU --> 
+	  <div class="toolbar toolbar-bottom tema-azul" > 
+		   <a class="link" id="salvar_dados" onClick="salvar_vacinas()" data-transition="f7-circle">
+			<div class="toolbar-inner">
+			   <label class="centralizar" style="width: 100%">Salvar </label>
+			</div>
+		  </a>
+	  </div> 
+		 
+	  <div class="page-content">
+		 			<div class="block">
+					<div class="preloader color-blue" id="loader" style="display: none; position: absolute; margin-top: 50%"></div>
+				<input type="hidden" id="id_pet_vacina" value="">
+			 <div class="block-title">Inserir vacinas de seu pet</div>
+				<div class="list inline-labels no-hairlines-md">
+				  <ul>
+					<li class="item-content item-input">
+					  <div class="item-inner">
+						<div class="item-title item-label">Vacina</div>
+						<div class="item-input-wrap">
+						  <input type="text" id="vacina1" placeholder="" value="">
+						  <span class="input-clear-button"></span>
+						</div>
+					  </div>
+					</li>
+					  <li class="item-content item-input">
+					  <div class="item-inner">
+						<div class="item-title item-label">Data</div>
+						 <div class="item-input-wrap">
+						  <input type="date" id="data_vacina1" placeholder="">
+						  <span class="input-clear-button"></span>
+						 </div>
+					  </div>
+					</li>
+					<li class="swipeout swipeout-close">
+					  <div class="item-content swipeout-content" >
+						<div class="item-media" id="foto_vacina1">
+							<i class="f7-icons">camera</i>
+						</div>
+					    <div class="item-inner">
+						  <div class="item-title">Foto</div>
+							<div class="item-after"><i class="f7-icons">arrow_left_circle</i> </div>
+						</div>
+					  </div>
+					  <div class="swipeout-actions-right">
+						 <a class="link color-theme-gray size-10" href="#" data-transition="f7-circle" onClick="foto_vacina1();">
+							<i class="f7-icons" style="color: black">
+								camera
+							 </i>
+							 <label class="size-15" style="color: black">Câmera</label>
+						 </a>
+					   <a class="link color-theme-blue size-10" href="#" onClick="foto_galaria_vacina1();"> <i class="f7-icons" style="color: black">photo </i> <label class="size-20" style="color: black">Galeria</label> </a>
+					  </div>
+					</li> 
+					<li class="item-content item-input">
+					  <div class="item-inner">
+						<div class="item-title item-label">Vacina</div>
+						<div class="item-input-wrap">
+						  <input type="text" id="vacina2" placeholder="">
+						  <span class="input-clear-button"></span>
+						</div>
+					  </div>
+					</li>
+					  <li class="item-content item-input">
+					  <div class="item-inner">
+						<div class="item-title item-label">Data</div>
+						 <div class="item-input-wrap">
+						  <input type="date" id="data_vacina2" placeholder="">
+						  <span class="input-clear-button"></span>
+						 </div>
+					  </div>
+					</li>
+					<li class="swipeout swipeout-close">
+					  <div class="item-content swipeout-content" >
+						<div class="item-media" id="foto_vacina2">
+							<i class="f7-icons">camera</i>
+						</div>
+					    <div class="item-inner">
+						  <div class="item-title">Foto</div>
+							<div class="item-after"><i class="f7-icons">arrow_left_circle</i> </div>
+						</div>
+					  </div>
+					  <div class="swipeout-actions-right">
+						 <a class="link color-theme-gray size-10" href="#" data-transition="f7-circle" onClick="foto_vacina2();">
+							<i class="f7-icons" style="color: black">
+								camera
+							 </i>
+							 <label class="size-15" style="color: black">Câmera</label>
+						 </a>
+					   <a class="link color-theme-blue size-10" href="#" onClick="foto_galaria_vacina2();"> <i class="f7-icons" style="color: black">photo </i> <label class="size-20" style="color: black">Galeria</label> </a>
+					  </div>
+					</li> 
+					<li class="item-content item-input">
+					  <div class="item-inner">
+						<div class="item-title item-label">Vacina</div>
+						<div class="item-input-wrap">
+						  <input type="text" id="vacina3" placeholder="">
+						  <span class="input-clear-button"></span>
+						</div>
+					  </div>
+					</li>
+					  <li class="item-content item-input">
+					  <div class="item-inner">
+						<div class="item-title item-label">Data</div>
+						 <div class="item-input-wrap">
+						  <input type="date" id="data_vacina3" placeholder="">
+						  <span class="input-clear-button"></span>
+						 </div>
+					  </div>
+					</li>
+					<li class="swipeout swipeout-close">
+					  <div class="item-content swipeout-content" >
+						<div class="item-media" id="foto_vacina3">
+							<i class="f7-icons">camera</i>
+						</div>
+					    <div class="item-inner">
+						  <div class="item-title">Foto</div>
+							<div class="item-after"><i class="f7-icons">arrow_left_circle</i> </div>
+						</div>
+					  </div>
+					  <div class="swipeout-actions-right">
+						 <a class="link color-theme-gray size-10" href="#" data-transition="f7-circle" onClick="foto_vacina3();">
+							<i class="f7-icons" style="color: black">
+								camera
+							 </i>
+							 <label class="size-15" style="color: black">Câmera</label>
+						 </a>
+					   <a class="link color-theme-blue size-10" href="#" onClick="foto_galaria_vacina3();"> <i class="f7-icons" style="color: black">photo </i> <label class="size-20" style="color: black">Galeria</label> </a>
+					  </div>
+					</li> 
+					</ul>
+				</div>
+		  </div>
+	 </div>
+	 </div>
+    </div>
+</div>
+		 
+		 
+		 
+		 
+		 
+		 
+		 

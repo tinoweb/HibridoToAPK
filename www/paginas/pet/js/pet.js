@@ -212,16 +212,14 @@ function get_filtro_pet()
 			
 		  });
 }
-//FUNÇÃO FILTRAR PET 
+//FUNÇÃO CARREGAR AS ESPECIES 
 function especies_pet(){
 	 $("#pets_nome_busca").val('');
  	 $("#pets_raca_busca").val('');
 	 $("#pets_cor_busca").val('');
 	 $("#pets_especie_busca").val('');	
 	 $("#pets_especie").val('');	
-	
-	//alert('dd');
-	
+
 	var dados = '';
 	var dado  = '';
 	var id_condominio = localStorage.getItem('ID_CONDOMINIO');
@@ -234,18 +232,14 @@ function especies_pet(){
         data       : {id_condominio : id_condominio, tipo:0 },
         dataType   : 'json',
 		success: function(retorno){
-		//	alert(retorno);
-            for (x in retorno) {
-				var dado = '<option value="'+retorno[x]['id_pet_especie']+'" > '+retorno[x]['descricao']+' </option> ';				
-				
-				dados = dados + dado;
-				
-            }			
+            for (x in retorno) 
+				{
+					var dado = '<option value="'+retorno[x]['id_pet_especie']+'" > '+retorno[x]['descricao']+' </option> ';				
+					dados = dados + dado;
+				}			
 			dados= '<option>Selecione ..</option>' + dados ;
 			$("#pets_especie_cdr").html(dados);
-			$("#pets_especie_busca").html(dados);
-			
-					
+			$("#pets_especie_busca").html(dados);		
 		}
 	});	
 }
@@ -265,8 +259,7 @@ function tela_editar_pet(id)
             data       : {id_pet : id, id_condominio : id_condominio, tipo : '1'},
             dataType   : 'json',
             success: function(retorno)
-			{ var x =0;
-				//alert(retorno);
+			{ 	var x =0;
 				if(retorno[x]['foto'] == ''){
 				   var foto_pet = 'img/pet_semfoto.jpg';
 				}
@@ -282,14 +275,14 @@ function tela_editar_pet(id)
 				$("#raca_cdr").val(retorno[x]['raca']);
 			 	$("#nacimento_cdr").val(retorno[x]['data_nascimento']);
 				$("#cor_cdr").val(retorno[x]['cor']);
-				
-				
-			 $('#sexo_cdr option[value="' + retorno[x]['sexo'] +'"]').prop("selected", true);
-			 setTimeout(function(){ 
-				 $('#pets_especie_cdr option[value="' + retorno[x]['id_especie'] +'"]').prop("selected", true);
-				 $("#salvar_dados").attr('onClick','edit_pet()');  
+			 	$('#sexo_cdr option[value="' + retorno[x]['sexo'] +'"]').prop("selected", true);
+			 		setTimeout(function()
+					{ 
+				 		$('#pets_especie_cdr option[value="' + retorno[x]['id_especie'] +'"]').prop("selected", true);
+				 		$("#salvar_dados").attr('onClick','edit_pet()');  
+						$("#link_back_pet").attr('onClick','carrega_pet('+retorno[x]['id_pet']+')');
 			 
-			 },80);
+					},80);
 			 
 			 
 			},
@@ -299,12 +292,9 @@ function tela_editar_pet(id)
 		  }
 	  });
 }
-// Editar o pet no bd David 12/02/2019
+// Editar o pet no bd 
 function edit_pet()
 {
-	// Pegando as informações do Form 
-	//var foto_up_pet = $("#form_pet_update #foto_up_pet").val();
-	//alert(foto_up_pet);
 	var unidade = localStorage.getItem('ID_UNIDADE');
 	var id_condominio = localStorage.getItem('ID_CONDOMINIO');
 	
@@ -316,19 +306,24 @@ function edit_pet()
 	var cor_pet = $("#cor_cdr").val();
 	var sexo_pet = $("#sexo_cdr").val();
 	var observacao = $("#obs_cdr").val();
-	var data_nc = $("#nacimento_cdr").val();
-	var foto_up_pet = '';
-			alert(cor_pet); 			
-	// Enviando as informações por POST para pet_update
+	var data_nascimento = $("#nacimento_cdr").val();
+	var foto_up_pet = $("#foto_cdr").val();
+
 	$.ajax({
 			type: 'POST',
             url: localStorage.getItem('DOMINIO')+'appweb/pet_update.php',
 			crossDomain: true,
-            data       :{id_pet : id_pet, nome: nome_pet,id_especie: id_especie, cor: cor_pet, sexo: sexo_pet, id_unidade: unidade, id_condominio :id_condominio , raca: raca_pet,  observacao: observacao, foto_up_pet: foto_up_pet, data_nascimento: data_nc },
+			beforeSend : function() { $("#loader").css("display", "block"); },
+			complete   : function() { $("#loader").css("display", "none"); },
+            data       :{id_pet : id_pet, nome: nome_pet,id_especie: id_especie, cor: cor_pet, sexo: sexo_pet, id_unidade: unidade, id_condominio :id_condominio , raca: raca_pet,  observacao: observacao, foto_up_pet: foto_up_pet, data_nascimento: data_nascimento },
 			success: function(retorno)
 			 {
-               alert('Editado com Sucesso !');
-				//alert(id_especie);
+               
+				 alertaDialog("Sucesso","Dados editado com sucesso!");
+				//alert(id_pet);
+				 
+				 carrega_pet(id_pet);
+				 $("#back_perfil").click();
 			  //carrega_pets(0);
 			 },
 			erro: function(retorno)
@@ -338,10 +333,14 @@ function edit_pet()
 		
 		  });
 }
-
+// Função para inserir onclick no botão salvar na are\ de cadastro de pet
 function adicionar_pet()
-{	alert('fff');
-	$("#salvar_dados").attr('onClick','pet_insert()')
+{	
+	//alert ('dd');
+	$("#link_back_pet").attr('href','/pet/');
+	$("#back_perfil").attr('onClick','carrega_pets(0)');
+	$("#salvar_dados").attr('onClick','pet_insert()');
+
 }
 // FUNCAO CARREGA UM PET ESPECIFICO 
 
@@ -371,7 +370,7 @@ function carrega_pet(id){
 				var cont=0;
 				var x =0; 
 				
-			
+				
 				if (retorno[x]['sexo'] == 1)
 					{
 						var sexo = 'Fêmea';
@@ -404,12 +403,16 @@ function carrega_pet(id){
 				$("#tel_perfil_pet").html(retorno[x]['telefone']);
 				$("#sexo_perfil_pet").html(sexo);
 				
-				
+				$("#vacinacao").attr('onClick','select_vacinas('+retorno[x]['id_pet']+','+unidade+');');
 				var id_unidade = retorno[x]['id_unidade'];
 				if(unidade == id_unidade )
 					{
 						$("#editar_meu_pet").attr('href','/pet_cadastro/');
-						$("#editar_meu_pet").attr('onClick','tela_editar_pet('+retorno[x]['id_pet']+'); especies_pet()');	
+						$("#editar_meu_pet").attr('onClick','tela_editar_pet('+retorno[x]['id_pet']+'); especies_pet()');
+						
+						$("#botao_vacina").html('<a class="col button button-fill color-green" href="/vacinacao/" onClick="cadastro_vacinas('+retorno[x]['id_pet']+')" >Adicionar</a>');
+						
+						
 					}
 				else{
 					
@@ -446,11 +449,6 @@ function carrega_pet(id){
 					else{
 						var edt ='';
 					}
-					
-					
-					
-					
-					
 					
 					if(retorno[x]['foto'] == ''){
 					   var foto_moador = 'img/avatar.png';
@@ -515,7 +513,7 @@ function carrega_pet(id){
 	
   
 }
-
+/*
 function getEspecie_editar(id_espec){
 	//alert(id_espec +'id');
 	var dados = '';
@@ -552,7 +550,7 @@ function getEspecie_editar(id_espec){
 
 
 
-
+*/
 //*****************EXCLUIR PET BY DAVID 13/02/2019
 function excluir_pet(){
 	"use strict";
@@ -594,40 +592,49 @@ function excluir_pet(){
 // CADASTRAR NOVO PET BY DAVID 13/02/2019
 function pet_insert(){
 	//"use strict";
-	alert('d');
+	//alert('d');
 	
-	var foto_up_pet = $("#form_pet_add #foto_up_pet").val();
+	var foto_up_pet = $("#foto_cdr").val();
+	//alert(foto_up_pet);
+	var unidade = localStorage.getItem('ID_UNIDADE');
+	var id_condominio = localStorage.getItem('ID_CONDOMINIO');
+	
 	
 	//alert(foto_up_pet);
 	//alert('aqui');
-	var nome_pet = $("#form_pet_add #nome").val();
+	var nome_pet = $("#nome_cdr").val();
 	//alert(nome_pet);
-	var especie_pet = $( "#form_pet_add #id_especie" ).val();
+	var especie_pet =  $("#pets_especie_cdr").val();	
 	//alert(especie_pet);
-	var raca_pet = $( "#form_pet_add #raca" ).val();
+	var raca_pet = $("#raca_cdr").val();
 	//alert(raca_pet);
-	var cor_pet = $( "#form_pet_add #cor" ).val();
+	var cor_pet = $("#cor_cdr").val();
 	//alert(cor_pet);
-	var sexo = $( "#form_pet_add #sexo:checked" ).val();
+	var sexo = $("#sexo_cdr").val();
 	//alert(sexo);
-	var observacao = $( "#form_pet_add #observacao" ).val();
+	var observacao = $("#obs_cdr").val();
 	//alert(observacao);
-	//
+	var data_nc = $("#nacimento_cdr").val();
 	if(nome_pet == ''){
-		notifica('Erro Preenchimento/Preencha o campo Nome',1000,0);
-		$("#form_pet_add #nome").focus();
+		alertaDialog(""," Informe o nome de seu pet !");
+	
 	}else if(especie_pet == '0'){
-		notifica('Erro Preenchimento/Preencha o campo Espécie',1000,0);
-		$("#form_pet_add #id_especie").focus();
+		alertaDialog("","Iforme a espécie de seu pet!");
+		
+		
 	}else if(raca_pet == ''){
-		notifica('Erro Preenchimento/Preencha o campo Raça',1000,0);
-		$("#form_pet_add #raca").focus();
+		alertaDialog("","Descreva a raça de seu pet!");
+		
 	}else if(cor_pet == ''){
-		notifica('Erro Preenchimento/Preencha o campo Cor',1000,0);
-		$("#form_pet_add #cor").focus();
-	}else if($("#form_pet_add #sexo").is(":checked") == false)
-     {
-		 notifica('Erro Preenchimento/Preencha o Sexo',1000,0);
+		alertaDialog("","Defina a cor de seu Pet!");
+		
+		
+	}else if(sexo == "")
+     {	alertaDialog("Erro","Selecione o Sexo do pet !");
+		 
+	 }else if(data_nc == "")
+     {	alertaDialog("Erro","Informe a data de nascimento de seu Pet !");
+		 
 	 }
 	else{
 		var dados = $( "#form_pet_add" ).serialize();
@@ -638,42 +645,440 @@ function pet_insert(){
 			beforeSend : function() { $("#wait").css("display", "block"); },
 			complete   : function() { $("#wait").css("display", "none"); },
 			//data: dados,
-           data       :{nome: nome_pet,id_especie: especie_pet, cor: cor_pet, sexo: sexo, id_unidade: $( "#DADOS #ID_UNIDADE" ).val(), id_condominio : $( "#DADOS #ID_CONDOMINIO" ).val(),  raca: raca_pet,  observacao: observacao, foto_up_pet: foto_up_pet},
+           data       :{nome: nome_pet,id_especie: especie_pet, cor: cor_pet, sexo: sexo, id_unidade: unidade, id_condominio : id_condominio,  raca: raca_pet,  observacao: observacao, foto_up_pet: foto_up_pet, data_nascimento : data_nc},
 			success: function(retorno)
 			{
 				
-                voltar('#pet_lista','#pet_add','pet_lista');           
-                carrega_pets(0);
-                carrega_pets(5);
-				$("#todos_pets").click();
-				  afed('','#add_pet','','');
+                 carrega_pets(0);
+				 alertaDialog("Sucesso","Pet cadastrado com sucesso!");
+				 $("#back_perfil").click();
+				 $("#link_back_pet").click();
+				 
+			},
+			erro: function(retorno)
+			{
+			alertaDialog("Erro","Ops! nõa foi possível cadastrar, tente novamente mais tarde !");	
 			}
 		});
 		
 	}
 }
-// TRAZER AS ESPECIES .. 
 
+ function foto_pet_edicao()
+{
+	
+       navigator.camera.getPicture(onSuccess, onFail, { 
+            quality: 50,
+			correctOrientation: true,
+            destinationType: Camera.DestinationType.DATA_URL,
+        });
 
-// FUNCAO CARREGA PAGINA CADASTRO DE PET BY DAVID 12/02/2019
-function carrega_pet_novo()
-{	
-	
-	$('#form_pet_add #pet_foto').removeAttr("src");
-	$('#form_pet_add #pet_foto').attr("src", "img/pet_foto_perfil.png");
-	$("#form_pet_add #nome").val('');
-	$( "#form_pet_add #id_especie" ).val('');
-	$( "#form_pet_add #raca" ).val('');
-	$( "#form_pet_add #cor" ).val('');
-	$( "#form_pet_add #sexo:checked" ).val('');
-	$( "#form_pet_add #observacao" ).val('');
-	
-    //$( "#add_pet #nome" ).val('');
-	getEspecie_incluir();
- 	//$("#add_pet").html("");
-    afed('#add_pet','#pet_lista','','','2','add_pet');
-	$("#add_pet #nome").focus();
+        function onSuccess(imageURI) { 
+           
+			
+			$( '#foto_cdr' ).val(imageURI);
+			
+			var foto_pet = 'data:image/jpeg;base64,'+imageURI+'';
+			
+
+	$( '#foto_cdr' ).html('<img src="'+foto_pet+'" width="40">');
+		
+			
+        }
+        function onFail(message) {
+           alertaDialog("","Nenhuma imagem carregada !");
+        }    
+}
+
+ function   foto_pet_galaria() 
+{
+       
+	   navigator.camera.getPicture(onSuccess, onFail, {  
+            quality: 50,
+		   	correctOrientation: true,
+            destinationType: Camera.DestinationType.DATA_URL, 
+            sourceType: Camera.PictureSourceType.PHOTOLIBRARY 
+        }); 
+        
+
+        function onSuccess(imageURI) { 
+           
+			
+			$( '#foto_cdr' ).val(imageURI);
+			
+			var foto_pet = 'data:image/jpeg;base64,'+imageURI+'';
+			
+
+	$( '#foto_cdr' ).html('<img src="'+foto_pet+'" width="40">');
+			
+			
+        }
+        function onFail(message) {
+            alertaDialog("","Nenhuma imagem carregada !");
+        }    
 }
 
 
+ function foto_vacina1()
+{
 	
+       navigator.camera.getPicture(onSuccess, onFail, { 
+            quality: 50,
+			correctOrientation: true,
+            destinationType: Camera.DestinationType.DATA_URL,
+        });
+
+        function onSuccess(imageURI) { 
+           
+			
+			$( '#foto_vacina1' ).val(imageURI);
+			
+			var foto_pet = 'data:image/jpeg;base64,'+imageURI+'';
+			
+
+	$( '#foto_vacina1' ).html('<img src="'+foto_pet+'" width="40">');
+		
+			
+        }
+        function onFail(message) {
+           alertaDialog("","Nenhuma imagem carregada !");
+        }    
+}
+
+ function  foto_galaria_vacina1() 
+{
+       
+	   navigator.camera.getPicture(onSuccess, onFail, {  
+            quality: 50,
+		   	correctOrientation: true,
+            destinationType: Camera.DestinationType.DATA_URL, 
+            sourceType: Camera.PictureSourceType.PHOTOLIBRARY 
+        }); 
+        
+
+        function onSuccess(imageURI) { 
+           
+			
+			$( '#foto_vacina1' ).val(imageURI);
+			
+			var foto_pet = 'data:image/jpeg;base64,'+imageURI+'';
+			
+
+	$( '#foto_vacina1' ).html('<img src="'+foto_pet+'" width="40">');
+			
+			
+        }
+        function onFail(message) {
+            alertaDialog("","Nenhuma imagem carregada !");
+        }    
+}
+
+
+ function foto_vacina2()
+{
+	
+       navigator.camera.getPicture(onSuccess, onFail, { 
+            quality: 50,
+			correctOrientation: true,
+            destinationType: Camera.DestinationType.DATA_URL,
+        });
+
+        function onSuccess(imageURI) { 
+           
+			
+			$( '#foto_vacina2' ).val(imageURI);
+			
+			var foto_pet = 'data:image/jpeg;base64,'+imageURI+'';
+			
+
+	$( '#foto_vacina2' ).html('<img src="'+foto_pet+'" width="40">');
+		
+			
+        }
+        function onFail(message) {
+           alertaDialog("","Nenhuma imagem carregada !");
+        }    
+}
+
+ function   foto_galaria_vacina2() 
+{
+       
+	   navigator.camera.getPicture(onSuccess, onFail, {  
+            quality: 50,
+		   	correctOrientation: true,
+            destinationType: Camera.DestinationType.DATA_URL, 
+            sourceType: Camera.PictureSourceType.PHOTOLIBRARY 
+        }); 
+        
+
+        function onSuccess(imageURI) { 
+           
+			
+			$( '#foto_vacina2' ).val(imageURI);
+			
+			var foto_pet = 'data:image/jpeg;base64,'+imageURI+'';
+			
+
+	$( '#foto_vacina2' ).html('<img src="'+foto_pet+'" width="40">');
+			
+			
+        }
+        function onFail(message) {
+            alertaDialog("","Nenhuma imagem carregada !");
+        }    
+}
+
+
+ function foto_vacina3()
+{
+	
+       navigator.camera.getPicture(onSuccess, onFail, { 
+            quality: 50,
+			correctOrientation: true,
+            destinationType: Camera.DestinationType.DATA_URL,
+        });
+
+        function onSuccess(imageURI) { 
+           
+			
+			$( '#foto_vacina3' ).val(imageURI);
+			
+			var foto_pet = 'data:image/jpeg;base64,'+imageURI+'';
+			
+
+	$( '#foto_vacina3' ).html('<img src="'+foto_pet+'" width="40">');
+		
+			
+        }
+        function onFail(message) {
+           alertaDialog("","Nenhuma imagem carregada !");
+        }    
+}
+
+ function  foto_galaria_vacina3()  
+{
+       
+	   navigator.camera.getPicture(onSuccess, onFail, {  
+            quality: 50,
+		   	correctOrientation: true,
+            destinationType: Camera.DestinationType.DATA_URL, 
+            sourceType: Camera.PictureSourceType.PHOTOLIBRARY 
+        }); 
+        
+
+        function onSuccess(imageURI) { 
+           
+			
+			$( '#foto_vacina3' ).val(imageURI);
+			
+			var foto_pet = 'data:image/jpeg;base64,'+imageURI+'';
+			
+
+	$( '#foto_vacina3' ).html('<img src="'+foto_pet+'" width="40">');
+			
+			
+        }
+        function onFail(message) {
+            alertaDialog("","Nenhuma imagem carregada !");
+        }    
+}
+
+
+
+//Função abrir  cadatro de vacina
+function cadastro_vacinas(id_pet)
+{
+ //$("#id_pet_vacina").val(id_pet);
+ $("#fechar_mp").click();
+
+localStorage.setItem('ID_PET_VACINA',id_pet);	
+}
+function salvar_vacinas()
+{
+	
+
+ 
+	var id_pet = localStorage.getItem('ID_PET_VACINA');
+	var id_condominio = localStorage.getItem('ID_CONDOMINIO');
+	var vacina1 =$("#vacina1").val();
+	var data1 = $("#data_vacina1").val();
+	var foto1 = $( '#foto_vacina1' ).val();
+	
+	var vacina2 =$("#vacina2").val();
+	var data2 = $("#data_vacina2").val();
+	var foto2 = $( '#foto_vacina2' ).val();
+	
+	var vacina3 =$("#vacina3").val();
+	var data3 = $("#data_vacina3").val();
+	var foto3 = $( '#foto_vacina3' ).val();
+	//alert(id_pet);
+	$.ajax({
+		type: 'POST',
+        url: localStorage.getItem('DOMINIO')+'appweb/vacina_pet.php',
+	 	crossDomain: true,
+		beforeSend : function() { $("#wait").css("display", "block"); },
+		complete   : function() { $("#wait").css("display", "none"); },
+		data       :{vacina1: vacina1, data1 : data1, foto1:foto1,vacina2: vacina2, data2 : data2, foto2:foto2,vacina3: vacina3, data3 : data3, foto3:foto3,id_condominio: id_condominio, id_pet :id_pet,op:1},
+		success: function(retorno)
+			{
+				
+				alertaDialog("","Dados cadastrados com sucesso!");
+				carrega_pet(id_pet);
+				$("#link_back_vacina").click();
+				
+			},
+		erro: function(retorno)
+			{
+				alertaDialog("","Ops!, Tente novamente mais tarde!");
+				carrega_pet(id_pet);
+				$("#link_back_vacina").click();
+				
+				
+			}
+		
+	});
+	
+}
+function select_vacinas(id,unidade)
+{	//alert(id);
+	var id_condominio = localStorage.getItem('ID_CONDOMINIO');
+	var id_unidade = localStorage.getItem('ID_UNIDADE');
+				$("#data_vcn1").html('aa');
+				$("#data_vcn2").html('');
+				$("#data_vcn3").html('');
+				
+				$("#nome_vcn1").html('aa');
+				$("#nome_vcn2").html('');
+				$("#nome_vcn3").html('');
+	
+	$.ajax({
+		type: 'POST',
+        url: localStorage.getItem('DOMINIO')+'appweb/vacina_pet.php',
+	 	crossDomain: true,
+		beforeSend : function() { $("#wait").css("display", "block"); },
+		complete   : function() { $("#wait").css("display", "none"); },
+		data       :{id_condominio: id_condominio, id_pet :id,op:2},
+		dataType   : 'json',
+		success: function(retorno)
+			{// alert(retorno);
+			 	
+			
+				
+				 for (var x in retorno){
+					 
+					 
+					 
+					 
+				//var id_p = retorno[x]['id'];
+			
+				   var  foto_vcn1 = 'data:image/jpeg;base64,'+retorno[x]['foto1']+'';
+				   var  foto_vcn2 = 'data:image/jpeg;base64,'+retorno[x]['foto2']+'';
+				   var  foto_vcn3 = 'data:image/jpeg;base64,'+retorno[x]['foto3']+'';
+			 
+				$("#data_vcn1").html('Data: '+retorno[x]['data1']);
+				$("#data_vcn2").html('Data: '+retorno[x]['data2']);
+				$("#data_vcn3").html('Data: '+retorno[x]['data3']);
+				
+				$("#nome_vcn1").html('Vacina: '+retorno[x]['vacina1']);
+				$("#nome_vcn2").html('Vacina: '+retorno[x]['vacina2']);
+				$("#nome_vcn3").html('Vacina: '+retorno[x]['vacina3']);
+				
+						
+				$("#foto_vcn1").attr("src",foto_vcn1);
+				$("#foto_vcn2").attr("src",foto_vcn2);
+				$("#foto_vcn3").attr("src",foto_vcn3);
+					 
+				if(retorno[x]['id'] >0 )
+					{
+						if(unidade = id_unidade)
+							{
+								$("#botao_vacina").html('<a class="col button button-fill color-red" href="/vacinacao/" onClick="editar_vcn('+retorno[x]['id_pet']+')" >Editar</a>');	
+							}	
+					}
+				
+			}
+				
+			},
+		erro: function(retorno)
+			{
+				alert('retorno');
+				
+				
+				
+			}
+	});
+	
+	
+	
+	
+	
+}
+function editar_vcn(id)
+{
+	alert(id);
+					
+	
+	
+	
+	
+	
+	
+	
+	
+	var id_pet = id;
+	var id_condominio = localStorage.getItem('ID_CONDOMINIO');
+	$.ajax({
+		type: 'POST',
+        url: localStorage.getItem('DOMINIO')+'appweb/vacina_pet.php',
+	 	crossDomain: true,
+		beforeSend : function() { $("#wait").css("display", "block"); },
+		complete   : function() { $("#wait").css("display", "none"); },
+		data       :{id_condominio: id_condominio, id_pet :id,op:2},
+		dataType   : 'json',
+		success: function(retorno)
+			{  //alert(retorno);
+			 	
+			
+				
+				 for (var x in retorno){
+					 alert(retorno[x]['data1']);
+					 //nome das vacinas 
+					 $("#vacina1").attr('value',retorno[x]['vacina1']);
+					 $("#vacina2").attr('value',retorno[x]['vacina2']);
+					 $("#vacina3").attr('value',retorno[x]['vacina3']);
+					 //data de vacinação
+
+					 $("#data_vacina1").attr('value',retorno[x]['data11']);
+					 $("#data_vacina2").attr('value',retorno[x]['data22']);
+					 $("#data_vacina3").attr('value',retorno[x]['data33']);
+					 
+					 // fotos
+				
+					
+				   var  foto_vcn1 = 'data:image/jpeg;base64,'+retorno[x]['foto1']+'';
+				   var  foto_vcn2 = 'data:image/jpeg;base64,'+retorno[x]['foto2']+'';
+				   var  foto_vcn3 = 'data:image/jpeg;base64,'+retorno[x]['foto3']+''; 
+					 
+					 if(retorno[x]['foto1'] != '')
+						 {
+							$( '#foto_vacina1' ).html('<img src="'+foto_vcn1+'" width="40">'); 
+						 }
+					 if(retorno[x]['foto2'] != '')
+						 {
+							$( '#foto_vacina2' ).html('<img src="'+foto_vcn2+'" width="40">'); 
+						 }
+					 if(retorno[x]['foto3'] != '')
+						 {
+							$( '#foto_vacina3' ).html('<img src="'+foto_vcn3+'" width="40">'); 
+						 }
+					 
+					 
+					 
+				 }
+			}
+					 
+	
+	
+});
+}
+

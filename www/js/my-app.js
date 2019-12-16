@@ -56,6 +56,10 @@ var app = new Framework7({
       path: '/perfil_pet/',
       url: 'paginas/pet/pet_perfil.html',
     },
+	 {
+      path: '/vacinacao/',
+      url: 'paginas/pet/vacinacao.html',
+    },
 	  {
       path: '/pet_cadastro/',
       url: 'paginas/pet/pet_cadastro.html',

@@ -1579,29 +1579,40 @@ let loginFB = () => {
 	facebookConnectPlugin.logout(
 		function(successo){
 		    facebookConnectPlugin.login(['public_profile', 'email'], function(result){
+		    	alert(JSON.stringify(result));
+
 		        facebookConnectPlugin.api("/me?fields=id,name,email", ["email"], function(userData){
+		        	alert(JSON.stringify(userData));
+
 		            let name = userData.name;
 		            let email = userData.email;
 		    		localStorage.setItem('emailSocialMidia', email);
 		            checkUsuarioFacebookToLogin(email);
 		        },function(error){
 		            alertaDialog("Login com FB", "Falha ao tentar logar com facebook");
+		            alert(JSON.stringify(error));
 		        });
 		    },function(error){
 		        alertaDialog("Login com FB", "Falha ao tentar logar com facebook");
+		        alert(JSON.stringify(error));
 		    })
 		},
 		function(erroror){
+			alert(JSON.stringify(erroror));
 			facebookConnectPlugin.login(['public_profile', 'email'], function(result){
+				alert(JSON.stringify(result));
 		        facebookConnectPlugin.api("/me?fields=id,name,email", ["email"], function(userData){
-		            let name = userData.name;
-		            let email = userData.email;
-		    		localStorage.setItem('emailSocialMidia', email);
+		        	alert(JSON.stringify(userData));
+			            let name = userData.name;
+			            let email = userData.email;
+		    			localStorage.setItem('emailSocialMidia', email);
 		            checkUsuarioFacebookToLogin(email);
 		        },function(error){
+		        	alert(JSON.stringify(error));
 		            alertaDialog("Login com FB", "Falha ao tentar logar com facebook");
 		        });
 		    },function(error){
+	        	alert(JSON.stringify(error));
 		        alertaDialog("Login com FB", "Falha ao tentar logar com facebook");
 		    });
 		}

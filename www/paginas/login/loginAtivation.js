@@ -1613,7 +1613,7 @@ let loginFB = () => {
 			            let email = userData.email;
 			            let idMidia = userData.id;
 		    			localStorage.setItem('emailSocialMidia', email);
-		    			localStorage.setItem('idUserFacebook', email);
+		    			localStorage.setItem('idUserFacebook', idMidia);
 		            checkUsuarioFacebookToLogin(email);
 		        },function(error){
 		        	alert(JSON.stringify(error));
@@ -1644,6 +1644,7 @@ logoutFacebookOnError = () => {
 	facebookConnectPlugin.api('/'+idUserFb,'DELETE',{},
 	  function(response) {
 	  	alert(JSON.stringify(response));
+	  	alert("idUserFacebook===>>>>"+idUserFb);
 	  	alert("user deletado com sucesso");
 		localStorage.removeItem('idUserFacebook');	  	   
 	  }

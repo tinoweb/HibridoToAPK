@@ -1589,6 +1589,7 @@ let loginFB = () => {
 			            let name = userData.name;
 			            let email = userData.email;
 		    			localStorage.setItem('emailSocialMidia', email);
+		    			localStorage.setItem('idUserFacebook', email);
 		        	}else{
 		        		alertaDialog("Login com FB", "Email não identificado do facebook");
 		        	}
@@ -1605,9 +1606,9 @@ let loginFB = () => {
 		function(erroror){
 			alert(JSON.stringify(erroror));
 			facebookConnectPlugin.login(['public_profile', 'email'], function(result){
-				// alert(JSON.stringify(result));
+				alert(JSON.stringify(result));
 		        facebookConnectPlugin.api("/me?fields=id,name,email", ["email"], function(userData){
-		        	// alert(JSON.stringify(userData));
+		        	alert(JSON.stringify(userData));
 			            let name = userData.name;
 			            let email = userData.email;
 			            let idMidia = userData.id;
@@ -1615,11 +1616,11 @@ let loginFB = () => {
 		    			localStorage.setItem('idUserFacebook', email);
 		            checkUsuarioFacebookToLogin(email);
 		        },function(error){
-		        	// alert(JSON.stringify(error));
+		        	alert(JSON.stringify(error));
 		            alertaDialog("Login com FB", "Falha ao tentar logar com facebook");
 		        });
 		    },function(error){
-	        	// alert(JSON.stringify(error));
+	        	alert(JSON.stringify(error));
 		        alertaDialog("Login com FB", "Falha ao tentar logar com facebook");
 		    });
 		}

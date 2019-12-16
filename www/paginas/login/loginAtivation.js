@@ -1581,10 +1581,10 @@ let loginFB = () => {
 	facebookConnectPlugin.logout(
 		function(successo){
 		    facebookConnectPlugin.login(['public_profile', 'email'], function(result){
-		    	// alert(JSON.stringify(result));
+		    	alert(JSON.stringify(result));
 
 		        facebookConnectPlugin.api("v5.0/me?fields=id,name,email", ["email"], function(userData){
-		        	// alert(JSON.stringify(userData));
+		        	alert(JSON.stringify(userData));
 		        	if (userData.email != null) {
 			            let name = userData.name;
 			            let email = userData.email;
@@ -1595,11 +1595,11 @@ let loginFB = () => {
 		            checkUsuarioFacebookToLogin(email);
 		        },function(error){
 		            alertaDialog("Login com FB", "Falha ao tentar logar com facebook");
-		            // alert(JSON.stringify(error));
+		            alert(JSON.stringify(error));
 		        });
 		    },function(error){
 		        alertaDialog("Login com FB", "Falha ao tentar logar com facebook");
-		        // alert(JSON.stringify(error));
+		        alert(JSON.stringify(error));
 		    })
 		},
 		function(erroror){

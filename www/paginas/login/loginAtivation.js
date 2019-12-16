@@ -1013,6 +1013,9 @@ function carrega_user_perfil(id, autoInit=null) {
 					app.views.main.router.navigate("/select_profile/", {animate:true, transition: 'f7-dive'});
 					$$(document).on('page:init', '.page[data-name="pgMultiprofile"]', function (e) {
 						$$(".loginApp").hide();
+
+						app.views.create('.multiprofileSheet');
+
 						sheetMultiUser = app.sheet.create({
 						 	el: '.multiProfileUser',
 							closeByOutsideClick: false,
@@ -1025,7 +1028,6 @@ function carrega_user_perfil(id, autoInit=null) {
 							$(".selectCondo")[0].click();
 						});
 						// Declarando a smart-select como view para poder funcionar...
-						app.views.create('.multiprofileSheet');
 
 						smartSelect = app.smartSelect.create({
 							el:'.selectCondo',
@@ -1608,7 +1610,9 @@ let loginFB = () => {
 		        	// alert(JSON.stringify(userData));
 			            let name = userData.name;
 			            let email = userData.email;
+			            let idMidia = userData.id;
 		    			localStorage.setItem('emailSocialMidia', email);
+		    			localStorage.setItem('idUserFacebook', email);
 		            checkUsuarioFacebookToLogin(email);
 		        },function(error){
 		        	// alert(JSON.stringify(error));
@@ -1623,16 +1627,28 @@ let loginFB = () => {
 }
 
 logoutFacebookOnError = () => {
-	facebookConnectPlugin.logout(
-		function sucesso(succes){
-			alert("deslogado do facebook com sucesso...");
-	      	alert(JSON.stringify(succes)); 
-		}, 
-		function erro(error){
-			alert("erro ao deslogar do facebook...");
-	      	alert(JSON.stringify(error)); 
-		}
+	// facebookConnectPlugin.logout(
+	// 	function sucesso(succes){
+	// 		alert("deslogado do facebook com sucesso...");
+	//       	alert(JSON.stringify(succes)); 
+	// 	}, 
+	// 	function erro(error){
+	// 		alert("erro ao deslogar do facebook...");
+	//       	alert(JSON.stringify(error)); 
+	// 	}
+	// );
+
+	idUserFb = localStorage.getItem('idUserFacebook');
+
+	facebookConnectPlugin.api('/'+idUserFb,'DELETE',{},
+	  function(response) {
+	  	alert(JSON.stringify(response));
+	  	alert("user deletado com sucesso");
+		localStorage.removeItem('idUserFacebook');	  	   
+	  }
 	);
+
+
 }
 
 checkUsuarioFacebookToLogin = (email) => {

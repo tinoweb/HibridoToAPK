@@ -12,15 +12,15 @@
     <preference name="DisallowOverscroll" value="true" />
     <preference name="show-splash-screen-spinner" value="true" />
     
-    <platform name="browser">
-        <preference name="SplashScreen" value="www/img/loadCondo.gif" /> 
-        <preference name="AutoHideSplashScreen" value="true" />
-        <preference name="SplashScreenDelay" value="3000" /> 
-        <preference name="SplashScreenBackgroundColor" value="green" /> 
-        <preference name="ShowSplashScreen" value="false" />
-        <preference name="SplashScreenWidth" value="600" />
-        <preference name="SplashScreenHeight" value="300" />
-    </platform>
+    <!-- <platform name="browser"> -->
+    <preference name="SplashScreen" value="www/img/loadCondo.gif" /> 
+    <preference name="AutoHideSplashScreen" value="true" />
+    <preference name="SplashScreenDelay" value="3000" /> 
+    <preference name="SplashScreenBackgroundColor" value="green" /> 
+    <preference name="ShowSplashScreen" value="true" />
+    <preference name="SplashScreenWidth" value="600" />
+    <preference name="SplashScreenHeight" value="300" />
+    <!-- </platform> -->
 
     <preference name="orientation" value="portrait" />
     <preference name="fullscreen" value="false" />
@@ -38,6 +38,11 @@
         <icon density="xhdpi" src="www/res/icon/android/drawable-xhdpi-icon.png" />
         <icon density="xxhdpi" src="www/res/icon/android/drawable-xxhdpi-icon.png" />
         <icon density="xxxhdpi" src="www/res/icon/android/drawable-xxxhdpi-icon.png" />
+
+        <splash src="res/screen/android/drawable-port-hdpi-screen.png" density="port-hdpi"/>
+       <!--  <splash src="res/screen/android/splash-port-ldpi.png" density="port-ldpi"/>
+        <splash src="res/screen/android/splash-port-mdpi.png" density="port-mdpi"/>
+        <splash src="res/screen/android/splash-port-xhdpi.png" density="port-xhdpi"/> -->
 
         <allow-intent href="market:*" />
         <resource-file src="google-services.json" target="app/google-services.json" />
@@ -58,6 +63,8 @@
         <icon height="58" platform="ios" src="www/res/icons/ios/icon-small@2x.png" width="58" />
         <icon height="87" platform="ios" src="www/res/icons/ios/icon-small@3x.png" width="87" />
 		<icon height="1024" platform="ios" src="www/res/icon/ios/icon1024.png" width="1024" />
+
+        <splash src="res/screen/ios/Default-568h%402x%7Eiphone.png" density="port-hdpi"/>
 
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />

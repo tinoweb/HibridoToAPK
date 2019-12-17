@@ -1571,37 +1571,35 @@ confirmaCodeResetPassword = (recoveryCode) => {
   */
 
 let loginFB = () => {
-    facebookConnectPlugin.login(['public_profile', 'email'], function(result){
-    	alert(JSON.stringify(result));
+	
+	facebookConnectPlugin.logout( 
+    	function (response) {
+    		alert(JSON.stringify(response));
+		    facebookConnectPlugin.login(['public_profile', 'email'], function(result){
+		    	alert(JSON.stringify(result));
+		        facebookConnectPlugin.api("/me?fields=id,name,email", ["public_profile"], function(userData){
+		        	alert(JSON.stringify(userData));
+		        	
+		            let name = userData.name;
+		            let email = userData.email;
+					localStorage.setItem('emailSocialMidia', email);
+		            checkUsuarioFacebookToLogin(email);
 
-        facebookConnectPlugin.api("/me?fields=id,name,email", ["public_profile"], function(userData){
-        	alert(JSON.stringify(userData));
-        	
-            let name = userData.name;
-            let email = userData.email;
-			localStorage.setItem('emailSocialMidia', email);
-            checkUsuarioFacebookToLogin(email);
+		        },function(error){
+		            alertaDialog("Login com FB", "Falha ao tentar logar com facebook");
+		            alert(JSON.stringify(error));
+		        });
+		    },function(error){
+		        alertaDialog("Login com FB", "Falha ao tentar logar com facebook");
+		        alert(JSON.stringify(error));
+		    })
+    	},
+    	function (response) { alert(JSON.stringify(response)) }
+    )
 
-        },function(error){
-            alertaDialog("Login com FB", "Falha ao tentar logar com facebook");
-            alert(JSON.stringify(error));
-        });
-    },function(error){
-        alertaDialog("Login com FB", "Falha ao tentar logar com facebook");
-        alert(JSON.stringify(error));
-    })
 }
 
 logoutFacebookOnError = () => {
-	// facebookConnectPlugin.logout(
-	// 	function sucesso(succes){
-	// 		alert("deslogado do facebook com sucesso...");
-	// 	}, 
-	// 	function erro(error){
-	// 		alert("erro ao deslogar do facebook...");
-	// 	}
-	// );
-
 	facebookConnectPlugin.logout( 
     function (response) { alert(JSON.stringify(response)) },
     function (response) { alert(JSON.stringify(response)) });

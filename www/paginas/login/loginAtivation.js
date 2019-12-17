@@ -1749,6 +1749,17 @@ logoutGoogleOnError = () => {
 	//     }	
 	// );
 
+	trySilentLogin = () => {
+		function(obj) {
+			logoutGoogle();
+	    },
+	    function(msg) {
+	    	logoutGoogle();
+	    }
+	}
+}
+
+logoutGoogle = () => {
 	window.plugins.googleplus.logout(
 	    function (msg) {
 	    	alert("deslogado do google com sucesso...");

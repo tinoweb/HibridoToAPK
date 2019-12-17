@@ -1624,13 +1624,19 @@ let loginFB = () => {
 }
 
 logoutFacebookOnError = () => {
-	facebookConnectPlugin.logout( 
-    function (response) { 
-    	// alert(JSON.stringify(response)) 
-    },
-    function (response) { 
-    	// alert(JSON.stringify(response)) 
-    });
+	facebookConnectPlugin.getLoginStatus (
+	function(argument) {
+		alert(JSON.stringify(argument));
+	}, function (argumentError) {
+		alert(JSON.stringify(argumentError));
+	});
+	// facebookConnectPlugin.logout( 
+ //    function (response) { 
+ //    	// alert(JSON.stringify(response)) 
+ //    },
+ //    function (response) { 
+ //    	// alert(JSON.stringify(response)) 
+ //    });
 }
 
 checkUsuarioFacebookToLogin = (email) => {
@@ -1710,10 +1716,9 @@ logoutGoogleOnError = () => {
 	    	alert("deslogado do google com sucesso...");
 	    },
 	    function (args) {
-	    	alert("deslogado do google com sucesso...");
+	    	console.log("deslogado do google com sucesso...");
 	    }	
 	);
-	console.log("eexecuta a funcao...");
 }
 
 checkUsuarioGoogleToLogin = (email) => {
@@ -1773,6 +1778,7 @@ logout = () => {
 			localStorage.removeItem('loginSocialMidia');
 			localStorage.removeItem('emailDefinidoOk');
 			localStorage.removeItem('senhaDefinidoOk');
+			
 			logoutFacebookOnError();
 			logoutGoogleOnError();
 

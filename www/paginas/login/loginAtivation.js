@@ -1588,13 +1588,37 @@ let loginFB = () => {
 		        },function(error){
 		            alertaDialog("Login com FB", "Falha ao tentar logar com facebook");
 		            alert(JSON.stringify(error));
+		            localStorage.removeItem('emailSocialMidia');
 		        });
 		    },function(error){
 		        alertaDialog("Login com FB", "Falha ao tentar logar com facebook");
 		        alert(JSON.stringify(error));
+		        localStorage.removeItem('emailSocialMidia');
 		    })
     	},
-    	function (response) { alert(JSON.stringify(response)) }
+    	function (response) { 
+    		alert(JSON.stringify(response));
+    		facebookConnectPlugin.login(['public_profile', 'email'], function(result){
+		    	alert(JSON.stringify(result));
+		        facebookConnectPlugin.api("/me?fields=id,name,email", ["public_profile"], function(userData){
+		        	alert(JSON.stringify(userData));
+		        	
+		            let name = userData.name;
+		            let email = userData.email;
+					localStorage.setItem('emailSocialMidia', email);
+		            checkUsuarioFacebookToLogin(email);
+
+		        },function(error){
+		            alertaDialog("Login com FB", "Falha ao tentar logar com facebook");
+		            alert(JSON.stringify(error));
+		            localStorage.removeItem('emailSocialMidia');
+		        });
+		    },function(error){
+		        alertaDialog("Login com FB", "Falha ao tentar logar com facebook");
+		        alert(JSON.stringify(error));
+		        localStorage.removeItem('emailSocialMidia');
+		    }) 
+    	}
     )
 
 }

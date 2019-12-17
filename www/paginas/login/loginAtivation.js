@@ -795,6 +795,8 @@ select_user = (id_usuario_condominio=0) => {
                     $$(document).on('page:init', '.page[data-name="pgHome"]', function (e) {
                     	
                     	console.log("negavar para pagina home....");
+
+                    	app.actions.close('#multiProfileUserNoAutoInit', true);
 						
 						app.actions.close('#multiProfileUser', true);
 						app.actions.close('.defineSenhaApp', true);
@@ -1003,46 +1005,52 @@ function carrega_user_perfil(id, autoInit=null) {
             dataType   : 'json',
 			success: function(retorno){
 				console.log("carrega user perfil .....");
-				console.log(retorno);
+				console.log(JSON.stringify(retorno));
 
-				// setar no localStorage o dominio especifico de cada condominio
-
-				if (localStorage.getItem('loginSocialMidia') == "loginsocialmidiaFG") {
+				if (autoInit == null && localStorage.getItem('loginSocialMidia') == "loginsocialmidiaFG") {
+					console.log("====>>>>>>"+autoInit);
+					console.log("=======>>>"+localStorage.getItem('loginSocialMidia'));
 					console.log('carrega perfil loginSocialMidia');
-					app.views.main.router.navigate("/select_profile/", {animate:true, transition: 'f7-dive'});
-					$$(document).on('page:init', '.page[data-name="pgMultiprofile"]', function (e) {
+					app.views.main.router.navigate("/select_profile_noAuto/", {animate:true, transition: 'f7-dive'});
+					$$(document).on('page:init', '.page[data-name="pgMultiProfileNoAutoInit"]', function (e) {
 						$$(".loginApp").hide();
 						sheetMultiUser = app.sheet.create({
-						 	el: '.multiProfileUser',
+						 	el: '.multiProfileUserNoAutoInit',
 							closeByOutsideClick: false,
 						  	closeByBackdropClick: false,
 						  	closeOnEscape: false
 						}).open(true);
+
 						
-						$$('.multiProfileUser').on('sheet:opened', function (e) {
-						  	console.log('my-sheet opened');
-							$(".selectCondo")[0].click();
+						$$('.multiProfileUserNoAutoInit').on('sheet:opened', function (e) {
+						  	console.log('multiProfileUserNoAutoInit Aberto ...');
+							$(".selectCondoMinio")[0].click();
+							console.log("clickou automatico");
 						});
+
+						app.views.create('.multiprofileSheetNoAutoInit');
+						// sleep(100);
+
 						// Declarando a smart-select como view para poder funcionar...
-						app.views.create('.multiprofileSheet');
-
-						setTimeout(function() {
-							smartSelect = app.smartSelect.create({
-								el:'.selectCondo',
-								on: {
-								    opened: function () {
-								      	let elemento = $(".page-content")[1];
-										let esseElemento = elemento.firstElementChild;
-										esseElemento.style.position="relative";
-										esseElemento.style.top="26px";
+						smartSelect = app.smartSelect.create({
+							el:'.selectCondoMinio',
+							on: {
+							    opened: function () {
+							    	console.log("entrou no multi no autoinit ===<<<<>>>>===")
+							      	var elemento = $(".page-content")[1];
+									
+									setTimeout(function() {
+										console.log(elemento);
+										var esseElemento = elemento.firstElementChild;
+										esseElemento.style.position="relative !important";
+										esseElemento.style.top="40px !important";
 										$(".icon-back").attr('style', 'color: #037aff !important');
-								    },
-								}
-							});
-						}, 1000);
-
+									}, 200);
+							    },
+							}
+						});
 						
-						var primeiro = '<option value="" selected="">Selecione o seu Condominio</option>';
+						var primeiro = '<option value="" selected="">Selecione Condominio</option>';
 				        for (x in retorno) {
 				            dado = '<option onclick="select_user('+retorno[x]['id_usuario_condominio']+')" value="'+retorno[x]['id_usuario_condominio']+'">'+retorno[x]['nome_condominio']+'</option>';
 				            dados = dados + dado;
@@ -1067,7 +1075,7 @@ function carrega_user_perfil(id, autoInit=null) {
 						}).open(true);
 						
 						$$('.multiProfileUser').on('sheet:opened', function (e) {
-						  	console.log('my-sheet opened');
+						  	console.log('my-sheet opened==>> multiprofile autoinit...');
 							$(".selectCondo")[0].click();
 						});
 						// Declarando a smart-select como view para poder funcionar...
@@ -1147,6 +1155,7 @@ function carrega_user_perfil(id, autoInit=null) {
 					app.views.main.router.navigate("/select_profile/", {animate:true, transition: 'f7-dive'});
 					$$(document).on('page:init', '.page[data-name="pgMultiprofile"]', function (e) {
 						$$(".loginApp").hide();
+						console.log("auto com user e senha ====>>>>>");
 						sheetMultiUser = app.sheet.create({
 						 	el: '.multiProfileUser',
 							closeByOutsideClick: false,
@@ -1187,47 +1196,57 @@ function carrega_user_perfil(id, autoInit=null) {
 				        }, 200);
 				    });
 				}else{
-					console.log("login multiuser com usuario e senha....");
-					app.sheet.create({
-					 	el: '#multiProfileUser',
-						closeByOutsideClick: false,
-					  	closeByBackdropClick: false,
-					  	closeOnEscape: false
-					});
+					console.log("login multiuser com usuario e senha..sem autoInit..");
+					app.views.main.router.navigate("/select_profile_noAuto/", {animate:true, transition: 'f7-dive'});
+					$$(document).on('page:init', '.page[data-name="pgMultiProfileNoAutoInit"]', function (e) {
+						$$(".loginApp").hide();
+						sheetMultiUser = app.sheet.create({
+						 	el: '.multiProfileUserNoAutoInit',
+							closeByOutsideClick: false,
+						  	closeByBackdropClick: false,
+						  	closeOnEscape: false
+						}).open(true);
 
-					app.actions.close('.loginApp', true);
-					app.actions.open('#multiProfileUser', true);
-					$$('#multiProfileUser').on('sheet:opened', function (e) {
-					  	console.log('my-sheet opened');
-						$(".selectCondo")[0].click();
-					});
-					
-					// Declarando a smart-select como view para poder funcionar...
-					var viewSheetModal = app.views.create('.view-sheet-modal');
-					
-					smartSelect = app.smartSelect.create({
-						el:'.selectCondo',
-						on: {
-						    opened: function () {
-						      	let elemento = $(".page-content")[1];
-								let esseElemento = elemento.firstElementChild;
-								esseElemento.style.position="relative";
-								esseElemento.style.top="26px";
-								$(".icon-back").attr('style', 'color: #037aff !important');
-						    },
-						}
-					});
-										
-					var primeiro = '<option value="" selected="">Selecione o seu Condominio</option>';
-	                for (x in retorno) {
-	                    dado = '<option onclick="select_user('+retorno[x]['id_usuario_condominio']+')" value="'+retorno[x]['id_usuario_condominio']+'">'+retorno[x]['nome_condominio']+'</option>';
-	                    dados = dados + dado;
-	                }
-	                dados = primeiro + dados;
+						
+						$$('.multiProfileUserNoAutoInit').on('sheet:opened', function (e) {
+						  	console.log('multiProfileUserNoAutoInit Aberto ...');
+							$(".selectCondoMinio")[0].click();
+							console.log("clickou automatico");
+						});
 
-	                $('#perfil_login').html(dados);
+						app.views.create('.multiprofileSheetNoAutoInit');
+						// sleep(100);
+
+						// Declarando a smart-select como view para poder funcionar...
+						smartSelect = app.smartSelect.create({
+							el:'.selectCondoMinio',
+							on: {
+							    opened: function () {
+							    	console.log("entrou no multi no user senha ===<<<<>>>>===")
+							      	var elemento = $(".page-content")[1];
+							    	setTimeout(function() {
+										console.log(elemento);
+										var esseElemento = elemento.firstElementChild;
+										esseElemento.style.position="relative !important";
+										esseElemento.style.top="40px !important";
+										$(".icon-back").attr('style', 'color: #037aff !important');
+									}, 100);
+							    },
+							}
+						});
+						
+						var primeiro = '<option value="" selected="">Selecione o seu Condominio</option>';
+				        for (x in retorno) {
+				            dado = '<option onclick="select_user('+retorno[x]['id_usuario_condominio']+')" value="'+retorno[x]['id_usuario_condominio']+'">'+retorno[x]['nome_condominio']+'</option>';
+				            dados = dados + dado;
+				        }
+				        dados = primeiro + dados;
+
+				        setTimeout(function() {
+				            $('.perfil_loginClass').html(dados);
+				        }, 200);
+				    });
 				}
-				
 			}
 		});
 	}else{
@@ -1578,53 +1597,28 @@ confirmaCodeResetPassword = (recoveryCode) => {
   */
 
 let loginFB = () => {
-	// facebookConnectPlugin.logout(
-	// 	function(successo){
-		    facebookConnectPlugin.login(['public_profile', 'email'], function(result){
-		    	alert(JSON.stringify(result));
+    // facebookConnectPlugin.login(['public_profile', 'email'], function(result){
+    // 	alert(JSON.stringify(result));
 
-		        facebookConnectPlugin.api("/me?fields=id,name,email", ["email"], function(userData){
-		        	alert(JSON.stringify(userData));
-		        	
-		            let name = userData.name;
-		            let email = userData.email;
-	    			localStorage.setItem('emailSocialMidia', email);
-	    			localStorage.setItem('idUserFacebook', email);
-		        	
-		            checkUsuarioFacebookToLogin(email);
-		        },function(error){
-		            alertaDialog("Login com FB", "Falha ao tentar logar com facebook");
-		            alert(JSON.stringify(error));
-		        });
-		    },function(error){
-		        alertaDialog("Login com FB", "Falha ao tentar logar com facebook");
-		        alert(JSON.stringify(error));
-		    })
-		}
-
-		// function(erroror){
-		// 	alert(JSON.stringify(erroror));
-		// 	facebookConnectPlugin.login(['public_profile', 'email'], function(result){
-		// 		alert(JSON.stringify(result));
-		//         facebookConnectPlugin.api("/me?fields=id,name,email", ["email"], function(userData){
-		//         	alert(JSON.stringify(userData));
-		// 	            let name = userData.name;
-		// 	            let email = userData.email;
-		// 	            let idMidia = userData.id;
-		//     			localStorage.setItem('emailSocialMidia', email);
-		//     			localStorage.setItem('idUserFacebook', idMidia);
-		//             checkUsuarioFacebookToLogin(email);
-		//         },function(error){
-		//         	alert(JSON.stringify(error));
-		//             alertaDialog("Login com FB", "Falha ao tentar logar com facebook");
-		//         });
-		//     },function(error){
-	 //        	alert(JSON.stringify(error));
-		//         alertaDialog("Login com FB", "Falha ao tentar logar com facebook");
-		//     });
-		// }
-	// );
-// }
+    //     facebookConnectPlugin.api("/me?fields=id,name,email", ["email"], function(userData){
+    //     	alert(JSON.stringify(userData));
+        	
+    //         let name = userData.name;
+    //         let email = userData.email;
+    		email = "wendy@firstcontrol.com.br";
+			localStorage.setItem('emailSocialMidia', email);
+			localStorage.setItem('idUserFacebook', email);
+        	
+            checkUsuarioFacebookToLogin(email);
+    //     },function(error){
+    //         alertaDialog("Login com FB", "Falha ao tentar logar com facebook");
+    //         alert(JSON.stringify(error));
+    //     });
+    // },function(error){
+    //     alertaDialog("Login com FB", "Falha ao tentar logar com facebook");
+    //     alert(JSON.stringify(error));
+    // })
+}
 
 logoutFacebookOnError = () => {
 	// facebookConnectPlugin.logout(

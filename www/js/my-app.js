@@ -169,6 +169,12 @@ var app = new Framework7({
       path: '/select_profile/',
       url: 'paginas/login/multiProfile.html',
     },
+    { 
+      name: 'pgMultiProfileNoAutoInit',
+      path: '/select_profile_noAuto/',
+      url: 'paginas/login/multiProfileNoAutoInit.html',
+    },
+    
     {
       path: '/lib_acessos/',
       url: 'paginas/liberacao/liberacao_acessos.html',

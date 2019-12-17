@@ -1659,14 +1659,19 @@ checkUsuarioFacebookToLogin = (email) => {
 		success: function(retorno){
 			console.log(retorno);
 			if (retorno.status == "usuarioValidoToLoginFacebook" && retorno.statuscode == 200) {
-				app.dialog.preloader("Direcionando para App", 'blue');
-				localStorage.setItem("loginSocialMidia", "loginsocialmidiaFG");
-				app.dialog.close();
-				setTimeout(function () {
+				if (retorno.userDevice == null) {
+					let msglog = "Esse aparelho está com usuario logado, faça logou para tentar novamente..."
+					alertaDialog("Tentativa de login",msglog, afterClose=null);
+				}else{
+					app.dialog.preloader("Direcionando para App", 'blue');
+					localStorage.setItem("loginSocialMidia", "loginsocialmidiaFG");
 					app.dialog.close();
-					login_user_device();
-				}, 1000);
-				app.dialog.close();
+					setTimeout(function () {
+						app.dialog.close();
+						login_user_device();
+					}, 1000);
+					app.dialog.close();
+				}
 			}else 
 			if (retorno.status == "perfilAtivoSemSenha" && retorno.statuscode == 200) {
 				localStorage.setItem('data-liberarSemSenha','liberarSemSenha');
@@ -1716,7 +1721,8 @@ logoutGoogleOnError = () => {
 	    	alert("deslogado do google com sucesso...");
 	    },
 	    function (args) {
-	    	console.log("deslogado do google com sucesso...");
+	    	alert("erro ao logar com google...")
+	    	console.log("deslogado do google com sucesso...erro");
 	    }	
 	);
 }
@@ -1778,6 +1784,7 @@ logout = () => {
 			localStorage.removeItem('loginSocialMidia');
 			localStorage.removeItem('emailDefinidoOk');
 			localStorage.removeItem('senhaDefinidoOk');
+			localStorage.removeItem('emailSocialMidia');
 			
 			logoutFacebookOnError();
 			logoutGoogleOnError();

@@ -1716,7 +1716,17 @@ let loginGoogle = () =>{
 }
 
 logoutGoogleOnError = () => {
-	window.plugins.googleplus.disconnect(
+	// window.plugins.googleplus.disconnect(
+	//     function (msg) {
+	//     	alert("deslogado do google com sucesso...");
+	//     },
+	//     function (args) {
+	//     	alert("erro ao logar com google...")
+	//     	console.log("deslogado do google com sucesso...erro");
+	//     }	
+	// );
+
+	window.plugins.googleplus.logout(
 	    function (msg) {
 	    	alert("deslogado do google com sucesso...");
 	    },
@@ -1726,6 +1736,8 @@ logoutGoogleOnError = () => {
 	    }	
 	);
 }
+
+
 
 checkUsuarioGoogleToLogin = (email) => {
 	$.ajax({

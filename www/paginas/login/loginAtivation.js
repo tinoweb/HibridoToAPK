@@ -1006,15 +1006,12 @@ function carrega_user_perfil(id, autoInit=null) {
 				console.log(retorno);
 
 				// setar no localStorage o dominio especifico de cada condominio
-				
 
 				if (localStorage.getItem('loginSocialMidia') == "loginsocialmidiaFG") {
 					console.log('carrega perfil loginSocialMidia');
 					app.views.main.router.navigate("/select_profile/", {animate:true, transition: 'f7-dive'});
 					$$(document).on('page:init', '.page[data-name="pgMultiprofile"]', function (e) {
 						$$(".loginApp").hide();
-
-
 						sheetMultiUser = app.sheet.create({
 						 	el: '.multiProfileUser',
 							closeByOutsideClick: false,
@@ -1042,7 +1039,7 @@ function carrega_user_perfil(id, autoInit=null) {
 								    },
 								}
 							});
-						}, 200);
+						}, 1000);
 
 						
 						var primeiro = '<option value="" selected="">Selecione o seu Condominio</option>';
@@ -1586,16 +1583,14 @@ let loginFB = () => {
 		    facebookConnectPlugin.login(['public_profile', 'email'], function(result){
 		    	alert(JSON.stringify(result));
 
-		        facebookConnectPlugin.api("v5.0/me?fields=id,name,email", ["email"], function(userData){
+		        facebookConnectPlugin.api("/me?fields=id,name,email", ["email"], function(userData){
 		        	alert(JSON.stringify(userData));
-		        	if (userData.email != null) {
-			            let name = userData.name;
-			            let email = userData.email;
-		    			localStorage.setItem('emailSocialMidia', email);
-		    			localStorage.setItem('idUserFacebook', email);
-		        	}else{
-		        		alertaDialog("Login com FB", "Email não identificado do facebook");
-		        	}
+		        	
+		            let name = userData.name;
+		            let email = userData.email;
+	    			localStorage.setItem('emailSocialMidia', email);
+	    			localStorage.setItem('idUserFacebook', email);
+		        	
 		            checkUsuarioFacebookToLogin(email);
 		        },function(error){
 		            alertaDialog("Login com FB", "Falha ao tentar logar com facebook");
@@ -1606,7 +1601,7 @@ let loginFB = () => {
 		        alert(JSON.stringify(error));
 		    })
 		}
-		
+
 		// function(erroror){
 		// 	alert(JSON.stringify(erroror));
 		// 	facebookConnectPlugin.login(['public_profile', 'email'], function(result){
@@ -1632,16 +1627,16 @@ let loginFB = () => {
 // }
 
 logoutFacebookOnError = () => {
-	facebookConnectPlugin.logout(
-		function sucesso(succes){
-			alert("deslogado do facebook com sucesso...");
-	      	alert(JSON.stringify(succes)); 
-		}, 
-		function erro(error){
-			alert("erro ao deslogar do facebook...");
-	      	alert(JSON.stringify(error)); 
-		}
-	);
+	// facebookConnectPlugin.logout(
+	// 	function sucesso(succes){
+	// 		alert("deslogado do facebook com sucesso...");
+	//       	alert(JSON.stringify(succes)); 
+	// 	}, 
+	// 	function erro(error){
+	// 		alert("erro ao deslogar do facebook...");
+	//       	alert(JSON.stringify(error)); 
+	// 	}
+	// );
 
 
 	// idUserFb = localStorage.getItem('idUserFacebook');
@@ -1733,16 +1728,16 @@ let loginGoogle = () =>{
 }
 
 logoutGoogleOnError = () => {
-	window.plugins.googleplus.disconnect(
-	    function (msg) {
-	    	alert("deslogado do google com sucesso...");
-	      	alert(JSON.stringify(msg)); 
-	    },
-	    function (args) {
-	    	alert("deslogado do google com sucesso...");
-	      	alert(JSON.stringify(args)); 
-	    }	
-	);
+	// window.plugins.googleplus.disconnect(
+	//     function (msg) {
+	//     	alert("deslogado do google com sucesso...");
+	//       	alert(JSON.stringify(msg)); 
+	//     },
+	//     function (args) {
+	//     	alert("deslogado do google com sucesso...");
+	//       	alert(JSON.stringify(args)); 
+	//     }	
+	// );
 	// console.log("eexecuta a funcao...");
 }
 

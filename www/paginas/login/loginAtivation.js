@@ -1774,11 +1774,11 @@ logout = () => {
 			localStorage.removeItem('emailDefinidoOk');
 			localStorage.removeItem('senhaDefinidoOk');
 			logoutFacebookOnError();
+			logoutGoogleOnError();
 
 			console.log(`Deslogado o usuario id ${retorno}`);
 			setPwdOut();
 			clearProfileData();
-			// logoutGoogleOnError();
 		}
 	});
 }

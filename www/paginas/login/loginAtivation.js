@@ -1749,7 +1749,7 @@ logoutGoogleOnError = () => {
 	//     }	
 	// );
 
-	trySilentLogin = () => {
+	window.plugins.googleplus.trySilentLogin() {
 		function(obj) {
 			logoutGoogle();
 	    },

@@ -1749,14 +1749,7 @@ logoutGoogleOnError = () => {
 	//     }	
 	// );
 
-	window.plugins.googleplus.trySilentLogin() {
-		function(obj) {
-			logoutGoogle();
-	    },
-	    function(msg) {
-	    	logoutGoogle();
-	    }
-	}
+	window.plugins.googleplus.trySilentLogin({}, function(obj) {logoutGoogle()}, function(msg) {logoutGoogle()});
 }
 
 logoutGoogle = () => {

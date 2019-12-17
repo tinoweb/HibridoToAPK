@@ -968,7 +968,7 @@ logout = () => {
 			setPwdOut();
 			clearProfileData();
 			logoutFacebookOnError();
-			logoutGoogleOnError();
+			// logoutGoogleOnError();
 		}
 	});
 }
@@ -1029,7 +1029,6 @@ function carrega_user_perfil(id, autoInit=null) {
 						});
 
 						app.views.create('.multiprofileSheetNoAutoInit');
-						// sleep(100);
 
 						// Declarando a smart-select como view para poder funcionar...
 						smartSelect = app.smartSelect.create({
@@ -1597,40 +1596,40 @@ confirmaCodeResetPassword = (recoveryCode) => {
   */
 
 let loginFB = () => {
-    // facebookConnectPlugin.login(['public_profile', 'email'], function(result){
-    // 	alert(JSON.stringify(result));
+    facebookConnectPlugin.login(['public_profile', 'email'], function(result){
+    	alert(JSON.stringify(result));
 
-    //     facebookConnectPlugin.api("/me?fields=id,name,email", ["email"], function(userData){
-    //     	alert(JSON.stringify(userData));
+        facebookConnectPlugin.api("/me?fields=id,name,email", ["email"], function(userData){
+        	alert(JSON.stringify(userData));
         	
-    //         let name = userData.name;
-    //         let email = userData.email;
-    		email = "wendy@firstcontrol.com.br";
+            let name = userData.name;
+            let email = userData.email;
+    		// email = "wendy@firstcontrol.com.br";
 			localStorage.setItem('emailSocialMidia', email);
 			localStorage.setItem('idUserFacebook', email);
         	
             checkUsuarioFacebookToLogin(email);
-    //     },function(error){
-    //         alertaDialog("Login com FB", "Falha ao tentar logar com facebook");
-    //         alert(JSON.stringify(error));
-    //     });
-    // },function(error){
-    //     alertaDialog("Login com FB", "Falha ao tentar logar com facebook");
-    //     alert(JSON.stringify(error));
-    // })
+        },function(error){
+            alertaDialog("Login com FB", "Falha ao tentar logar com facebook");
+            alert(JSON.stringify(error));
+        });
+    },function(error){
+        alertaDialog("Login com FB", "Falha ao tentar logar com facebook");
+        alert(JSON.stringify(error));
+    })
 }
 
 logoutFacebookOnError = () => {
-	// facebookConnectPlugin.logout(
-	// 	function sucesso(succes){
-	// 		alert("deslogado do facebook com sucesso...");
-	//       	alert(JSON.stringify(succes)); 
-	// 	}, 
-	// 	function erro(error){
-	// 		alert("erro ao deslogar do facebook...");
-	//       	alert(JSON.stringify(error)); 
-	// 	}
-	// );
+	facebookConnectPlugin.logout(
+		function sucesso(succes){
+			alert("deslogado do facebook com sucesso...");
+	      	alert(JSON.stringify(succes)); 
+		}, 
+		function erro(error){
+			alert("erro ao deslogar do facebook...");
+	      	alert(JSON.stringify(error)); 
+		}
+	);
 
 
 	// idUserFb = localStorage.getItem('idUserFacebook');
@@ -1669,6 +1668,7 @@ checkUsuarioFacebookToLogin = (email) => {
         dataType   : 'json',
 		success: function(retorno){
 			console.log(retorno);
+			alert(JSON.stringify(retorno));
 			// return false;
 			if (retorno.status == "usuarioValidoToLoginFacebook" && retorno.statuscode == 200) {
 				app.dialog.preloader("Direcionando para App", 'blue');
@@ -1710,6 +1710,7 @@ let loginGoogle = () =>{
 	      	let email = obj.email;
 	      	let nome = obj.displayName;
 
+	      	alert(JSON.stringify(obj));
 			localStorage.setItem('emailSocialMidia', email);
 			app.dialog.close();
 		    checkUsuarioGoogleToLogin(email);
@@ -1753,7 +1754,7 @@ checkUsuarioGoogleToLogin = (email) => {
 		},
         dataType   : 'json',
 		success: function(retorno){
-
+			alert(JSON.stringify(retorno));
 			if (retorno.status == "perfilAtivoSemSenha" && retorno.statuscode == 200) {
 				localStorage.setItem('data-liberarSemSenha','liberarSemSenha');
 				alertaDialog('Login Google', "direcionando para termo de uso", afterClose="termoUso");

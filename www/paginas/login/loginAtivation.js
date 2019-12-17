@@ -1593,14 +1593,18 @@ let loginFB = () => {
 }
 
 logoutFacebookOnError = () => {
-	facebookConnectPlugin.logout(
-		function sucesso(succes){
-			alert("deslogado do facebook com sucesso...");
-		}, 
-		function erro(error){
-			alert("erro ao deslogar do facebook...");
-		}
-	);
+	// facebookConnectPlugin.logout(
+	// 	function sucesso(succes){
+	// 		alert("deslogado do facebook com sucesso...");
+	// 	}, 
+	// 	function erro(error){
+	// 		alert("erro ao deslogar do facebook...");
+	// 	}
+	// );
+
+	facebookConnectPlugin.logout( 
+    function (response) { alert(JSON.stringify(response)) },
+    function (response) { alert(JSON.stringify(response)) });
 }
 
 checkUsuarioFacebookToLogin = (email) => {

@@ -1597,7 +1597,7 @@ let loginFB = () => {
 		    })
     	},
     	function (response) { 
-    		alert(JSON.stringify(response));
+    		// alert(JSON.stringify(response));
     		facebookConnectPlugin.login(['public_profile', 'email'], function(result){
 		    	alert(JSON.stringify(result));
 		        facebookConnectPlugin.api("/me?fields=id,name,email", ["public_profile"], function(userData){

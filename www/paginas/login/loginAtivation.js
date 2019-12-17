@@ -1718,6 +1718,22 @@ let loginGoogle = () =>{
 		},
 		function (error) {
 			alert("não foi possivel deslogar");
+			window.plugins.googleplus.login({},
+			    function(obj) {
+					app.dialog.close();
+			      	let email = obj.email;
+			      	let nome = obj.displayName;
+
+			      	alert(JSON.stringify(obj));
+					localStorage.setItem('emailSocialMidia', email);
+					app.dialog.close();
+				    checkUsuarioGoogleToLogin(email);
+			    },
+			    function(msg) {
+			    	app.dialog.close();
+			      	console.log('error: ' + msg);
+			    }
+			);
 		}
 	);
 }
@@ -1738,7 +1754,6 @@ logoutGoogleOnError = () => {
 	    	alert("deslogado do google com sucesso...");
 	    },
 	    function (args) {
-
 	    	alert("erro ao deslogar com google...");
 	    	alert(JSON.stringify(args));
 	    	console.log("deslogado do google com sucesso...erro");

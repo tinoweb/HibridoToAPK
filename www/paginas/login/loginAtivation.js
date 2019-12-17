@@ -1697,21 +1697,28 @@ checkUsuarioFacebookToLogin = (email) => {
 
 let loginGoogle = () =>{
 	app.dialog.preloader("carregando", 'blue');
-	window.plugins.googleplus.login({},
-	    function(obj) {
-			app.dialog.close();
-	      	let email = obj.email;
-	      	let nome = obj.displayName;
+	window.plugins.googleplus.logout(
+		function (sucessos) {
+			window.plugins.googleplus.login({},
+			    function(obj) {
+					app.dialog.close();
+			      	let email = obj.email;
+			      	let nome = obj.displayName;
 
-	      	alert(JSON.stringify(obj));
-			localStorage.setItem('emailSocialMidia', email);
-			app.dialog.close();
-		    checkUsuarioGoogleToLogin(email);
-	    },
-	    function(msg) {
-	    	app.dialog.close();
-	      	console.log('error: ' + msg);
-	    }
+			      	alert(JSON.stringify(obj));
+					localStorage.setItem('emailSocialMidia', email);
+					app.dialog.close();
+				    checkUsuarioGoogleToLogin(email);
+			    },
+			    function(msg) {
+			    	app.dialog.close();
+			      	console.log('error: ' + msg);
+			    }
+			);
+		},
+		function (error) {
+			alert("não foi possivel deslogar");
+		}
 	);
 }
 

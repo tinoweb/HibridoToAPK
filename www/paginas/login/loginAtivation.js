@@ -947,31 +947,7 @@ select_user = (id_usuario_condominio=0) => {
 }
 
 
-/*
-########################################
-# Actions Function Logout of App       #
-########################################
-*/
-logout = () => {
-	// inicia2(0); // descomenta se for necessário
-	$.ajax({
-		type: 'POST',
-		url: localStorage.getItem('DOMINIO_LOGIN')+'appweb/logout.php',
-		data: 'id='+localStorage.getItem('ID_USER_L'),
-		crossDomain: true,
-		success: function(retorno){
-			localStorage.removeItem('loginSocialMidia');
-			localStorage.removeItem('emailDefinidoOk');
-			localStorage.removeItem('senhaDefinidoOk');
 
-			console.log(`Deslogado o usuario id ${retorno}`);
-			setPwdOut();
-			clearProfileData();
-			logoutFacebookOnError();
-			// logoutGoogleOnError();
-		}
-	});
-}
 
 
 
@@ -1556,7 +1532,6 @@ confirmaCodeResetPassword = (recoveryCode) => {
 	$.ajax({
 		type: 'POST',
 		url: localStorage.getItem('DOMINIO_LOGIN')+'appweb/ativacao_post.php',
-		// url: "https://aut.controlcondo.com.br/login/appweb/ativacao_post_multi.php",
 		crossDomain: true,
         data: { 
 			recoveryCode : recoveryCode, 
@@ -1599,16 +1574,14 @@ let loginFB = () => {
     facebookConnectPlugin.login(['public_profile', 'email'], function(result){
     	alert(JSON.stringify(result));
 
-        facebookConnectPlugin.api("/me?fields=id,name,email", ["email"], function(userData){
+        facebookConnectPlugin.api("/me?fields=id,name,email", ["public_profile"], function(userData){
         	alert(JSON.stringify(userData));
         	
             let name = userData.name;
             let email = userData.email;
-    		// email = "wendy@firstcontrol.com.br";
 			localStorage.setItem('emailSocialMidia', email);
-			localStorage.setItem('idUserFacebook', email);
-        	
             checkUsuarioFacebookToLogin(email);
+
         },function(error){
             alertaDialog("Login com FB", "Falha ao tentar logar com facebook");
             alert(JSON.stringify(error));
@@ -1623,30 +1596,11 @@ logoutFacebookOnError = () => {
 	facebookConnectPlugin.logout(
 		function sucesso(succes){
 			alert("deslogado do facebook com sucesso...");
-	      	alert(JSON.stringify(succes)); 
 		}, 
 		function erro(error){
 			alert("erro ao deslogar do facebook...");
-	      	alert(JSON.stringify(error)); 
 		}
 	);
-
-
-	// idUserFb = localStorage.getItem('idUserFacebook');
-	// facebookConnectPlugin.api(idUserFb,'DELETE',
-	//   function(response){
-	//   	console.log(response);
-	//   	alert(JSON.stringify(response));
-	//   },
-	//   function(error) {
-	//   	alert(JSON.stringify(error));
-	//   	alert("idUserFacebook===>>>>"+idUserFb);
-	//   	alert("user deletado com sucesso");
-	// 	localStorage.removeItem('idUserFacebook');	  	   
-	//   }
-	// );
-
-
 }
 
 checkUsuarioFacebookToLogin = (email) => {
@@ -1668,8 +1622,6 @@ checkUsuarioFacebookToLogin = (email) => {
         dataType   : 'json',
 		success: function(retorno){
 			console.log(retorno);
-			alert(JSON.stringify(retorno));
-			// return false;
 			if (retorno.status == "usuarioValidoToLoginFacebook" && retorno.statuscode == 200) {
 				app.dialog.preloader("Direcionando para App", 'blue');
 				localStorage.setItem("loginSocialMidia", "loginsocialmidiaFG");
@@ -1723,17 +1675,15 @@ let loginGoogle = () =>{
 }
 
 logoutGoogleOnError = () => {
-	// window.plugins.googleplus.disconnect(
-	//     function (msg) {
-	//     	alert("deslogado do google com sucesso...");
-	//       	alert(JSON.stringify(msg)); 
-	//     },
-	//     function (args) {
-	//     	alert("deslogado do google com sucesso...");
-	//       	alert(JSON.stringify(args)); 
-	//     }	
-	// );
-	// console.log("eexecuta a funcao...");
+	window.plugins.googleplus.disconnect(
+	    function (msg) {
+	    	alert("deslogado do google com sucesso...");
+	    },
+	    function (args) {
+	    	alert("deslogado do google com sucesso...");
+	    }	
+	);
+	console.log("eexecuta a funcao...");
 }
 
 checkUsuarioGoogleToLogin = (email) => {
@@ -1775,4 +1725,30 @@ checkUsuarioGoogleToLogin = (email) => {
 			console.log('não foi possivel continuar...');
         }
 	});	
+}
+
+/*
+########################################
+# Actions Function Logout of App       #
+########################################
+*/
+logout = () => {
+	// inicia2(0); // descomenta se for necessário
+	$.ajax({
+		type: 'POST',
+		url: localStorage.getItem('DOMINIO_LOGIN')+'appweb/logout.php',
+		data: 'id='+localStorage.getItem('ID_USER_L'),
+		crossDomain: true,
+		success: function(retorno){
+			localStorage.removeItem('loginSocialMidia');
+			localStorage.removeItem('emailDefinidoOk');
+			localStorage.removeItem('senhaDefinidoOk');
+			logoutFacebookOnError();
+
+			console.log(`Deslogado o usuario id ${retorno}`);
+			setPwdOut();
+			clearProfileData();
+			// logoutGoogleOnError();
+		}
+	});
 }

@@ -1740,7 +1740,7 @@ logoutGoogleOnError = () => {
 	    function (args) {
 
 	    	alert("erro ao deslogar com google...");
-	    	alert(JSON.stringify(response));
+	    	alert(JSON.stringify(args));
 	    	console.log("deslogado do google com sucesso...erro");
 	    }	
 	);

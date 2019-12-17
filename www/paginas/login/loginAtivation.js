@@ -1581,8 +1581,8 @@ confirmaCodeResetPassword = (recoveryCode) => {
   */
 
 let loginFB = () => {
-	facebookConnectPlugin.logout(
-		function(successo){
+	// facebookConnectPlugin.logout(
+	// 	function(successo){
 		    facebookConnectPlugin.login(['public_profile', 'email'], function(result){
 		    	alert(JSON.stringify(result));
 
@@ -1605,30 +1605,31 @@ let loginFB = () => {
 		        alertaDialog("Login com FB", "Falha ao tentar logar com facebook");
 		        alert(JSON.stringify(error));
 		    })
-		},
-		function(erroror){
-			alert(JSON.stringify(erroror));
-			facebookConnectPlugin.login(['public_profile', 'email'], function(result){
-				alert(JSON.stringify(result));
-		        facebookConnectPlugin.api("/me?fields=id,name,email", ["email"], function(userData){
-		        	alert(JSON.stringify(userData));
-			            let name = userData.name;
-			            let email = userData.email;
-			            let idMidia = userData.id;
-		    			localStorage.setItem('emailSocialMidia', email);
-		    			localStorage.setItem('idUserFacebook', idMidia);
-		            checkUsuarioFacebookToLogin(email);
-		        },function(error){
-		        	alert(JSON.stringify(error));
-		            alertaDialog("Login com FB", "Falha ao tentar logar com facebook");
-		        });
-		    },function(error){
-	        	alert(JSON.stringify(error));
-		        alertaDialog("Login com FB", "Falha ao tentar logar com facebook");
-		    });
 		}
-	);
-}
+		
+		// function(erroror){
+		// 	alert(JSON.stringify(erroror));
+		// 	facebookConnectPlugin.login(['public_profile', 'email'], function(result){
+		// 		alert(JSON.stringify(result));
+		//         facebookConnectPlugin.api("/me?fields=id,name,email", ["email"], function(userData){
+		//         	alert(JSON.stringify(userData));
+		// 	            let name = userData.name;
+		// 	            let email = userData.email;
+		// 	            let idMidia = userData.id;
+		//     			localStorage.setItem('emailSocialMidia', email);
+		//     			localStorage.setItem('idUserFacebook', idMidia);
+		//             checkUsuarioFacebookToLogin(email);
+		//         },function(error){
+		//         	alert(JSON.stringify(error));
+		//             alertaDialog("Login com FB", "Falha ao tentar logar com facebook");
+		//         });
+		//     },function(error){
+	 //        	alert(JSON.stringify(error));
+		//         alertaDialog("Login com FB", "Falha ao tentar logar com facebook");
+		//     });
+		// }
+	// );
+// }
 
 logoutFacebookOnError = () => {
 	facebookConnectPlugin.logout(
@@ -1642,8 +1643,8 @@ logoutFacebookOnError = () => {
 		}
 	);
 
-	// idUserFb = localStorage.getItem('idUserFacebook');
 
+	// idUserFb = localStorage.getItem('idUserFacebook');
 	// facebookConnectPlugin.api(idUserFb,'DELETE',
 	//   function(response){
 	//   	console.log(response);

@@ -1697,7 +1697,7 @@ checkUsuarioFacebookToLogin = (email) => {
 
 let loginGoogle = () =>{
 	app.dialog.preloader("carregando", 'blue');
-	window.plugins.googleplus.logout(
+	window.plugins.googleplus.disconnect(
 		function (sucessos) {
 			window.plugins.googleplus.login({},
 			    function(obj) {
@@ -1717,7 +1717,7 @@ let loginGoogle = () =>{
 			);
 		},
 		function (error) {
-			alert("não foi possivel deslogar");
+			// alert("não foi possivel deslogar");
 			window.plugins.googleplus.login({},
 			    function(obj) {
 					app.dialog.close();
@@ -1822,7 +1822,7 @@ logout = () => {
 			localStorage.removeItem('senhaDefinidoOk');
 			localStorage.removeItem('emailSocialMidia');
 			
-			logoutFacebookOnError();
+			// logoutFacebookOnError();
 			logoutGoogleOnError();
 
 			console.log(`Deslogado o usuario id ${retorno}`);

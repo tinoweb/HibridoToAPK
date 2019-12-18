@@ -1589,12 +1589,14 @@ let loginFB = () => {
 		            checkUsuarioFacebookToLogin(email);
 
 		        },function(error){
+		            logoutFB();
 		            alertaDialog("Login com FB", "Falha ao tentar logar com facebook");
 		            // alert(JSON.stringify(error));
 		            localStorage.removeItem('emailSocialMidia');
 		        });
 		    },function(error){
 		        alertaDialog("Login com FB", "Falha ao tentar logar com facebook");
+		        logoutFB();
 		        // alert(JSON.stringify(error));
 		        localStorage.removeItem('emailSocialMidia');
 		    })
@@ -1613,11 +1615,13 @@ let loginFB = () => {
 		            checkUsuarioFacebookToLogin(email);
 
 		        },function(error){
+		        	logoutFB();
 		            alertaDialog("Login com FB", "Falha ao tentar logar com facebook");
 		            // alert(JSON.stringify(error));
 		            localStorage.removeItem('emailSocialMidia');
 		        });
 		    },function(error){
+		    	logoutFB();
 		        alertaDialog("Login com FB", "Falha ao tentar logar com facebook");
 		        // alert(JSON.stringify(error));
 		        localStorage.removeItem('emailSocialMidia');
@@ -1627,37 +1631,14 @@ let loginFB = () => {
 
 }
 
-logoutFacebookOnError = () => {
-	facebookConnectPlugin.getLoginStatus (
-	function(argument) {
-		alert(JSON.stringify(argument));
-	}, function (argumentError) {
-		alert(JSON.stringify(argumentError));
-	});
- 
- // facebookConnectPlugin.logout( 
- //    function (response) { 
- //    	// alert(JSON.stringify(response)) 
- //    },
- //    function (response) { 
- //    	// alert(JSON.stringify(response)) 
- //    });
-}
-
 logoutFB = () => {
-	console.log("dentro da fiuncao.....");
-
-	// FB.api('/me', 'GET', {"fields":"id,last_name,email"}, 
-	// 	function(response) {
-	//       // Insert your code here
-	//   	}
-	// );
 	let id = localStorage.getItem('facebookId');
-	alert("id do cliente face logado =======>>>>>"+ id);
 	facebookConnectPlugin.api("/"+id+"/permissions?method=delete", [], function (successo) {
-		alert(JSON.stringify(successo));
+		// alert(JSON.stringify(successo));
+		console.log("deslogado com sucesso...");
 	}, function (error) {
-		alert(JSON.stringify(error));
+		console.log("erro ao deslogado com sucesso...");
+		// alert(JSON.stringify(error));
 	});
 }
 
@@ -1701,7 +1682,7 @@ checkUsuarioFacebookToLogin = (email) => {
 			}else{
 				let msg = `O  ${email} Não está liberado para acessar o condominio tente outra forma de autenticar ou entre em contato com a sua adminstradora..`;
 				alertaDialog("Tentativa de login",msg, afterClose=null);
-				logoutFacebookOnError();
+				logoutFB();
 			}
         },
         error: function(error) {
@@ -1845,7 +1826,7 @@ logout = () => {
 			localStorage.removeItem('emailSocialMidia');
 			setPwdOut();
 			
-			// logoutFacebookOnError();
+			logoutFB();
 			logoutGoogleOnError();
 
 			console.log(`Deslogado o usuario id ${retorno}`);

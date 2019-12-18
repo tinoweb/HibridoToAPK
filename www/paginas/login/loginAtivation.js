@@ -1572,7 +1572,7 @@ confirmaCodeResetPassword = (recoveryCode) => {
 */
 let loginFB = () => {
     facebookConnectPlugin.login(['public_profile', 'email'], function(result){
-    	alert(JSON.stringify(result));
+    	// alert(JSON.stringify(result));
         facebookConnectPlugin.api("/me?fields=id,name,email", ["public_profile"], function(userData){
         	// alert(JSON.stringify(userData));
             let name = userData.name;
@@ -1601,9 +1601,9 @@ logoutFB = () => {
 	let id = localStorage.getItem('facebookId');
 	facebookConnectPlugin.api("/"+id+"/permissions?method=delete", [], function (successo) {
 		// alert(JSON.stringify(successo));
-		console.log("deslogado com sucesso...");
+		// console.log("deslogado com sucesso...");
 	}, function (error) {
-		console.log("erro ao deslogado com sucesso...");
+		// console.log("erro ao deslogado com sucesso...");
 		// alert(JSON.stringify(error));
 	});
 }
@@ -1674,7 +1674,7 @@ let loginGoogle = () =>{
 			      	let email = obj.email;
 			      	let nome = obj.displayName;
 
-			      	alert(JSON.stringify(obj));
+			      	// alert(JSON.stringify(obj));
 					localStorage.setItem('emailSocialMidia', email);
 					app.dialog.close();
 				    checkUsuarioGoogleToLogin(email);
@@ -1686,14 +1686,14 @@ let loginGoogle = () =>{
 			);
 		},
 		function (error) {
-			alert("não foi possivel deslogar");
+			// alert("não foi possivel deslogar");
 			window.plugins.googleplus.login({},
 			    function(obj) {
 					app.dialog.close();
 			      	let email = obj.email;
 			      	let nome = obj.displayName;
 
-			      	alert(JSON.stringify(obj));
+			      	// alert(JSON.stringify(obj));
 					localStorage.setItem('emailSocialMidia', email);
 					app.dialog.close();
 				    checkUsuarioGoogleToLogin(email);
@@ -1746,10 +1746,8 @@ checkUsuarioGoogleToLogin = (email) => {
 		},
         dataType   : 'json',
 		success: function(retorno){
-			alert(JSON.stringify(retorno));
-
+			// alert(JSON.stringify(retorno));
 			console.log(JSON.stringify(retorno));
-			// return false;
 
 			if (retorno.status == "perfilAtivoSemSenha" && retorno.statuscode == 200) {
 				localStorage.setItem('data-liberarSemSenha','liberarSemSenha');

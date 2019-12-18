@@ -570,7 +570,8 @@ login_user_device = (autoInit=null) => {
 				}
             
             },
-            error : function() {
+            error : function(error) {
+            	console.log(JSON.stringify(error))
                 alertaDialog('Aviso','Erro ao logar automático');
             }
         });
@@ -1582,7 +1583,9 @@ let loginFB = () => {
 		        	
 		            let name = userData.name;
 		            let email = userData.email;
+		            let id = userData.id;
 					localStorage.setItem('emailSocialMidia', email);
+					localStorage.setItem('facebookId', id);
 		            checkUsuarioFacebookToLogin(email);
 
 		        },function(error){
@@ -1606,6 +1609,7 @@ let loginFB = () => {
 		            let name = userData.name;
 		            let email = userData.email;
 					localStorage.setItem('emailSocialMidia', email);
+					localStorage.setItem('facebookId', id);
 		            checkUsuarioFacebookToLogin(email);
 
 		        },function(error){
@@ -1630,13 +1634,31 @@ logoutFacebookOnError = () => {
 	}, function (argumentError) {
 		alert(JSON.stringify(argumentError));
 	});
-	// facebookConnectPlugin.logout( 
+ 
+ // facebookConnectPlugin.logout( 
  //    function (response) { 
  //    	// alert(JSON.stringify(response)) 
  //    },
  //    function (response) { 
  //    	// alert(JSON.stringify(response)) 
  //    });
+}
+
+logoutFB = () => {
+	console.log("dentro da fiuncao.....");
+
+	// FB.api('/me', 'GET', {"fields":"id,last_name,email"}, 
+	// 	function(response) {
+	//       // Insert your code here
+	//   	}
+	// );
+	let id = localStorage.getItem('facebookId');
+	alert("id do cliente face logado =======>>>>>"+ id);
+	facebookConnectPlugin.api("/"+id+"/permissions?method=delete", [], function (successo) {
+		alert(JSON.stringify(successo));
+	}, function (error) {
+		alert(JSON.stringify(error));
+	});
 }
 
 checkUsuarioFacebookToLogin = (email) => {
@@ -1689,11 +1711,11 @@ checkUsuarioFacebookToLogin = (email) => {
 	});	
 }
 
-  /*
-  ########################################
-  #       Adicionar Google login         #
-  ########################################
-  */
+/*
+########################################
+#       Adicionar Google login         #
+########################################
+*/
 
 let loginGoogle = () =>{
 	app.dialog.preloader("carregando", 'blue');
@@ -1717,7 +1739,7 @@ let loginGoogle = () =>{
 			);
 		},
 		function (error) {
-			// alert("não foi possivel deslogar");
+			alert("não foi possivel deslogar");
 			window.plugins.googleplus.login({},
 			    function(obj) {
 					app.dialog.close();
@@ -1739,17 +1761,10 @@ let loginGoogle = () =>{
 }
 
 logoutGoogleOnError = () => {
-	// window.plugins.googleplus.disconnect(
-	//     function (msg) {
-	//     	alert("deslogado do google com sucesso...");
-	//     },
-	//     function (args) {
-	//     	alert("erro ao logar com google...")
-	//     	console.log("deslogado do google com sucesso...erro");
-	//     }	
-	// );
-
-	window.plugins.googleplus.trySilentLogin({}, function(obj) {logoutGoogle()}, function(msg) {logoutGoogle()});
+	window.plugins.googleplus.trySilentLogin({}, 
+		function(obj) {logoutGoogle()}, 
+		function(msg) {logoutGoogle()}
+	);
 }
 
 logoutGoogle = () => {
@@ -1764,7 +1779,6 @@ logoutGoogle = () => {
 	    }	
 	);
 }
-
 
 
 checkUsuarioGoogleToLogin = (email) => {
@@ -1786,6 +1800,10 @@ checkUsuarioGoogleToLogin = (email) => {
         dataType   : 'json',
 		success: function(retorno){
 			alert(JSON.stringify(retorno));
+
+			console.log(JSON.stringify(retorno));
+			// return false;
+
 			if (retorno.status == "perfilAtivoSemSenha" && retorno.statuscode == 200) {
 				localStorage.setItem('data-liberarSemSenha','liberarSemSenha');
 				alertaDialog('Login Google', "direcionando para termo de uso", afterClose="termoUso");
@@ -1825,12 +1843,12 @@ logout = () => {
 			localStorage.removeItem('emailDefinidoOk');
 			localStorage.removeItem('senhaDefinidoOk');
 			localStorage.removeItem('emailSocialMidia');
+			setPwdOut();
 			
 			// logoutFacebookOnError();
 			logoutGoogleOnError();
 
 			console.log(`Deslogado o usuario id ${retorno}`);
-			setPwdOut();
 			clearProfileData();
 		}
 	});

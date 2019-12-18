@@ -585,13 +585,16 @@ login_user_device = (autoInit=null) => {
 */
 select_user = (id_usuario_condominio=0) => {
 	if(navigator.connection.type != 'none'){
+
 	console.log("entrou na funcao.... kakakak");
 	console.log(id_usuario_condominio);
+
         if(id_usuario_condominio == 0){
             var dados = $("#perfil_login").val();
         }else{
             var dados = 'perfil='+id_usuario_condominio;
         }
+
 		$.ajax({
 			type: 'POST',
 			url: localStorage.getItem('DOMINIO_LOGIN')+'appweb/login.php',
@@ -600,7 +603,8 @@ select_user = (id_usuario_condominio=0) => {
 			beforeSend : function() { $("#wait").css("display", "block"); },
 			complete   : function() { $("#wait").css("display", "none"); },
 			success: function(retorno){
-				console.log(retorno);
+
+				console.log(JSON.stringify(retorno));
 				console.log("vai para pagina home....");
 				console.log(retorno[0]['ip_local']);
 
@@ -940,14 +944,16 @@ select_user = (id_usuario_condominio=0) => {
                 }else{
                     alertaDialog('Perfil','Perfil usuário inválido');
                 }
-			}
+			},
+			error: function(error){
+				console.log(JSON.stringify(error));
+				console.log("deu erro ao processar.....");
+            }
 		});
 	}else{
 		alertaDialog('Internet','Sem conex\u00e3o com a Internet');
 	}
 }
-
-
 
 
 
@@ -1016,7 +1022,6 @@ function carrega_user_perfil(id, autoInit=null) {
 							      	var elemento = $(".page-content")[1];
 									
 									setTimeout(function() {
-										console.log(elemento);
 										var esseElemento = elemento.firstElementChild;
 										esseElemento.style.position="relative !important";
 										esseElemento.style.top="40px !important";
@@ -1025,10 +1030,11 @@ function carrega_user_perfil(id, autoInit=null) {
 							    },
 							}
 						});
-						
+
+
 						var primeiro = '<option value="" selected="">Selecione Condominio</option>';
 				        for (x in retorno) {
-				            dado = '<option onclick="select_user('+retorno[x]['id_usuario_condominio']+')" value="'+retorno[x]['id_usuario_condominio']+'">'+retorno[x]['nome_condominio']+'</option>';
+				            dado =`<option onclick="select_user(${retorno[x]['id_usuario_condominio']})" value="${retorno[x]['id_usuario_condominio']}"> ${retorno[x]['nome_condominio']}</option>`;
 				            dados = dados + dado;
 				        }
 				        dados = primeiro + dados;
@@ -1036,6 +1042,7 @@ function carrega_user_perfil(id, autoInit=null) {
 				        setTimeout(function() {
 				            $('.perfil_loginClass').html(dados);
 				        }, 200);
+
 				    });
 					console.log('carrega condominios do perfil');
 					// localStorage.removeItem('loginSocialMidia');
@@ -1072,7 +1079,7 @@ function carrega_user_perfil(id, autoInit=null) {
 						
 						var primeiro = '<option value="" selected="">Selecione o seu Condominio</option>';
 				        for (x in retorno) {
-				            dado = '<option onclick="select_user('+retorno[x]['id_usuario_condominio']+')" value="'+retorno[x]['id_usuario_condominio']+'">'+retorno[x]['nome_condominio']+'</option>';
+				            dado =`<option onclick="select_user(${retorno[x]['id_usuario_condominio']})" value="${retorno[x]['id_usuario_condominio']}"> ${retorno[x]['nome_condominio']}</option>`;
 				            dados = dados + dado;
 				        }
 				        dados = primeiro + dados;
@@ -1080,6 +1087,7 @@ function carrega_user_perfil(id, autoInit=null) {
 				        setTimeout(function() {
 				            $('.perfil_loginClass').html(dados);
 				        }, 200);
+
 				    });
 				}else if (localStorage.getItem('logarDaValidacao') == 'true') {
 					console.log("login multiuser com usuario e senha logarDaValidacao....");
@@ -1584,8 +1592,8 @@ let loginFB = () => {
             checkUsuarioFacebookToLogin(email);
 
         },function(error){
-            logoutFB();
             alertaDialog("Login com FB", "Falha ao tentar logar com facebook");
+            logoutFB();
             // alert(JSON.stringify(error));
             localStorage.removeItem('emailSocialMidia');
         });
@@ -1626,10 +1634,13 @@ checkUsuarioFacebookToLogin = (email) => {
 		},
         dataType   : 'json',
 		success: function(retorno){
-			console.log(retorno);
+			console.log("retorno.......");
+			console.log(JSON.stringify(retorno));
+			// return false;
+
 			if (retorno.status == "usuarioValidoToLoginFacebook" && retorno.statuscode == 200) {
 				if (retorno.userDevice == null) {
-					let msglog = "Esse aparelho está com usuario logado, faça logou para tentar novamente..."
+					let msglog = "Esse aparelho está com usuario logado, faça logout para tentar novamente..."
 					alertaDialog("Tentativa de login",msglog, afterClose=null);
 				}else{
 					app.dialog.preloader("Direcionando para App", 'blue');
@@ -1652,7 +1663,7 @@ checkUsuarioFacebookToLogin = (email) => {
 			}
         },
         error: function(error) {
-			console.log(error);
+			console.log(JSON.stringify(error));
 			console.log('não foi possivel continuar...');
         }
 	});	

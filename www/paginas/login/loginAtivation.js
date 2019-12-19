@@ -1257,7 +1257,7 @@ function carrega_user_perfil(id, autoInit=null) {
 		notifica('Internet/Sem conex\u00e3o com a Internet/Fechar',2000,0);
 	}
 }
-// ====>>>>>>>>>>>>>>>>>>>>>
+
 
 
 alertaDialog = (title, msg, afterClose=null) => {
@@ -1352,7 +1352,7 @@ recuperaEmail = (email) => {
                     $("#email_recupera").val("");
                 }else{
                     app.sheet.close('.recuperaSenha', true);
-                    alertaDialog('Erro', 'Não foi possivel solicitar a recuperacao da senha! Entre em contato com a administração!');
+                    alertaDialog('Erro', 'Não foi possivel solicitar a recuperacao da senha! Entre em contato com a administração!', 'voltaInicio');
                     $("#email_recupera").val("");
                 }
                 

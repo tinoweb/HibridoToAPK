@@ -1578,7 +1578,7 @@ confirmaCodeResetPassword = (recoveryCode) => {
 #     Adicionar Facebook login         #
 ########################################
 */
-let loginFB = () => {
+loginFB = () => {
     facebookConnectPlugin.login(['public_profile', 'email'], function(result){
     	// alert(JSON.stringify(result));
         facebookConnectPlugin.api("/me?fields=id,name,email", ["public_profile"], function(userData){

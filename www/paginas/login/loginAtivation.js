@@ -1580,14 +1580,10 @@ confirmaCodeResetPassword = (recoveryCode) => {
 */
 loginFB = () => {
     facebookConnectPlugin.login(['public_profile', 'email'], function(result){
-    	// alert(JSON.stringify(result));
         facebookConnectPlugin.api("/me?fields=id,name,email", ["public_profile"], function(userData){
             let name = userData.name;
             let email = userData.email;
             let id = userData.id;
-
-        	alert(JSON.stringify(userData));
-
 			localStorage.setItem('emailSocialMidia', email);
 			localStorage.setItem('facebookId', id);
 			
@@ -1595,14 +1591,12 @@ loginFB = () => {
 
         },function(error){
             alertaDialog("Login com FB", "Falha ao tentar logar com facebook");
-            alert(JSON.stringify(error));
             logoutFB();
             localStorage.removeItem('emailSocialMidia');
         });
     },function(error){
         alertaDialog("Login com FB", "Falha ao tentar logar com facebook");
         logoutFB();
-        // alert(JSON.stringify(error));
         localStorage.removeItem('emailSocialMidia');
     })
 }
@@ -1610,11 +1604,7 @@ loginFB = () => {
 logoutFB = () => {
 	let id = localStorage.getItem('facebookId');
 	facebookConnectPlugin.api("/"+id+"/permissions?method=delete", [], function (successo) {
-		// alert(JSON.stringify(successo));
-		// console.log("deslogado com sucesso...");
 	}, function (error) {
-		// console.log("erro ao deslogado com sucesso...");
-		// alert(JSON.stringify(error));
 	});
 }
 
@@ -1636,10 +1626,6 @@ checkUsuarioFacebookToLogin = (email) => {
 		},
         dataType   : 'json',
 		success: function(retorno){
-			console.log("retorno.......");
-			console.log(JSON.stringify(retorno));
-			// return false;
-
 			if (retorno.status == "usuarioValidoToLoginFacebook" && retorno.statuscode == 200) {
 				if (retorno.userDevice == null) {
 					let msglog = "Esse aparelho está com usuario logado, faça logout para tentar novamente..."
@@ -1665,7 +1651,6 @@ checkUsuarioFacebookToLogin = (email) => {
 			}
         },
         error: function(error) {
-			console.log(JSON.stringify(error));
 			console.log('não foi possivel continuar...');
         }
 	});	
@@ -1686,8 +1671,6 @@ let loginGoogle = () =>{
 					app.dialog.close();
 			      	let email = obj.email;
 			      	let nome = obj.displayName;
-
-			      	// alert(JSON.stringify(obj));
 					localStorage.setItem('emailSocialMidia', email);
 					app.dialog.close();
 				    checkUsuarioGoogleToLogin(email);
@@ -1699,14 +1682,11 @@ let loginGoogle = () =>{
 			);
 		},
 		function (error) {
-			// alert("não foi possivel deslogar");
 			window.plugins.googleplus.login({},
 			    function(obj) {
 					app.dialog.close();
 			      	let email = obj.email;
 			      	let nome = obj.displayName;
-
-			      	// alert(JSON.stringify(obj));
 					localStorage.setItem('emailSocialMidia', email);
 					app.dialog.close();
 				    checkUsuarioGoogleToLogin(email);
@@ -1730,10 +1710,8 @@ logoutGoogleOnError = () => {
 logoutGoogle = () => {
 	window.plugins.googleplus.logout(
 	    function (msg) {
-	    	alert("deslogado do google com sucesso...");
 	    },
 	    function (args) {
-	    	alert("erro ao deslogar com google...");
 	    	alert(JSON.stringify(args));
 	    	console.log("deslogado do google com sucesso...erro");
 	    }	
@@ -1759,9 +1737,6 @@ checkUsuarioGoogleToLogin = (email) => {
 		},
         dataType   : 'json',
 		success: function(retorno){
-			// alert(JSON.stringify(retorno));
-			console.log(JSON.stringify(retorno));
-
 			if (retorno.status == "perfilAtivoSemSenha" && retorno.statuscode == 200) {
 				localStorage.setItem('data-liberarSemSenha','liberarSemSenha');
 				alertaDialog('Login Google', "direcionando para termo de uso", afterClose="termoUso");

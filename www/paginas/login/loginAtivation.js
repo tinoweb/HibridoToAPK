@@ -1028,6 +1028,10 @@ function carrega_user_perfil(id, autoInit=null) {
 										$(".icon-back").attr('style', 'color: #037aff !important');
 									}, 200);
 							    },
+								closed: function () {
+									logout();
+									app.actions.close('#multiProfileUserNoAutoInit', true);
+								}
 							}
 						});
 
@@ -1074,6 +1078,10 @@ function carrega_user_perfil(id, autoInit=null) {
 									esseElemento.style.top="26px";
 									$(".icon-back").attr('style', 'color: #037aff !important');
 							    },
+								closed: function () {
+									logout();
+									app.actions.close('#multiProfileUser', true);
+								}
 							}
 						});
 						
@@ -1119,6 +1127,10 @@ function carrega_user_perfil(id, autoInit=null) {
 									esseElemento.style.top="26px";
 									$(".icon-back").attr('style', 'color: #037aff !important');
 							    },
+								closed: function () {
+									logout();
+									app.actions.close('#multiProfileUser', true);
+								}
 							}
 						});
 						
@@ -1165,6 +1177,10 @@ function carrega_user_perfil(id, autoInit=null) {
 									esseElemento.style.top="26px";
 									$(".icon-back").attr('style', 'color: #037aff !important');
 							    },
+								closed: function () {
+									logout();
+									app.actions.close('#multiProfileUser', true);
+								}
 							}
 						});
 						
@@ -1216,6 +1232,10 @@ function carrega_user_perfil(id, autoInit=null) {
 										$(".icon-back").attr('style', 'color: #037aff !important');
 									}, 100);
 							    },
+								closed: function () {
+									logout();
+									app.actions.close('#multiProfileUserNoAutoInit', true);
+								}
 							}
 						});
 						

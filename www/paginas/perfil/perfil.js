@@ -203,25 +203,29 @@ foto_perfil = () => {
         quality: 50,
 		correctOrientation: true,
         destinationType: Camera.DestinationType.DATA_URL,
-        saveToPhotoAlbum: true
+        sourceType: Camera.PictureSourceType.PHOTOLIBRARY 
     });
 
     function onSuccess(imageURI) {
-        console.log(imageURI);
-        return false;
-        $( '.Perfil_user_foto' ).css("background-image", "url(data:image/jpeg;base64,"+imageURI+")");
+    	console.log("Tirar foto ====>>>>>>>");
+    	console.log(localStorage.getItem('DOMINIO'));
+       
+        img = "data:image/jpeg;base64,"+imageURI;
+        $('.Perfil_user_foto').attr("src", img);
+
         $.ajax({ 
             type: 'POST', 
             url        : localStorage.getItem('DOMINIO')+"appweb/foto/foto_insert.php", 
 			crossDomain: true,
 			beforeSend : function() { $("#wait").css("display", "block"); },
 			complete   : function() { $("#wait").css("display", "none"); },
-            data       : { id_condominio: $( "#DADOS #ID_CONDOMINIO" ).val(), id_morador: $( "#DADOS #ID_MORADOR" ).val(), foto: imageURI }, 
+            data       : { id_condominio: localStorage.getItem('ID_CONDOMINIO'), id_morador: localStorage.getItem('ID_MORADOR'), foto: imageURI }, 
             success: function(retorno){ 
-            	console.log(retorno);
+            	console.log(JSON.stringify(retorno));
+            	console.log("foto upado com sucesso");
             }, 
-            error      : function() { 
-                //alert('Erro'); 
+            error: function(error) { 
+                console.log("error ao upar foto =====>>>>");
             } 
         }); 
     }

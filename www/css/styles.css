@@ -210,19 +210,41 @@ background: linear-gradient(#0064c0, #007aff) !important;
 }
 
 .elementoChangeFoto{
-  border: solid 1px #4662360a;
-  width: 89%;
-  height: 47px;
+  background: #fff;
+  bottom: 0;
   position: absolute;
-  top: 75px;
-  border-radius: 0px 0px 100px 100px;
-  left: 5px;
-  z-index: 99;
-  
+  top: 90px;
+  right: 8px;
+  overflow: visible;
+  height: 32px;
+  width: 32px;
+  border: solid 2px #fff;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  overflow: hidden;
+  -webkit-transform: translateZ(0);
+  -webkit-box-shadow: 0 1px 1px 0 rgba(65,69,73,0.3), 0 1px 3px 1px rgba(65,69,73,0.15);
+  box-shadow: 0 1px 1px 0 rgba(65,69,73,0.3), 0 1px 3px 1px rgba(65,69,73,0.15);
 }
 
-.elementoChangeFoto:hover{
-  background-color: #24323259;
+.elementoChangeFotoComFoto{
+  background: #fff;
+  bottom: 0;
+  position: absolute;
+  top: 90px;
+  right: 10px;
+  overflow: visible;
+  height: 32px;
+  width: 32px;
+  border: solid 2px #fff;
+
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  overflow: hidden;
+  -webkit-transform: translateZ(0);
+
+  -webkit-box-shadow: 0 1px 1px 0 rgba(65,69,73,0.3), 0 1px 3px 1px rgba(65,69,73,0.15);
+  box-shadow: 0 1px 1px 0 rgba(65,69,73,0.3), 0 1px 3px 1px rgba(65,69,73,0.15);
 }
 
 /*************************** Area Comum *****************************************/

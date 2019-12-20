@@ -690,32 +690,22 @@ function pet_insert(){
         }    
 }
 
- function   foto_pet_galaria() 
-{
-       
-	   navigator.camera.getPicture(onSuccess, onFail, {  
-            quality: 50,
-		   	correctOrientation: true,
-            destinationType: Camera.DestinationType.DATA_URL, 
-            sourceType: Camera.PictureSourceType.PHOTOLIBRARY 
-        }); 
-        
+ function foto_pet_galaria(){
+    navigator.camera.getPicture(onSuccess, onFail, {  
+        quality: 50,
+	   	correctOrientation: true,
+        destinationType: Camera.DestinationType.DATA_URL, 
+        sourceType: Camera.PictureSourceType.PHOTOLIBRARY 
+    }); 
 
-        function onSuccess(imageURI) { 
-           
-			
-			$( '#foto_cdr' ).val(imageURI);
-			
-			var foto_pet = 'data:image/jpeg;base64,'+imageURI+'';
-			
-
-	$( '#foto_cdr' ).html('<img src="'+foto_pet+'" width="40">');
-			
-			
-        }
-        function onFail(message) {
-            alertaDialog("","Nenhuma imagem carregada !");
-        }    
+    function onSuccess(imageURI) { 
+		$('#foto_cdr').val(imageURI);
+		var foto_pet = 'data:image/jpeg;base64,'+imageURI+'';
+		$('#foto_cdr').html('<img src="'+foto_pet+'" width="40">');
+    }
+    function onFail(message) {
+        alertaDialog("","Nenhuma imagem carregada !");
+    }    
 }
 
 

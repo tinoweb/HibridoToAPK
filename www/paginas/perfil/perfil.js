@@ -10,7 +10,7 @@ carregaInfoProfile = () => {
 	let nomeMorador = localStorage.getItem("MORADOR_NOME");
 	let blocoMorador = localStorage.getItem("QUADRA").toLowerCase();
 	let loteMorador = localStorage.getItem("LOTE").toLowerCase();
-	let nomeCondominio = localStorage.getItem("CONDOMINIO").toLowerCase();
+	let nomeCondominio = localStorage.getItem("CONDO_NOME_EXIBICAO").toLowerCase();
 
 	loteMorador = loteMorador.charAt(0).toUpperCase() + loteMorador.slice(1);
 	nomeMorador = nomeMorador.charAt(0).toUpperCase() + nomeMorador.slice(1);
@@ -20,8 +20,12 @@ carregaInfoProfile = () => {
 	nomeMorador_ = nomeMorador.substr(0, 20);
 	nomeMorador_ = nomeMorador_+'...';
 
-	// console.log(localStorage.getItem("MORADOR_NOME"));
-	
+	if (localStorage.getItem("TIPO_PERFIL_QTD") == 'multiprofile') {
+		$('#mudarDeCondominio').show();
+	}else{
+		$('#mudarDeCondominio').hide();
+	}
+
 	setTimeout(function() {
 		// $("#moradorName").append(nomeMorador);
 		$("#nomeMorardorMenu").html(nomeMorador_);

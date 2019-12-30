@@ -19,17 +19,24 @@
                 </div>
             </div>
         </div>	
-        <div class="page-content">
+        <div class="page-content" style="height: 112%">
 	       <div class="tabs-animated-wrap" >
             <div class="tabs" >	 
-		     <div id="tab-1" data-swipe="false" class="page-content tab tab-active" style=" margin-top: -15%;height: auto; overflow-x: hidden  !important" >			
-			
-			
-			
-            <div class="content-block">
-				<div style="margin-top: %">
+		     <div id="tab-1" data-swipe="false" class="page-content tab tab-active" style="overflow-x: hidden  !important" >
+				 <div class="navbar" style="margin-top: -10%">
+					  <div class="navbar-inner">
+						<div class="left">
+						  <a class="link " href="/liberacao/">
+							<i class="f7-icons" style="color: #2b2b2b !important;" >arrow_left</i>
+						  </a>
+						</div>
+						<p class="size-15"> Passo 1/4</p>
+						<div class="right"></div>
+					  </div>
+			      </div>
+				<div >
 					<p style="padding: 0 20px;">
-						<span data-progress="33" class="progressbar color-blue" id="demo-inline-progressbar">
+						<span data-progress="25" class="progressbar color-blue" id="demo-inline-progressbar">
 							<span style="transform: translate3d(-90%, 0px, 0px);"></span>
 						</span>
 					</p>
@@ -41,56 +48,96 @@
 						 <p style="background-color: #f5f5f5">Informe o Nome/RG do Visitante</p>	
 				     </div>
 				   </div>
-				<form class="list accordion-list custom-accordion" id="my-form">
-				 
-					  <div class="item-content item-input" >
+				<div class="list simple-list">
+				<ul class="">
+					<a class="sheet-open"  style="color: black"  href="#" data-sheet=".buscar-visitante" onClick="visitant_nomeb()">
+						<li class="">
+							<div class="item-content">
+
+							<div class="item-inner">
+ 								<div class="item-media"><img src="img/buscar_nome.jpg" height="20" width="60"></div>		
+							<div class="item-title" > Nome</div>
+							
+							<div class="item-after">Buscar por Nome</div>
+							</div>
+							</div>
+
+						
+						</li>
+					</a>
+						<li class="" style="height: 2px;"></li>
+					<a class="sheet-open"  style="color: black" href="#" data-sheet=".buscar-visitante" onClick="visitante_rgb()">
+						<li class="">
+						<div class="item-content">
+
 						<div class="item-inner">
-						  <div class="item-title item-label">Nome</div>
-						  <div class="item-input-wrap">
-							<input type="text" name="nome" value="" placeholder="Nome do Visitante" onKeyUp="carrega_visitantes(this.value,0)">
+						 <div class="item-media"><img src="img/rg.jpg" width="60"></div>	
+						<div class="item-title"> RG</div>
+								
+						<div class="item-after" >Buscar por RG</div>
+						</div>
+						</div>
+
+						
+						
+						
+						
+						
+						</li>
+					</a>
+						<li class="" style="height: 2px;"></li>
+				</ul>
+				</div> 
+			  <div class="sheet-modal buscar-visitante" style="height:  100% !important">
+					<div class="centralizar"  style="margin-bottom: -7%">
+					  	<h4 id="titulo_busca"></h4>
+					  
+					  <div class=" item-input "  >
+						<div class="item-inner">
+						  <div class="item-title item-label centralizar" style="margin-left: 5%" id="titl_camp">Nome</div>
+						  <div  style="width: 100%;"  >
+							  <input type="hidden" id="campo_texto" value="" >
+							<input type="text" name="nome" autofocus id="busc_input_visitante" value="" style="border-bottom: 0.5px solid #ccc; height: 70px; width: 100% !important;font-size: 20px"  onKeyUp="carrega_visitantes(this.value,$('#campo_texto').val())">
 							
 						  </div>
 						</div>
 					  </div>
-					
-					  <div class="item-content item-input">
-						<div class="item-inner">
-						  <div class="item-title item-label">RG</div>
-						  <div class="item-input-wrap">
-							<input type="text" name="rg" placeholder="Somente numeros " onKeyUp="carrega_visitantes(this.value,1)">
-						  </div>
-						</div>
+					  
 					  </div>
-					
-					
-				</form>
-				
-			</div>
-		 
-				 <div class="card-content" style="margin-top: -2%">
-				<div class="list media-list no-ios-edges">
-				<ul id="visitantes">
-
-
-				</ul>
-				</div>
-				</div>
-				 
-	
+					<div class="sheet-modal-inner">
+					  <div class="block" style="overflow: auto;max-height: 99%;">  
+					<div class="list media-list ">
+						<ul id="visitantes">
+						</ul>
+					 </div>			  
+					  </div>
+					</div>
+				  </div>
 				</div>	
 				
 				 <div id="tab-2" class="page-content tab" data-swipe="false" style=" margin-top: -15%;height: auto; overflow-x: hidden  !important">
             <div class="content-block">
+				<div class="navbar">
+					<div class="navbar-inner">
+					   <div class="left">
+						  <a class="link tab-link" href="#tab-1">
+							<i class="f7-icons" style="color: #2b2b2b !important;" >arrow_left</i>
+						  </a>
+					   </div>
+					   <p class="size-15"> Passo 2/4</p>
+					   <div class="right"></div>
+					</div>
+			  	 </div>
 				<div>
 					<p style="padding: 0 20px;">
-						<span data-progress="66" class="progressbar color-blue" id="demo-inline-progressbar">
+						<span data-progress="50" class="progressbar color-blue" id="demo-inline-progressbar">
 							<span style="transform: translate3d(-90%, 0px, 0px);"></span>
 						</span>
 					</p>
 				</div>
 				  <div class="card" style="background-color: #f5f5f5; width: 96%; margin-bottom: 5%">
 				     <div class="card-content card-content-padding" >
-						 <p style="background-color: #f5f5f5">Informe o Motivo da Visita e a validade da permição</p>	
+						 <p style="background-color: #f5f5f5">Informe o Motivo da Visita e a validade da permisão</p>	
 	
 				     </div>
 				   </div>
@@ -285,9 +332,20 @@
 				 <div id="tab-3" class="page-content tab" data-swipe="false" style=" margin-top: -15%;height: auto; overflow-x: hidden  !important">
 				
      		<div class="content-block">
+							       <div class="navbar">
+					  <div class="navbar-inner">
+						<div class="left">
+						  <a class="link tab-link" href="#tab-2">
+							<i class="f7-icons" style="color: #2b2b2b !important;" >arrow_left</i>
+						  </a>
+						</div>
+						 <p class="size-15"> Passo 3/4</p>
+						<div class="right"></div>
+					  </div>
+			       </div>
 				<div>
 					<p style="padding: 0 20px;">
-						<span data-progress="100" class="progressbar color-blue" id="demo-inline-progressbar">
+						<span data-progress="75" class="progressbar color-blue" id="demo-inline-progressbar">
 							<span style="transform: translate3d(-90%, 0px, 0px);"></span>
 						</span>
 					</p>
@@ -304,7 +362,7 @@
 					  <label class="radio"  >
 						<input type="radio" id="veicl" name="demo-radio-inline">
 						<i class="icon-radio"></i>
-					  </label> <i class="f7-icons"> car_fill </i>Veículo
+					  </label> <i class="f7-icons"> car_fill </i> <label style="margin-left: 10px">Veículo</label>
 					
 					</div>
 					
@@ -368,16 +426,42 @@
 					</li>
 				  </ul>
 				</form>
+				
 	
         </div>
 			</div>	
 				 <div id="tab-4" class="page-content tab" data-swipe="false" style=" margin-top: -15%;height: auto; overflow-x: hidden  !important">
-					 <div class="card row" style="margin-top: 5%; padding: 2%"  >
+								      <div class="navbar">
+					  <div class="navbar-inner">
+						<div class="left">
+						  <a class="link tab-link" href="#tab-3">
+							<i class="f7-icons" style="color: #2b2b2b !important;" >arrow_left</i>
+						  </a>
+						</div>
+						<p class="size-15"> Passo 4/4</p>
+						<div class="right"></div>
+					  </div>
+			      </div> 
+				<div>
+					<p style="padding: 0 20px;">
+						<span data-progress="100" class="progressbar color-blue" id="demo-inline-progressbar">
+							<span style="transform: translate3d(-90%, 0px, 0px);"></span>
+						</span>
+					</p>
+				</div> 
+				   <div class="card" style="background-color: #f5f5f5; width: 96%; margin-bottom: 5%">
+				     <div class="card-content card-content-padding" >
+						 <p style="background-color: #f5f5f5">Verifique se as informações para a liberação estão corretas !</p>	
+	
+				     </div>
+				    </div>
+					 <div class="card row" style="margin-top: 5%; padding: 2%" id="resumo_lberacao"  >
 						 	<input type="hidden" id="id_visitante_rs">
 						 	<input type="hidden" id="id_morador_rs">
 						 	<input type="hidden" id="id_carro_rs">
 						 
 						 <div class="col" style="background-color: #e7e7e7f9">
+							 <label id="foto_visitante">  </label>
 							 <label style="color: gray"><b>Nome</b>  </label>
 							 <input style="color: gray" type="text" id="nome_rs">
 							 <label style="color: gray"> <b>RG</b> </label>
@@ -390,6 +474,7 @@
 							 <input style="color: gray" type="text" id="inicio_rs">
 						 </div>
 						 <div class="col" style="background-color: #e7e7e7f9">
+							 <label><div style=" width: 54px;  height: 54px; background-size: 54px; background-position: center center; background-image:url(data:image/jpeg;base64,'+foto+')"></div> </label>
 							 <label style="color: gray"> <b>Placa do veículo</b> </label>
 						 	     <input style="color: gray" type="text" id="placa_visitante_rs">
 							 <label style="color: gray"> <b>Marca do veículo</b> </label>
@@ -403,11 +488,12 @@
 						 
 						 </div>
  
-					 </div> 
+					 </div>
+		
 					 <div class="block centralizar">
-					<button class="col button button-fill color-green" style="width: 90%"><i class="f7-icons size-20"> shift_fill</i>Confirmar</button> 
+					<button class="col button button-fill color-green" id="verificar_dados_lib" onClick="verificar_liberacao_resumo()" style="width: 90%"><i class="f7-icons size-20" style="margin-right: 10x"> shift_fill </i> Confirmar</button> 
 					 </div>	 		
-					 
+					 <div id="qr_lib"></div>
 					 
 			   </div>
 				</div>	 

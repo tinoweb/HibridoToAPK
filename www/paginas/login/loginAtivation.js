@@ -216,20 +216,22 @@ login_user_device = (autoInit=null) => {
 			complete   : function() { $("#wait").css("display", "none"); },
             data       : {uuid : UUID, id_notificacao : localStorage.getItem('registrationId')}, //APP
             success    : function(retorno) {
-				//console.log("retorno do login.....===>>>");
-				//console.log(retorno);
-				// return false;
+				console.log("retorno do login.....===>>>");
+				console.log(JSON.stringify(retorno));
 					
 				
 				if(retorno[0]['error'] == 0){
 					if(retorno[0]['VERSAO'] == localStorage.getItem('VERSAO')){
 						if(retorno[0]['perfil'] > 1){
+							localStorage.setItem('TIPO_PERFIL_QTD', 'multiprofile');
 							console.log("vai carregar perfil.........");
-							// multprofile user....
+
 							if (autoInit != null) {
 								carrega_user_perfil(retorno[0]['id_usuario'], autoInit);
+								console.log("entrou no que tem autoinit");
 							}else{
 								carrega_user_perfil(retorno[0]['id_usuario']);
+								console.log("não autoinit");
 							}
 
 							localStorage.setItem('ID_USER_L',retorno[0]['id_usuario']);
@@ -247,6 +249,7 @@ login_user_device = (autoInit=null) => {
 								localStorage.setItem('ID_UNIDADE',retorno[0]['id_unidade']);
 								localStorage.setItem('ID_CONDOMINIO',retorno[0]['id_condominio']);
 								localStorage.setItem('CONDOMINIO',retorno[0]['nome_condominio']);
+								localStorage.setItem('CONDO_NOME_EXIBICAO',retorno[0]['nome_exibicao']);
 								localStorage.setItem('TIPO_BUSCA_VISITANTE',retorno[0]['tipo_busca_visitante']);
 								localStorage.setItem('QTD_CONTROL_CONDO',retorno[0]['qtd_control_condo']);
 								localStorage.setItem('QTD_CREDITO',retorno[0]['qtd_credito_liberacao']);
@@ -424,7 +427,7 @@ login_user_device = (autoInit=null) => {
 								}); 
 
 								setTimeout(function(){
-									$(".perfil_condominio").html(limita_txt(retorno[0]['nome_condominio'],27));
+									$(".perfil_condominio").html(limita_txt(retorno[0]['nome_exibicao'],27));
 									$(".perfil_nome").html(nome_formatado+tipo_user_);
 									let img = "data:image/png;base64,"+retorno[0]['foto'];
 									$('.user_foto').attr("src", img);
@@ -629,6 +632,7 @@ select_user = (id_usuario_condominio=0) => {
 					// },3);		
                     
 					localStorage.setItem('CONDOMINIO',retorno[0]['nome_condominio']);
+					localStorage.setItem('CONDO_NOME_EXIBICAO',retorno[0]['nome_exibicao']);
 					localStorage.setItem('QTD_CREDITO',retorno[0]['qtd_credito_liberacao']);
 					localStorage.setItem('EXIBIR_NOME',retorno[0]['exibir_nome_qrcode']);
 					localStorage.setItem('PERIODO_MAX',retorno[0]['periodo_max_liberacao']);
@@ -801,6 +805,8 @@ select_user = (id_usuario_condominio=0) => {
                     	
                     	console.log("negavar para pagina home....");
 
+                    	app.actions.close('.loginApp', true);
+
                     	app.actions.close('#multiProfileUserNoAutoInit', true);
 						
 						app.actions.close('#multiProfileUser', true);
@@ -811,7 +817,7 @@ select_user = (id_usuario_condominio=0) => {
 					}); 
 
                  	setTimeout(function(){
-	                    $(".perfil_condominio" ).html(limita_txt(retorno[0]['nome_condominio'],27));
+	                    $(".perfil_condominio" ).html(limita_txt(retorno[0]['nome_exibicao'],27));
 	                    $(".perfil_nome" ).html(nome_formatado+tipo_user_);
 	                    // $("#apto" ).html("<strong> "+LOTE+"</storng>");
 	                    // $("#bloco" ).html("<strong> "+QUADRA+"</storng>");
@@ -987,7 +993,7 @@ function carrega_user_perfil(id, autoInit=null) {
             data       : {id_usuario : id},
             dataType   : 'json',
 			success: function(retorno){
-				console.log("carrega user perfil .....");
+				console.log("=====>>>>>carrega user perfil ....");
 				console.log(JSON.stringify(retorno));
 
 				if (autoInit == null && localStorage.getItem('loginSocialMidia') == "loginsocialmidiaFG") {
@@ -1147,7 +1153,9 @@ function carrega_user_perfil(id, autoInit=null) {
 				    });
 				    localStorage.removeItem('logarDaValidacao');
 				}else if (autoInit == "inicializaAutomatico") {
+					
 					console.log("login automatico multiuser com usuario e senha ....");
+					
 					app.views.main.router.navigate("/select_profile/", {animate:true, transition: 'f7-dive'});
 					$$(document).on('page:init', '.page[data-name="pgMultiprofile"]', function (e) {
 						$$(".loginApp").hide();
@@ -1251,7 +1259,12 @@ function carrega_user_perfil(id, autoInit=null) {
 				        }, 200);
 				    });
 				}
-			}
+			},
+			error: function(error){
+				console.log("deu erro...");
+				console.log(JSON.stringify(error));
+            }
+
 		});
 	}else{
 		notifica('Internet/Sem conex\u00e3o com a Internet/Fechar',2000,0);
@@ -1796,6 +1809,7 @@ logout = () => {
 			localStorage.removeItem('emailDefinidoOk');
 			localStorage.removeItem('senhaDefinidoOk');
 			localStorage.removeItem('emailSocialMidia');
+			localStorage.removeItem('TIPO_PERFIL_QTD');			
 			setPwdOut();
 			
 			logoutFB();

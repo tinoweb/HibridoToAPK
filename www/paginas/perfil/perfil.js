@@ -2,7 +2,8 @@ carregaInfoProfile = () => {
 	let img;
 	let foto = localStorage.getItem("FOTO");
 	if (foto.length > 0) {
-		img = "data:image/png;base64,"+foto;
+		// img = "data:image/png;base64,"+foto;
+		img = "data:image/jpeg;base64,"+foto;
 	}else{
 		img = "img/avatar.png";
 	}
@@ -10,7 +11,7 @@ carregaInfoProfile = () => {
 	let nomeMorador = localStorage.getItem("MORADOR_NOME");
 	let blocoMorador = localStorage.getItem("QUADRA").toLowerCase();
 	let loteMorador = localStorage.getItem("LOTE").toLowerCase();
-	let nomeCondominio = localStorage.getItem("CONDOMINIO").toLowerCase();
+	let nomeCondominio = localStorage.getItem("CONDO_NOME_EXIBICAO").toLowerCase();
 
 	loteMorador = loteMorador.charAt(0).toUpperCase() + loteMorador.slice(1);
 	nomeMorador = nomeMorador.charAt(0).toUpperCase() + nomeMorador.slice(1);
@@ -20,8 +21,12 @@ carregaInfoProfile = () => {
 	nomeMorador_ = nomeMorador.substr(0, 20);
 	nomeMorador_ = nomeMorador_+'...';
 
-	// console.log(localStorage.getItem("MORADOR_NOME"));
-	
+	if (localStorage.getItem("TIPO_PERFIL_QTD") == 'multiprofile') {
+		$('#mudarDeCondominio').show();
+	}else{
+		$('#mudarDeCondominio').hide();
+	}
+
 	setTimeout(function() {
 		// $("#moradorName").append(nomeMorador);
 		$("#nomeMorardorMenu").html(nomeMorador_);
@@ -123,7 +128,7 @@ carrega_morador_dados = (id_morador) => {
         data       : { id_condominio : localStorage.getItem("ID_CONDOMINIO"), id_morador : id_morador },
         dataType   : 'json',
 		success: function(retorno){
-			console.log(retorno);
+			console.log(JSON.stringify(retorno));
 
 			localStorage.setItem("MORADOR_NOME", retorno[0]['nome']);
 			localStorage.setItem("NOME_MORADOR", retorno[0]['nome']);
@@ -199,25 +204,32 @@ foto_perfil = () => {
         quality: 50,
 		correctOrientation: true,
         destinationType: Camera.DestinationType.DATA_URL,
-        saveToPhotoAlbum: true
+        sourceType: Camera.PictureSourceType.PHOTOLIBRARY 
     });
 
     function onSuccess(imageURI) {
-        console.log(imageURI);
-        return false;
-        $( '.Perfil_user_foto' ).css("background-image", "url(data:image/jpeg;base64,"+imageURI+")");
+    	console.log("dados ====>>>>>>>");
+    	// console.log(imageURI);
+    	console.log(localStorage.getItem('ID_CONDOMINIO'));
+    	console.log(localStorage.getItem('ID_MORADOR'));
+    	console.log("dados  ====>>>>>>>");
+       
+        img = "data:image/jpeg;base64,"+imageURI;
+        $('.Perfil_user_foto').attr("src", img);
+
         $.ajax({ 
             type: 'POST', 
             url        : localStorage.getItem('DOMINIO')+"appweb/foto/foto_insert.php", 
 			crossDomain: true,
 			beforeSend : function() { $("#wait").css("display", "block"); },
 			complete   : function() { $("#wait").css("display", "none"); },
-            data       : { id_condominio: $( "#DADOS #ID_CONDOMINIO" ).val(), id_morador: $( "#DADOS #ID_MORADOR" ).val(), foto: imageURI }, 
+            data       : { id_condominio: localStorage.getItem('ID_CONDOMINIO'), id_morador: localStorage.getItem('ID_MORADOR'), foto: imageURI }, 
             success: function(retorno){ 
-            	console.log(retorno);
+            	console.log(JSON.stringify(retorno));
+            	console.log("foto upado com sucesso");
             }, 
-            error      : function() { 
-                //alert('Erro'); 
+            error: function(error) { 
+                console.log("error ao upar foto =====>>>>");
             } 
         }); 
     }

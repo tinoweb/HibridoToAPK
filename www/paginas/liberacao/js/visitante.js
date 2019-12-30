@@ -63,7 +63,7 @@ function carrega_visitantes(valor_busca,tipo){
 						var dadof = '<div class="item-media"> <i class="f7-icons" style="font-size: 44px;">User</i></div>';
 					}
 					var dados = dados+'<li class="item-content">'+
-						'<a  class="item-link item-content link tab-link" href="#tab-2" style="width:100%" onClick="hidden_btn();escolhe_visita(\''+retorno[x]['id']+'\',\''+retorno[x]['nome']+'\',\''+retorno[x]['rua']+'\',\''+retorno[x]['numero']+'\',\''+retorno[x]['cidade']+'\',\''+retorno[x]['bairro']+'\',\''+retorno[x]['observacao']+'\',\''+retorno[x]['estado']+'\',\''+retorno[x]['tel']+'\',\''+retorno[x]['cel']+'\',\''+retorno[x]['cep']+'\',\''+retorno[x]['email']+'\',\''+retorno[x]['bloqueado']+'\',\''+retorno[x]['rg']+'\',\''+retorno[x]['foto']+'\')">'+
+						'<a  class="item-link item-content link tab-link sheet-close" data-sheet=".buscar-visitante" href="#tab-2" style="width:100%" onClick="hidden_btn();escolhe_visita(\''+retorno[x]['id']+'\',\''+retorno[x]['nome']+'\',\''+retorno[x]['rua']+'\',\''+retorno[x]['numero']+'\',\''+retorno[x]['cidade']+'\',\''+retorno[x]['bairro']+'\',\''+retorno[x]['observacao']+'\',\''+retorno[x]['estado']+'\',\''+retorno[x]['tel']+'\',\''+retorno[x]['cel']+'\',\''+retorno[x]['cep']+'\',\''+retorno[x]['email']+'\',\''+retorno[x]['bloqueado']+'\',\''+retorno[x]['rg']+'\',\''+retorno[x]['foto']+'\')">'+
 							'<div class="item-media">'+dadof+'</div>'+
 							'<div class="item-inner" >'+
 								'<div class="item-title-row"  style="width:100%">'+
@@ -356,3 +356,26 @@ function botao_bs()
 	
 	
 }
+
+function visitant_nomeb()
+{
+	$("#titulo_busca").html('');
+	$("#titl_camp").html('');
+	$("#titulo_busca").html('Buscar visitante pelo Nome');
+	$("#titl_camp").html('Nome');
+	$("#campo_texto").val(0);
+	setTimeout(function(){$("#busc_input_visitante").focus();},100);
+	
+}
+function visitante_rgb()
+{
+	$("#titulo_busca").html('Buscar visitante pelo RG');
+	$("#titl_camp").html('RG');
+	$("#campo_texto").val(1);
+	//$("#busc_input_visitante").focus();
+	setTimeout(function(){$("#busc_input_visitante").focus();},150);
+}
+
+
+
+

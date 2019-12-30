@@ -2,7 +2,8 @@ carregaInfoProfile = () => {
 	let img;
 	let foto = localStorage.getItem("FOTO");
 	if (foto.length > 0) {
-		img = "data:image/png;base64,"+foto;
+		// img = "data:image/png;base64,"+foto;
+		img = "data:image/jpeg;base64,"+foto;
 	}else{
 		img = "img/avatar.png";
 	}
@@ -127,7 +128,7 @@ carrega_morador_dados = (id_morador) => {
         data       : { id_condominio : localStorage.getItem("ID_CONDOMINIO"), id_morador : id_morador },
         dataType   : 'json',
 		success: function(retorno){
-			console.log(retorno);
+			console.log(JSON.stringify(retorno));
 
 			localStorage.setItem("MORADOR_NOME", retorno[0]['nome']);
 			localStorage.setItem("NOME_MORADOR", retorno[0]['nome']);
@@ -207,8 +208,11 @@ foto_perfil = () => {
     });
 
     function onSuccess(imageURI) {
-    	console.log("Tirar foto ====>>>>>>>");
-    	console.log(localStorage.getItem('DOMINIO'));
+    	console.log("dados ====>>>>>>>");
+    	// console.log(imageURI);
+    	console.log(localStorage.getItem('ID_CONDOMINIO'));
+    	console.log(localStorage.getItem('ID_MORADOR'));
+    	console.log("dados  ====>>>>>>>");
        
         img = "data:image/jpeg;base64,"+imageURI;
         $('.Perfil_user_foto').attr("src", img);

@@ -228,8 +228,10 @@ login_user_device = (autoInit=null) => {
 
 							if (autoInit != null) {
 								carrega_user_perfil(retorno[0]['id_usuario'], autoInit);
+								console.log("entrou no que tem autoinit");
 							}else{
 								carrega_user_perfil(retorno[0]['id_usuario']);
+								console.log("não autoinit");
 							}
 
 							localStorage.setItem('ID_USER_L',retorno[0]['id_usuario']);
@@ -1257,7 +1259,12 @@ function carrega_user_perfil(id, autoInit=null) {
 				        }, 200);
 				    });
 				}
-			}
+			},
+			error: function(error){
+				console.log("deu erro...");
+				console.log(JSON.stringify(error));
+            }
+
 		});
 	}else{
 		notifica('Internet/Sem conex\u00e3o com a Internet/Fechar',2000,0);

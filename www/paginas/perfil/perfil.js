@@ -214,8 +214,7 @@ foto_perfil = () => {
 			complete   : function() { $("#wait").css("display", "none"); },
             data       : { id_condominio: $( "#DADOS #ID_CONDOMINIO" ).val(), id_morador: $( "#DADOS #ID_MORADOR" ).val(), foto: imageURI }, 
             success: function(retorno){ 
-                //$("#erro_box").html(retorno); 
-                //afed('#erro_box','#home','','',3); 
+            	console.log(retorno);
             }, 
             error      : function() { 
                 //alert('Erro'); 
@@ -399,6 +398,7 @@ atualizarDadosContato = (event) => {
 		crossDomain: true,
 		success: function(retorno){
 			console.log(retorno);
+			console.log("Atualizado com sucesso...");
 			if (retorno.status == 'sucess' && retorno.statuscode == 200) {
 				alertaDialog("Sucesso", "Dados atualizado com sucesso", afterClose=null)
 			}

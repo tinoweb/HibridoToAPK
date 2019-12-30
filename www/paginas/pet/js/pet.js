@@ -80,7 +80,7 @@ function carrega_pets(tipo)
 				{
 				cont++;
    				if(retorno[x]['foto'] == ''){
-				   var foto_pet = 'img/pet_semfoto.jpg';
+				   var foto_pet = 'img/perfil_pet.jpg';
 				}
 				else
 				{
@@ -161,7 +161,7 @@ function get_filtro_pet()
 				{
 				cont++;
    				if(retorno[x]['foto'] == ''){
-				   var foto_pet = 'img/pet_semfoto.jpg';
+				   var foto_pet = 'img/perfil_pet.jpg';
 				}
 				else
 				{
@@ -261,7 +261,7 @@ function tela_editar_pet(id)
             success: function(retorno)
 			{ 	var x =0;
 				if(retorno[x]['foto'] == ''){
-				   var foto_pet = 'img/pet_semfoto.jpg';
+				   var foto_pet = 'img/perfil_pet.jpg';
 				}
 				else
 				{
@@ -382,7 +382,7 @@ function carrega_pet(id){
 				
 					if(retorno[x]['foto'] == '')
 					{
-						var foto_pet = 'img/pet_foto_perfil.png';
+						var foto_pet = 'img/perfil_pet.jpg';
 					}
 					else
 					{
@@ -432,23 +432,16 @@ function carrega_pet(id){
             data       : {id_unidade : id_unidade, id_condominio : id_condominio},
             dataType   : 'json',
             success: function(retorno)
-			{  //alert(retorno);
+			{  	var id_morador = localStorage.getItem('ID_MORADOR');
 				var cont=0;
 				for (x in retorno) 
 				{ 
 				var id_unidade = retorno[x]['unidade'];
-			
-				if(unidade == id_unidade)
+				if(id_morador ==retorno[x]['id'] )
 					{
 						
-					
-					var edt ='<div class="right" >'
-						+ '<a class="link color-theme-red size-10"  href="/perfil_editar/"> <i class="f7-icons" style="color:red" 								     >pencil_circle</i> Editar </a>'
-						+'</div>';				 				 
-						}
-					else{
-						var edt ='';
-					}
+					}else
+						{
 					
 					if(retorno[x]['foto'] == ''){
 					   var foto_moador = 'img/avatar.png';
@@ -479,18 +472,20 @@ function carrega_pet(id){
 						+			'<div class="navbar-inner">'
 						+				'<div class="left">'
 						+					'<a class="link color-theme-green size-10" href="/chat1/" data-transition="f7-circle">'
-						+						'<i class="f7-icons" style="color:green" >chat_bubble_text</i>  Conversar  </a>'
+						+						'<i class="f7-icons" style="color:green" >chat_bubble_text</i> <label style="margin-left:10px">  Conversar </label>  </a>'
 						+				'</div>'
-						+				'<div class="center">'
-						+					'<a class="link color-theme-blue size-10" href="/perfil/" > <i class="f7-icons" style="color:blue" 											>person_crop_circle_badge_exclam </i>  Perfil  </a>'
-						+				'</div>'
-					 	+				edt
+						+				'<div class="right">'
+						+		'<a class="link color-theme-blue size-10" href="/perfil/" onclick="carregar_morador_perfil('+retorno[x]['id']+')" > <i class="f7-icons" style="color:blue" 											>person_crop_circle_badge_exclam </i>  <label style="margin-left:10px">  Perfil </label> </a>'
+						
+					 				'</div>'
+					 	+				
 						+			'</div>'
 						+		'</div>'
 						+	'</div>'
 						+ '</div>'
 						+'</li>';
 					  dados = dados + dado;
+						}
 				}
 			
 				$("#donos_pet").html(dados);
@@ -674,23 +669,16 @@ function pet_insert(){
         });
 
         function onSuccess(imageURI) { 
-           
-			
-			$( '#foto_cdr' ).val(imageURI);
-			
+           	$( '#foto_cdr' ).val(imageURI);
 			var foto_pet = 'data:image/jpeg;base64,'+imageURI+'';
-			
-
-	$( '#foto_cdr' ).html('<img src="'+foto_pet+'" width="40">');
-		
-			
-        }
+			$( '#foto_cdr' ).html('<img src="'+foto_pet+'" width="40">');
+		       }
         function onFail(message) {
            alertaDialog("","Nenhuma imagem carregada !");
         }    
 }
 
- function   foto_pet_galaria() 
+ function foto_pet_galaria() 
 {
        
 	   navigator.camera.getPicture(onSuccess, onFail, {  
@@ -699,20 +687,11 @@ function pet_insert(){
             destinationType: Camera.DestinationType.DATA_URL, 
             sourceType: Camera.PictureSourceType.PHOTOLIBRARY 
         }); 
-        
-
         function onSuccess(imageURI) { 
-           
-			
-			$( '#foto_cdr' ).val(imageURI);
-			
+           $( '#foto_cdr' ).val(imageURI);
 			var foto_pet = 'data:image/jpeg;base64,'+imageURI+'';
-			
-
-	$( '#foto_cdr' ).html('<img src="'+foto_pet+'" width="40">');
-			
-			
-        }
+			$( '#foto_cdr' ).html('<img src="'+foto_pet+'" width="40">');
+			}
         function onFail(message) {
             alertaDialog("","Nenhuma imagem carregada !");
         }    
@@ -729,16 +708,9 @@ function pet_insert(){
         });
 
         function onSuccess(imageURI) { 
-           
-			
-			$( '#foto_vacina1' ).val(imageURI);
-			
+           	$( '#foto_vacina1' ).val(imageURI);
 			var foto_pet = 'data:image/jpeg;base64,'+imageURI+'';
-			
-
-	$( '#foto_vacina1' ).html('<img src="'+foto_pet+'" width="40">');
-		
-			
+			$( '#foto_vacina1' ).html('<img src="'+foto_pet+'" width="40">');
         }
         function onFail(message) {
            alertaDialog("","Nenhuma imagem carregada !");
@@ -746,63 +718,41 @@ function pet_insert(){
 }
 
  function  foto_galaria_vacina1() 
-{
-       
+{  
 	   navigator.camera.getPicture(onSuccess, onFail, {  
             quality: 50,
 		   	correctOrientation: true,
             destinationType: Camera.DestinationType.DATA_URL, 
             sourceType: Camera.PictureSourceType.PHOTOLIBRARY 
         }); 
-        
-
         function onSuccess(imageURI) { 
-           
-			
-			$( '#foto_vacina1' ).val(imageURI);
-			
+ 			$( '#foto_vacina1' ).val(imageURI);
 			var foto_pet = 'data:image/jpeg;base64,'+imageURI+'';
-			
-
-	$( '#foto_vacina1' ).html('<img src="'+foto_pet+'" width="40">');
-			
-			
+			$( '#foto_vacina1' ).html('<img src="'+foto_pet+'" width="40">');		
         }
         function onFail(message) {
             alertaDialog("","Nenhuma imagem carregada !");
         }    
 }
-
-
  function foto_vacina2()
-{
-	
-       navigator.camera.getPicture(onSuccess, onFail, { 
+{      navigator.camera.getPicture(onSuccess, onFail, { 
             quality: 50,
 			correctOrientation: true,
             destinationType: Camera.DestinationType.DATA_URL,
         });
 
         function onSuccess(imageURI) { 
-           
-			
-			$( '#foto_vacina2' ).val(imageURI);
-			
+          	$( '#foto_vacina2' ).val(imageURI);
 			var foto_pet = 'data:image/jpeg;base64,'+imageURI+'';
-			
-
-	$( '#foto_vacina2' ).html('<img src="'+foto_pet+'" width="40">');
-		
-			
-        }
+			$( '#foto_vacina2' ).html('<img src="'+foto_pet+'" width="40">');
+		        }
         function onFail(message) {
            alertaDialog("","Nenhuma imagem carregada !");
         }    
 }
 
- function   foto_galaria_vacina2() 
+ function foto_galaria_vacina2() 
 {
-       
 	   navigator.camera.getPicture(onSuccess, onFail, {  
             quality: 50,
 		   	correctOrientation: true,
@@ -813,15 +763,9 @@ function pet_insert(){
 
         function onSuccess(imageURI) { 
            
-			
 			$( '#foto_vacina2' ).val(imageURI);
-			
 			var foto_pet = 'data:image/jpeg;base64,'+imageURI+'';
-			
-
-	$( '#foto_vacina2' ).html('<img src="'+foto_pet+'" width="40">');
-			
-			
+			$( '#foto_vacina2' ).html('<img src="'+foto_pet+'" width="40">');
         }
         function onFail(message) {
             alertaDialog("","Nenhuma imagem carregada !");
@@ -831,22 +775,17 @@ function pet_insert(){
 
  function foto_vacina3()
 {
-	
-       navigator.camera.getPicture(onSuccess, onFail, { 
+	   navigator.camera.getPicture(onSuccess, onFail, { 
             quality: 50,
 			correctOrientation: true,
             destinationType: Camera.DestinationType.DATA_URL,
         });
 
-        function onSuccess(imageURI) { 
-           
-			
-			$( '#foto_vacina3' ).val(imageURI);
-			
-			var foto_pet = 'data:image/jpeg;base64,'+imageURI+'';
-			
-
-	$( '#foto_vacina3' ).html('<img src="'+foto_pet+'" width="40">');
+        function onSuccess(imageURI)
+		{ 
+          $( '#foto_vacina3' ).val(imageURI);
+		  var foto_pet = 'data:image/jpeg;base64,'+imageURI+'';
+		  $( '#foto_vacina3' ).html('<img src="'+foto_pet+'" width="40">');
 		
 			
         }
@@ -888,16 +827,14 @@ function pet_insert(){
 //Função abrir  cadatro de vacina
 function cadastro_vacinas(id_pet)
 {
- //$("#id_pet_vacina").val(id_pet);
+	
  $("#fechar_mp").click();
 
-localStorage.setItem('ID_PET_VACINA',id_pet);	
+localStorage.setItem('ID_PET_VACINA',id_pet);
+$("#link_back_vacina").attr('onClick','carrega_pet('+id_pet+')'); 	
 }
 function salvar_vacinas()
 {
-	
-
- 
 	var id_pet = localStorage.getItem('ID_PET_VACINA');
 	var id_condominio = localStorage.getItem('ID_CONDOMINIO');
 	var vacina1 =$("#vacina1").val();
@@ -911,7 +848,7 @@ function salvar_vacinas()
 	var vacina3 =$("#vacina3").val();
 	var data3 = $("#data_vacina3").val();
 	var foto3 = $( '#foto_vacina3' ).val();
-	//alert(id_pet);
+	
 	$.ajax({
 		type: 'POST',
         url: localStorage.getItem('DOMINIO')+'appweb/vacina_pet.php',
@@ -924,14 +861,14 @@ function salvar_vacinas()
 				
 				alertaDialog("","Dados cadastrados com sucesso!");
 				carrega_pet(id_pet);
-				$("#link_back_vacina").click();
+				$("#back_perfil").click();
 				
 			},
 		erro: function(retorno)
 			{
 				alertaDialog("","Ops!, Tente novamente mais tarde!");
 				carrega_pet(id_pet);
-				$("#link_back_vacina").click();
+				$("#back_perfil").click();
 				
 				
 			}
@@ -940,16 +877,16 @@ function salvar_vacinas()
 	
 }
 function select_vacinas(id,unidade)
-{	//alert(id);
+{	
 	var id_condominio = localStorage.getItem('ID_CONDOMINIO');
 	var id_unidade = localStorage.getItem('ID_UNIDADE');
-				$("#data_vcn1").html('aa');
-				$("#data_vcn2").html('');
-				$("#data_vcn3").html('');
+				$("#data_vcn1").html('Data: não definido');
+				$("#data_vcn2").html('Data: não definido');
+				$("#data_vcn3").html('Data: não definido');
 				
-				$("#nome_vcn1").html('aa');
-				$("#nome_vcn2").html('');
-				$("#nome_vcn3").html('');
+				$("#nome_vcn1").html('Vacina: não definido');
+				$("#nome_vcn2").html('Vacina: não definido');
+				$("#nome_vcn3").html('Vacina: não definido');
 	
 	$.ajax({
 		type: 'POST',
@@ -960,17 +897,9 @@ function select_vacinas(id,unidade)
 		data       :{id_condominio: id_condominio, id_pet :id,op:2},
 		dataType   : 'json',
 		success: function(retorno)
-			{// alert(retorno);
-			 	
-			
-				
-				 for (var x in retorno){
-					 
-					 
-					 
-					 
-				//var id_p = retorno[x]['id'];
-			
+			{
+				for (var x in retorno){
+
 				   var  foto_vcn1 = 'data:image/jpeg;base64,'+retorno[x]['foto1']+'';
 				   var  foto_vcn2 = 'data:image/jpeg;base64,'+retorno[x]['foto2']+'';
 				   var  foto_vcn3 = 'data:image/jpeg;base64,'+retorno[x]['foto3']+'';
@@ -992,7 +921,8 @@ function select_vacinas(id,unidade)
 					{
 						if(unidade = id_unidade)
 							{
-								$("#botao_vacina").html('<a class="col button button-fill color-red" href="/vacinacao/" onClick="editar_vcn('+retorno[x]['id_pet']+')" >Editar</a>');	
+								$("#botao_vacina").html('<a class="col button button-fill color-red" href="/vacinacao/" onClick="editar_vcn('+retorno[x]['id_pet']+')" >Editar</a>');
+								
 							}	
 					}
 				
@@ -1001,32 +931,17 @@ function select_vacinas(id,unidade)
 			},
 		erro: function(retorno)
 			{
-				alert('retorno');
-				
-				
-				
+				alertaDialog("","Ops!, Tente novamente mais tarde!");
 			}
 	});
-	
-	
-	
-	
-	
+
 }
 function editar_vcn(id)
-{
-	alert(id);
-					
-	
-	
-	
-	
-	
-	
-	
-	
+{	$("#fechar_mp").click();
+ 	
 	var id_pet = id;
 	var id_condominio = localStorage.getItem('ID_CONDOMINIO');
+ 	localStorage.setItem('ID_PET_VACINA',id);
 	$.ajax({
 		type: 'POST',
         url: localStorage.getItem('DOMINIO')+'appweb/vacina_pet.php',
@@ -1036,12 +951,8 @@ function editar_vcn(id)
 		data       :{id_condominio: id_condominio, id_pet :id,op:2},
 		dataType   : 'json',
 		success: function(retorno)
-			{  //alert(retorno);
-			 	
-			
-				
-				 for (var x in retorno){
-					 alert(retorno[x]['data1']);
+			{   	 for (var x in retorno){
+					 cadastro_vacinas(retorno[x]['id_pet']);
 					 //nome das vacinas 
 					 $("#vacina1").attr('value',retorno[x]['vacina1']);
 					 $("#vacina2").attr('value',retorno[x]['vacina2']);
@@ -1053,15 +964,14 @@ function editar_vcn(id)
 					 $("#data_vacina3").attr('value',retorno[x]['data33']);
 					 
 					 // fotos
-				
-					
-				   var  foto_vcn1 = 'data:image/jpeg;base64,'+retorno[x]['foto1']+'';
-				   var  foto_vcn2 = 'data:image/jpeg;base64,'+retorno[x]['foto2']+'';
-				   var  foto_vcn3 = 'data:image/jpeg;base64,'+retorno[x]['foto3']+''; 
+						var  foto_vcn1 = 'data:image/jpeg;base64,'+retorno[x]['foto1']+'';
+						var  foto_vcn2 = 'data:image/jpeg;base64,'+retorno[x]['foto2']+'';
+						var  foto_vcn3 = 'data:image/jpeg;base64,'+retorno[x]['foto3']+''; 
 					 
 					 if(retorno[x]['foto1'] != '')
 						 {
 							$( '#foto_vacina1' ).html('<img src="'+foto_vcn1+'" width="40">'); 
+							 
 						 }
 					 if(retorno[x]['foto2'] != '')
 						 {
@@ -1071,14 +981,57 @@ function editar_vcn(id)
 						 {
 							$( '#foto_vacina3' ).html('<img src="'+foto_vcn3+'" width="40">'); 
 						 }
-					 
+					 $("#salvar_dados_vacina").attr('onClick','edit_pet_vacina('+id_pet+')'); 
 					 
 					 
 				 }
 			}
-					 
-	
-	
+
 });
 }
 
+function edit_pet_vacina(id)
+{
+	var id_pet_ed = localStorage.getItem('ID_PET_VACINA');
+	$("#link_back_vacina").attr('onClick','carrega_pet('+id_pet_ed+')'); 
+	var id_pet = id_pet;
+	var id_condominio = localStorage.getItem('ID_CONDOMINIO');
+	var vacina1 =$("#vacina1").val();
+	var data1 = $("#data_vacina1").val();
+	var foto1 = $( '#foto_vacina1' ).val();
+	
+	var vacina2 =$("#vacina2").val();
+	var data2 = $("#data_vacina2").val();
+	var foto2 = $( '#foto_vacina2' ).val();
+	
+	var vacina3 =$("#vacina3").val();
+	var data3 = $("#data_vacina3").val();
+	var foto3 = $( '#foto_vacina3' ).val();
+	
+	$.ajax({
+		type: 'POST',
+        url: localStorage.getItem('DOMINIO')+'appweb/vacina_pet.php',
+	 	crossDomain: true,
+		beforeSend : function() { $("#wait").css("display", "block"); },
+		complete   : function() { $("#wait").css("display", "none"); },
+		data       :{vacina1: vacina1, data1 : data1, foto1:foto1,vacina2: vacina2, data2 : data2, foto2:foto2,vacina3: vacina3, data3 : data3, foto3:foto3,id_condominio: id_condominio, id_pet :id,op:3},
+		success: function(retorno)
+			{	
+				
+				alertaDialog("","Dados editado com sucesso!");
+				carrega_pet(id_pet_ed);
+				$("#back_perfil").click();
+				
+			},
+		erro: function(retorno)
+			{
+				alertaDialog("","Ops!, Tente novamente mais tarde!");
+				carrega_pet(id_pet_ed);
+				$("#back_perfil").click();
+				
+				
+			}
+		
+	});
+
+}

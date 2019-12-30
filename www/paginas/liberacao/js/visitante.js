@@ -14,6 +14,14 @@ $("#link_tab").attr('href','#tab-4');
  $('#botao_avancar').removeClass('tema-azul');
 
 }
+ function avancar4()
+{ 
+	
+//$("#link_tab #text_btn").html('Salvar');
+$("#link_tab").attr('href','#');
+ $('#botao_avancar').removeClass('tema-azul');
+$("#text_btn").html('Salvar');
+}
  
 
 
@@ -55,7 +63,7 @@ function carrega_visitantes(valor_busca,tipo){
 						var dadof = '<div class="item-media"> <i class="f7-icons" style="font-size: 44px;">User</i></div>';
 					}
 					var dados = dados+'<li class="item-content">'+
-						'<a  class="item-link item-content link tab-link" href="#tab-2" style="width:100%" onClick="hidden_btn();escolhe_visita(\''+retorno[x]['id']+'\',\''+retorno[x]['nome']+'\',\''+retorno[x]['rua']+'\',\''+retorno[x]['numero']+'\',\''+retorno[x]['cidade']+'\',\''+retorno[x]['bairro']+'\',\''+retorno[x]['observacao']+'\',\''+retorno[x]['estado']+'\',\''+retorno[x]['tel']+'\',\''+retorno[x]['cel']+'\',\''+retorno[x]['cep']+'\',\''+retorno[x]['email']+'\',\''+retorno[x]['bloqueado']+'\',\''+retorno[x]['rg']+'\')">'+
+						'<a  class="item-link item-content link tab-link" href="#tab-2" style="width:100%" onClick="hidden_btn();escolhe_visita(\''+retorno[x]['id']+'\',\''+retorno[x]['nome']+'\',\''+retorno[x]['rua']+'\',\''+retorno[x]['numero']+'\',\''+retorno[x]['cidade']+'\',\''+retorno[x]['bairro']+'\',\''+retorno[x]['observacao']+'\',\''+retorno[x]['estado']+'\',\''+retorno[x]['tel']+'\',\''+retorno[x]['cel']+'\',\''+retorno[x]['cep']+'\',\''+retorno[x]['email']+'\',\''+retorno[x]['bloqueado']+'\',\''+retorno[x]['rg']+'\',\''+retorno[x]['foto']+'\')">'+
 							'<div class="item-media">'+dadof+'</div>'+
 							'<div class="item-inner" >'+
 								'<div class="item-title-row"  style="width:100%">'+
@@ -95,7 +103,7 @@ function carrega_visitantes(valor_busca,tipo){
 
 
 //FUNCAO SELECIONA UM VISITANTE
-function escolhe_visita(id,nome,rua,numero,cidade,bairro,observacao,estado,tel,cel,cep,email,bloqueado,rg){
+function escolhe_visita(id,nome,rua,numero,cidade,bairro,observacao,estado,tel,cel,cep,email,bloqueado,rg,foto){
 
 
 	
@@ -124,7 +132,7 @@ function escolhe_visita(id,nome,rua,numero,cidade,bairro,observacao,estado,tel,c
 	$( "#cep_vst").val(cep);
 	$( "#email_visit").val(email);
 	$( "#botao_avancar").attr('style','display:block;background: #919191;');
-	
+	$("#foto_visitante").html('<div style=" width: 54px;  height: 54px; background-size: 54px; background-position: center center; background-image:url(data:image/jpeg;base64,'+foto+')"></div>');
 //alert(bloqueado);
 	
 	
@@ -261,13 +269,15 @@ function get_veiculo(placa){
 				
 					if(retorno.id == null)
 						{
-							alerta('Veículo não Cadastrado!');
+						
+							alertaDialog("","Veículo não Cadastrado!");
 							$("#buscar_placa").html('<i class="f7-icons size-15">car_fill</i> Cadastrar');
 							$("#buscar_placa").attr('style','background-color:green;margin-top: -10px');
 							$("#buscar_placa").attr('onClick','atualiza_veiculo_visitante()');
 								$("#carro_marca .item-after").html('');
 								$("#carro_modelo .item-after").html('');
 								$("#carro_cor .item-after").html('');
+							$("#liberacao_placa").attr('onKeyUp','botao_bs()');
 								
 						}else{
 								$("#carro_marca .item-after").html(retorno.marca);
@@ -275,6 +285,7 @@ function get_veiculo(placa){
 								$("#carro_cor .item-after").html(retorno.cor);
 								$("#id_carro_visitante").val(retorno.id);
 								$("#liberacao_placa").attr('onKeyUp','botao_bs()');
+							
 								$("#buscar_placa").attr('onClick','');
 								$("#buscar_placa").html('<i class="f7-icons size-15">checkmark_alt</i> Veículo Encontrado');
 								$("#buscar_placa").attr('style','background-color:green;margin-top: -10px;font-size:10px');
@@ -303,17 +314,6 @@ function get_veiculo(placa){
 			
 						}
 					 
-					
-					 
-					
-				
-					
-					
-					
-					
-					
-					
-					
 					if(retorno.marca == null){
 				        parametro1 = "Não informado"; 
 						var marca_dados = '<option value="0">Selecione</option>';
@@ -343,14 +343,14 @@ function get_veiculo(placa){
 				}
 		   });
 	   }else{
-		   	alerta('Placa faltando digitos');
+		   	 alertaDialog("Erro","Verifique se foi digitado a placa corretamente!");
 		   
 	  }
   };
 
 function botao_bs()
 {
-$("#buscar_placa").attr('onClick','get_veiculo($("#liberacao_placa").val())');
+			$("#buscar_placa").attr('onClick','get_veiculo($("#liberacao_placa").val())');
 			$("#buscar_placa").html('<i class="f7-icons size-15">car_fill</i> Buscar').addClass('button button-fill color-theme-red');
 			$("#buscar_placa").attr('style','background-color:red;margin-top: -10px;font-size:10px');	
 	

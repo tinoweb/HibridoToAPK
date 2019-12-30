@@ -49,7 +49,7 @@ function carregar_todos_selects()
 	
 setTimeout(function(){
 	var crdito = localStorage.getItem('QTD_CREDITO');
-	alert(crdito);
+	//alert(crdito);
 	var qtd_cred = "";
 	
 	if(crdito == 0)
@@ -207,7 +207,7 @@ function carrega_liberacao(){
 
 
 
-function carrega_liberacao2(tipo,id_visita=0){
+/*function carrega_liberacao2(tipo,id_visita=0){
     //alert('teste');
 	app.controler_pull("liberacao2");
 	if(tipo ==4){
@@ -278,7 +278,7 @@ function carrega_liberacao2(tipo,id_visita=0){
 	});
     localStorage.setItem('TELA_ATUAL','liberacao_list2');
 }
-
+*/
 //FUNCAO CRREGA LIBERACAO PRA EDITAR
 function carrega_liberacao_visita(visita,tipo){
 	var cont = 0;
@@ -452,68 +452,6 @@ function adiciona_liberacao(){
 	
 }
 
-//FUNCAO ADICIONA LIBERACAO
-function salva_liberacao(){
-	var id_condominio = localStorage.getItem('ID_CONDOMINIO');
-	var id_morador = localStorage.getItem('ID_MORADOR');
-	var msg = '';
-	if($( "#add_liberacao #visita" ).val() == 0 || $( "#add_liberacao #dt_de" ).val() == '' || $( "#add_liberacao #hr_de" ).val() == '' || $( "#add_liberacao #dt_ate" ).val() == '' || $( "#add_liberacao #hr_ate" ).val() == ''){
-		notifica('Preencha o campo/Preencha todos os campos/Ok',1000,0);
-	}else{
-		
-		var visivel  = $('#cad_veiculo').is(':visible');
-		if (visivel){
-			alerta('','Cadastre esse veiculo para continuar!');
-		}else{
-			var dt_atual = new Date();
-			dt_atual.setMinutes(dt_atual.getMinutes()-30);
-			var dt_de = new Date($('#add_liberacao #dt_de').val()+ " "+$('#add_liberacao #hr_de').val() );
-			var dt_ate = new Date($('#add_liberacao #dt_ate').val()+ " "+$('#add_liberacao #hr_ate').val() );
-			var dt_limite = new Date(dt_de.getFullYear(),dt_de.getMonth(),dt_de.getDate(),23,59,59,0);
-			
-			if(localStorage.getItem('PERIODO_MAX') == 0){
-				dt_limite.setDate(dt_limite.getDate() + 1460);
-			}else{
-				dt_limite.setDate(dt_limite.getDate() + (localStorage.getItem('PERIODO_MAX') - 1));
-			}
-			//alert(dt_limite);											 
-			var tipo = $('#add_liberacao #tipo').val();
-
-			if(dt_de < dt_atual && tipo != 1){
-			   alerta('Data Inválida/Data INICIAL não pode ser inferior a data atual/Ok',0,0);
-			}else if(dt_ate < dt_atual){
-			   alerta('Data Inválida/Data FINAL não pode ser inferior a data atual/Ok',0,0);
-			}else if(dt_ate <= dt_de){
-			   alerta('Data Inválida/Data FINAL não pode ser inferior a data INICIAL/Ok',0,0);
-			}else if(dt_ate > dt_limite ){
-			   alerta('Data Inválida/Data FINAL não pode ser superior a '+dt_limite.getDate()+'-'+(dt_limite.getMonth()+1)+'-'+dt_limite.getFullYear()+' '+dt_limite.getHours()+':'+dt_limite.getMinutes()+'/Ok',0,0);
-			}else{
-				var dados = $( "#add_liberacao" ).serialize();
-
-				$.ajax({
-					type: 'POST',
-					url: localStorage.getItem('DOMINIO')+'appweb/liberacao_insert.php',
-					crossDomain: true,
-					beforeSend : function() { $("#wait").css("display", "block"); },
-					complete   : function() { $("#wait").css("display", "none"); },
-					data       : dados+'&id_condominio='+id_condominio+'&id_morador='+id_morador,
-					success: function(retorno){
-							//alert(retorno);
-							carrega_liberacao(0);
-							openPopUp();
-							afed('#home','#liberacao2','','',3,'liberacao_list');
-					},
-					error      : function() {
-						//alert('Erro ao carregar liberacao');
-						$("#wait").css("display", "none");
-					}
-				});           
-			}
-		} 
-        
-        
-	}
-}
 
 function gera_qrcode(qrcode_numero,nome){
 	var id_condominio = localStorage.getItem('ID_CONDOMINIO');
@@ -920,79 +858,236 @@ function tipo_acesso()
 		$("#tipo_acesso").css('display','none');
 		
 		$("#link_tab").attr('href','#tab-4');
+		$("#link_tab").attr('onClick','avancar4()');
 		$("#botao_avancar").addClass('tema-azul');
+		$( "#nome_rs" ).val($( "#nome_vis" ).val());
+		$( "#rg_rs" ).val($( "#rg_vis" ).val());
+		$( "#id_visitante_rs").val($( "#visitante_id").val());
+		$( "#inicio_rs").val($( "#data_inici_vl").val());
+		$( "#fim_rs").val($( "#data_fim_vl").val());
+		$( "#credito_rs").val($( "#qtd_credito_qr").val());
+		$( "#motivo_rs").val($("#motivo_selec_aft .item-after").html());
+		
+		$( "#placa_visitante_rs").val('Não utilizado');
+	
+		$("#marca_cvisitante_rs").val('Não utilizado');
+		$( "#modelo_visitante_rs").val('Não utilizado');
+		$( "#cor_visitante_rs").val('Não utilizado');		
+
 		
 	}
 	
 }
 function validadecredito()
-{	var liberar = 0;
+{	
 	var motivo = $("#motivo_vst").val();
  	var inicio =$("#data_inici_vl").val();
  	var fim =$("#data_fim_vl").val();
  	var qtd_qr = $("#qtd_credito_qr").val();
- ///alert(qtd_qr);
+		   var dt_atual = new Date();
+			dt_atual.setMinutes(dt_atual.getMinutes()-30);
+			var dt_de = new Date($('#data_inici_vl').val());
+			var dt_ate = new Date($('#data_fim_vl').val());
+			var dt_limite = new Date(dt_de.getFullYear(),dt_de.getMonth(),dt_de.getDate(),23,59,59,0);
 
 	
 	if(motivo == "" ||motivo == 0)
 	{
-	 liberar =0;
+	var liberar1 =0;
 	$("#label_visit").attr('style','border-bottom: 2px solid red;color:red');	
 	}
  	else
 	{ 
-	 liberar =1;
+	 var liberar1 =1;
 	 $("#label_visit").attr('style','');	
  	}
 	if(inicio == "")
 	{
-	 liberar =0;
+	  var liberar2 =0;
 	 $("#label_inicio").addClass('item-input-focused color-theme-red');
 	}
  	else
 	{
 	  $("#label_inicio").removeClass('item-input-focused color-theme-red');
-	 liberar =1;
+	var liberar2 =1;
  	}
 	 
 	 if(fim == "")
 	{
-	 liberar =0;
+	 var liberar3 =0;
 	 $("#label_fim").addClass('item-input-focused color-theme-red');
 	}
  	else
 	{
 	  $("#label_fim").removeClass('item-input-focused color-theme-red');
-	 liberar =1;
+	var liberar3 =1;
  	}
 	 if(qtd_qr == "" || qtd_qr == 0 )
 	{ 
 		$("#label_credito").attr('style','border-bottom: 2px solid red;color:red');	 
-		liberar =0;
+	var	liberar4 =0;
 	}
 	else
 	{
 		$("#label_credito").attr('style','');	
-		liberar =1;
+	var	liberar4 =1;
 	} 
  
-if(liberar ==1)
+if(liberar1 ==1 && liberar2 ==1 && liberar3 ==1 && liberar4 ==1  )
 	{
-	
-		
-					$("#botao_avancar").addClass('tema-azul');		
-					$("#link_tab").attr('onClick','avancar3()');
-					$("#link_tab").attr('href','#tab-3');
 			
- }
- else{
+			
+			if(localStorage.getItem('PERIODO_MAX') == 0){
+				dt_limite.setDate(dt_limite.getDate() + 1460);
+			}else{
+				dt_limite.setDate(dt_limite.getDate() + (localStorage.getItem('PERIODO_MAX') - 1));
+			}
+			//alert(dt_limite);											 
+			if(dt_de < dt_atual && tipo != 1){
+			 	var botao_libera = 0;
+				 alertaDialog("Data Inválida","Data ou Horário inicial não pode ser inferior a data e hora atual!");
+			}else if(dt_ate < dt_atual){
+			 	var botao_libera = 0;
+				 alertaDialog("Data Inválida","Data ou Horário  final não pode ser inferior a data e hora atual");
+			}else if(dt_ate <= dt_de){
+			 	var botao_libera = 0;
+				 alertaDialog("Data Inválida","Data ou Horário  não pode ser inferior a data e hora inicial!");
+			}else if(dt_ate > dt_limite ){
+					var botao_libera = 0;
+			    alertaDialog("Data Inválida","Data FINAL não pode ser superior a "+dt_limite.getDate()+"-"+(dt_limite.getMonth()+1)+"-"+dt_limite.getFullYear()+"-"+dt_limite.getHours()+":"+dt_limite.getMinutes()+"");
+			}else{
+				var botao_libera = 1;
 
-	  	 
-	 
-	 
+			}
+		if(botao_libera ==1)
+			{
+					$("#botao_avancar").addClass('tema-azul');		
+					$("#link_tab").attr('onClick','avancar3();');
+					$("#link_tab").attr('href','#tab-3');		
+			}
+		else{
+			
+					$("#botao_avancar").removeClass('tema-azul');		
+					$("#link_tab").attr('onClick','');
+					$("#link_tab").attr('href','#');				
+			
+		}
+		
+		
+		
+		
+ }
+ else{ 
+	  //alertaDialog("Erro","Verifique campos marcado em vermelho!");
+ }
+
+}
+
+function verificar_liberacao_resumo()
+{ 
+	
+		var nome = $( "#nome_rs" ).val();
+		var rg = $( "#rg_rs" ).val();
+		var inicio = $( "#inicio_rs").val();
+		var fim = $( "#fim_rs").val();
+		var qtdcredito = $( "#credito_rs").val();
+		var motivo = $( "#motivo_rs").val();
+		
+	if(nome == "")
+		{
+		 $( "#nome_rs" ).attr('style','border: solid 1px red;color: gray');
+			var resumo1 =1;
+		}
+	else{ $( "#nome_rs" ).attr('style','color: gray');
+		  var resumo1 =0;
+		}
+		if(rg == "")
+		{
+			$( "#rg_rs" ).attr('style','border: solid 1px red');
+			var resumo2 =1;
+		}
+	else{ $( "#rg_rs" ).attr('style','color: gray');
+			var resumo2 =0;
+		}
+		if(inicio == "")
+		{
+			$( "#inicio_rs" ).attr('style','border: solid 1px red');
+			var resumo3 =1;
+		}
+	else{ $( "#inicio_rs" ).attr('style','color: gray');
+		  var resumo3 =0;	
+		}
+		if(fim == "")
+		{
+			$( "#fim_rs" ).attr('style','border: solid 1px red');
+			var resumo4 =1;
+		}
+	else{ $( "#fim_rs" ).attr('style','color: gray');
+		  var resumo4 =0;
+		}
+		if(qtdcredito == "")
+		{
+			$( "#credito_rs" ).attr('style','border: solid 1px red');
+			var resumo5 =1;
+		}
+	else{ $( "#credito_rs" ).attr('style','color: gray');
+			var resumo5 =0;
+		}
+	
+	if(motivo == "")
+		{
+			$( "#motivo_rs" ).attr('style','border: solid 1px red');
+			var resumo6 =1;
+		}
+	else{ $( "#motivo_rs" ).attr('style','color: gray');
+		  var resumo6 =0;
+		}
+	
+	if(resumo1 == 0 && resumo2 == 0 && resumo3 == 0 && resumo4 == 0 && resumo5 == 0 && resumo6 == 0)
+	{
+				$("#resumo_lberacao").attr('style','background-color: #e5ffe6;');
+				$("#botao_avancar").addClass('tema-azul');
+				
+				$("#link_tab").attr('onClick','salva_liberacao();');
+				$("#verificar_dados_lib").attr('style','display:none');
+	}
+ else{
+	 alertaDialog("Erro","Verifique campos marcado em vermelho!");
 	 
  }
- 
- 
- 
+	
+	
+	
+}
+//FUNCAO ADICIONA LIBERACAO
+function salva_liberacao(){
+	var id_condominio = localStorage.getItem('ID_CONDOMINIO');
+	var id_morador = localStorage.getItem('ID_MORADOR');
+	var id_visitante = 	$( "#id_visitante_rs").val();
+	var id_carro = $("#id_carro_visitante").val();
+	var id_motivo = $("#motivo_vst").val();
+	var inicio = $( "#data_inici_vl").val();
+	var fim = $( "#data_fim_vl").val();	
+	var qtdcredito = $( "#credito_rs").val();
+	var msg = '';
+	
+
+					
+				$.ajax({
+					type: 'POST',
+					url: localStorage.getItem('DOMINIO')+'appweb/liberacao_insert.php',
+					crossDomain: true,
+					beforeSend : function() { $("#wait").css("display", "block"); },
+					complete   : function() { $("#wait").css("display", "none"); },
+					data       :{id_condominio:id_condominio, id_visitante: id_visitante,validadeInicio:inicio,validadeFim:fim, motivo: id_motivo,id_morador:id_morador,id_veiculo:id_carro,numero_acesso_perm:qtdcredito, data_app_new:1 ,tipo:2},
+					success: function(retorno){
+						alert(retorno);
+					 //alertaDialog("Sucesso","Liberação efetuada com sucesso!");
+					},
+					error : function() {
+						
+					}
+				});
+			
+		
 }

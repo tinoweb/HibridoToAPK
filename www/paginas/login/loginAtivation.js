@@ -1701,6 +1701,9 @@ loginGoogle = () =>{
 		function (sucessos) {
 			window.plugins.googleplus.login({},
 			    function(obj) {
+			    	
+			    		alert(JSON.stringify(obj));
+
 					app.dialog.close();
 			      	let email = obj.email;
 			      	let nome = obj.displayName;
@@ -1709,6 +1712,9 @@ loginGoogle = () =>{
 				    checkUsuarioGoogleToLogin(email);
 			    },
 			    function(msg) {
+
+			    		alert(JSON.stringify(msg));
+
 			    	app.dialog.close();
 			      	console.log('error: ' + msg);
 			    }
@@ -1717,6 +1723,7 @@ loginGoogle = () =>{
 		function (error) {
 			window.plugins.googleplus.login({},
 			    function(obj) {
+			    	alert(JSON.stringify(obj));
 					app.dialog.close();
 			      	let email = obj.email;
 			      	let nome = obj.displayName;
@@ -1725,6 +1732,7 @@ loginGoogle = () =>{
 				    checkUsuarioGoogleToLogin(email);
 			    },
 			    function(msg) {
+			    	alert(JSON.stringify(msg));
 			    	app.dialog.close();
 			      	console.log('error: ' + msg);
 			    }

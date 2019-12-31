@@ -1777,7 +1777,7 @@ checkUsuarioGoogleToLogin = (email) => {
 		},
         dataType   : 'json',
 		success: function(retorno){
-			console.log(JSON.stringify(retorno));
+			alert(JSON.stringify(retorno));
 
 			if (retorno.status == "perfilAtivoSemSenha" && retorno.statuscode == 200) {
 				localStorage.setItem('data-liberarSemSenha','liberarSemSenha');
@@ -1795,7 +1795,7 @@ checkUsuarioGoogleToLogin = (email) => {
 			}
         },
         error: function(error) {
-			console.log(JSON.stringify(error));
+			alert(JSON.stringify(error));
 			console.log('não foi possivel continuar...');
         }
 	});	

@@ -1701,9 +1701,6 @@ loginGoogle = () =>{
 		function (sucessos) {
 			window.plugins.googleplus.login({},
 			    function(obj) {
-			    	
-			    		alert(JSON.stringify(obj));
-
 					app.dialog.close();
 			      	let email = obj.email;
 			      	let nome = obj.displayName;
@@ -1712,9 +1709,6 @@ loginGoogle = () =>{
 				    checkUsuarioGoogleToLogin(email);
 			    },
 			    function(msg) {
-
-			    		alert(JSON.stringify(msg));
-
 			    	app.dialog.close();
 			      	console.log('error: ' + msg);
 			    }
@@ -1723,7 +1717,6 @@ loginGoogle = () =>{
 		function (error) {
 			window.plugins.googleplus.login({},
 			    function(obj) {
-			    	alert(JSON.stringify(obj));
 					app.dialog.close();
 			      	let email = obj.email;
 			      	let nome = obj.displayName;
@@ -1732,7 +1725,6 @@ loginGoogle = () =>{
 				    checkUsuarioGoogleToLogin(email);
 			    },
 			    function(msg) {
-			    	alert(JSON.stringify(msg));
 			    	app.dialog.close();
 			      	console.log('error: ' + msg);
 			    }
@@ -1785,8 +1777,6 @@ checkUsuarioGoogleToLogin = (email) => {
 		},
         dataType   : 'json',
 		success: function(retorno){
-			alert(JSON.stringify(retorno));
-
 			if (retorno.status == "perfilAtivoSemSenha" && retorno.statuscode == 200) {
 				localStorage.setItem('data-liberarSemSenha','liberarSemSenha');
 				alertaDialog('Login Google', "direcionando para termo de uso", afterClose="termoUso");
@@ -1803,7 +1793,7 @@ checkUsuarioGoogleToLogin = (email) => {
 			}
         },
         error: function(error) {
-			alert(JSON.stringify(error));
+			console.log(error);
 			console.log('não foi possivel continuar...');
         }
 	});	

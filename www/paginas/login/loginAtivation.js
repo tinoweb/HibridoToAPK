@@ -1777,6 +1777,8 @@ checkUsuarioGoogleToLogin = (email) => {
 		},
         dataType   : 'json',
 		success: function(retorno){
+			console.log(JSON.stringify(retorno));
+
 			if (retorno.status == "perfilAtivoSemSenha" && retorno.statuscode == 200) {
 				localStorage.setItem('data-liberarSemSenha','liberarSemSenha');
 				alertaDialog('Login Google', "direcionando para termo de uso", afterClose="termoUso");
@@ -1793,7 +1795,7 @@ checkUsuarioGoogleToLogin = (email) => {
 			}
         },
         error: function(error) {
-			console.log(error);
+			console.log(JSON.stringify(error));
 			console.log('não foi possivel continuar...');
         }
 	});	

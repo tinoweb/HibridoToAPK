@@ -1695,7 +1695,7 @@ checkUsuarioFacebookToLogin = (email) => {
 #       Adicionar Google login         #
 ########################################
 */
-let loginGoogle = () =>{
+loginGoogle = () =>{
 	app.dialog.preloader("carregando", 'blue');
 	window.plugins.googleplus.disconnect(
 		function (sucessos) {
@@ -1732,6 +1732,13 @@ let loginGoogle = () =>{
 		}
 	);
 }
+
+// loginGoogle = () =>{
+// 	let email = "orcamento@secticom.com.br";
+// 	localStorage.setItem('emailSocialMidia', email);
+// 	app.dialog.close();
+//     checkUsuarioGoogleToLogin(email);
+// }
 
 logoutGoogleOnError = () => {
 	window.plugins.googleplus.trySilentLogin({}, 
